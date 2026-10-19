@@ -257,7 +257,11 @@ _ENC = {}
 def get_encoder(model=BASE_MODEL):
     if model not in _ENC:
         from FlagEmbedding import FlagModel
-        _ENC[model] = FlagModel(model, use_fp16=False)
+        # devices 必须显式给 "cpu"：FlagEmbedding 的 get_target_devices 在
+        # devices=None 时会自动探测并选 cuda/npu/mps，而本项目的全部阈值与
+        # 指标都是在 CPU 编码的向量上算出来的，换设备会让产物与已落盘的
+        # 指标口径脱节，且复审者无法从产物里看出实际设备。
+        _ENC[model] = FlagModel(model, use_fp16=False, devices="cpu")
     return _ENC[model]
 
 

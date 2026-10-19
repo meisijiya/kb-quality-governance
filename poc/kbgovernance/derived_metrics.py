@@ -123,7 +123,6 @@ def load():
     d["dirs"] = read_csv_rows(os.path.join(STD, "results_directions.csv"))
     d["bk_en"] = read_csv_rows(os.path.join(STD, "results_banking77_en.csv"))
     d["bk_zh"] = read_csv_rows(os.path.join(STD, "results_banking77_zh.csv"))
-    d["bk_all"] = read_csv_rows(os.path.join(STD, "results_banking77.csv"))
     abl = read_csv_sections(os.path.join(STD, "ablation.csv"))
     d["abl_head"] = as_dicts(abl[0][0], abl[0][1]) if abl else []
     d["gran"] = read_csv_rows(os.path.join(HERE, "granularity.csv"))

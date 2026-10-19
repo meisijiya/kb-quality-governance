@@ -198,19 +198,29 @@ def main():
           "中文语料最优阈值 0.6463 落在银行库分布的哪个位置？" %
           (cover.min(), cover.mean(), cover.max()))
     xfer = []
-    for src_name, src_thr in [("中文alpha ABS(cover<thr)", 0.6463),
-                              ("中文alpha ABS(cover>thr, 反向)", 0.6463)]:
-        # cover > 0.6463 判为「已覆盖」，反之判为缺口
-        det = {k for k, v in med_all.items() if v <= 0.6463}
+    # 源场景的绝对阈值搬到目标场景，测两个判定方向。
+    # med_all 存的是 -cover 的意图级中位数（负向打分：越大越像缺口），
+    # 因此「cover <= thr 判为缺口」等价于「-cover >= -thr 判为缺口」。
+    # 早期版本这里写的是 v <= thr，对 [-1, 0] 的取值恒真，导致无论阈值取多少
+    # 都把全部 77 个意图判成缺口——那不是阈值效应，是判定式的符号缺陷。
+    for src_name, src_thr, direction in [
+            ("中文alpha ABS(cover<thr)", 0.6463, "le"),
+            ("中文alpha ABS(cover>thr, 反向)", 0.6463, "ge")]:
+        if direction == "le":
+            det = {k for k, v in med_all.items() if v >= -src_thr}
+            rule = f"cover <= {src_thr} -> 缺口"
+        else:
+            det = {k for k, v in med_all.items() if v <= -src_thr}
+            rule = f"cover >= {src_thr} -> 缺口"
         tp = len(det & gap)
         p = tp / len(det) if det else 0
         r = tp / len(gap)
         f = 2 * p * r / (p + r) if (p + r) > 0 else 0
-        xfer.append(dict(源="中文合成语料 alpha", 源阈值=0.6463, 目标="banking77 英文",
-                         判定="cover <= 0.6463 -> 缺口", 检出意图数=len(det),
+        xfer.append(dict(源="中文合成语料 alpha", 源阈值=src_thr, 目标="banking77 英文",
+                         判定=rule, 检出意图数=len(det),
                          P=round(p, 4), R=round(r, 4), F1=round(f, 4),
                          该场景最优F1=round(df[df.方法 == "ABS(绝对阈值)"]["best_F1"].iloc[0], 4)))
-        print(f"  中文阈值 0.6463 -> 英文: 检出 {len(det)} 个意图, "
+        print(f"  中文阈值 {src_thr} [{rule}] -> 英文: 检出 {len(det)} 个意图, "
               f"P={p:.3f} R={r:.3f} F1={f:.3f}  (该场景最优 F1="
               f"{df[df['方法'] == 'ABS(绝对阈值)']['best_F1'].iloc[0]:.3f})")
     # 同一方向下，各标准化方法自己的最优阈值搬过来会怎样
