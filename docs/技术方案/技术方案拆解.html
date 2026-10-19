@@ -208,12 +208,12 @@
   </div>
   <h1>《基于语义聚类与时效性分析的企业知识库质量治理系统》<br>技术方案拆成 <em>七层</em>看</h1>
   <p class="lede">
-    这份技术方案 1213 行、8 章 + 4 附录，但它真正押的只有一件事：<strong>把检索粒度从整篇下沉到段落</strong>。
+    这份技术方案 1217 行、8 章 + 4 附录，但它真正押的只有一件事：<strong>把检索粒度从整篇下沉到段落</strong>。
     其余大部分篇幅是<strong>已经跑完的负结果</strong>（第 5.3 节、第 6.3 节 E9–E14）——它们服务的那条立论被自己的实测推翻了，
     所以不进论文正文，但答辩现场要能随时引用。下面按「骨架 → 架构 → 算法 → 实测 → 实验 → 篇幅 → 风险」逐层拆开。
   </p>
   <div class="hero-facts">
-    <div class="hf"><div class="hf-k">文档规模</div><div class="hf-v">1213 <small>行</small></div></div>
+    <div class="hf"><div class="hf-k">文档规模</div><div class="hf-v">1217 <small>行</small></div></div>
     <div class="hf"><div class="hf-k">算法改进点</div><div class="hf-v">1 <small>个</small></div></div>
     <div class="hf"><div class="hf-k">检测模块</div><div class="hf-v">3 <small>个</small></div></div>
     <div class="hf"><div class="hf-k">已完成未入论文的实验</div><div class="hf-v">6 <small>条 E9–E14</small></div></div>
@@ -613,6 +613,7 @@
       <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>佐证</b>：中英文两份 xfer 产物的 cover 分布不同（min 0.6014 vs 0.6547），却报出<b>完全相同</b>的 77 / 0.1948 / 1.0 / 0.3261——若是真实阈值效应，英文侧 min 已高于 0.6463，结果不可能与中文侧相同。按正确写法（<code class="mono">v &gt;= -0.6463</code>）重算，英文场景 F1 应为 0，<b>比记录的 0.3261 更差</b>。</p>
       <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>已按「修产物重跑」处置</b>：判定式改为 <code class="mono">v &gt;= -0.6463</code>（正向）与 <code class="mono">v &lt;= -0.6463</code>（反向），en / zh 两组实验全部重跑，产物与全部引用点同步更新。同时删掉两份与 <code class="mono">_en</code> 内容相同的重复副本（<code class="mono">results_banking77.csv</code> / <code class="mono">results_xfer_banking77.csv</code>）——后者还携带已被推翻的旧判定结果，留着会与新产物矛盾。</p>
       <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>修正后的真实结论更强</b>：正向判定在英文与中文两个目标语料上<b>一个缺口都检不出来</b>（检出 0 / 77，P=0，R=0，<b>F1 = 0</b>；而该场景自身最优 F1 是 0.8148 / 0.6207）；反向判定才得到 77/77 全判为缺口（F1 0.3261）。缺陷方向恰好把结论讲反了一半——<b>阈值不是不准，是根本不在目标语料的刻度上，正着过不去、反着全中。</b></p>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>复查时又挖出一个连带缺陷</b>：xfer 表的「目标」列被写死成 <code class="mono">banking77 英文</code>，于是 <code class="mono">results_xfer_banking77_zh.csv</code>（中文模型跑的、末列基准 0.6207）自曝为英文语料，与同表数值自相矛盾。已改为随嵌入模型输出 <code class="mono">banking77（bge-small-en-v1.5）</code> / <code class="mono">banking77（bge-small-zh-v1.5）</code> 并重跑两组——<b>指标值一个字节都没变</b>，只有标签变准。这也钉死了一件事：<b>banking77 的语料文本恒为英文，变的只有嵌入模型</b>，所以「目标场景」必须标成「语料 + 模型」的组合。</p>
     </div>
     <div class="al-item">
       <div class="al-q"><span class="n">E</span>GPU 与向量数据库：以本地跑通为准，模型固定，部署是锦上添花 <span class="pill p-in">已定</span></div>
@@ -630,7 +631,7 @@
 
 <footer>
   <div>数据来源：<code>poc/kbgovernance/metrics.json</code> + 同目录 CSV（<code>granularity.csv</code> / <code>gap_threshold.csv</code> / <code>corrupt_rule_ablation.csv</code> / <code>dup_threshold.csv</code> / <code>corrupt_docs.csv</code> / <code>top15_gaps.csv</code> / <code>dup_groups_best.csv</code> / <code>standardize/*.csv</code>）</div>
-  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（1213 行）· <code>docs/技术方案/本科版实施方案.md</code></div>
+  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（1217 行）· <code>docs/技术方案/本科版实施方案.md</code></div>
 </footer>
 
 </div>
