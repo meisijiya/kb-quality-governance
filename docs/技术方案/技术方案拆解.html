@@ -208,12 +208,12 @@
   </div>
   <h1>《基于语义聚类与时效性分析的企业知识库质量治理系统》<br>技术方案拆成 <em>七层</em>看</h1>
   <p class="lede">
-    这份技术方案 1217 行、8 章 + 4 附录，但它真正押的只有一件事：<strong>把检索粒度从整篇下沉到段落</strong>。
+    这份技术方案 8 章 + 4 附录，但它真正押的只有一件事：<strong>把检索粒度从整篇下沉到段落</strong>。
     其余大部分篇幅是<strong>已经跑完的负结果</strong>（第 5.3 节、第 6.3 节 E9–E14）——它们服务的那条立论被自己的实测推翻了，
     所以不进论文正文，但答辩现场要能随时引用。下面按「骨架 → 架构 → 算法 → 实测 → 实验 → 篇幅 → 风险」逐层拆开。
   </p>
   <div class="hero-facts">
-    <div class="hf"><div class="hf-k">文档规模</div><div class="hf-v">1217 <small>行</small></div></div>
+    <div class="hf"><div class="hf-k">文档规模</div><div class="hf-v">8 <small>章 + 4 附录</small></div></div>
     <div class="hf"><div class="hf-k">算法改进点</div><div class="hf-v">1 <small>个</small></div></div>
     <div class="hf"><div class="hf-k">检测模块</div><div class="hf-v">3 <small>个</small></div></div>
     <div class="hf"><div class="hf-k">已完成未入论文的实验</div><div class="hf-v">6 <small>条 E9–E14</small></div></div>
@@ -621,7 +621,7 @@
       <div class="al-opts">
         <div><i>→</i><span><b>已定路线</b>：毕设<b>以本地跑通为准，不要求线上部署</b>。向量模型固定为 <code class="mono">BAAI/bge-small-zh-v1.5</code>——本地 FlagEmbedding 走 CPU 就能跑通，该模型在云端也有可用的 <code class="mono">feature-extraction</code> 端点（HF 官方推理提供方目录状态为 live），将来真要部署直接切 API，<b>模型与阈值都不用重标</b>（前提：云端提供的是同一模型 id、且未改写归一化与截断）。线上单机部署只是锦上添花，可为测试流程补更多场景数据</span></div>
         <div><i>→</i><span><b>模型固定 = 阈值 0.62 绑死「模型 × 语料 × 设备」</b>：它是在 bge-small-zh-v1.5 的 CPU 编码上标定的。换模型 / 换语料 / 换设备 → 刻度漂移，<b>必须重新标定并落新产物</b>（已有实测：跨模型跨语言正向判定 F1 掉到 0，一个缺口都检不出）</span></div>
-        <div><i>→</i><span><b>向量库替换不了本项目任何一环</b>：缺口是段落级<b>两级 max</b> 聚合、腐化是纯规则、重复要<b>全量两两图</b>——top-k 检索表达不了任何一个，ANN 的近似误差还会直接污染 P/R/F1。因此<b>主链路不引入向量库</b>，改为在 §5.5.1 写清「什么规模、什么需求下才该上向量库」的边界论证</span></div>
+        <div><i>→</i><span><b>向量库替换不了本项目任何一环</b>：缺口要<b>精确 max</b>、腐化是纯规则全程不用向量、重复要<b>全量两两图</b>——三个模块都不需要 top-k 检索服务，而缺口与重复两个模块的 P/R/F1 判定要求精确比较，ANN 的近似误差会直接污染指标。因此<b>主链路不引入向量库</b>，改为在 §5.5.1 写清「什么规模、什么需求下才该上向量库」的边界论证</span></div>
         <div><i>→</i><span><b>净增工作量 7–11.5 天</b>（复审估算）——上向量库会全部挤进 W7–W9，正是 FastAPI 看板的三周窗口，而 W8 末就是 G8 判断点；且会与 W3 的 300 条人工标注抢同一份时间</span></div>
         <div><i>→</i><span><b>已顺手修掉一个更急的隐患</b>：<code class="mono">embed.py</code> 原本没固定 device，FlagEmbedding 在 <code class="mono">devices=None</code> 时会<b>自动选 CUDA</b>——装上 CUDA 版 torch 的那一刻产物会静默换设备。已显式固定 <code class="mono">devices="cpu"</code> 并把 <code class="mono">device</code> 字段落进 <code class="mono">embeddings_meta.json</code>（隔离副本实跑输出 <code class="mono">"device": "cpu"</code>，既有产物未改动）</span></div>
         <div><i>→</i><span><b>落地位置</b>：模型冻结声明（设备固定 / 阈值绑定「模型 × 语料 × 设备」三元组 / 云端平替的前提条件）写入技术方案 <b>2.1 节</b>；「什么规模、什么需求下才该上向量库」的边界论证写入 <b>5.5.1 节</b>；部署形态的取舍单独成节写入 <b>8.5 节</b>；复现口径写入<b>附录 B.4</b>；本科版在<b>实施方案 §3 主动砍掉表</b>同步「线上部署 / 云端向量 API」一行</span></div>
@@ -632,7 +632,7 @@
 
 <footer>
   <div>数据来源：<code>poc/kbgovernance/metrics.json</code> + 同目录 CSV（<code>granularity.csv</code> / <code>gap_threshold.csv</code> / <code>corrupt_rule_ablation.csv</code> / <code>dup_threshold.csv</code> / <code>corrupt_docs.csv</code> / <code>top15_gaps.csv</code> / <code>dup_groups_best.csv</code> / <code>standardize/*.csv</code>）</div>
-  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（1217 行）· <code>docs/技术方案/本科版实施方案.md</code></div>
+  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（8 章 + 4 附录）· <code>docs/技术方案/本科版实施方案.md</code></div>
 </footer>
 
 </div>
