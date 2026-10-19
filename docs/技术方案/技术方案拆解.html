@@ -562,7 +562,7 @@
     </details>
     <details>
       <summary><span class="n">Q8</span>阈值 0.62 是不是过拟合到我的数据了？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
-      <div class="a"><b>同一模型、同一语言内不是</b>：5 个场景迁移实验所需阈值极差只有 0.0264。但<b>跨模型或跨语言确实会崩</b>：中文语料标定的 cover ≤ 0.6463 搬到 banking77 英文语料，77 个意图全判成缺口，F1 从 0.8148 掉到 0.3261。准确表述是：<b>绝对阈值锚定的是「模型 × 语言」的刻度</b>，模型和语言不变时它很稳，变了就崩。</div>
+      <div class="a"><b>同一模型、同一语言内不是</b>：5 个场景迁移实验所需阈值极差只有 0.0264。但<b>跨模型或跨语言确实会崩</b>：中文语料标定的 cover ≤ 0.6463 搬到 banking77 英文语料，正向判定<b>一个缺口都检不出来</b>（F1 = 0，该场景自身最优 F1 是 0.8148）；反向判定则 77 个意图全被误判为缺口（F1 0.3261）——两个方向都不可用。准确表述是：<b>绝对阈值锚定的是「模型 × 语言」的刻度</b>，模型和语言不变时它很稳，变了就崩。</div>
     </details>
     <details>
       <summary><span class="n">8b</span>你之前预测「领域内标准化最优」，实测证明是错的，这不是打脸吗？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
@@ -573,8 +573,8 @@
 
 <!-- 9 已对齐 + 新增待拍板 -->
 <section>
-  <div class="s-head"><span class="s-num">09</span><h2>3 处已对齐，2 处新问题待拍板</h2></div>
-  <p class="s-sub">前 3 条是本轮<b>已定</b>的决策（已落到源文档）；后 2 条是独立复审新发现的<b>待拍板</b>项</p>
+  <div class="s-head"><span class="s-num">09</span><h2>3 处已对齐，D 已修，E 路线已定</h2></div>
+  <p class="s-sub">前 3 条是本轮<b>已定</b>的决策（已落到源文档）；后 2 条是独立复审新发现的，<b>D 已修产物</b>、<b>E 路线已拍板待落地</b></p>
   <div class="align">
     <div class="al-item">
       <div class="al-q"><span class="n">A</span>结论章：开发完毕后再写 <span class="pill p-in">已定</span></div>
@@ -604,27 +604,24 @@
 
 <!-- 10 新增待拍板 -->
 <section>
-  <div class="s-head"><span class="s-num">10</span><h2>新发现：2 处需要你拍板</h2></div>
+  <div class="s-head"><span class="s-num">10</span><h2>独立复审新发现：D 已修，E 路线已定</h2></div>
   <p class="s-sub">独立复审发现的，<b>与 A/B/C 无关</b>，且都影响「结论是否站得住」</p>
   <div class="align">
     <div class="al-item">
-      <div class="al-q"><span class="n">D</span>「77/77 全判为缺口」是判定式的符号 bug，不是阈值效应 <span class="pill p-one">待拍板</span></div>
+      <div class="al-q"><span class="n">D</span>xfer 判定式的符号缺陷：已修产物，修正后结论比原来更强 <span class="pill p-in">已修</span></div>
       <p style="font-size:13px;color:var(--ink-2);margin-left:22px">复审在 <code class="mono">standardize/exp4_banking77.py</code> 里查到一个<b>实打实的代码缺陷</b>：第 160 行取 <code class="mono">med_all = intent_auc(-cover, ...)</code>，得到的是 <b>−cover 的中位数</b>（值域 [−1, 0]）；第 204 行却判 <code class="mono">v &lt;= 0.6463</code> —— 这个条件对该值域<b>恒真</b>，所以不论阈值取多少、cover 分布如何，都会「全部判为缺口」。</p>
       <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>佐证</b>：中英文两份 xfer 产物的 cover 分布不同（min 0.6014 vs 0.6547），却报出<b>完全相同</b>的 77 / 0.1948 / 1.0 / 0.3261——若是真实阈值效应，英文侧 min 已高于 0.6463，结果不可能与中文侧相同。按正确写法（<code class="mono">v &gt;= -0.6463</code>）重算，英文场景 F1 应为 0，<b>比记录的 0.3261 更差</b>。</p>
-      <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>结论方向不变</b>（跨模型 / 跨语言绝对阈值崩溃），但「77/77」这个具体数字是产物缺陷的镜像，<b>答辩被追问「为什么恰好 77 个」会露怯</b>。涉及 3 份 CSV + 技术方案 6 处 + 实施方案 1 处 + 审计文档 8 处。</p>
-      <div class="al-opts">
-        <div><i>①</i><span><b>修产物</b>：改判定式后重跑 exp4，更新 3 份 CSV 与全部引用点——数字纪律与文档一致性最好，但<b>要动既有产物</b>，且新值未知</span></div>
-        <div><i>②</i><span><b>只改表述</b>：产物不动，文档改述为「跨模型迁移后绝对阈值失效（F1 0.3261 来自 <code class="mono">standardize/*.csv</code>）」，不再强调「恰好 77 个」——<b>与「一字节不动」原则不冲突</b></span></div>
-        <div><i>③</i><span>暂不处理，等 W2 落 <code class="mono">control_doc_ids</code> 时一并重跑</span></div>
-      </div>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>已按「修产物重跑」处置</b>：判定式改为 <code class="mono">v &gt;= -0.6463</code>（正向）与 <code class="mono">v &lt;= -0.6463</code>（反向），en / zh 两组实验全部重跑，产物与全部引用点同步更新。同时删掉两份与 <code class="mono">_en</code> 逐字节相同的重复副本（<code class="mono">results_banking77.csv</code> / <code class="mono">results_xfer_banking77.csv</code>）——后者还携带已被推翻的旧判定结果，留着会与新产物矛盾。</p>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>修正后的真实结论更强</b>：正向判定在英文与中文两个目标语料上<b>一个缺口都检不出来</b>（检出 0 / 77，P=0，R=0，<b>F1 = 0</b>；而该场景自身最优 F1 是 0.8148 / 0.6207）；反向判定才得到 77/77 全判为缺口（F1 0.3261）。缺陷方向恰好把结论讲反了一半——<b>阈值不是不准，是根本不在目标语料的刻度上，正着过不去、反着全中。</b></p>
     </div>
     <div class="al-item">
-      <div class="al-q"><span class="n">E</span>GPU 与向量数据库：引入它们会动到什么 <span class="pill p-one">待拍板</span></div>
-      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">你提的两条新决策（向量化可走 GPU / 上线调 API；引入向量数据库）<b>会推翻方案里两处已写死的取舍</b>。复审核证后的关键事实：</p>
+      <div class="al-q"><span class="n">E</span>GPU 与向量数据库：以本地跑通为准，模型固定，部署是锦上添花 <span class="pill p-in">已定</span></div>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">你提的两条新决策（向量化可走 GPU / 上线调 API；引入向量数据库）本来会<b>推翻方案里两处已写死的取舍</b>，现按「毕设以本地跑通为准」定案如下。复审核证后的关键事实：</p>
       <div class="al-opts">
-        <div><i>→</i><span><b>阈值 0.62 绑死「模型 × 语言」</b>：它是在 bge-small-zh-v1.5 CPU 编码上标定的。线上换 API 模型 → 刻度漂移，0.62 不再成立，<b>必须重新标定并落新产物</b>（已有实测：跨模型跨语言 F1 掉到 0.3261）</span></div>
-        <div><i>→</i><span><b>向量库替换不了本项目任何一环</b>：缺口是段落级<b>两级 max</b> 聚合、腐化是纯规则、重复要<b>全量两两图</b>——top-k 检索表达不了任何一个，ANN 的近似误差还会直接污染 P/R/F1</span></div>
-        <div><i>→</i><span><b>净增工作量 7–11.5 天</b>（复审估算），全部挤在 W7–W9——正是 FastAPI 看板的三周窗口，而 W8 末就是 G8 判断点；且会与 W3 的 300 条人工标注抢同一份时间</span></div>
+        <div><i>→</i><span><b>已定路线</b>：毕设<b>以本地跑通为准，不要求线上部署</b>。向量模型固定为 <code class="mono">BAAI/bge-small-zh-v1.5</code>——本地 FlagEmbedding 走 CPU 就能跑通，主流云服务也提供同一模型的 API，将来真要部署直接切 API，<b>模型与阈值都不用重标</b>。线上单机部署只是锦上添花，可为测试流程补更多场景数据</span></div>
+        <div><i>→</i><span><b>模型固定 = 阈值 0.62 绑死「模型 × 语言」</b>：它是在 bge-small-zh-v1.5 CPU 编码上标定的。换模型 → 刻度漂移，<b>必须重新标定并落新产物</b>（已有实测：跨模型跨语言正向判定 F1 掉到 0，一个缺口都检不出）</span></div>
+        <div><i>→</i><span><b>向量库替换不了本项目任何一环</b>：缺口是段落级<b>两级 max</b> 聚合、腐化是纯规则、重复要<b>全量两两图</b>——top-k 检索表达不了任何一个，ANN 的近似误差还会直接污染 P/R/F1。因此<b>主链路不引入向量库</b>，改为在 §5.5.1 写清「什么规模、什么需求下才该上向量库」的边界论证</span></div>
+        <div><i>→</i><span><b>净增工作量 7–11.5 天</b>（复审估算）——上向量库会全部挤进 W7–W9，正是 FastAPI 看板的三周窗口，而 W8 末就是 G8 判断点；且会与 W3 的 300 条人工标注抢同一份时间</span></div>
         <div><i>→</i><span><b>已顺手修掉一个更急的隐患</b>：<code class="mono">embed.py</code> 原本没固定 device，FlagEmbedding 在 <code class="mono">devices=None</code> 时会<b>自动选 CUDA</b>——装上 CUDA 版 torch 的那一刻产物会静默换设备。已显式固定 <code class="mono">devices="cpu"</code> 并把 <code class="mono">device</code> 字段落进 <code class="mono">embeddings_meta.json</code>（隔离副本实跑输出 <code class="mono">"device": "cpu"</code>，既有产物未改动）</span></div>
       </div>
     </div>
@@ -633,7 +630,7 @@
 
 <footer>
   <div>数据来源：<code>poc/kbgovernance/metrics.json</code> + 同目录 CSV（<code>granularity.csv</code> / <code>gap_threshold.csv</code> / <code>corrupt_rule_ablation.csv</code> / <code>dup_threshold.csv</code> / <code>corrupt_docs.csv</code> / <code>top15_gaps.csv</code> / <code>dup_groups_best.csv</code> / <code>standardize/*.csv</code>）</div>
-  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（1204 行）· <code>docs/技术方案/本科版实施方案.md</code></div>
+  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（1210 行）· <code>docs/技术方案/本科版实施方案.md</code></div>
 </footer>
 
 </div>
