@@ -72,7 +72,7 @@ cd D:/26code/毕设/poc/kbgovernance
 | `top15_gaps.csv` | 疑似缺口 Top15：`intent` / `size` / `cover_median` / `rep_ticket` / `is_true_gap` |
 | `ground_truth.json` | ground truth：缺口意图列表、腐化文档 ID 列表、重复组、`gap_ticket_count` / `gap_ticket_ratio` / `seed` / `base_date` |
 | `embeddings_meta.json` | 实际使用的 embedding 方案与模型、维度、`encode_seconds`、各语料条数、模型下载体积 |
-| `derived_metrics.csv` | **派生指标长表**（`derived_key,value,formula,inputs,source_files`，50 行）：跨场景极差、跨语料/跨模型差值、F1 均值与标准差、消融下降幅度、覆盖度与吞吐等。每个值都由上表里的实测产物按 `formula` 算出，`inputs` 列给出被代入的原始键值，`source_files` 列给出上游产物。论文里的**每一个派生数字都必须在此表有对应行**；`formula` / `inputs` 两列只是公式文本，**不是**可引用的数值出处，门禁只读 `value` 列 |
+| `derived_metrics.csv` | **派生指标长表**（`derived_key,value,formula,inputs,source_files`，52 行）：跨场景极差与门槛带、跨语料/跨模型差值、F1 均值与标准差、消融下降幅度、覆盖度与吞吐等。每个值都由上表里的实测产物按 `formula` 算出，`inputs` 列给出被代入的原始键值，`source_files` 列给出上游产物。论文里的**每一个派生数字都必须在此表有对应行**；`formula` / `inputs` 两列只是公式文本，**不是**可引用的数值出处，门禁只读 `value` 列 |
 
 ### 备查产物（已完成实测、不进论文正文，**不得删除**）
 
@@ -86,7 +86,7 @@ cd D:/26code/毕设/poc/kbgovernance
 | `standardize/results_auc.csv` | E9 5 场景 AUC 扫描 | 8 方案 × 5 场景（α/β/γ/γ-X/δ）的 AUC、best F1、召回全部门槛阈值 |
 | `standardize/results_transfer.csv` | E7 / E10 阈值迁移 | α 标定阈值原样搬到 β/γ/γ-X/δ 的 P/R/F1 与 AUC 衰减 |
 | `standardize/results_banking77_{en,zh}.csv` | E11 双模型 × 双语种 | banking77 全量 + KB减半 + KB仅20意图，ABS AUC 0.9538（en）/ 0.7925（zh），S3 崩到 0.4344 / 0.4946 |
-| `standardize/results_xfer_banking77{,_en,_zh}.csv` | E7 / E11 跨语料迁移 | 中文语料标定的 `cover ≤ 0.6463` 搬到 banking77，77/77 全判为缺口，F1 0.8148→0.3261 |
+| `standardize/results_xfer_banking77_{en,zh}.csv` | E7 / E11 跨语料迁移 | 中文语料标定的 `cover ≤ 0.6463` 搬到 banking77，正向判定检出 0 / 77（F1 = 0），反向判定 77/77 全判为缺口（F1 0.3261） |
 | `standardize/ablation.csv` | E12 分组标准化消融 | 14 个标准化变体 × α，外加 6 个关键变体 × 5 场景（**多段表结构**，见 `产物索引.md`） |
 | `standardize/results_directions.csv` | E13 度量陷阱 | 方向 A/B 变体 × 4 场景：A2 阈值极差仅 0.0018 但 AUC 只有 0.1120 |
 | `standardize/results_directionC.csv` | E14 固定检出比例 | 10%–30% 检出比例 × 4 场景推出的阈值与 P/R/F1 |
@@ -101,8 +101,8 @@ cd D:/26code/毕设/poc/kbgovernance
 跨场景极差 0.0264、单调等价 ρ=−1.0、跨语料迁移 F1 0.3261、方向 A2 极差 0.0018 / AUC 0.1120、
 方向 C 固定 25% 的 σ=0.0873 与均值 0.5522。
 
-**逐文件清点与「E7–E14 声明 vs 实际产物」的核对结论见 [`产物索引.md`](产物索引.md)**（覆盖 `standardize/` 下全部 31 个文件，
-含三对逐字节相同的历史副本、四个日志、原始语料与字节码）。
+**逐文件清点与「E7–E14 声明 vs 实际产物」的核对结论见 [`产物索引.md`](产物索引.md)**（覆盖 `standardize/` 下全部 29 个文件，
+含一对内容相同的历史副本、四个日志、原始语料与字节码）。
 
 ### 中间产物（不是指标来源）
 

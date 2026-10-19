@@ -24,7 +24,7 @@ granularity_exp.py -- 「检索粒度」与「打分方案」对照实验（可�
 
 产出:
   granularity.csv       粒度 x 打分方案 的 AUC 对照表
-  granularity_dup.csv   两种粒度下真实重复组的组内最大相似度均值(0.982-0.985 的来源)
+  granularity_dup.csv   两种粒度下真实重复组的组内最大相似度均值(0.9545-0.9845 的来源)
 
 运行: python granularity_exp.py   (无随机性, 重复运行结果完全一致)
 """
@@ -66,7 +66,7 @@ RESULT_MD_REFERENCE = {
     "passage_level|max/std": 0.448,
     "passage_level|max/top5mean": 0.384,
 }
-DUP_REFERENCE = (0.982, 0.985)   # RESULT.md §5.3 写的重复组内相似度区间
+DUP_REFERENCE = (0.9545, 0.9845)   # RESULT.md §5.3 写的重复组内相似度区间(22 组 max_sim 的 min/max)
 
 
 # ============================================================ 工具

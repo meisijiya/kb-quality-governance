@@ -123,7 +123,6 @@ def load():
     d["dirs"] = read_csv_rows(os.path.join(STD, "results_directions.csv"))
     d["bk_en"] = read_csv_rows(os.path.join(STD, "results_banking77_en.csv"))
     d["bk_zh"] = read_csv_rows(os.path.join(STD, "results_banking77_zh.csv"))
-    d["bk_all"] = read_csv_rows(os.path.join(STD, "results_banking77.csv"))
     abl = read_csv_sections(os.path.join(STD, "ablation.csv"))
     d["abl_head"] = as_dicts(abl[0][0], abl[0][1]) if abl else []
     d["gran"] = read_csv_rows(os.path.join(HERE, "granularity.csv"))
@@ -168,6 +167,21 @@ def thr_range_all_scenarios(d):
             ",".join(str(t[1]) for t in ths), ",".join(str(t[1]) for t in ths),
             hi[1], lo[1]),
         ths, [src])
+    # 同一批「召回全部」门槛换算到 cover 刻度后的上下界。
+    # ABS 分数定义为 -cover，故 cover 刻度 = -1 * 分数刻度。
+    # 文档 §5.3.3 边界一说的「窄带」就是这两条，不能与「最优阈值」口径的
+    # 0.6463（ablation.csv 的 最优阈值 列）混成同一条区间。
+    cover_ths = [(sc, -v) for sc, v in ths]
+    chi = max(cover_ths, key=lambda t: t[1])
+    clo = min(cover_ths, key=lambda t: t[1])
+    add("threshold.abs_5scenario_recall_all_cover_band_lo", clo[1],
+        "-1 * max({}) = cover <= {} 门槛带下界".format(
+            ",".join(str(t[1]) for t in ths), clo[1]),
+        cover_ths, [src])
+    add("threshold.abs_5scenario_recall_all_cover_band_hi", chi[1],
+        "-1 * min({}) = cover <= {} 门槛带上界".format(
+            ",".join(str(t[1]) for t in ths), chi[1]),
+        cover_ths, [src])
 
 
 def direction_c_abs(d):
