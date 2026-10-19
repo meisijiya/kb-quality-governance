@@ -1,0 +1,2258 @@
+[
+  {
+    "task_id": "C056#1",
+    "course_id": "C056",
+    "course_name": "课程C056",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R002",
+    "room_capacity": 35,
+    "room_type": "multimedia",
+    "building": "教B楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL023",
+      "CL021"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C032#1",
+    "course_id": "C032",
+    "course_name": "课程C032",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R007",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T018",
+    "class_ids": [
+      "CL008",
+      "CL016"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C051#2",
+    "course_id": "C051",
+    "course_name": "课程C051",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R008",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教B楼",
+    "teacher_id": "T009",
+    "class_ids": [
+      "CL006"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C017#1",
+    "course_id": "C017",
+    "course_name": "课程C017",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL024"
+    ],
+    "required_capacity": 63,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C049#1",
+    "course_id": "C049",
+    "course_name": "课程C049",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T005",
+    "class_ids": [
+      "CL022",
+      "CL004"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C026#2",
+    "course_id": "C026",
+    "course_name": "课程C026",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T014",
+    "class_ids": [
+      "CL018"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C006#1",
+    "course_id": "C006",
+    "course_name": "课程C006",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL020",
+      "CL003"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C047#1",
+    "course_id": "C047",
+    "course_name": "课程C047",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL007"
+    ],
+    "required_capacity": 95,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C043#2",
+    "course_id": "C043",
+    "course_name": "课程C043",
+    "period": 0,
+    "slot_name": "周一-第1节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T013",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C015#2",
+    "course_id": "C015",
+    "course_name": "课程C015",
+    "period": 1,
+    "slot_name": "周一-第2节",
+    "room_id": "R003",
+    "room_capacity": 35,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T018",
+    "class_ids": [
+      "CL011",
+      "CL015"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C054#1",
+    "course_id": "C054",
+    "course_name": "课程C054",
+    "period": 1,
+    "slot_name": "周一-第2节",
+    "room_id": "R008",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教B楼",
+    "teacher_id": "T004",
+    "class_ids": [
+      "CL001",
+      "CL010"
+    ],
+    "required_capacity": 42,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C007#2",
+    "course_id": "C007",
+    "course_name": "课程C007",
+    "period": 1,
+    "slot_name": "周一-第2节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL021",
+      "CL019"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C016#1",
+    "course_id": "C016",
+    "course_name": "课程C016",
+    "period": 1,
+    "slot_name": "周一-第2节",
+    "room_id": "R010",
+    "room_capacity": 80,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T020",
+    "class_ids": [
+      "CL017",
+      "CL014",
+      "CL018"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C029#1",
+    "course_id": "C029",
+    "course_name": "课程C029",
+    "period": 1,
+    "slot_name": "周一-第2节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL013",
+      "CL016"
+    ],
+    "required_capacity": 78,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C005#2",
+    "course_id": "C005",
+    "course_name": "课程C005",
+    "period": 1,
+    "slot_name": "周一-第2节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T005",
+    "class_ids": [
+      "CL002"
+    ],
+    "required_capacity": 95,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C036#1",
+    "course_id": "C036",
+    "course_name": "课程C036",
+    "period": 1,
+    "slot_name": "周一-第2节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T006",
+    "class_ids": [
+      "CL005",
+      "CL020"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C023#1",
+    "course_id": "C023",
+    "course_name": "课程C023",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R001",
+    "room_capacity": 35,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL005"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C037#2",
+    "course_id": "C037",
+    "course_name": "课程C037",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R003",
+    "room_capacity": 35,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T018",
+    "class_ids": [
+      "CL013"
+    ],
+    "required_capacity": 33,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C057#3",
+    "course_id": "C057",
+    "course_name": "课程C057",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R006",
+    "room_capacity": 50,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL023"
+    ],
+    "required_capacity": 42,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C030#2",
+    "course_id": "C030",
+    "course_name": "课程C030",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R007",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL010"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C031#1",
+    "course_id": "C031",
+    "course_name": "课程C031",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T013",
+    "class_ids": [
+      "CL018",
+      "CL024"
+    ],
+    "required_capacity": 48,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C050#2",
+    "course_id": "C050",
+    "course_name": "课程C050",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R010",
+    "room_capacity": 80,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T019",
+    "class_ids": [
+      "CL015"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C019#1",
+    "course_id": "C019",
+    "course_name": "课程C019",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T009",
+    "class_ids": [
+      "CL016",
+      "CL021"
+    ],
+    "required_capacity": 78,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C058#2",
+    "course_id": "C058",
+    "course_name": "课程C058",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T010",
+    "class_ids": [
+      "CL020",
+      "CL004",
+      "CL019"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C018#1",
+    "course_id": "C018",
+    "course_name": "课程C018",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T016",
+    "class_ids": [
+      "CL009",
+      "CL008"
+    ],
+    "required_capacity": 63,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C027#1",
+    "course_id": "C027",
+    "course_name": "课程C027",
+    "period": 2,
+    "slot_name": "周一-第3节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL002",
+      "CL007"
+    ],
+    "required_capacity": 95,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C042#2",
+    "course_id": "C042",
+    "course_name": "课程C042",
+    "period": 3,
+    "slot_name": "周一-第4节",
+    "room_id": "R006",
+    "room_capacity": 50,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL011"
+    ],
+    "required_capacity": 26,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C058#1",
+    "course_id": "C058",
+    "course_name": "课程C058",
+    "period": 3,
+    "slot_name": "周一-第4节",
+    "room_id": "R007",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T010",
+    "class_ids": [
+      "CL020",
+      "CL004",
+      "CL019"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C002#2",
+    "course_id": "C002",
+    "course_name": "课程C002",
+    "period": 3,
+    "slot_name": "周一-第4节",
+    "room_id": "R010",
+    "room_capacity": 80,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T006",
+    "class_ids": [
+      "CL003",
+      "CL010",
+      "CL017"
+    ],
+    "required_capacity": 42,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C019#2",
+    "course_id": "C019",
+    "course_name": "课程C019",
+    "period": 3,
+    "slot_name": "周一-第4节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T009",
+    "class_ids": [
+      "CL016",
+      "CL021"
+    ],
+    "required_capacity": 78,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C035#1",
+    "course_id": "C035",
+    "course_name": "课程C035",
+    "period": 3,
+    "slot_name": "周一-第4节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T011",
+    "class_ids": [
+      "CL022",
+      "CL013",
+      "CL024"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C010#2",
+    "course_id": "C010",
+    "course_name": "课程C010",
+    "period": 3,
+    "slot_name": "周一-第4节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 78,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C051#1",
+    "course_id": "C051",
+    "course_name": "课程C051",
+    "period": 4,
+    "slot_name": "周一-第5节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T009",
+    "class_ids": [
+      "CL006"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C034#1",
+    "course_id": "C034",
+    "course_name": "课程C034",
+    "period": 4,
+    "slot_name": "周一-第5节",
+    "room_id": "R010",
+    "room_capacity": 80,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T016",
+    "class_ids": [
+      "CL013"
+    ],
+    "required_capacity": 42,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C024#1",
+    "course_id": "C024",
+    "course_name": "课程C024",
+    "period": 4,
+    "slot_name": "周一-第5节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL023",
+      "CL005"
+    ],
+    "required_capacity": 63,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C026#3",
+    "course_id": "C026",
+    "course_name": "课程C026",
+    "period": 4,
+    "slot_name": "周一-第5节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T014",
+    "class_ids": [
+      "CL018"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C007#1",
+    "course_id": "C007",
+    "course_name": "课程C007",
+    "period": 4,
+    "slot_name": "周一-第5节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL021",
+      "CL019"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C003#2",
+    "course_id": "C003",
+    "course_name": "课程C003",
+    "period": 4,
+    "slot_name": "周一-第5节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T020",
+    "class_ids": [
+      "CL003"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C043#3",
+    "course_id": "C043",
+    "course_name": "课程C043",
+    "period": 4,
+    "slot_name": "周一-第5节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T013",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C037#1",
+    "course_id": "C037",
+    "course_name": "课程C037",
+    "period": 5,
+    "slot_name": "周一-第6节",
+    "room_id": "R006",
+    "room_capacity": 50,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T018",
+    "class_ids": [
+      "CL013"
+    ],
+    "required_capacity": 33,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C045#1",
+    "course_id": "C045",
+    "course_name": "课程C045",
+    "period": 5,
+    "slot_name": "周一-第6节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL018",
+      "CL002",
+      "CL012"
+    ],
+    "required_capacity": 63,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C044#1",
+    "course_id": "C044",
+    "course_name": "课程C044",
+    "period": 5,
+    "slot_name": "周一-第6节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T009",
+    "class_ids": [
+      "CL016"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C009#1",
+    "course_id": "C009",
+    "course_name": "课程C009",
+    "period": 5,
+    "slot_name": "周一-第6节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T013",
+    "class_ids": [
+      "CL005"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C021#2",
+    "course_id": "C021",
+    "course_name": "课程C021",
+    "period": 5,
+    "slot_name": "周一-第6节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL010",
+      "CL008",
+      "CL009"
+    ],
+    "required_capacity": 78,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C039#1",
+    "course_id": "C039",
+    "course_name": "课程C039",
+    "period": 6,
+    "slot_name": "周二-第1节",
+    "room_id": "R001",
+    "room_capacity": 35,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL014",
+      "CL005",
+      "CL015"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C041#1",
+    "course_id": "C041",
+    "course_name": "课程C041",
+    "period": 6,
+    "slot_name": "周二-第1节",
+    "room_id": "R006",
+    "room_capacity": 50,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T013",
+    "class_ids": [
+      "CL007"
+    ],
+    "required_capacity": 48,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C030#3",
+    "course_id": "C030",
+    "course_name": "课程C030",
+    "period": 6,
+    "slot_name": "周二-第1节",
+    "room_id": "R008",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教B楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL010"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C046#2",
+    "course_id": "C046",
+    "course_name": "课程C046",
+    "period": 6,
+    "slot_name": "周二-第1节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL003",
+      "CL021",
+      "CL002"
+    ],
+    "required_capacity": 42,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C008#1",
+    "course_id": "C008",
+    "course_name": "课程C008",
+    "period": 6,
+    "slot_name": "周二-第1节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T007",
+    "class_ids": [
+      "CL023",
+      "CL013",
+      "CL016"
+    ],
+    "required_capacity": 57,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C059#3",
+    "course_id": "C059",
+    "course_name": "课程C059",
+    "period": 6,
+    "slot_name": "周二-第1节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T002",
+    "class_ids": [
+      "CL018"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C037#3",
+    "course_id": "C037",
+    "course_name": "课程C037",
+    "period": 7,
+    "slot_name": "周二-第2节",
+    "room_id": "R003",
+    "room_capacity": 35,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T018",
+    "class_ids": [
+      "CL013"
+    ],
+    "required_capacity": 33,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C056#2",
+    "course_id": "C056",
+    "course_name": "课程C056",
+    "period": 7,
+    "slot_name": "周二-第2节",
+    "room_id": "R004",
+    "room_capacity": 50,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL023",
+      "CL021"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C060#2",
+    "course_id": "C060",
+    "course_name": "课程C060",
+    "period": 7,
+    "slot_name": "周二-第2节",
+    "room_id": "R010",
+    "room_capacity": 80,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T014",
+    "class_ids": [
+      "CL012",
+      "CL003",
+      "CL017"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C017#2",
+    "course_id": "C017",
+    "course_name": "课程C017",
+    "period": 7,
+    "slot_name": "周二-第2节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL024"
+    ],
+    "required_capacity": 63,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C040#1",
+    "course_id": "C040",
+    "course_name": "课程C040",
+    "period": 7,
+    "slot_name": "周二-第2节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T006",
+    "class_ids": [
+      "CL009"
+    ],
+    "required_capacity": 26,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C020#1",
+    "course_id": "C020",
+    "course_name": "课程C020",
+    "period": 7,
+    "slot_name": "周二-第2节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL015"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C015#3",
+    "course_id": "C015",
+    "course_name": "课程C015",
+    "period": 8,
+    "slot_name": "周二-第3节",
+    "room_id": "R010",
+    "room_capacity": 80,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T018",
+    "class_ids": [
+      "CL011",
+      "CL015"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C059#2",
+    "course_id": "C059",
+    "course_name": "课程C059",
+    "period": 8,
+    "slot_name": "周二-第3节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T002",
+    "class_ids": [
+      "CL018"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C002#1",
+    "course_id": "C002",
+    "course_name": "课程C002",
+    "period": 8,
+    "slot_name": "周二-第3节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T006",
+    "class_ids": [
+      "CL003",
+      "CL010",
+      "CL017"
+    ],
+    "required_capacity": 42,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C011#1",
+    "course_id": "C011",
+    "course_name": "课程C011",
+    "period": 8,
+    "slot_name": "周二-第3节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL023"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C046#3",
+    "course_id": "C046",
+    "course_name": "课程C046",
+    "period": 9,
+    "slot_name": "周二-第4节",
+    "room_id": "R006",
+    "room_capacity": 50,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL003",
+      "CL021",
+      "CL002"
+    ],
+    "required_capacity": 42,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C052#1",
+    "course_id": "C052",
+    "course_name": "课程C052",
+    "period": 9,
+    "slot_name": "周二-第4节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T020",
+    "class_ids": [
+      "CL024",
+      "CL023"
+    ],
+    "required_capacity": 78,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C054#2",
+    "course_id": "C054",
+    "course_name": "课程C054",
+    "period": 9,
+    "slot_name": "周二-第4节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T004",
+    "class_ids": [
+      "CL001",
+      "CL010"
+    ],
+    "required_capacity": 42,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C025#1",
+    "course_id": "C025",
+    "course_name": "课程C025",
+    "period": 9,
+    "slot_name": "周二-第4节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T007",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C042#3",
+    "course_id": "C042",
+    "course_name": "课程C042",
+    "period": 9,
+    "slot_name": "周二-第4节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL011"
+    ],
+    "required_capacity": 26,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C022#2",
+    "course_id": "C022",
+    "course_name": "课程C022",
+    "period": 9,
+    "slot_name": "周二-第4节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T011",
+    "class_ids": [
+      "CL018"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C004#1",
+    "course_id": "C004",
+    "course_name": "课程C004",
+    "period": 10,
+    "slot_name": "周二-第5节",
+    "room_id": "R003",
+    "room_capacity": 35,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL010",
+      "CL008",
+      "CL007"
+    ],
+    "required_capacity": 26,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C042#1",
+    "course_id": "C042",
+    "course_name": "课程C042",
+    "period": 10,
+    "slot_name": "周二-第5节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL011"
+    ],
+    "required_capacity": 26,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C008#2",
+    "course_id": "C008",
+    "course_name": "课程C008",
+    "period": 10,
+    "slot_name": "周二-第5节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T007",
+    "class_ids": [
+      "CL023",
+      "CL013",
+      "CL016"
+    ],
+    "required_capacity": 57,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C014#1",
+    "course_id": "C014",
+    "course_name": "课程C014",
+    "period": 10,
+    "slot_name": "周二-第5节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T005",
+    "class_ids": [
+      "CL022",
+      "CL017"
+    ],
+    "required_capacity": 63,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C039#2",
+    "course_id": "C039",
+    "course_name": "课程C039",
+    "period": 10,
+    "slot_name": "周二-第5节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL014",
+      "CL005",
+      "CL015"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C003#1",
+    "course_id": "C003",
+    "course_name": "课程C003",
+    "period": 10,
+    "slot_name": "周二-第5节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T020",
+    "class_ids": [
+      "CL003"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C015#1",
+    "course_id": "C015",
+    "course_name": "课程C015",
+    "period": 11,
+    "slot_name": "周二-第6节",
+    "room_id": "R004",
+    "room_capacity": 50,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T018",
+    "class_ids": [
+      "CL011",
+      "CL015"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C057#2",
+    "course_id": "C057",
+    "course_name": "课程C057",
+    "period": 11,
+    "slot_name": "周二-第6节",
+    "room_id": "R006",
+    "room_capacity": 50,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL023"
+    ],
+    "required_capacity": 42,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C007#3",
+    "course_id": "C007",
+    "course_name": "课程C007",
+    "period": 11,
+    "slot_name": "周二-第6节",
+    "room_id": "R010",
+    "room_capacity": 80,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL021",
+      "CL019"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C016#2",
+    "course_id": "C016",
+    "course_name": "课程C016",
+    "period": 11,
+    "slot_name": "周二-第6节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T020",
+    "class_ids": [
+      "CL017",
+      "CL014",
+      "CL018"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C029#2",
+    "course_id": "C029",
+    "course_name": "课程C029",
+    "period": 11,
+    "slot_name": "周二-第6节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL013",
+      "CL016"
+    ],
+    "required_capacity": 78,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C005#1",
+    "course_id": "C005",
+    "course_name": "课程C005",
+    "period": 11,
+    "slot_name": "周二-第6节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T005",
+    "class_ids": [
+      "CL002"
+    ],
+    "required_capacity": 95,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C030#1",
+    "course_id": "C030",
+    "course_name": "课程C030",
+    "period": 12,
+    "slot_name": "周三-第1节",
+    "room_id": "R005",
+    "room_capacity": 50,
+    "room_type": "multimedia",
+    "building": "教B楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL010"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C035#3",
+    "course_id": "C035",
+    "course_name": "课程C035",
+    "period": 12,
+    "slot_name": "周三-第1节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T011",
+    "class_ids": [
+      "CL022",
+      "CL013",
+      "CL024"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C019#3",
+    "course_id": "C019",
+    "course_name": "课程C019",
+    "period": 12,
+    "slot_name": "周三-第1节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T009",
+    "class_ids": [
+      "CL016",
+      "CL021"
+    ],
+    "required_capacity": 78,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C005#3",
+    "course_id": "C005",
+    "course_name": "课程C005",
+    "period": 12,
+    "slot_name": "周三-第1节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T005",
+    "class_ids": [
+      "CL002"
+    ],
+    "required_capacity": 95,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C044#2",
+    "course_id": "C044",
+    "course_name": "课程C044",
+    "period": 13,
+    "slot_name": "周三-第2节",
+    "room_id": "R006",
+    "room_capacity": 50,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T009",
+    "class_ids": [
+      "CL016"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C057#1",
+    "course_id": "C057",
+    "course_name": "课程C057",
+    "period": 13,
+    "slot_name": "周三-第2节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL023"
+    ],
+    "required_capacity": 42,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C059#1",
+    "course_id": "C059",
+    "course_name": "课程C059",
+    "period": 14,
+    "slot_name": "周三-第3节",
+    "room_id": "R007",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T002",
+    "class_ids": [
+      "CL018"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C014#2",
+    "course_id": "C014",
+    "course_name": "课程C014",
+    "period": 14,
+    "slot_name": "周三-第3节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T005",
+    "class_ids": [
+      "CL022",
+      "CL017"
+    ],
+    "required_capacity": 63,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C021#1",
+    "course_id": "C021",
+    "course_name": "课程C021",
+    "period": 14,
+    "slot_name": "周三-第3节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL010",
+      "CL008",
+      "CL009"
+    ],
+    "required_capacity": 78,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C028#1",
+    "course_id": "C028",
+    "course_name": "课程C028",
+    "period": 14,
+    "slot_name": "周三-第3节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T014",
+    "class_ids": [
+      "CL019",
+      "CL023"
+    ],
+    "required_capacity": 95,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C025#2",
+    "course_id": "C025",
+    "course_name": "课程C025",
+    "period": 14,
+    "slot_name": "周三-第3节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T007",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C003#3",
+    "course_id": "C003",
+    "course_name": "课程C003",
+    "period": 14,
+    "slot_name": "周三-第3节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T020",
+    "class_ids": [
+      "CL003"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C020#2",
+    "course_id": "C020",
+    "course_name": "课程C020",
+    "period": 14,
+    "slot_name": "周三-第3节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL015"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C038#1",
+    "course_id": "C038",
+    "course_name": "课程C038",
+    "period": 15,
+    "slot_name": "周三-第4节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T019",
+    "class_ids": [
+      "CL022",
+      "CL001"
+    ],
+    "required_capacity": 48,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C034#2",
+    "course_id": "C034",
+    "course_name": "课程C034",
+    "period": 15,
+    "slot_name": "周三-第4节",
+    "room_id": "R010",
+    "room_capacity": 80,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T016",
+    "class_ids": [
+      "CL013"
+    ],
+    "required_capacity": 42,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C021#3",
+    "course_id": "C021",
+    "course_name": "课程C021",
+    "period": 15,
+    "slot_name": "周三-第4节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL010",
+      "CL008",
+      "CL009"
+    ],
+    "required_capacity": 78,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C051#3",
+    "course_id": "C051",
+    "course_name": "课程C051",
+    "period": 15,
+    "slot_name": "周三-第4节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T009",
+    "class_ids": [
+      "CL006"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C028#2",
+    "course_id": "C028",
+    "course_name": "课程C028",
+    "period": 15,
+    "slot_name": "周三-第4节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T014",
+    "class_ids": [
+      "CL019",
+      "CL023"
+    ],
+    "required_capacity": 95,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C033#1",
+    "course_id": "C033",
+    "course_name": "课程C033",
+    "period": 15,
+    "slot_name": "周三-第4节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C012#3",
+    "course_id": "C012",
+    "course_name": "课程C012",
+    "period": 15,
+    "slot_name": "周三-第4节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T017",
+    "class_ids": [
+      "CL002",
+      "CL018"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C012#1",
+    "course_id": "C012",
+    "course_name": "课程C012",
+    "period": 16,
+    "slot_name": "周三-第5节",
+    "room_id": "R006",
+    "room_capacity": 50,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T017",
+    "class_ids": [
+      "CL002",
+      "CL018"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C056#3",
+    "course_id": "C056",
+    "course_name": "课程C056",
+    "period": 16,
+    "slot_name": "周三-第5节",
+    "room_id": "R007",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T003",
+    "class_ids": [
+      "CL023",
+      "CL021"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C038#2",
+    "course_id": "C038",
+    "course_name": "课程C038",
+    "period": 16,
+    "slot_name": "周三-第5节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T019",
+    "class_ids": [
+      "CL022",
+      "CL001"
+    ],
+    "required_capacity": 48,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C010#1",
+    "course_id": "C010",
+    "course_name": "课程C010",
+    "period": 16,
+    "slot_name": "周三-第5节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 78,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C053#1",
+    "course_id": "C053",
+    "course_name": "课程C053",
+    "period": 16,
+    "slot_name": "周三-第5节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T004",
+    "class_ids": [
+      "CL010"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C006#3",
+    "course_id": "C006",
+    "course_name": "课程C006",
+    "period": 16,
+    "slot_name": "周三-第5节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL020",
+      "CL003"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C046#1",
+    "course_id": "C046",
+    "course_name": "课程C046",
+    "period": 17,
+    "slot_name": "周三-第6节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL003",
+      "CL021",
+      "CL002"
+    ],
+    "required_capacity": 42,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C001#1",
+    "course_id": "C001",
+    "course_name": "课程C001",
+    "period": 17,
+    "slot_name": "周三-第6节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T015",
+    "class_ids": [
+      "CL007",
+      "CL017",
+      "CL016"
+    ],
+    "required_capacity": 26,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C026#1",
+    "course_id": "C026",
+    "course_name": "课程C026",
+    "period": 17,
+    "slot_name": "周三-第6节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T014",
+    "class_ids": [
+      "CL018"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C043#1",
+    "course_id": "C043",
+    "course_name": "课程C043",
+    "period": 17,
+    "slot_name": "周三-第6节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T013",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C012#2",
+    "course_id": "C012",
+    "course_name": "课程C012",
+    "period": 18,
+    "slot_name": "周四-第1节",
+    "room_id": "R008",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教B楼",
+    "teacher_id": "T017",
+    "class_ids": [
+      "CL002",
+      "CL018"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C020#3",
+    "course_id": "C020",
+    "course_name": "课程C020",
+    "period": 18,
+    "slot_name": "周四-第1节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL015"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C060#3",
+    "course_id": "C060",
+    "course_name": "课程C060",
+    "period": 18,
+    "slot_name": "周四-第1节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T014",
+    "class_ids": [
+      "CL012",
+      "CL003",
+      "CL017"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C055#3",
+    "course_id": "C055",
+    "course_name": "课程C055",
+    "period": 18,
+    "slot_name": "周四-第1节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T019",
+    "class_ids": [
+      "CL013",
+      "CL023",
+      "CL007"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C006#2",
+    "course_id": "C006",
+    "course_name": "课程C006",
+    "period": 19,
+    "slot_name": "周四-第2节",
+    "room_id": "R013",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教A楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL020",
+      "CL003"
+    ],
+    "required_capacity": 88,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C055#2",
+    "course_id": "C055",
+    "course_name": "课程C055",
+    "period": 19,
+    "slot_name": "周四-第2节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T019",
+    "class_ids": [
+      "CL013",
+      "CL023",
+      "CL007"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C010#3",
+    "course_id": "C010",
+    "course_name": "课程C010",
+    "period": 19,
+    "slot_name": "周四-第2节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL014"
+    ],
+    "required_capacity": 78,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C013#2",
+    "course_id": "C013",
+    "course_name": "课程C013",
+    "period": 20,
+    "slot_name": "周四-第3节",
+    "room_id": "R004",
+    "room_capacity": 50,
+    "room_type": "normal",
+    "building": "教A楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL015"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C016#3",
+    "course_id": "C016",
+    "course_name": "课程C016",
+    "period": 20,
+    "slot_name": "周四-第3节",
+    "room_id": "R008",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教B楼",
+    "teacher_id": "T020",
+    "class_ids": [
+      "CL017",
+      "CL014",
+      "CL018"
+    ],
+    "required_capacity": 57,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C055#1",
+    "course_id": "C055",
+    "course_name": "课程C055",
+    "period": 20,
+    "slot_name": "周四-第3节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T019",
+    "class_ids": [
+      "CL013",
+      "CL023",
+      "CL007"
+    ],
+    "required_capacity": 88,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C013#1",
+    "course_id": "C013",
+    "course_name": "课程C013",
+    "period": 21,
+    "slot_name": "周四-第4节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL015"
+    ],
+    "required_capacity": 33,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C060#1",
+    "course_id": "C060",
+    "course_name": "课程C060",
+    "period": 21,
+    "slot_name": "周四-第4节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T014",
+    "class_ids": [
+      "CL012",
+      "CL003",
+      "CL017"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C048#1",
+    "course_id": "C048",
+    "course_name": "课程C048",
+    "period": 21,
+    "slot_name": "周四-第4节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T001",
+    "class_ids": [
+      "CL005",
+      "CL008"
+    ],
+    "required_capacity": 95,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C035#2",
+    "course_id": "C035",
+    "course_name": "课程C035",
+    "period": 21,
+    "slot_name": "周四-第4节",
+    "room_id": "R015",
+    "room_capacity": 130,
+    "room_type": "normal",
+    "building": "教C楼",
+    "teacher_id": "T011",
+    "class_ids": [
+      "CL022",
+      "CL013",
+      "CL024"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C024#3",
+    "course_id": "C024",
+    "course_name": "课程C024",
+    "period": 23,
+    "slot_name": "周四-第6节",
+    "room_id": "R009",
+    "room_capacity": 65,
+    "room_type": "lab",
+    "building": "教C楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL023",
+      "CL005"
+    ],
+    "required_capacity": 63,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C050#1",
+    "course_id": "C050",
+    "course_name": "课程C050",
+    "period": 23,
+    "slot_name": "周四-第6节",
+    "room_id": "R012",
+    "room_capacity": 100,
+    "room_type": "multimedia",
+    "building": "教C楼",
+    "teacher_id": "T019",
+    "class_ids": [
+      "CL015"
+    ],
+    "required_capacity": 48,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C022#1",
+    "course_id": "C022",
+    "course_name": "课程C022",
+    "period": 23,
+    "slot_name": "周四-第6节",
+    "room_id": "R014",
+    "room_capacity": 100,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T011",
+    "class_ids": [
+      "CL018"
+    ],
+    "required_capacity": 72,
+    "needs_lab": false
+  },
+  {
+    "task_id": "C024#2",
+    "course_id": "C024",
+    "course_name": "课程C024",
+    "period": 24,
+    "slot_name": "周五-第1节",
+    "room_id": "R011",
+    "room_capacity": 80,
+    "room_type": "lab",
+    "building": "教B楼",
+    "teacher_id": "T008",
+    "class_ids": [
+      "CL023",
+      "CL005"
+    ],
+    "required_capacity": 63,
+    "needs_lab": true
+  },
+  {
+    "task_id": "C034#3",
+    "course_id": "C034",
+    "course_name": "课程C034",
+    "period": 27,
+    "slot_name": "周五-第4节",
+    "room_id": "R008",
+    "room_capacity": 65,
+    "room_type": "normal",
+    "building": "教B楼",
+    "teacher_id": "T016",
+    "class_ids": [
+      "CL013"
+    ],
+    "required_capacity": 42,
+    "needs_lab": false
+  }
+]

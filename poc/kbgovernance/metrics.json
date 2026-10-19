@@ -1,0 +1,313 @@
+{
+  "embedding": {
+    "attempts": [],
+    "scheme": "FlagEmbedding",
+    "model": "BAAI/bge-small-zh-v1.5",
+    "fallback": false,
+    "dim": 512,
+    "encode_seconds": 15.43,
+    "n_docs": 300,
+    "n_tickets": 2000,
+    "n_passages": 1852,
+    "model_download_mb": 95.8
+  },
+  "gap": {
+    "best": {
+      "min_cluster_size": 5,
+      "threshold": 0.62,
+      "gap_clusters": 7,
+      "detected_intents": 5,
+      "precision": 0.8,
+      "recall": 0.8,
+      "f1": 0.8
+    },
+    "n_gap_clusters": 7,
+    "cluster_rows": [
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.3,
+        "gap_clusters": 0,
+        "detected_intents": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.4,
+        "gap_clusters": 0,
+        "detected_intents": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.5,
+        "gap_clusters": 0,
+        "detected_intents": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.6,
+        "gap_clusters": 3,
+        "detected_intents": 2,
+        "precision": 1.0,
+        "recall": 0.4,
+        "f1": 0.5714
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.7,
+        "gap_clusters": 55,
+        "detected_intents": 26,
+        "precision": 0.1923,
+        "recall": 1.0,
+        "f1": 0.3226
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.62,
+        "gap_clusters": 7,
+        "detected_intents": 5,
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1": 0.8
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.64,
+        "gap_clusters": 15,
+        "detected_intents": 10,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.66,
+        "gap_clusters": 27,
+        "detected_intents": 16,
+        "precision": 0.3125,
+        "recall": 1.0,
+        "f1": 0.4762
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.68,
+        "gap_clusters": 45,
+        "detected_intents": 24,
+        "precision": 0.2083,
+        "recall": 1.0,
+        "f1": 0.3448
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.72,
+        "gap_clusters": 66,
+        "detected_intents": 30,
+        "precision": 0.1667,
+        "recall": 1.0,
+        "f1": 0.2857
+      },
+      {
+        "min_cluster_size": 5,
+        "threshold": 0.74,
+        "gap_clusters": 79,
+        "detected_intents": 30,
+        "precision": 0.1667,
+        "recall": 1.0,
+        "f1": 0.2857
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.3,
+        "gap_clusters": 0,
+        "detected_intents": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.4,
+        "gap_clusters": 0,
+        "detected_intents": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.5,
+        "gap_clusters": 0,
+        "detected_intents": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.6,
+        "gap_clusters": 3,
+        "detected_intents": 2,
+        "precision": 1.0,
+        "recall": 0.4,
+        "f1": 0.5714
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.7,
+        "gap_clusters": 49,
+        "detected_intents": 26,
+        "precision": 0.1923,
+        "recall": 1.0,
+        "f1": 0.3226
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.62,
+        "gap_clusters": 7,
+        "detected_intents": 5,
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1": 0.8
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.64,
+        "gap_clusters": 14,
+        "detected_intents": 9,
+        "precision": 0.5556,
+        "recall": 1.0,
+        "f1": 0.7143
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.66,
+        "gap_clusters": 24,
+        "detected_intents": 15,
+        "precision": 0.3333,
+        "recall": 1.0,
+        "f1": 0.5
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.68,
+        "gap_clusters": 39,
+        "detected_intents": 24,
+        "precision": 0.2083,
+        "recall": 1.0,
+        "f1": 0.3448
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.72,
+        "gap_clusters": 60,
+        "detected_intents": 30,
+        "precision": 0.1667,
+        "recall": 1.0,
+        "f1": 0.2857
+      },
+      {
+        "min_cluster_size": 10,
+        "threshold": 0.74,
+        "gap_clusters": 72,
+        "detected_intents": 30,
+        "precision": 0.1667,
+        "recall": 1.0,
+        "f1": 0.2857
+      }
+    ]
+  },
+  "corrupt": {
+    "embedded": 62,
+    "detected": 69,
+    "tp": 62,
+    "fp": 7,
+    "fn": 0,
+    "precision": 0.8986,
+    "recall": 1.0,
+    "f1": 0.9466,
+    "rule_weight": {
+      "R1_正文过期日期": 3,
+      "R2_更新时间超18个月": 2,
+      "R3_正文含绝对过期年份": 2,
+      "R4_同类存在更新文档": 1
+    },
+    "score_threshold": 3,
+    "rule_hit_counts": {
+      "R1_正文过期日期": 32,
+      "R2_更新时间超18个月": 38,
+      "R3_正文含绝对过期年份": 32,
+      "R4_同类存在更新文档": 88
+    },
+    "score_hist": {
+      "0": 186,
+      "1": 45,
+      "3": 37,
+      "5": 26,
+      "6": 5,
+      "8": 1
+    },
+    "seconds": 0.42
+  },
+  "dup": {
+    "embedded_groups": 22,
+    "embedded_docs": 49,
+    "rows": [
+      {
+        "threshold": 0.85,
+        "dup_groups": 23,
+        "detected_docs": 223,
+        "group_precision": 0.1739,
+        "group_recall": 0.1818,
+        "group_f1": 0.1778,
+        "doc_precision": 0.2197,
+        "doc_recall": 1.0,
+        "doc_f1": 0.3603,
+        "seconds": 0.0
+      },
+      {
+        "threshold": 0.9,
+        "dup_groups": 32,
+        "detected_docs": 77,
+        "group_precision": 0.5938,
+        "group_recall": 0.8636,
+        "group_f1": 0.7037,
+        "doc_precision": 0.6364,
+        "doc_recall": 1.0,
+        "doc_f1": 0.7778,
+        "seconds": 0.0
+      },
+      {
+        "threshold": 0.95,
+        "dup_groups": 22,
+        "detected_docs": 49,
+        "group_precision": 1.0,
+        "group_recall": 1.0,
+        "group_f1": 1.0,
+        "doc_precision": 1.0,
+        "doc_recall": 1.0,
+        "doc_f1": 1.0,
+        "seconds": 0.0
+      }
+    ],
+    "best": {
+      "threshold": 0.95,
+      "dup_groups": 22,
+      "detected_docs": 49,
+      "group_precision": 1.0,
+      "group_recall": 1.0,
+      "group_f1": 1.0,
+      "doc_precision": 1.0,
+      "doc_recall": 1.0,
+      "doc_f1": 1.0,
+      "seconds": 0.0
+    }
+  },
+  "total_seconds": 2.85
+}

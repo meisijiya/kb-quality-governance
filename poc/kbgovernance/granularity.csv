@@ -1,0 +1,11 @@
+﻿granularity,score_scheme,auc,auc_intent_median,n_tickets,n_labeled,description
+doc_level,max-cosine,0.8307,0.888,2000,371,max: 到该粒度下所有候选的最大余弦(基准)
+doc_level,max-top5mean,0.756,0.832,2000,371,max - top5 均值(margin)
+doc_level,max/std,0.5239,0.496,2000,371,max ÷ 全体候选相似度的总体标准差
+doc_level,max/top5mean,0.7179,0.776,2000,371,max ÷ top5 均值
+doc_level,max-min,0.7829,0.928,2000,371,"max - min(极差, span)"
+passage_level,max-cosine,0.8659,0.968,2000,371,max: 到该粒度下所有候选的最大余弦(基准)
+passage_level,max-top5mean,0.8088,0.92,2000,371,max - top5 均值(margin)
+passage_level,max/std,0.6029,0.704,2000,371,max ÷ 全体候选相似度的总体标准差
+passage_level,max/top5mean,0.794,0.888,2000,371,max ÷ top5 均值
+passage_level,max-min,0.78,0.88,2000,371,"max - min(极差, span)"

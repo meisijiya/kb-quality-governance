@@ -1,0 +1,159 @@
+'/d' �����ڲ����ⲿ���Ҳ���ǿ����еĳ���
+���������ļ���
+############################################################
+# PoC 全链路运行  2026-10-13 16:34:31
+# python : Python 3.11.9
+# HF_HOME: D:/hf_cache
+############################################################
+
+>>> [0/4] 环境自检
+  FlagEmbedding 可用
+  sklearn 1.9.0, HDBSCAN 可用
+
+>>> [1/4] 生成合成数据 (gen_data.py)
+======================================================================
+[gen_data] 生成完成
+[gen_data] docs.csv           : 300 篇
+[gen_data] tickets.csv        : 2000 条
+[gen_data] 业务域             : 8 个 -> ['人事行政', '信息安全', '信息技术', '后勤保障', '客户服务', '法务合规', '财务管理', '采购合同']
+[gen_data] 工单意图数         : 30 个
+[gen_data] 正文长度(字)        : min=111 max=191 avg=140
+[gen_data] 缺口意图           : ['社保转移办理', '公积金提取材料', '数据导出权限申请', '海外出差报销标准', '密码策略例外申请']
+[gen_data] 缺口工单           : 371 条 (18.6%)
+[gen_data] 腐化文档(埋)       : 62 篇
+[gen_data] 重复组(埋)         : 22 组
+[gen_data]   dup group: ['DOC0001', 'DOC0002', 'DOC0003']
+[gen_data]   dup group: ['DOC0013', 'DOC0014', 'DOC0015']
+[gen_data]   dup group: ['DOC0025', 'DOC0026', 'DOC0027']
+[gen_data]   dup group: ['DOC0037', 'DOC0038', 'DOC0039']
+[gen_data]   dup group: ['DOC0049', 'DOC0050', 'DOC0051']
+[gen_data] ground_truth.json 已写出
+======================================================================
+
+real	0m0.601s
+user	0m0.015s
+sys	0m0.062s
+
+>>> [2/4] 语义向量化 (embed.py)
+======================================================================
+[embed] 文档 300 篇 / 工单 2000 条 / 文档段落 1852 段 (平均每篇 6.2 段)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]Loading weights: 100%|██████████| 71/71 [00:00<00:00, 3244.07it/s]
+[embed] 方案 1 FlagEmbedding + BAAI/bge-small-zh-v1.5 初始化成功
+pre tokenize:   0%|          | 0/5 [00:00<?, ?it/s]pre tokenize: 100%|██████████| 5/5 [00:00<00:00, 175.24it/s]
+Inference Embeddings:   0%|          | 0/5 [00:00<?, ?it/s]Inference Embeddings:  20%|██        | 1/5 [00:01<00:04,  1.10s/it]Inference Embeddings:  40%|████      | 2/5 [00:01<00:02,  1.02it/s]Inference Embeddings:  60%|██████    | 3/5 [00:02<00:01,  1.14it/s]Inference Embeddings:  80%|████████  | 4/5 [00:03<00:00,  1.22it/s]Inference Embeddings: 100%|██████████| 5/5 [00:03<00:00,  1.44it/s]Inference Embeddings: 100%|██████████| 5/5 [00:03<00:00,  1.27it/s]
+pre tokenize:   0%|          | 0/32 [00:00<?, ?it/s]pre tokenize: 100%|██████████| 32/32 [00:00<00:00, 960.04it/s]
+Inference Embeddings:   0%|          | 0/32 [00:00<?, ?it/s]Inference Embeddings:   3%|▎         | 1/32 [00:00<00:04,  6.89it/s]Inference Embeddings:   6%|▋         | 2/32 [00:00<00:04,  7.35it/s]Inference Embeddings:   9%|▉         | 3/32 [00:00<00:03,  7.61it/s]Inference Embeddings:  12%|█▎        | 4/32 [00:00<00:03,  8.00it/s]Inference Embeddings:  16%|█▌        | 5/32 [00:00<00:03,  8.16it/s]Inference Embeddings:  19%|█▉        | 6/32 [00:00<00:03,  8.42it/s]Inference Embeddings:  22%|██▏       | 7/32 [00:00<00:02,  8.59it/s]Inference Embeddings:  25%|██▌       | 8/32 [00:00<00:02,  8.81it/s]Inference Embeddings:  28%|██▊       | 9/32 [00:01<00:02,  8.89it/s]Inference Embeddings:  31%|███▏      | 10/32 [00:01<00:02,  8.96it/s]Inference Embeddings:  34%|███▍      | 11/32 [00:01<00:02,  8.95it/s]Inference Embeddings:  38%|███▊      | 12/32 [00:01<00:02,  8.99it/s]Inference Embeddings:  41%|████      | 13/32 [00:01<00:02,  9.07it/s]Inference Embeddings:  44%|████▍     | 14/32 [00:01<00:01,  9.22it/s]Inference Embeddings:  47%|████▋     | 15/32 [00:01<00:01,  9.29it/s]Inference Embeddings:  50%|█████     | 16/32 [00:01<00:01,  9.38it/s]Inference Embeddings:  53%|█████▎    | 17/32 [00:01<00:01,  9.37it/s]Inference Embeddings:  56%|█████▋    | 18/32 [00:02<00:01,  9.46it/s]Inference Embeddings:  62%|██████▎   | 20/32 [00:02<00:01,  9.72it/s]Inference Embeddings:  69%|██████▉   | 22/32 [00:02<00:01,  9.88it/s]Inference Embeddings:  72%|███████▏  | 23/32 [00:02<00:00,  9.83it/s]Inference Embeddings:  75%|███████▌  | 24/32 [00:02<00:00,  8.68it/s]Inference Embeddings:  78%|███████▊  | 25/32 [00:02<00:00,  7.62it/s]Inference Embeddings:  81%|████████▏ | 26/32 [00:03<00:00,  7.15it/s]Inference Embeddings:  84%|████████▍ | 27/32 [00:03<00:00,  6.74it/s]Inference Embeddings:  88%|████████▊ | 28/32 [00:03<00:00,  6.63it/s]Inference Embeddings:  91%|█████████ | 29/32 [00:03<00:00,  6.67it/s]Inference Embeddings:  94%|█████████▍| 30/32 [00:03<00:00,  6.65it/s]Inference Embeddings:  97%|█████████▋| 31/32 [00:03<00:00,  6.64it/s]Inference Embeddings: 100%|██████████| 32/32 [00:03<00:00,  8.27it/s]
+pre tokenize:   0%|          | 0/29 [00:00<?, ?it/s]pre tokenize: 100%|██████████| 29/29 [00:00<00:00, 447.45it/s]
+Inference Embeddings:   0%|          | 0/29 [00:00<?, ?it/s]Inference Embeddings:   3%|▎         | 1/29 [00:00<00:08,  3.21it/s]Inference Embeddings:   7%|▋         | 2/29 [00:00<00:07,  3.40it/s]Inference Embeddings:  10%|█         | 3/29 [00:00<00:07,  3.60it/s]Inference Embeddings:  14%|█▍        | 4/29 [00:01<00:06,  3.71it/s]Inference Embeddings:  17%|█▋        | 5/29 [00:01<00:06,  3.79it/s]Inference Embeddings:  21%|██        | 6/29 [00:01<00:05,  3.87it/s]Inference Embeddings:  24%|██▍       | 7/29 [00:01<00:05,  3.84it/s]Inference Embeddings:  28%|██▊       | 8/29 [00:02<00:05,  3.90it/s]Inference Embeddings:  31%|███       | 9/29 [00:02<00:04,  4.04it/s]Inference Embeddings:  34%|███▍      | 10/29 [00:02<00:04,  4.11it/s]Inference Embeddings:  38%|███▊      | 11/29 [00:02<00:04,  4.05it/s]Inference Embeddings:  41%|████▏     | 12/29 [00:03<00:04,  3.62it/s]Inference Embeddings:  45%|████▍     | 13/29 [00:03<00:04,  3.57it/s]Inference Embeddings:  48%|████▊     | 14/29 [00:03<00:03,  3.95it/s]Inference Embeddings:  52%|█████▏    | 15/29 [00:03<00:03,  4.57it/s]Inference Embeddings:  55%|█████▌    | 16/29 [00:03<00:02,  5.17it/s]Inference Embeddings:  59%|█████▊    | 17/29 [00:04<00:02,  5.82it/s]Inference Embeddings:  62%|██████▏   | 18/29 [00:04<00:01,  6.46it/s]Inference Embeddings:  66%|██████▌   | 19/29 [00:04<00:01,  6.85it/s]Inference Embeddings:  69%|██████▉   | 20/29 [00:04<00:01,  7.35it/s]Inference Embeddings:  72%|███████▏  | 21/29 [00:04<00:01,  7.71it/s]Inference Embeddings:  76%|███████▌  | 22/29 [00:04<00:00,  8.12it/s]Inference Embeddings:  79%|███████▉  | 23/29 [00:04<00:00,  8.31it/s]Inference Embeddings:  83%|████████▎ | 24/29 [00:04<00:00,  8.69it/s]Inference Embeddings:  90%|████████▉ | 26/29 [00:05<00:00,  9.27it/s]Inference Embeddings:  97%|█████████▋| 28/29 [00:05<00:00, 10.34it/s]Inference Embeddings: 100%|██████████| 29/29 [00:05<00:00,  5.50it/s]
+[embed] 方案 = FlagEmbedding | 维度 = 512 | 向量化耗时 = 14.9s
+[embed] 工单被覆盖度(ticket_cover): min=0.563 max=0.829 mean=0.689
+[embed] 自检 域内均值=0.825 域间均值=0.554 差值=+0.271  (会议室预订规则 vs 门禁权限申请)
+[embed] 自检 域内均值=0.811 域间均值=0.655 差值=+0.156  (数据导出权限申请 vs 系统权限开通)
+[embed] 自检 域内均值=0.742 域间均值=0.607 差值=+0.135  (海外出差报销标准 vs 差旅费报销)
+[embed] 已写出 doc_emb.npy / ticket_emb.npy / ticket_cover.npy / embeddings_meta.json
+======================================================================
+
+real	0m31.155s
+user	0m0.015s
+sys	0m0.046s
+
+>>> [3/4] 缺陷检测 (detect.py)
+==========================================================================
+[detect] embedding 方案 = FlagEmbedding (BAAI/bge-small-zh-v1.5)
+[detect] 输入: 300 文档 / 2000 工单
+[detect] ground truth: 缺口意图 5 / 腐化文档 62 / 重复组 22
+
+--------------------------------------------------------------------------
+[detect] === A. 知识缺口检测 ===
+[gap] min_cluster_size=5: 95 个簇, 噪声 0 条, 耗时 1.18s
+[gap] min_cluster_size=10: 88 个簇, 噪声 9 条, 耗时 1.03s
+
+[gap] 最优参数: min_cluster_size=5 threshold=0.62 -> P=0.8 R=0.8 F1=0.8
+[gap] 扫参表 (gap_threshold.csv):
+ mcs    thr  gap_cl  det_int       P       R      F1
+   5    0.3       0        0     0.0     0.0     0.0
+   5    0.4       0        0     0.0     0.0     0.0
+   5    0.5       0        0     0.0     0.0     0.0
+   5    0.6       3        2     1.0     0.4  0.5714
+   5    0.7      55       26  0.1923     1.0  0.3226
+   5   0.62       7        5     0.8     0.8     0.8
+   5   0.64      15       10     0.5     1.0  0.6667
+   5   0.66      27       16  0.3125     1.0  0.4762
+   5   0.68      45       24  0.2083     1.0  0.3448
+   5   0.72      66       30  0.1667     1.0  0.2857
+   5   0.74      79       30  0.1667     1.0  0.2857
+  10    0.3       0        0     0.0     0.0     0.0
+  10    0.4       0        0     0.0     0.0     0.0
+  10    0.5       0        0     0.0     0.0     0.0
+  10    0.6       3        2     1.0     0.4  0.5714
+  10    0.7      49       26  0.1923     1.0  0.3226
+  10   0.62       7        5     0.8     0.8     0.8
+  10   0.64      14        9  0.5556     1.0  0.7143
+  10   0.66      24       15  0.3333     1.0     0.5
+  10   0.68      39       24  0.2083     1.0  0.3448
+  10   0.72      60       30  0.1667     1.0  0.2857
+  10   0.74      72       30  0.1667     1.0  0.2857
+
+[gap] Top15 最相似度最低的簇:
+   1. [真缺口] 公积金提取材料      n=18   cover=0.563  租房提取和购房提取材料一样吗，麻烦帮忙确认一下流程
+   2. [真缺口] 海外出差报销标准     n=28   cover=0.571  去东南亚出差的住宿标准是多少，麻烦帮忙确认一下流程
+   3. [真缺口] 海外出差报销标准     n=26   cover=0.573  海外出差津贴怎么算币种，麻烦帮忙确认一下流程
+   4. [真缺口] 密码策略例外申请     n=19   cover=0.604  系统强制改密码和我的老密码冲突，能申请例外吗
+   5. [真缺口] 社保转移办理       n=25   cover=0.608  跨省社保转移多久能到账，麻烦帮忙确认一下流程
+   6. [真缺口] 社保转移办理       n=29   cover=0.617  社保转移现在要线上还是线下，麻烦帮忙确认一下流程
+   7. [误报  ] 终端病毒处置       n=21   cover=0.618  终端要隔离重装吗，麻烦帮忙确认一下流程
+   8. [真缺口] 密码策略例外申请     n=21   cover=0.624  密码过期太频繁影响办公，麻烦帮忙确认一下流程
+   9. [真缺口] 社保转移办理       n=31   cover=0.627  想把社保转到新城市的公司，需要办什么手续
+  10. [误报  ] 考勤异常处理       n=28   cover=0.628  加班时长没记上，麻烦帮忙确认一下流程
+  11. [误报  ] 门禁权限申请       n=23   cover=0.629  门禁卡丢了怎么挂失，麻烦帮忙确认一下流程
+  12. [真缺口] 数据导出权限申请     n=21   cover=0.634  想把后台数据导出成Excel需要什么权限
+  13. [真缺口] 密码策略例外申请     n=22   cover=0.635  特殊系统密码复杂度要求能放宽吗，麻烦帮忙确认一下流程
+  14. [误报  ] 供应商准入申请      n=17   cover=0.635  准入申请提交后没进度，麻烦帮忙确认一下流程
+  15. [误报  ] 采购比价流程       n=9    cover=0.640  只有一家报价可以吗，麻烦帮忙确认一下流程
+
+--------------------------------------------------------------------------
+[detect] === B. 内容腐化检测 ===
+[corr] 规则权重 {'R1_正文过期日期': 3, 'R2_更新时间超18个月': 2, 'R3_正文含绝对过期年份': 2, 'R4_同类存在更新文档': 1} 判定阈值 risk_score >= 3
+[corr] 耗时 0.31s
+[corr] 埋 62 篇 / 检出 69 篇 / TP=62 FP=7 FN=0
+[corr] precision=0.8986 recall=1.0000 f1=0.9466
+[corr] 规则命中分布: [(0, 186), (1, 45), (3, 37), (5, 26), (6, 5), (8, 1)]
+[corr] 各规则命中数: {'R1_正文过期日期': 32, 'R2_更新时间超18个月': 38, 'R3_正文含绝对过期年份': 32, 'R4_同类存在更新文档': 88}
+[corr] 误报样例: ['DOC0055', 'DOC0101', 'DOC0105', 'DOC0113', 'DOC0127']
+
+--------------------------------------------------------------------------
+[detect] === C. 重复冗余检测 ===
+[dup] 300x300 余弦矩阵耗时 0.00s
+[dup] thr=0.85: 23 组 / 223 篇 (真实 22 组 / 49 篇) | 组级 P=0.174 R=0.182 F1=0.178 | 文档级 P=0.220 R=1.000 F1=0.360 | 0.00s
+[dup] thr=0.9: 32 组 / 77 篇 (真实 22 组 / 49 篇) | 组级 P=0.594 R=0.864 F1=0.704 | 文档级 P=0.636 R=1.000 F1=0.778 | 0.00s
+[dup] thr=0.95: 22 组 / 49 篇 (真实 22 组 / 49 篇) | 组级 P=1.000 R=1.000 F1=1.000 | 文档级 P=1.000 R=1.000 F1=1.000 | 0.00s
+
+==========================================================================
+[detect] 全部完成, 总耗时 2.59s
+[detect] 缺口 F1=0.8 | 腐化 F1=0.9466 | 重复 组级F1=1.0
+==========================================================================
+
+real	0m5.946s
+user	0m0.000s
+sys	0m0.062s
+
+>>> [4/4] 产物核对
+  [OK]   docs.csv                 165201 bytes
+  [OK]   tickets.csv              296028 bytes
+  [OK]   ground_truth.json        2634 bytes
+  [OK]   doc_emb.npy              614528 bytes
+  [OK]   ticket_emb.npy           4096128 bytes
+  [OK]   ticket_cover.npy         8128 bytes
+  [OK]   embeddings_meta.json     247 bytes
+  [OK]   gap_threshold.csv        705 bytes
+  [OK]   dup_threshold.csv        267 bytes
+  [OK]   corrupt_docs.csv         44795 bytes
+  [OK]   dup_groups_best.csv      947 bytes
+  [OK]   top15_gaps.csv           1835 bytes
+  [OK]   metrics.json             7318 bytes
+
+############################################################
+# 完成  2026-10-13 16:35:32
+# 关键指标见 metrics.json；完整报告见 RESULT.md
+############################################################

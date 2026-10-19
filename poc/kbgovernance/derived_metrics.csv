@@ -1,0 +1,51 @@
+﻿derived_key,value,formula,inputs,source_files
+threshold.abs_5scenario_range,0.026400,"max(-0.6657,-0.6633,-0.6897,-0.6792,-0.6657) - min(-0.6657,-0.6633,-0.6897,-0.6792,-0.6657) = -0.6633 - (-0.6897)",alpha=-0.665700|beta=-0.663300|gamma=-0.689700|gamma-X=-0.679200|delta=-0.665700,standardize/results_auc.csv
+directionC.abs_mean_f1_4scenario,0.828900,"mean(0.8889,0.625,0.8387,0.963) = 0.8889 + 0.625 + 0.8387 + 0.963 / 4",alpha=0.888900|beta=0.625000|gamma=0.838700|gamma-X=0.963000,standardize/results_auc.csv
+directionC.abs_sd_f1_4scenario,0.145206,"stdev(n-1) of (0.8889,0.625,0.8387,0.963) = 0.145206",alpha=0.888900|beta=0.625000|gamma=0.838700|gamma-X=0.963000,standardize/results_auc.csv
+directionC.fixed25_mean_f1_4scenario,0.552175,"mean(0.6667,0.5,0.5714,0.4706) = 0.6667 + 0.5 + 0.5714 + 0.4706 / 4",alpha=0.666700|beta=0.500000|gamma=0.571400|gamma-X=0.470600,standardize/results_directionC.csv
+directionC.fixed25_sd_f1_4scenario,0.087297,"stdev(n-1) of (0.6667,0.5,0.5714,0.4706) = 0.087297",alpha=0.666700|beta=0.500000|gamma=0.571400|gamma-X=0.470600,standardize/results_directionC.csv
+directionC.fixed30_mean_f1_4scenario,0.623100,"mean(0.6154,0.5714,0.75,0.5556) = 0.6154 + 0.5714 + 0.75 + 0.5556 / 4",alpha=0.615400|beta=0.571400|gamma=0.750000|gamma-X=0.555600,standardize/results_directionC.csv
+directionC.fixed30_sd_f1_4scenario,0.088303,"stdev(n-1) of (0.6154,0.5714,0.75,0.5556) = 0.088303",alpha=0.615400|beta=0.571400|gamma=0.750000|gamma-X=0.555600,standardize/results_directionC.csv
+directionC.fixed10_mean_f1_4scenario,0.344550,"mean(0.75,0.25,0.2353,0.1429) = 0.75 + 0.25 + 0.2353 + 0.1429 / 4",alpha=0.750000|beta=0.250000|gamma=0.235300|gamma-X=0.142900,standardize/results_directionC.csv
+directionC.fixed10_sd_f1_4scenario,0.274425,"stdev(n-1) of (0.75,0.25,0.2353,0.1429) = 0.274425",alpha=0.750000|beta=0.250000|gamma=0.235300|gamma-X=0.142900,standardize/results_directionC.csv
+directionC.fixed15_mean_f1_4scenario,0.470550,"mean(0.75,0.4444,0.4211,0.2667) = 0.75 + 0.4444 + 0.4211 + 0.2667 / 4",alpha=0.750000|beta=0.444400|gamma=0.421100|gamma-X=0.266700,standardize/results_directionC.csv
+directionC.fixed15_sd_f1_4scenario,0.202300,"stdev(n-1) of (0.75,0.4444,0.4211,0.2667) = 0.202300",alpha=0.750000|beta=0.444400|gamma=0.421100|gamma-X=0.266700,standardize/results_directionC.csv
+directionC.fixed18p55_mean_f1_4scenario,0.530550,"mean(0.8889,0.5455,0.4211,0.2667) = 0.8889 + 0.5455 + 0.4211 + 0.2667 / 4",alpha=0.888900|beta=0.545500|gamma=0.421100|gamma-X=0.266700,standardize/results_directionC.csv
+directionC.fixed18p55_sd_f1_4scenario,0.264723,"stdev(n-1) of (0.8889,0.5455,0.4211,0.2667) = 0.264723",alpha=0.888900|beta=0.545500|gamma=0.421100|gamma-X=0.266700,standardize/results_directionC.csv
+directionC.sd_reduction_ratio_fixed25,0.398805,1 - 0.0872969787564266 / 0.1452056702290467 = 1 - sd(固定25%)/sd(ABS) = 稳定性改善比例,sd_f1_fixed25=0.087297|sd_f1_abs=0.145206,standardize/results_directionC.csv;standardize/results_auc.csv
+directionC.mean_f1_sacrifice_ratio_fixed25,0.333846,1 - 0.5521750000000001 / 0.8289 = 1 - meanF1(固定25%)/meanF1(ABS) = 平均 F1 牺牲比例,mean_f1_fixed25=0.552175|mean_f1_abs=0.828900,standardize/results_directionC.csv;standardize/results_auc.csv
+threshold.abs_alpha_recall_all_cover_scale,0.665700,-1 * (-0.6657) = cover <= 0.665700,results_auc.alpha.ABS.召回全部门槛的阈值=-0.665700,standardize/results_auc.csv
+threshold.abs_alpha_best_cover_scale,0.646300,-1 * (-0.6463) = cover <= 0.646300,ablation.ABS 绝对余弦.最优阈值=-0.646300,standardize/ablation.csv
+banking77_en.abs_best_threshold_raw,-0.849500,results_banking77_en.csv 全量/ABS 的 最优阈值 原值 (未换算),results_banking77_en.全量.ABS.最优阈值=-0.849500,standardize/results_banking77_en.csv
+banking77_en.abs_best_cover_scale,0.849500,-1 * (-0.8495) = cover <= 0.849500,results_banking77_en.全量.ABS.最优阈值=-0.849500,standardize/results_banking77_en.csv
+banking77_en.cover_scale_gap_vs_zh_alpha,0.203200,0.8495 - 0.6463 = cover_scale(banking77_en) - cover_scale(alpha),banking77_en.ABS.最优阈值(cover刻度)=0.849500|alpha.ABS.最优阈值(cover刻度)=0.646300,standardize/results_banking77_en.csv;standardize/ablation.csv
+cover.banking77_en_mean_minus_alpha_mean,0.190600,0.8797 - 0.6891 = banking77_en 覆盖度均值 - 中文合成 alpha 均值,banking77_en.cover.mean=0.879700|alpha.cover.mean=0.689100,standardize/banking77_meta_en.json;standardize/banking77_meta_zh.json;standardize/scenario_meta.json
+cover.banking77_zh_mean_minus_alpha_mean,0.149500,0.8386 - 0.6891 = banking77_zh 覆盖度均值 - 中文合成 alpha 均值,banking77_zh.cover.mean=0.838600|alpha.cover.mean=0.689100,standardize/banking77_meta_en.json;standardize/banking77_meta_zh.json;standardize/scenario_meta.json
+cover.banking77_en_minus_zh_mean,0.041100,0.8797 - 0.8386 = bge-small-en 与 bge-small-zh 覆盖度均值差,banking77_en.cover.mean=0.879700|banking77_zh.cover.mean=0.838600,standardize/banking77_meta_en.json;standardize/banking77_meta_zh.json;standardize/scenario_meta.json
+auc.s3_alpha_lead_over_abs_baseline,0.032000,1.0 - 0.968 = S3 领域内z α AUC - ABS 基线 α AUC (领先为正),alpha.S3.领域内z.AUC=1|alpha.ABS.AUC=0.968000,standardize/results_auc.csv
+auc.s3_banking77_en_lag_over_abs_baseline,0.519400,0.9538 - 0.4344 = ABS 全量 AUC - S3 全量 AUC (落后为正),banking77_en.ABS.全量.AUC=0.953800|banking77_en.S3.全量.AUC=0.434400,standardize/results_banking77_en.csv
+auc.s3_banking77_zh_lag_over_abs_baseline,0.297900,0.7925 - 0.4946 = ABS 全量 AUC - S3 全量 AUC (落后为正),banking77_zh.ABS.全量.AUC=0.792500|banking77_zh.S3.全量.AUC=0.494600,standardize/results_banking77_zh.csv
+directionB.alpha_lag_over_abs_baseline,0.152000,0.968 - 0.816 = ABS 基线 AUC - 方向B AUC (落后为正),alpha.ABS.AUC=0.968000|alpha.方向B.AUC=0.816000,standardize/results_directions.csv
+directionB.beta_lag_over_abs_baseline,0.180200,0.8075 - 0.6273 = ABS 基线 AUC - 方向B AUC (落后为正),beta.ABS.AUC=0.807500|beta.方向B.AUC=0.627300,standardize/results_directions.csv
+directionB.gamma_lag_over_abs_baseline,0.260000,0.9022 - 0.6422 = ABS 基线 AUC - 方向B AUC (落后为正),gamma.ABS.AUC=0.902200|gamma.方向B.AUC=0.642200,standardize/results_directions.csv
+directionB.gamma-X_lag_over_abs_baseline,0.163500,0.9135 - 0.75 = ABS 基线 AUC - 方向B AUC (落后为正),gamma-X.ABS.AUC=0.913500|gamma-X.方向B.AUC=0.750000,standardize/results_directions.csv
+directionA2.4scenario_threshold_range,0.001800,"max(0.0001,0.0,0.0,0.0018) - min(0.0001,0.0,0.0,0.0018)",alpha=0.000100|beta=0|gamma=0|gamma-X=0.001800,standardize/results_directions.csv
+directionA2.alpha_auc,0.112000,alpha 场景 A2 的 AUC 原值,alpha=0.112000,standardize/results_directions.csv
+rule_ablation.drop_R1_f1_drop_magnitude,0.260900,"abs(-0.2609) ; 产物 delta_f1 为负表示 F1 下降, 此处取正数幅度, 方向 = F1(drop_R1) 低于 F1(all)",drop_R1.f1=0.685700|all.f1=0.946600,corrupt_rule_ablation.csv
+rule_ablation.drop_R2_f1_drop_magnitude,0.265700,"abs(-0.2657) ; 产物 delta_f1 为负表示 F1 下降, 此处取正数幅度, 方向 = F1(drop_R2) 低于 F1(all)",drop_R2.f1=0.680900|all.f1=0.946600,corrupt_rule_ablation.csv
+rule_ablation.drop_R3_f1_drop_magnitude,0,"abs(0.0) ; 产物 delta_f1 为负表示 F1 下降, 此处取正数幅度, 方向 = 无变化 (F1(drop_R3) = F1(all))",drop_R3.f1=0.946600|all.f1=0.946600,corrupt_rule_ablation.csv
+rule_ablation.drop_R4_f1_drop_magnitude,0.265700,"abs(-0.2657) ; 产物 delta_f1 为负表示 F1 下降, 此处取正数幅度, 方向 = F1(drop_R4) 低于 F1(all)",drop_R4.f1=0.680900|all.f1=0.946600,corrupt_rule_ablation.csv
+rule_ablation.only_R1_f1_drop_magnitude,0.265700,"abs(-0.2657) ; 产物 delta_f1 为负表示 F1 下降, 此处取正数幅度, 方向 = F1(only_R1) 低于 F1(all)",only_R1.f1=0.680900|all.f1=0.946600,corrupt_rule_ablation.csv
+rule_ablation.only_R2_f1_drop_magnitude,0.946600,"abs(-0.9466) ; 产物 delta_f1 为负表示 F1 下降, 此处取正数幅度, 方向 = F1(only_R2) 低于 F1(all)",only_R2.f1=0|all.f1=0.946600,corrupt_rule_ablation.csv
+granularity.intent_auc_passage_minus_doc,0.080000,0.968 - 0.888 = 段落级意图级 AUC - 整篇级意图级 AUC,passage_level.max-cosine.auc_intent_median=0.968000|doc_level.max-cosine.auc_intent_median=0.888000,granularity.csv
+granularity.intent_auc_relative_gain,0.090090,(0.968 - 0.888) / 0.888 = 相对提升比例,passage_level.max-cosine.auc_intent_median=0.968000|doc_level.max-cosine.auc_intent_median=0.888000,granularity.csv
+granularity.ticket_auc_passage_minus_doc,0.035200,0.8659 - 0.8307 = 段落级工单级 AUC - 整篇级工单级 AUC,passage_level.max-cosine.auc=0.865900|doc_level.max-cosine.auc=0.830700,granularity.csv
+ground_truth.gap_ticket_ratio,0.185500,"371 / 2000 = 缺口工单数 / 工单总数 (与 ground_truth.gap_ticket_ratio 同值, 此处为重算)",ground_truth.gap_ticket_count=371|ground_truth.n_tickets=2000,ground_truth.json
+embedding.total_texts_vectorized,4152,300 + 2000 + 1852 = 文档 + 工单 + 段落 三类文本条数,n_docs=300|n_tickets=2000|n_passages=1852,embeddings_meta.json
+embedding.passages_per_doc,6.173333,1852 / 300 = 段落数 / 文档数,n_passages=1852|n_docs=300,embeddings_meta.json
+docs.avg_sentences_per_doc,5.173333,"sum(len(split(content, '。；'))) / 300 = 300 篇正文按 。与 ； 切分后的句数均值",句数合计=1552|文档数=300,docs.csv
+docs.avg_chars_per_doc,140.206667,sum(len(content)) / 300 = 300 篇正文平均字数,字数合计=42062|文档数=300,docs.csv
+docs.min_chars_per_doc,111,min(len(content)),,docs.csv
+docs.max_chars_per_doc,191,max(len(content)),,docs.csv
+embedding.throughput_texts_per_sec_first_run,278.657718,4152 / 14.9 = 总条数 / 首跑向量化耗时(run_all.log),total_texts=4152|run_all.log 向量化耗时(秒)=14.900000,embeddings_meta.json;run_all.log
+embedding.throughput_texts_per_sec_repro,269.086196,4152 / 15.43 = 总条数 / embeddings_meta.encode_seconds,total_texts=4152|encode_seconds=15.430000,embeddings_meta.json

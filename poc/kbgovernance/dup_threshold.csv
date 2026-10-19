@@ -1,0 +1,4 @@
+﻿threshold,dup_groups,detected_docs,group_precision,group_recall,group_f1,doc_precision,doc_recall,doc_f1,seconds
+0.85,23,223,0.1739,0.1818,0.1778,0.2197,1.0,0.3603,0.0
+0.9,32,77,0.5938,0.8636,0.7037,0.6364,1.0,0.7778,0.0
+0.95,22,49,1.0,1.0,1.0,1.0,1.0,1.0,0.0

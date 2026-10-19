@@ -1,0 +1,15 @@
+# 排课优化 POC 依赖 (Windows / Python 3.11 实测通过的版本)
+#
+# 实测安装情况见 RESULT.md:
+#   numpy    2.3.0   已预装
+#   pandas   2.3.0   已预装
+#   networkx 3.6.1   已预装
+#   ortools  9.15.6755  本次新装, 耗时 63s (下载 23.9MB)
+#
+# 注意: 安装 ortools 会把 protobuf 从 7.36.0 降级到 6.33.6
+#       (ortools 9.15 要求 protobuf>=6.33.1,<6.34)。
+#       建议使用独立虚拟环境, 见 RESULT.md 9.1。
+numpy==2.3.0
+pandas==2.3.0
+networkx==3.6.1
+ortools==9.15.6755

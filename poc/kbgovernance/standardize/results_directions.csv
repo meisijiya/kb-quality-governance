@@ -1,0 +1,29 @@
+﻿方向,场景,AUC,F1,召回全部阈值
+ABS -max (基线),alpha,0.968,0.8889,-0.6657
+A1 (top5-mean)/(max-min),alpha,0.096,0.2941,-0.9998
+A2 (max-top5)/max,alpha,0.112,0.2941,0.0001
+A3 (max-stop5)/span,alpha,0.096,0.2941,0.0002
+A4 stop5-max,alpha,0.92,0.7273,-0.0153
+B 双向中心化 max-prior,alpha,0.816,0.6667,-0.0
+B+ top5 双向中心化,alpha,0.496,0.5,0.0002
+ABS -max (基线),beta,0.8075,0.625,-0.6633
+A1 (top5-mean)/(max-min),beta,0.1615,0.3784,-1.0
+A2 (max-top5)/max,beta,0.1491,0.3784,0.0
+A3 (max-stop5)/span,beta,0.1615,0.3784,0.0
+A4 stop5-max,beta,0.8509,0.6667,-0.0064
+B 双向中心化 max-prior,beta,0.6273,0.5,-0.0069
+B+ top5 双向中心化,beta,0.5031,0.4118,-0.0084
+ABS -max (基线),gamma,0.9022,0.8387,-0.6897
+A1 (top5-mean)/(max-min),gamma,0.14,0.6667,-1.0
+A2 (max-top5)/max,gamma,0.1444,0.6667,0.0
+A3 (max-stop5)/span,gamma,0.14,0.6667,0.0
+A4 stop5-max,gamma,0.8644,0.8485,-0.0282
+B 双向中心化 max-prior,gamma,0.6422,0.6667,-0.0341
+B+ top5 双向中心化,gamma,0.3378,0.6667,-0.08
+ABS -max (基线),gamma-X,0.9135,0.963,-0.6792
+A1 (top5-mean)/(max-min),gamma-X,0.3173,0.9286,-0.9949
+A2 (max-top5)/max,gamma-X,0.2788,0.9286,0.0018
+A3 (max-stop5)/span,gamma-X,0.3173,0.9286,0.0051
+A4 stop5-max,gamma-X,0.7981,0.963,-0.0155
+B 双向中心化 max-prior,gamma-X,0.75,0.9455,-0.0355
+B+ top5 双向中心化,gamma-X,0.7115,0.9455,-0.1062

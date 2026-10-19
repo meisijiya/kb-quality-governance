@@ -1,0 +1,18 @@
+# 本 PoC 实际用到的包与版本（全部为本次真实安装/环境中已存在的版本）
+# 安装命令见 RESULT.md
+numpy==2.3.0
+pandas==2.3.0
+scipy==1.17.1
+scikit-learn==1.9.0
+
+# 语义向量化（首选方案，已实际使用，未降级）
+torch==2.14.0
+FlagEmbedding==1.4.2
+huggingface-hub==1.33.0
+accelerate==1.15.0
+sentencepiece==0.2.2
+peft==0.21.2
+datasets==5.1.0
+
+# 备选方案：若 FlagEmbedding 装不上，embed.py 会自动改用
+# sentence-transformers（未安装，仅为降级路径预留）

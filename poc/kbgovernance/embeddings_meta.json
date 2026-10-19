@@ -1,0 +1,12 @@
+{
+  "attempts": [],
+  "scheme": "FlagEmbedding",
+  "model": "BAAI/bge-small-zh-v1.5",
+  "fallback": false,
+  "dim": 512,
+  "encode_seconds": 15.43,
+  "n_docs": 300,
+  "n_tickets": 2000,
+  "n_passages": 1852,
+  "model_download_mb": 95.8
+}

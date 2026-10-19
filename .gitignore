@@ -1,0 +1,54 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---- 虚拟环境 ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- 工具缓存 ----
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# ---- 模型权重与本地缓存（不进仓库，run_all.sh 用 HF_HOME 重定向到 D:/hf_cache）----
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+.hf_cache/
+hf_cache/
+
+# ---- 密钥与本地环境 ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---- 临时工作区（过程笔记，任务结束即删）----
+.scratch/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 说明：poc/ 下的 *.log、*.csv、*.npy 是论文数字的溯源产物，刻意入库，不在此忽略。
+# poc/kbgovernance/check_numbers_report.md（数字纪律门禁报告）同样刻意入库。

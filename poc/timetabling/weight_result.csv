@@ -1,0 +1,9 @@
+﻿scale,scenario,weight_set,w_teacher,w_capacity,w_building,status,teacher_consecutive,capacity_waste,building_spread,soft_total,hard_violations,objective,best_bound,n_vars_hard_only,n_vars_with_soft,n_constraints,time_sec
+s60,"宽松(s60, 利用率28%)",baseline,1,1,1,OPTIMAL,1,736,15,752,0,776.0,776.0,1173,5358,9906,7.949
+s60,"宽松(s60, 利用率28%)",balanced,2,2,2,OPTIMAL,1,736,15,752,0,1552.0,1552.0,1173,5358,9906,6.305
+s60,"宽松(s60, 利用率28%)",focus_teacher,10,1,1,OPTIMAL,1,736,15,752,0,785.0,785.0,1173,5358,9906,6.1
+s60,"宽松(s60, 利用率28%)",focus_capacity,1,10,1,OPTIMAL,1,736,15,752,0,7400.0,7400.0,1173,5358,9906,5.256
+s60,"高利用率(s150课程/15教室, 利用率76%)",baseline,1,1,1,FEASIBLE,8,3593,54,3655,0,3707.0,3668.0,3262,14410,26608,240.169
+s60,"高利用率(s150课程/15教室, 利用率76%)",balanced,2,2,2,FEASIBLE,4,3593,55,3652,0,7408.0,7336.0,3262,14410,26608,240.096
+s60,"高利用率(s150课程/15教室, 利用率76%)",focus_teacher,10,1,1,FEASIBLE,5,3593,53,3651,0,3748.0,3668.0,3262,14410,26608,240.09
+s60,"高利用率(s150课程/15教室, 利用率76%)",focus_capacity,1,10,1,FEASIBLE,10,3593,52,3655,0,36044.0,36005.0,3262,14410,26608,240.093

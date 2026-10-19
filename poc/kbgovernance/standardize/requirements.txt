@@ -1,0 +1,9 @@
+# standardize/ 目录新增依赖
+# 原型（poc/kbgovernance/requirements.txt）已有的 numpy / pandas / scikit-learn /
+# FlagEmbedding / torch 不在此重复列出，版本约束见父目录 requirements.txt。
+#
+# 说明：本次实验未引入任何新的重量级依赖，Python 3.11.9 下实测通过。
+
+# 仅 standardize.py 的机制分析（Spearman 秩相关）使用。
+# 可用 pandas 的 df.rank().corr() 完全替代，不是硬依赖。
+scipy>=1.11

@@ -1,0 +1,31 @@
+# 换行符策略
+#
+# 本仓库当前 core.autocrlf=true。若不显式约束，Windows 上一次 checkout/switch
+# 就会把所有 .sh 变成 CRLF，Git Bash 执行时直接报 `$'\r': command not found`，
+# 直接打断 W2 的「语料可复现」关卡（G2）。因此按文件性质分别钉死。
+#
+# 现状（2026-10-19 实测）：
+#   .sh / .py / .md / requirements.txt  → LF
+#   .csv / .json / .log / 其余 .txt     → CRLF
+#   .npy                               → 二进制
+
+# 默认：识别为文本的文件，入库统一为 LF
+* text=auto
+
+# ---- 必须保持 LF：要在 Git Bash 下执行或由人手写的源文件 ----
+*.sh  text eol=lf
+*.py  text eol=lf
+*.md  text eol=lf
+
+# ---- 必须逐字节保留：机读产物，是论文数字的溯源依据 ----
+# 禁止任何换行转换，保证仓库里的字节与脚本产出完全一致
+*.csv  -text
+*.json -text
+*.log  -text
+*.txt  -text
+
+# 上面 *.txt 覆盖了 .txt，此条把依赖清单拉回 LF
+requirements.txt text eol=lf
+
+# ---- 二进制：禁止 diff 与换行转换 ----
+*.npy binary

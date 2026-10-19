@@ -1,0 +1,6 @@
+=== 求解并导出可视化数据 (s60) ===
+[cpsat:viz] 任务数=127 变量数=1173 约束数=2501 状态=OPTIMAL 耗时=1.968s relax_level=0
+    独立复核: 硬冲突=0 使用时段数=25 明细={}
+[viz] schedule.json 写入 127 条
+[viz] conflicts.json 写入 0 条 (硬冲突 0)
+[viz] matrix.csv 写入 30 x 15

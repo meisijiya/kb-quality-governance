@@ -1,0 +1,20 @@
+规模      算法                          任务数      耗时s  状态               硬冲突     时段数
+------------------------------------------------------------------------------------------
+s30     greedy_largest_first         67   0.0002  COLORED           15      13
+s30     greedy_DSATUR                67   0.0027  COLORED           16      12
+s30     cpsat                        67    0.552  OPTIMAL            0      21
+          -> 模型规模                    变量      474        约束    1019
+s60     greedy_largest_first        127   0.0002  COLORED           40      21
+s60     greedy_DSATUR               127   0.0118  COLORED           43      20
+s60     cpsat                       127    1.922  OPTIMAL            0      25
+          -> 模型规模                    变量     1173        约束    2501
+s100    greedy_largest_first        223   0.0004  COLORED           70      19
+s100    greedy_DSATUR               223   0.0443  COLORED           67      19
+s100    cpsat                       223   19.934  OPTIMAL            0      30
+          -> 模型规模                    变量     3354        约束    6979
+s150    greedy_largest_first        343   0.0007  COLORED          111      26
+s150    greedy_DSATUR               343   0.1057  COLORED          115      26
+s150    cpsat                       343   30.130  UNKNOWN         None    None
+          -> 模型规模                    变量     6023        约束   12405
+
+[stress] 已写入 D:\26code\毕设\poc\timetabling\stress_result.csv (12 行)

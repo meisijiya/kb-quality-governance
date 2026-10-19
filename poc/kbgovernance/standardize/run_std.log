@@ -1,0 +1,174 @@
+==========================================================================
+[standardize] 基线核对
+[standardize] 段落级 max-cosine 意图级 AUC = 0.9680 (RESULT.md 记录 0.968)
+[standardize] 意图->域 映射: 公积金提取材料->采购合同, 密码策略例外申请->信息技术, 数据导出权限申请->客户服务, 海外出差报销标准->财务管理, 社保转移办理->人事行政
+
+==========================================================================
+[scenario alpha] 完整语料 300 篇 / 2000 条
+  cover 分布 min=0.5629 mean=0.6891 max=0.8294 sd=0.0529
+
+==========================================================================
+[scenario beta] 缩小语料 75 篇（seed=42 随机抽样）
+  文档 75 篇, 存活意图 23/25, 新增缺口意图 ['差旅费报销', '考勤异常处理']
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/71 [00:00<?, ?it/s]Loading weights: 100%|██████████| 71/71 [00:00<00:00, 9403.68it/s]
+pre tokenize:   0%|          | 0/8 [00:00<?, ?it/s]pre tokenize: 100%|██████████| 8/8 [00:00<00:00, 591.82it/s]
+Inference Embeddings:   0%|          | 0/8 [00:00<?, ?it/s]Inference Embeddings:  12%|█▎        | 1/8 [00:00<00:02,  3.46it/s]Inference Embeddings:  25%|██▌       | 2/8 [00:00<00:01,  4.70it/s]Inference Embeddings:  38%|███▊      | 3/8 [00:00<00:00,  5.28it/s]Inference Embeddings:  50%|█████     | 4/8 [00:00<00:00,  5.91it/s]Inference Embeddings:  62%|██████▎   | 5/8 [00:00<00:00,  6.61it/s]Inference Embeddings:  75%|███████▌  | 6/8 [00:00<00:00,  7.25it/s]Inference Embeddings:  88%|████████▊ | 7/8 [00:01<00:00,  7.71it/s]Inference Embeddings: 100%|██████████| 8/8 [00:01<00:00,  7.22it/s]
+  重新编码+覆盖度耗时 14.45s, cover min=0.5063 mean=0.6565 max=0.8294
+
+==========================================================================
+[scenario gamma] 领域偏移 180 篇（财务/人事行政/信息技术/采购合同）
+  文档 180 篇, 存活意图 15/25
+  重新定义 ground truth = 15 个意图 (=10 个因域偏移失去覆盖 + 5 个原有缺口)
+pre tokenize:   0%|          | 0/18 [00:00<?, ?it/s]pre tokenize: 100%|██████████| 18/18 [00:00<00:00, 628.78it/s]
+Inference Embeddings:   0%|          | 0/18 [00:00<?, ?it/s]Inference Embeddings:   6%|▌         | 1/18 [00:00<00:03,  5.01it/s]Inference Embeddings:  11%|█         | 2/18 [00:00<00:02,  5.57it/s]Inference Embeddings:  17%|█▋        | 3/18 [00:00<00:02,  5.87it/s]Inference Embeddings:  22%|██▏       | 4/18 [00:00<00:02,  5.60it/s]Inference Embeddings:  28%|██▊       | 5/18 [00:00<00:02,  5.65it/s]Inference Embeddings:  33%|███▎      | 6/18 [00:01<00:02,  5.94it/s]Inference Embeddings:  39%|███▉      | 7/18 [00:01<00:01,  6.33it/s]Inference Embeddings:  44%|████▍     | 8/18 [00:01<00:01,  6.63it/s]Inference Embeddings:  50%|█████     | 9/18 [00:01<00:01,  6.97it/s]Inference Embeddings:  56%|█████▌    | 10/18 [00:01<00:01,  7.31it/s]Inference Embeddings:  61%|██████    | 11/18 [00:01<00:00,  7.54it/s]Inference Embeddings:  67%|██████▋   | 12/18 [00:01<00:00,  7.89it/s]Inference Embeddings:  72%|███████▏  | 13/18 [00:01<00:00,  8.37it/s]Inference Embeddings:  78%|███████▊  | 14/18 [00:02<00:00,  8.73it/s]Inference Embeddings:  89%|████████▉ | 16/18 [00:02<00:00,  9.33it/s]Inference Embeddings: 100%|██████████| 18/18 [00:02<00:00, 11.36it/s]Inference Embeddings: 100%|██████████| 18/18 [00:02<00:00,  7.76it/s]
+  重新编码+覆盖度耗时 2.59s, cover min=0.5628 mean=0.6704 max=0.8038
+
+==========================================================================
+[scenario gamma-X] 极端域偏移 48 篇（只剩财务管理域）
+  文档 48 篇, 存活意图 4/25, 重新定义 ground truth = 26 个意图
+pre tokenize:   0%|          | 0/5 [00:00<?, ?it/s]pre tokenize: 100%|██████████| 5/5 [00:00<00:00, 989.08it/s]
+Inference Embeddings:   0%|          | 0/5 [00:00<?, ?it/s]Inference Embeddings:  20%|██        | 1/5 [00:00<00:00,  5.24it/s]Inference Embeddings:  40%|████      | 2/5 [00:00<00:00,  6.06it/s]Inference Embeddings:  60%|██████    | 3/5 [00:00<00:00,  6.83it/s]Inference Embeddings:  80%|████████  | 4/5 [00:00<00:00,  7.48it/s]Inference Embeddings: 100%|██████████| 5/5 [00:00<00:00,  7.80it/s]
+  重新编码+覆盖度耗时 0.84s, cover min=0.5405 mean=0.6382 max=0.7649
+
+==========================================================================
+[scenario delta] 文档翻倍 600 篇（原 300 + 复制并做同义扰动）
+  合并后 600 篇
+pre tokenize:   0%|          | 0/63 [00:00<?, ?it/s]pre tokenize: 100%|██████████| 63/63 [00:00<00:00, 724.50it/s]
+Inference Embeddings:   0%|          | 0/63 [00:00<?, ?it/s]Inference Embeddings:   2%|▏         | 1/63 [00:00<00:11,  5.22it/s]Inference Embeddings:   3%|▎         | 2/63 [00:00<00:11,  5.37it/s]Inference Embeddings:   5%|▍         | 3/63 [00:00<00:10,  5.48it/s]Inference Embeddings:   6%|▋         | 4/63 [00:00<00:10,  5.64it/s]Inference Embeddings:   8%|▊         | 5/63 [00:00<00:09,  5.80it/s]Inference Embeddings:  10%|▉         | 6/63 [00:01<00:09,  5.94it/s]Inference Embeddings:  11%|█         | 7/63 [00:01<00:09,  5.97it/s]Inference Embeddings:  13%|█▎        | 8/63 [00:01<00:08,  6.17it/s]Inference Embeddings:  14%|█▍        | 9/63 [00:01<00:08,  6.24it/s]Inference Embeddings:  16%|█▌        | 10/63 [00:01<00:08,  6.35it/s]Inference Embeddings:  17%|█▋        | 11/63 [00:01<00:08,  6.49it/s]Inference Embeddings:  19%|█▉        | 12/63 [00:01<00:07,  6.54it/s]Inference Embeddings:  21%|██        | 13/63 [00:02<00:07,  6.67it/s]Inference Embeddings:  22%|██▏       | 14/63 [00:02<00:07,  6.76it/s]Inference Embeddings:  24%|██▍       | 15/63 [00:02<00:07,  6.84it/s]Inference Embeddings:  25%|██▌       | 16/63 [00:02<00:06,  6.87it/s]Inference Embeddings:  27%|██▋       | 17/63 [00:02<00:06,  6.84it/s]Inference Embeddings:  29%|██▊       | 18/63 [00:02<00:06,  6.77it/s]Inference Embeddings:  30%|███       | 19/63 [00:02<00:06,  6.79it/s]Inference Embeddings:  32%|███▏      | 20/63 [00:03<00:06,  6.78it/s]Inference Embeddings:  33%|███▎      | 21/63 [00:03<00:06,  6.84it/s]Inference Embeddings:  35%|███▍      | 22/63 [00:03<00:06,  6.72it/s]Inference Embeddings:  37%|███▋      | 23/63 [00:03<00:05,  6.83it/s]Inference Embeddings:  38%|███▊      | 24/63 [00:03<00:05,  6.99it/s]Inference Embeddings:  40%|███▉      | 25/63 [00:03<00:05,  7.14it/s]Inference Embeddings:  41%|████▏     | 26/63 [00:03<00:05,  7.17it/s]Inference Embeddings:  43%|████▎     | 27/63 [00:04<00:04,  7.22it/s]Inference Embeddings:  44%|████▍     | 28/63 [00:04<00:04,  7.27it/s]Inference Embeddings:  46%|████▌     | 29/63 [00:04<00:04,  7.50it/s]Inference Embeddings:  48%|████▊     | 30/63 [00:04<00:04,  7.56it/s]Inference Embeddings:  49%|████▉     | 31/63 [00:04<00:04,  7.65it/s]Inference Embeddings:  51%|█████     | 32/63 [00:04<00:03,  7.76it/s]Inference Embeddings:  52%|█████▏    | 33/63 [00:04<00:03,  7.86it/s]Inference Embeddings:  54%|█████▍    | 34/63 [00:04<00:03,  7.94it/s]Inference Embeddings:  56%|█████▌    | 35/63 [00:05<00:03,  8.09it/s]Inference Embeddings:  57%|█████▋    | 36/63 [00:05<00:03,  8.22it/s]Inference Embeddings:  59%|█████▊    | 37/63 [00:05<00:03,  8.21it/s]Inference Embeddings:  60%|██████    | 38/63 [00:05<00:02,  8.40it/s]Inference Embeddings:  62%|██████▏   | 39/63 [00:05<00:02,  8.52it/s]Inference Embeddings:  63%|██████▎   | 40/63 [00:05<00:02,  8.62it/s]Inference Embeddings:  65%|██████▌   | 41/63 [00:05<00:02,  8.64it/s]Inference Embeddings:  67%|██████▋   | 42/63 [00:05<00:02,  8.70it/s]Inference Embeddings:  68%|██████▊   | 43/63 [00:06<00:02,  8.82it/s]Inference Embeddings:  70%|██████▉   | 44/63 [00:06<00:02,  8.98it/s]Inference Embeddings:  71%|███████▏  | 45/63 [00:06<00:01,  9.12it/s]Inference Embeddings:  75%|███████▍  | 47/63 [00:06<00:01,  9.43it/s]Inference Embeddings:  76%|███████▌  | 48/63 [00:06<00:01,  9.54it/s]Inference Embeddings:  78%|███████▊  | 49/63 [00:06<00:01,  9.54it/s]Inference Embeddings:  79%|███████▉  | 50/63 [00:06<00:01,  9.57it/s]Inference Embeddings:  81%|████████  | 51/63 [00:06<00:01,  9.64it/s]Inference Embeddings:  84%|████████▍ | 53/63 [00:07<00:01,  9.94it/s]Inference Embeddings:  87%|████████▋ | 55/63 [00:07<00:00, 10.73it/s]Inference Embeddings:  90%|█████████ | 57/63 [00:07<00:00, 11.93it/s]Inference Embeddings:  94%|█████████▎| 59/63 [00:07<00:00, 13.51it/s]Inference Embeddings:  97%|█████████▋| 61/63 [00:07<00:00, 15.01it/s]Inference Embeddings: 100%|██████████| 63/63 [00:07<00:00,  8.25it/s]
+  重新编码+覆盖度耗时 8.01s, cover min=0.5629 mean=0.6892 max=0.8294
+
+==========================================================================
+[EXP1] 意图级 AUC 对照（场景 alpha，基线 0.968）
+  ABS(绝对阈值)          AUC=0.9680  F1=0.8889 thr=-0.6463
+  S1 分位数排名           AUC=0.9680  F1=0.8889 thr=+0.8101
+  S2 全局z-score       AUC=0.9680  F1=0.8889 thr=+0.8085
+  S3 领域内z            AUC=1.0000  F1=1.0000 thr=+0.6593
+  S4 双参考系(域)         AUC=0.9840  F1=0.8889 thr=+0.6593
+  S5 双参考系均值          AUC=1.0000  F1=1.0000 thr=+0.6576
+  S6 去极值z            AUC=0.9680  F1=0.8889 thr=+0.8910
+  S4b 双参考系(意图)       AUC=0.7520  F1=0.4762 thr=-0.2105
+
+==========================================================================
+[EXP2] 阈值可迁移性
+
+  各场景意图级 AUC：
+场景            alpha    beta  delta   gamma  gamma-X
+方法                                                 
+ABS(绝对阈值)     0.968  0.8075  0.968  0.9022   0.9135
+S1 分位数排名      0.968  0.8075  0.968  0.9022   0.9135
+S2 全局z-score  0.968  0.8075  0.968  0.9022   0.9135
+S3 领域内z       1.000  0.7950  1.000  0.6933   0.6442
+S4 双参考系(域)    0.984  0.8323  0.984  0.7822   0.8077
+S5 双参考系均值     1.000  0.8199  1.000  0.8311   0.7885
+S6 去极值z       0.968  0.8075  0.968  0.9022   0.9135
+S4b 双参考系(意图)  0.752  0.6708  0.768  0.7511   0.8750
+
+  「召回全部缺口意图」所需阈值（跨场景是否同量纲）：
+场景             alpha    beta   delta   gamma  gamma-X
+方法                                                   
+ABS(绝对阈值)    -0.6657 -0.6633 -0.6657 -0.6897  -0.6792
+S1 分位数排名      0.6613  0.3832  0.6613  0.3060   0.1208
+S2 全局z-score  0.4415 -0.1369  0.4452 -0.3798  -0.9887
+S3 领域内z       0.7425 -0.2564  0.7425 -0.9971  -1.2875
+S4 双参考系(域)    0.4415 -0.2564  0.4452 -0.9971  -1.2875
+S5 双参考系均值     0.6920 -0.1778  0.7023 -0.5803  -0.9492
+S6 去极值z       0.4956 -0.1592  0.4998 -0.4266  -1.0760
+S4b 双参考系(意图) -0.1722 -0.5284 -0.1722 -0.5708  -0.9887
+
+  阈值迁移（源=alpha 的最优 F1 阈值，直接搬到别的场景）：
+          方法   源场景     源阈值    目标场景  迁移后F1   迁移后P   迁移后R  检出意图数  目标场景最优F1   AUC衰减
+   ABS(绝对阈值) alpha -0.6463    beta 0.5882 0.5000 0.7143     10    0.6250 -0.1605
+   ABS(绝对阈值) alpha -0.6463   gamma 0.7500 1.0000 0.6000      9    0.8387 -0.0658
+   ABS(绝对阈值) alpha -0.6463 gamma-X 0.8444 1.0000 0.7308     19    0.9630 -0.0545
+   ABS(绝对阈值) alpha -0.6463   delta 0.8889 1.0000 0.8000      4    0.8889  0.0000
+    S1 分位数排名 alpha  0.8101    beta 0.5455 0.7500 0.4286      4    0.6250 -0.1605
+    S1 分位数排名 alpha  0.8101   gamma 0.4211 1.0000 0.2667      4    0.8387 -0.0658
+    S1 分位数排名 alpha  0.8101 gamma-X 0.2667 1.0000 0.1538      4    0.9630 -0.0545
+    S1 分位数排名 alpha  0.8101   delta 0.8889 1.0000 0.8000      4    0.8889  0.0000
+S2 全局z-score alpha  0.8085    beta 0.4000 0.6667 0.2857      3    0.6250 -0.1605
+S2 全局z-score alpha  0.8085   gamma 0.4211 1.0000 0.2667      4    0.8387 -0.0658
+S2 全局z-score alpha  0.8085 gamma-X 0.2667 1.0000 0.1538      4    0.9630 -0.0545
+S2 全局z-score alpha  0.8085   delta 0.8889 1.0000 0.8000      4    0.8889  0.0000
+     S3 领域内z alpha  0.6593    beta 0.5000 0.6000 0.4286      5    0.5882 -0.2050
+     S3 领域内z alpha  0.6593   gamma 0.6364 1.0000 0.4667      7    0.6977 -0.3067
+     S3 领域内z alpha  0.6593 gamma-X 0.3750 1.0000 0.2308      6    0.9286 -0.3558
+     S3 领域内z alpha  0.6593   delta 1.0000 1.0000 1.0000      5    1.0000  0.0000
+  S4 双参考系(域) alpha  0.6593    beta 0.5455 0.7500 0.4286      4    0.6667 -0.1517
+  S4 双参考系(域) alpha  0.6593   gamma 0.5000 1.0000 0.3333      5    0.7500 -0.2018
+  S4 双参考系(域) alpha  0.6593 gamma-X 0.2667 1.0000 0.1538      4    0.9455 -0.1763
+  S4 双参考系(域) alpha  0.6593   delta 0.8889 1.0000 0.8000      4    0.8889  0.0000
+   S5 双参考系均值 alpha  0.6576    beta 0.5455 0.7500 0.4286      4    0.6667 -0.1801
+   S5 双参考系均值 alpha  0.6576   gamma 0.5714 1.0000 0.4000      6    0.7879 -0.1689
+   S5 双参考系均值 alpha  0.6576 gamma-X 0.3226 1.0000 0.1923      5    0.9455 -0.2115
+   S5 双参考系均值 alpha  0.6576   delta 1.0000 1.0000 1.0000      5    1.0000  0.0000
+     S6 去极值z alpha  0.8910    beta 0.5455 0.7500 0.4286      4    0.6250 -0.1605
+     S6 去极值z alpha  0.8910   gamma 0.4211 1.0000 0.2667      4    0.8387 -0.0658
+     S6 去极值z alpha  0.8910 gamma-X 0.2667 1.0000 0.1538      4    0.9630 -0.0545
+     S6 去极值z alpha  0.8910   delta 0.8889 1.0000 0.8000      4    0.8889  0.0000
+S4b 双参考系(意图) alpha -0.2105    beta 0.4545 0.3333 0.7143     15    0.5217 -0.0812
+S4b 双参考系(意图) alpha -0.2105   gamma 0.7273 0.6667 0.8000     18    0.7895 -0.0009
+S4b 双参考系(意图) alpha -0.2105 gamma-X 0.7619 1.0000 0.6154     16    0.9630  0.1230
+S4b 双参考系(意图) alpha -0.2105   delta 0.4762 0.3125 1.0000     16    0.5000  0.0160
+
+==========================================================================
+[EXP3] 消融
+  ABS 绝对余弦                   AUC=0.9680 F1=0.8889 thr=-0.6463  -cover（基线 0.968）
+  S1 分位数排名                   AUC=0.9680 F1=0.8889 thr=+0.8101  1 - pct_rank(cover)
+  S2 全局z                     AUC=0.9680 F1=0.8889 thr=+0.8085  -(cover-mu)/sigma
+  S6 去极值z                    AUC=0.9680 F1=0.8889 thr=+0.8910  5%/95%裁剪后 z
+  S4 完整(域内)                  AUC=0.9840 F1=0.8889 thr=+0.6593  -max(zg, zw_domain)
+  S4 去掉域内(仅全局)               AUC=0.9680 F1=0.8889 thr=+0.8085  -zg
+  S4 去掉全局(仅域内)               AUC=1.0000 F1=1.0000 thr=+0.6593  -zw_domain
+  S4 换成意图片                   AUC=0.7520 F1=0.4762 thr=-0.2105  -max(zg, zw_intent)
+  S4 min 聚合                  AUC=1.0000 F1=1.0000 thr=+0.8085  -min(zg, zw_domain)
+  S5 均值聚合                    AUC=1.0000 F1=1.0000 thr=+0.6576  -(zg+zw_domain)/2
+  S3 域内分位数                   AUC=0.9920 F1=0.9091 thr=-0.2861  -pct_rank_within_domain
+  S3 意图片分位数                  AUC=0.7520 F1=0.5000 thr=-0.4841  -pct_rank_within_intent
+  消融: max 选出域内               AUC=0.9840 F1=0.8889 thr=+0.6593  仅当 zw_domain>zg 时取 zw
+  消融: max 选出全局               AUC=0.9840 F1=0.8889 thr=+0.6593  仅当 zg>zw_domain 时取 zg
+
+  关键变体跨场景 AUC：
+    S1 分位数排名         alpha  AUC=0.9680 F1=0.8889 thr=+0.8101
+    S1 分位数排名         beta   AUC=0.8075 F1=0.6250 thr=+0.6589
+    S1 分位数排名         gamma  AUC=0.9022 F1=0.8387 thr=+0.4341
+    S1 分位数排名         gamma-X AUC=0.9135 F1=0.9630 thr=+0.1103
+    S1 分位数排名         delta  AUC=0.9680 F1=0.8889 thr=+0.8101
+    S2 全局z           alpha  AUC=0.9680 F1=0.8889 thr=+0.8085
+    S2 全局z           beta   AUC=0.8075 F1=0.6250 thr=+0.4270
+    S2 全局z           gamma  AUC=0.9022 F1=0.8387 thr=+0.0614
+    S2 全局z           gamma-X AUC=0.9135 F1=0.9630 thr=-1.0544
+    S2 全局z           delta  AUC=0.9680 F1=0.8889 thr=+0.8129
+    S3 域内分位数         alpha  AUC=0.9920 F1=0.9091 thr=-0.2861
+    S3 域内分位数         beta   AUC=0.8137 F1=0.6154 thr=-0.3382
+    S3 域内分位数         gamma  AUC=0.7022 F1=0.6977 thr=-0.8416
+    S3 域内分位数         gamma-X AUC=0.6058 F1=0.9455 thr=-0.8797
+    S3 域内分位数         delta  AUC=0.9920 F1=0.9091 thr=-0.2861
+    S4 完整(域内)        alpha  AUC=0.9840 F1=0.8889 thr=+0.6593
+    S4 完整(域内)        beta   AUC=0.8323 F1=0.6667 thr=+0.3369
+    S4 完整(域内)        gamma  AUC=0.7822 F1=0.7500 thr=-1.0635
+    S4 完整(域内)        gamma-X AUC=0.8077 F1=0.9455 thr=-1.8235
+    S4 完整(域内)        delta  AUC=0.9840 F1=0.8889 thr=+0.6593
+    S4 min聚合         alpha  AUC=1.0000 F1=1.0000 thr=+0.8085
+    S4 min聚合         beta   AUC=0.7888 F1=0.5882 thr=+0.4327
+    S4 min聚合         gamma  AUC=0.8756 F1=0.8387 thr=+0.0919
+    S4 min聚合         gamma-X AUC=0.7404 F1=0.9455 thr=-1.0603
+    S4 min聚合         delta  AUC=1.0000 F1=1.0000 thr=+0.8129
+    S5 均值聚合          alpha  AUC=1.0000 F1=1.0000 thr=+0.6576
+    S5 均值聚合          beta   AUC=0.8199 F1=0.6667 thr=+0.3967
+    S5 均值聚合          gamma  AUC=0.8311 F1=0.7879 thr=-0.2594
+    S5 均值聚合          gamma-X AUC=0.7885 F1=0.9455 thr=-1.3672
+    S5 均值聚合          delta  AUC=1.0000 F1=1.0000 thr=+0.6638
+
+==========================================================================
+[MECH] 机制分析：与 cover 的 Spearman 秩相关（=1 即单调等价，AUC 必然相同）
+  ABS(绝对阈值)          rho=-1.000000  AUC=0.9680  单调等价 -> AUC 数学上不可能改变
+  S1 分位数排名           rho=-1.000000  AUC=0.9680  单调等价 -> AUC 数学上不可能改变
+  S2 全局z-score       rho=-1.000000  AUC=0.9680  单调等价 -> AUC 数学上不可能改变
+  S3 领域内z            rho=-0.893715  AUC=1.0000  非单调 -> 可改变排序
+  S4 双参考系(域)         rho=-0.972351  AUC=0.9840  非单调 -> 可改变排序
+  S5 双参考系均值          rho=-0.971441  AUC=1.0000  非单调 -> 可改变排序
+  S6 去极值z            rho=-0.999817  AUC=0.9680  非单调 -> 可改变排序
+  S4b 双参考系(意图)       rho=-0.814022  AUC=0.7520  非单调 -> 可改变排序
+
+[standardize] 完成，总耗时 26.2s

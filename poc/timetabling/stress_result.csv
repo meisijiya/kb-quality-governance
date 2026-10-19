@@ -1,0 +1,13 @@
+﻿scale,n_courses,n_tasks,algorithm,time_sec,status,hard_violations,periods_used,n_vars,n_constraints,violation_breakdown
+s30,30,67,greedy_largest_first,0.0002,COLORED,15,13,,,"{'capacity_short': 1, 'type_mismatch': 1, 'period_out_of_range': 13}"
+s30,30,67,greedy_DSATUR,0.0027,COLORED,16,12,,,"{'capacity_short': 1, 'type_mismatch': 1, 'period_out_of_range': 14}"
+s30,30,67,cpsat,0.552,OPTIMAL,0,21,474,1019,{}
+s60,60,127,greedy_largest_first,0.0002,COLORED,40,21,,,"{'room_occupied': 3, 'capacity_short': 6, 'type_mismatch': 6, 'period_out_of_range': 25}"
+s60,60,127,greedy_DSATUR,0.0118,COLORED,43,20,,,"{'room_occupied': 4, 'capacity_short': 8, 'type_mismatch': 8, 'period_out_of_range': 23}"
+s60,60,127,cpsat,1.922,OPTIMAL,0,25,1173,2501,{}
+s100,100,223,greedy_largest_first,0.0004,COLORED,70,19,,,"{'room_occupied': 5, 'capacity_short': 8, 'type_mismatch': 8, 'period_out_of_range': 49}"
+s100,100,223,greedy_DSATUR,0.0443,COLORED,67,19,,,"{'room_occupied': 6, 'capacity_short': 10, 'type_mismatch': 10, 'period_out_of_range': 41}"
+s100,100,223,cpsat,19.934,OPTIMAL,0,30,3354,6979,{}
+s150,150,343,greedy_largest_first,0.0007,COLORED,111,26,,,"{'room_occupied': 10, 'capacity_short': 14, 'type_mismatch': 16, 'period_out_of_range': 71}"
+s150,150,343,greedy_DSATUR,0.1057,COLORED,115,26,,,"{'room_occupied': 7, 'capacity_short': 18, 'type_mismatch': 19, 'period_out_of_range': 71}"
+s150,150,343,cpsat,30.13,UNKNOWN,,,6023,12405,{}

@@ -1,0 +1,1450 @@
+{
+  "courses": [
+    {
+      "course_id": "C001",
+      "name": "课程C001",
+      "credits": 4,
+      "weekly_hours": 1,
+      "required_capacity": 26,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C002",
+      "name": "课程C002",
+      "credits": 2,
+      "weekly_hours": 2,
+      "required_capacity": 42,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C003",
+      "name": "课程C003",
+      "credits": 4,
+      "weekly_hours": 3,
+      "required_capacity": 88,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C004",
+      "name": "课程C004",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 26,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C005",
+      "name": "课程C005",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 95,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C006",
+      "name": "课程C006",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 88,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C007",
+      "name": "课程C007",
+      "credits": 3,
+      "weekly_hours": 3,
+      "required_capacity": 57,
+      "needs_lab": false,
+      "prerequisites": [
+        "C006"
+      ]
+    },
+    {
+      "course_id": "C008",
+      "name": "课程C008",
+      "credits": 3,
+      "weekly_hours": 2,
+      "required_capacity": 57,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C009",
+      "name": "课程C009",
+      "credits": 2,
+      "weekly_hours": 1,
+      "required_capacity": 33,
+      "needs_lab": false,
+      "prerequisites": [
+        "C007",
+        "C005"
+      ]
+    },
+    {
+      "course_id": "C010",
+      "name": "课程C010",
+      "credits": 1,
+      "weekly_hours": 3,
+      "required_capacity": 78,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C011",
+      "name": "课程C011",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 88,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C012",
+      "name": "课程C012",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 48,
+      "needs_lab": false,
+      "prerequisites": [
+        "C008"
+      ]
+    },
+    {
+      "course_id": "C013",
+      "name": "课程C013",
+      "credits": 1,
+      "weekly_hours": 2,
+      "required_capacity": 33,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C014",
+      "name": "课程C014",
+      "credits": 2,
+      "weekly_hours": 2,
+      "required_capacity": 63,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C015",
+      "name": "课程C015",
+      "credits": 4,
+      "weekly_hours": 3,
+      "required_capacity": 33,
+      "needs_lab": false,
+      "prerequisites": [
+        "C010"
+      ]
+    },
+    {
+      "course_id": "C016",
+      "name": "课程C016",
+      "credits": 3,
+      "weekly_hours": 3,
+      "required_capacity": 57,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C017",
+      "name": "课程C017",
+      "credits": 3,
+      "weekly_hours": 2,
+      "required_capacity": 63,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C018",
+      "name": "课程C018",
+      "credits": 2,
+      "weekly_hours": 1,
+      "required_capacity": 63,
+      "needs_lab": false,
+      "prerequisites": [
+        "C013",
+        "C015"
+      ]
+    },
+    {
+      "course_id": "C019",
+      "name": "课程C019",
+      "credits": 3,
+      "weekly_hours": 3,
+      "required_capacity": 78,
+      "needs_lab": true,
+      "prerequisites": [
+        "C018",
+        "C017"
+      ]
+    },
+    {
+      "course_id": "C020",
+      "name": "课程C020",
+      "credits": 3,
+      "weekly_hours": 3,
+      "required_capacity": 72,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C021",
+      "name": "课程C021",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 78,
+      "needs_lab": true,
+      "prerequisites": [
+        "C016"
+      ]
+    },
+    {
+      "course_id": "C022",
+      "name": "课程C022",
+      "credits": 4,
+      "weekly_hours": 2,
+      "required_capacity": 72,
+      "needs_lab": false,
+      "prerequisites": [
+        "C020",
+        "C018"
+      ]
+    },
+    {
+      "course_id": "C023",
+      "name": "课程C023",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 33,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C024",
+      "name": "课程C024",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 63,
+      "needs_lab": true,
+      "prerequisites": [
+        "C018",
+        "C020"
+      ]
+    },
+    {
+      "course_id": "C025",
+      "name": "课程C025",
+      "credits": 3,
+      "weekly_hours": 2,
+      "required_capacity": 88,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C026",
+      "name": "课程C026",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 88,
+      "needs_lab": false,
+      "prerequisites": [
+        "C024"
+      ]
+    },
+    {
+      "course_id": "C027",
+      "name": "课程C027",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 95,
+      "needs_lab": true,
+      "prerequisites": [
+        "C023",
+        "C022"
+      ]
+    },
+    {
+      "course_id": "C028",
+      "name": "课程C028",
+      "credits": 1,
+      "weekly_hours": 2,
+      "required_capacity": 95,
+      "needs_lab": false,
+      "prerequisites": [
+        "C022",
+        "C026"
+      ]
+    },
+    {
+      "course_id": "C029",
+      "name": "课程C029",
+      "credits": 2,
+      "weekly_hours": 2,
+      "required_capacity": 78,
+      "needs_lab": false,
+      "prerequisites": [
+        "C024",
+        "C027"
+      ]
+    },
+    {
+      "course_id": "C030",
+      "name": "课程C030",
+      "credits": 4,
+      "weekly_hours": 3,
+      "required_capacity": 48,
+      "needs_lab": false,
+      "prerequisites": [
+        "C027",
+        "C028"
+      ]
+    },
+    {
+      "course_id": "C031",
+      "name": "课程C031",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 48,
+      "needs_lab": true,
+      "prerequisites": [
+        "C029"
+      ]
+    },
+    {
+      "course_id": "C032",
+      "name": "课程C032",
+      "credits": 2,
+      "weekly_hours": 1,
+      "required_capacity": 33,
+      "needs_lab": false,
+      "prerequisites": [
+        "C026"
+      ]
+    },
+    {
+      "course_id": "C033",
+      "name": "课程C033",
+      "credits": 2,
+      "weekly_hours": 1,
+      "required_capacity": 88,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C034",
+      "name": "课程C034",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 42,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C035",
+      "name": "课程C035",
+      "credits": 3,
+      "weekly_hours": 3,
+      "required_capacity": 48,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C036",
+      "name": "课程C036",
+      "credits": 2,
+      "weekly_hours": 1,
+      "required_capacity": 33,
+      "needs_lab": false,
+      "prerequisites": [
+        "C033",
+        "C030"
+      ]
+    },
+    {
+      "course_id": "C037",
+      "name": "课程C037",
+      "credits": 4,
+      "weekly_hours": 3,
+      "required_capacity": 33,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C038",
+      "name": "课程C038",
+      "credits": 1,
+      "weekly_hours": 2,
+      "required_capacity": 48,
+      "needs_lab": true,
+      "prerequisites": [
+        "C033",
+        "C034"
+      ]
+    },
+    {
+      "course_id": "C039",
+      "name": "课程C039",
+      "credits": 3,
+      "weekly_hours": 2,
+      "required_capacity": 33,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C040",
+      "name": "课程C040",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 26,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C041",
+      "name": "课程C041",
+      "credits": 1,
+      "weekly_hours": 1,
+      "required_capacity": 48,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C042",
+      "name": "课程C042",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 26,
+      "needs_lab": true,
+      "prerequisites": [
+        "C038",
+        "C039"
+      ]
+    },
+    {
+      "course_id": "C043",
+      "name": "课程C043",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 88,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C044",
+      "name": "课程C044",
+      "credits": 2,
+      "weekly_hours": 2,
+      "required_capacity": 48,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C045",
+      "name": "课程C045",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 63,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C046",
+      "name": "课程C046",
+      "credits": 3,
+      "weekly_hours": 3,
+      "required_capacity": 42,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C047",
+      "name": "课程C047",
+      "credits": 2,
+      "weekly_hours": 1,
+      "required_capacity": 95,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C048",
+      "name": "课程C048",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 95,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C049",
+      "name": "课程C049",
+      "credits": 3,
+      "weekly_hours": 1,
+      "required_capacity": 72,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C050",
+      "name": "课程C050",
+      "credits": 2,
+      "weekly_hours": 2,
+      "required_capacity": 48,
+      "needs_lab": false,
+      "prerequisites": [
+        "C047",
+        "C045"
+      ]
+    },
+    {
+      "course_id": "C051",
+      "name": "课程C051",
+      "credits": 4,
+      "weekly_hours": 3,
+      "required_capacity": 57,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C052",
+      "name": "课程C052",
+      "credits": 1,
+      "weekly_hours": 1,
+      "required_capacity": 78,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C053",
+      "name": "课程C053",
+      "credits": 1,
+      "weekly_hours": 1,
+      "required_capacity": 88,
+      "needs_lab": true,
+      "prerequisites": [
+        "C047",
+        "C048"
+      ]
+    },
+    {
+      "course_id": "C054",
+      "name": "课程C054",
+      "credits": 2,
+      "weekly_hours": 2,
+      "required_capacity": 42,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C055",
+      "name": "课程C055",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 88,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C056",
+      "name": "课程C056",
+      "credits": 2,
+      "weekly_hours": 3,
+      "required_capacity": 33,
+      "needs_lab": false,
+      "prerequisites": [
+        "C050"
+      ]
+    },
+    {
+      "course_id": "C057",
+      "name": "课程C057",
+      "credits": 4,
+      "weekly_hours": 3,
+      "required_capacity": 42,
+      "needs_lab": true,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C058",
+      "name": "课程C058",
+      "credits": 4,
+      "weekly_hours": 2,
+      "required_capacity": 48,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C059",
+      "name": "课程C059",
+      "credits": 3,
+      "weekly_hours": 3,
+      "required_capacity": 57,
+      "needs_lab": false,
+      "prerequisites": []
+    },
+    {
+      "course_id": "C060",
+      "name": "课程C060",
+      "credits": 1,
+      "weekly_hours": 3,
+      "required_capacity": 72,
+      "needs_lab": false,
+      "prerequisites": [
+        "C055",
+        "C056"
+      ]
+    }
+  ],
+  "teachers": [
+    {
+      "teacher_id": "T001",
+      "name": "教师1",
+      "unavailable_slots": [
+        13,
+        14,
+        17,
+        22,
+        23
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T002",
+      "name": "教师2",
+      "unavailable_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        11,
+        17,
+        22
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T003",
+      "name": "教师3",
+      "unavailable_slots": [
+        1,
+        4,
+        9,
+        11,
+        13,
+        17,
+        25,
+        28
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T004",
+      "name": "教师4",
+      "unavailable_slots": [
+        3,
+        6,
+        7,
+        11,
+        21,
+        28
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T005",
+      "name": "教师5",
+      "unavailable_slots": [
+        4,
+        5,
+        7,
+        13,
+        19,
+        23,
+        27,
+        28
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T006",
+      "name": "教师6",
+      "unavailable_slots": [
+        0,
+        5,
+        13,
+        23,
+        28
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T007",
+      "name": "教师7",
+      "unavailable_slots": [
+        7,
+        13,
+        21,
+        23,
+        25,
+        29
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T008",
+      "name": "教师8",
+      "unavailable_slots": [
+        1,
+        3,
+        5,
+        12,
+        22,
+        25
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T009",
+      "name": "教师9",
+      "unavailable_slots": [
+        6,
+        7,
+        9,
+        11,
+        14,
+        26,
+        29
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T010",
+      "name": "教师10",
+      "unavailable_slots": [
+        0,
+        6,
+        10,
+        12,
+        21
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T011",
+      "name": "教师11",
+      "unavailable_slots": [
+        2,
+        8,
+        11,
+        20,
+        24,
+        27
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T012",
+      "name": "教师12",
+      "unavailable_slots": [
+        0,
+        3,
+        8,
+        10,
+        12,
+        17,
+        21,
+        26
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T013",
+      "name": "教师13",
+      "unavailable_slots": [
+        1,
+        3,
+        8,
+        18,
+        19
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T014",
+      "name": "教师14",
+      "unavailable_slots": [
+        10,
+        11,
+        13,
+        16,
+        19,
+        23,
+        25
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T015",
+      "name": "教师15",
+      "unavailable_slots": [
+        6,
+        12,
+        18,
+        28
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T016",
+      "name": "教师16",
+      "unavailable_slots": [
+        0,
+        1,
+        13,
+        16,
+        17,
+        22
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T017",
+      "name": "教师17",
+      "unavailable_slots": [
+        2,
+        6,
+        11,
+        13,
+        21,
+        23,
+        26,
+        28,
+        29
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T018",
+      "name": "教师18",
+      "unavailable_slots": [
+        3,
+        9,
+        10,
+        19,
+        21,
+        23
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T019",
+      "name": "教师19",
+      "unavailable_slots": [
+        9,
+        10,
+        12,
+        13,
+        17,
+        21,
+        22,
+        29
+      ],
+      "max_consecutive": 2
+    },
+    {
+      "teacher_id": "T020",
+      "name": "教师20",
+      "unavailable_slots": [
+        6,
+        12,
+        13,
+        21,
+        23
+      ],
+      "max_consecutive": 2
+    }
+  ],
+  "rooms": [
+    {
+      "room_id": "R001",
+      "capacity": 35,
+      "type": "multimedia",
+      "building": "教A楼"
+    },
+    {
+      "room_id": "R002",
+      "capacity": 35,
+      "type": "multimedia",
+      "building": "教B楼"
+    },
+    {
+      "room_id": "R003",
+      "capacity": 35,
+      "type": "lab",
+      "building": "教C楼"
+    },
+    {
+      "room_id": "R004",
+      "capacity": 50,
+      "type": "normal",
+      "building": "教A楼"
+    },
+    {
+      "room_id": "R005",
+      "capacity": 50,
+      "type": "multimedia",
+      "building": "教B楼"
+    },
+    {
+      "room_id": "R006",
+      "capacity": 50,
+      "type": "lab",
+      "building": "教C楼"
+    },
+    {
+      "room_id": "R007",
+      "capacity": 65,
+      "type": "normal",
+      "building": "教A楼"
+    },
+    {
+      "room_id": "R008",
+      "capacity": 65,
+      "type": "normal",
+      "building": "教B楼"
+    },
+    {
+      "room_id": "R009",
+      "capacity": 65,
+      "type": "lab",
+      "building": "教C楼"
+    },
+    {
+      "room_id": "R010",
+      "capacity": 80,
+      "type": "normal",
+      "building": "教A楼"
+    },
+    {
+      "room_id": "R011",
+      "capacity": 80,
+      "type": "lab",
+      "building": "教B楼"
+    },
+    {
+      "room_id": "R012",
+      "capacity": 100,
+      "type": "multimedia",
+      "building": "教C楼"
+    },
+    {
+      "room_id": "R013",
+      "capacity": 100,
+      "type": "multimedia",
+      "building": "教A楼"
+    },
+    {
+      "room_id": "R014",
+      "capacity": 100,
+      "type": "lab",
+      "building": "教B楼"
+    },
+    {
+      "room_id": "R015",
+      "capacity": 130,
+      "type": "normal",
+      "building": "教C楼"
+    }
+  ],
+  "assignments": [
+    {
+      "course_id": "C001",
+      "teacher_id": "T015",
+      "class_ids": [
+        "CL007",
+        "CL017",
+        "CL016"
+      ]
+    },
+    {
+      "course_id": "C002",
+      "teacher_id": "T006",
+      "class_ids": [
+        "CL003",
+        "CL010",
+        "CL017"
+      ]
+    },
+    {
+      "course_id": "C003",
+      "teacher_id": "T020",
+      "class_ids": [
+        "CL003"
+      ]
+    },
+    {
+      "course_id": "C004",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL010",
+        "CL008",
+        "CL007"
+      ]
+    },
+    {
+      "course_id": "C005",
+      "teacher_id": "T005",
+      "class_ids": [
+        "CL002"
+      ]
+    },
+    {
+      "course_id": "C006",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL020",
+        "CL003"
+      ]
+    },
+    {
+      "course_id": "C007",
+      "teacher_id": "T015",
+      "class_ids": [
+        "CL021",
+        "CL019"
+      ]
+    },
+    {
+      "course_id": "C008",
+      "teacher_id": "T007",
+      "class_ids": [
+        "CL023",
+        "CL013",
+        "CL016"
+      ]
+    },
+    {
+      "course_id": "C009",
+      "teacher_id": "T013",
+      "class_ids": [
+        "CL005"
+      ]
+    },
+    {
+      "course_id": "C010",
+      "teacher_id": "T001",
+      "class_ids": [
+        "CL014"
+      ]
+    },
+    {
+      "course_id": "C011",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL023"
+      ]
+    },
+    {
+      "course_id": "C012",
+      "teacher_id": "T017",
+      "class_ids": [
+        "CL002",
+        "CL018"
+      ]
+    },
+    {
+      "course_id": "C013",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL015"
+      ]
+    },
+    {
+      "course_id": "C014",
+      "teacher_id": "T005",
+      "class_ids": [
+        "CL022",
+        "CL017"
+      ]
+    },
+    {
+      "course_id": "C015",
+      "teacher_id": "T018",
+      "class_ids": [
+        "CL011",
+        "CL015"
+      ]
+    },
+    {
+      "course_id": "C016",
+      "teacher_id": "T020",
+      "class_ids": [
+        "CL017",
+        "CL014",
+        "CL018"
+      ]
+    },
+    {
+      "course_id": "C017",
+      "teacher_id": "T015",
+      "class_ids": [
+        "CL024"
+      ]
+    },
+    {
+      "course_id": "C018",
+      "teacher_id": "T016",
+      "class_ids": [
+        "CL009",
+        "CL008"
+      ]
+    },
+    {
+      "course_id": "C019",
+      "teacher_id": "T009",
+      "class_ids": [
+        "CL016",
+        "CL021"
+      ]
+    },
+    {
+      "course_id": "C020",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL015"
+      ]
+    },
+    {
+      "course_id": "C021",
+      "teacher_id": "T003",
+      "class_ids": [
+        "CL010",
+        "CL008",
+        "CL009"
+      ]
+    },
+    {
+      "course_id": "C022",
+      "teacher_id": "T011",
+      "class_ids": [
+        "CL018"
+      ]
+    },
+    {
+      "course_id": "C023",
+      "teacher_id": "T003",
+      "class_ids": [
+        "CL005"
+      ]
+    },
+    {
+      "course_id": "C024",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL023",
+        "CL005"
+      ]
+    },
+    {
+      "course_id": "C025",
+      "teacher_id": "T007",
+      "class_ids": [
+        "CL014"
+      ]
+    },
+    {
+      "course_id": "C026",
+      "teacher_id": "T014",
+      "class_ids": [
+        "CL018"
+      ]
+    },
+    {
+      "course_id": "C027",
+      "teacher_id": "T015",
+      "class_ids": [
+        "CL002",
+        "CL007"
+      ]
+    },
+    {
+      "course_id": "C028",
+      "teacher_id": "T014",
+      "class_ids": [
+        "CL019",
+        "CL023"
+      ]
+    },
+    {
+      "course_id": "C029",
+      "teacher_id": "T001",
+      "class_ids": [
+        "CL013",
+        "CL016"
+      ]
+    },
+    {
+      "course_id": "C030",
+      "teacher_id": "T001",
+      "class_ids": [
+        "CL010"
+      ]
+    },
+    {
+      "course_id": "C031",
+      "teacher_id": "T013",
+      "class_ids": [
+        "CL018",
+        "CL024"
+      ]
+    },
+    {
+      "course_id": "C032",
+      "teacher_id": "T018",
+      "class_ids": [
+        "CL008",
+        "CL016"
+      ]
+    },
+    {
+      "course_id": "C033",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL014"
+      ]
+    },
+    {
+      "course_id": "C034",
+      "teacher_id": "T016",
+      "class_ids": [
+        "CL013"
+      ]
+    },
+    {
+      "course_id": "C035",
+      "teacher_id": "T011",
+      "class_ids": [
+        "CL022",
+        "CL013",
+        "CL024"
+      ]
+    },
+    {
+      "course_id": "C036",
+      "teacher_id": "T006",
+      "class_ids": [
+        "CL005",
+        "CL020"
+      ]
+    },
+    {
+      "course_id": "C037",
+      "teacher_id": "T018",
+      "class_ids": [
+        "CL013"
+      ]
+    },
+    {
+      "course_id": "C038",
+      "teacher_id": "T019",
+      "class_ids": [
+        "CL022",
+        "CL001"
+      ]
+    },
+    {
+      "course_id": "C039",
+      "teacher_id": "T003",
+      "class_ids": [
+        "CL014",
+        "CL005",
+        "CL015"
+      ]
+    },
+    {
+      "course_id": "C040",
+      "teacher_id": "T006",
+      "class_ids": [
+        "CL009"
+      ]
+    },
+    {
+      "course_id": "C041",
+      "teacher_id": "T013",
+      "class_ids": [
+        "CL007"
+      ]
+    },
+    {
+      "course_id": "C042",
+      "teacher_id": "T015",
+      "class_ids": [
+        "CL011"
+      ]
+    },
+    {
+      "course_id": "C043",
+      "teacher_id": "T013",
+      "class_ids": [
+        "CL014"
+      ]
+    },
+    {
+      "course_id": "C044",
+      "teacher_id": "T009",
+      "class_ids": [
+        "CL016"
+      ]
+    },
+    {
+      "course_id": "C045",
+      "teacher_id": "T001",
+      "class_ids": [
+        "CL018",
+        "CL002",
+        "CL012"
+      ]
+    },
+    {
+      "course_id": "C046",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL003",
+        "CL021",
+        "CL002"
+      ]
+    },
+    {
+      "course_id": "C047",
+      "teacher_id": "T001",
+      "class_ids": [
+        "CL007"
+      ]
+    },
+    {
+      "course_id": "C048",
+      "teacher_id": "T001",
+      "class_ids": [
+        "CL005",
+        "CL008"
+      ]
+    },
+    {
+      "course_id": "C049",
+      "teacher_id": "T005",
+      "class_ids": [
+        "CL022",
+        "CL004"
+      ]
+    },
+    {
+      "course_id": "C050",
+      "teacher_id": "T019",
+      "class_ids": [
+        "CL015"
+      ]
+    },
+    {
+      "course_id": "C051",
+      "teacher_id": "T009",
+      "class_ids": [
+        "CL006"
+      ]
+    },
+    {
+      "course_id": "C052",
+      "teacher_id": "T020",
+      "class_ids": [
+        "CL024",
+        "CL023"
+      ]
+    },
+    {
+      "course_id": "C053",
+      "teacher_id": "T004",
+      "class_ids": [
+        "CL010"
+      ]
+    },
+    {
+      "course_id": "C054",
+      "teacher_id": "T004",
+      "class_ids": [
+        "CL001",
+        "CL010"
+      ]
+    },
+    {
+      "course_id": "C055",
+      "teacher_id": "T019",
+      "class_ids": [
+        "CL013",
+        "CL023",
+        "CL007"
+      ]
+    },
+    {
+      "course_id": "C056",
+      "teacher_id": "T003",
+      "class_ids": [
+        "CL023",
+        "CL021"
+      ]
+    },
+    {
+      "course_id": "C057",
+      "teacher_id": "T008",
+      "class_ids": [
+        "CL023"
+      ]
+    },
+    {
+      "course_id": "C058",
+      "teacher_id": "T010",
+      "class_ids": [
+        "CL020",
+        "CL004",
+        "CL019"
+      ]
+    },
+    {
+      "course_id": "C059",
+      "teacher_id": "T002",
+      "class_ids": [
+        "CL018"
+      ]
+    },
+    {
+      "course_id": "C060",
+      "teacher_id": "T014",
+      "class_ids": [
+        "CL012",
+        "CL003",
+        "CL017"
+      ]
+    }
+  ],
+  "n_classes": 24,
+  "n_periods": 30,
+  "days": [
+    "周一",
+    "周二",
+    "周三",
+    "周四",
+    "周五"
+  ],
+  "periods_per_day": 6,
+  "buildings": [
+    "教A楼",
+    "教B楼",
+    "教C楼"
+  ]
+}

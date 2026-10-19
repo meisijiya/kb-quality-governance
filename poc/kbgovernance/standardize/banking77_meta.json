@@ -1,0 +1,12 @@
+{
+  "model": "BAAI/bge-small-en-v1.5",
+  "n_kb": 372,
+  "n_tk": 3080,
+  "n_gap_intents": 15,
+  "cover": {
+    "min": 0.6547,
+    "mean": 0.8797,
+    "max": 0.9973,
+    "sd": 0.0578
+  }
+}
