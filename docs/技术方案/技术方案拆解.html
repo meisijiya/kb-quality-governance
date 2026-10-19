@@ -233,7 +233,7 @@
     <div class="ch"><span class="ch-tag t-core">核心</span><div class="ch-t">第 6 章 实验设计</div><div class="ch-d">语料构造、双轨验证、E1–E14 实验矩阵、图表清单</div><div class="ch-p">→ 论文第 6 章 实验与结果</div></div>
     <div class="ch"><span class="ch-tag t-out">规划</span><div class="ch-t">第 7 章 论文写作规划</div><div class="ch-d">70 页分配、验收关卡、答辩 12 问 + 8b</div><div class="ch-p">写作期元文档 · 不进论文正文</div></div>
     <div class="ch"><span class="ch-tag t-risk">风险</span><div class="ch-t">第 8 章 风险与对策</div><div class="ch-d">技术风险、立论方向风险、数据风险、工程风险 + 主动放弃三件事</div><div class="ch-p">写作期元文档 · 内容要落进论文第 7 章</div></div>
-    <div class="ch" style="grid-column:span 3"><span class="ch-tag t-neg">负结果 · 不进正文</span><div class="ch-t">5.3 探索性分析：阈值可迁移性的形式化刻画、评测协议与负结果</div><div class="ch-d">形式化命题 5.1（单调等价性）、绝对阈值的失效边界表、度量陷阱。实测全部完成，数据在 <code class="mono">standardize/</code>，<b>不重跑</b>；答辩被追问时直接引用 CSV 里的值作答</div><div class="ch-p">方案明说：讲清楚要整整一章，会挤掉系统实现</div></div>
+    <div class="ch" style="grid-column:span 3"><span class="ch-tag t-neg">降级 · ≤2 页</span><div class="ch-t">5.3 探索性分析：阈值可迁移性的形式化刻画、评测协议与负结果</div><div class="ch-d">形式化命题 5.1（单调等价性）、绝对阈值的失效边界表、度量陷阱。实测全部完成，数据在 <code class="mono">standardize/</code>，<b>不重跑</b>；其中命题与边界表以两小节（各 ≤1 页）进第 6 章，度量陷阱与评测协议留在仓库供答辩引用</div><div class="ch-p">方案明说：讲清楚要整整一章，会挤掉系统实现</div></div>
   </div>
   <table style="margin-top:16px">
     <thead><tr><th style="width:150px">论文章节</th><th style="width:64px">页数</th><th>内容来源（技术方案落位）</th></tr></thead>
@@ -243,8 +243,8 @@
       <tr><td>第 2 章 相关技术</td><td class="code col-c">8</td><td>第 2 章 相关技术</td></tr>
       <tr><td>第 3 章 需求分析</td><td class="code col-c">6</td><td>第 3 章 需求分析（用例图、用例说明表、角色矩阵、非功能需求、可行性）</td></tr>
       <tr><td>第 4 章 系统设计</td><td class="code col-c">12</td><td>第 4 章 系统总体设计（三层架构、7 模块、6 张表 DDL）+ 界面截图 3 张</td></tr>
-      <tr><td>第 5 章 算法设计</td><td class="code col-c">14</td><td>第 5 章 核心算法（§5.1 覆盖度 / §5.2 缺口 / §5.4 腐化 / §5.5 重复；<b>§5.3 不进正文</b>）</td></tr>
-      <tr><td>第 6 章 实验与结果</td><td class="code col-c">12</td><td>第 6 章 实验设计（语料构造、双轨验证、E1–E14 矩阵中进论文的 4 条）</td></tr>
+      <tr><td>第 5 章 算法设计</td><td class="code col-c">14</td><td>第 5 章 核心算法（§5.1 覆盖度 / §5.2 缺口 / §5.4 腐化 / §5.5 重复；§5.3 的 2 页排版位置在第 6 章）</td></tr>
+      <tr><td>第 6 章 实验与结果</td><td class="code col-c">12</td><td>第 6 章 实验设计（语料构造、双轨验证、E1–E14 矩阵中进论文的 4 条 + E7 / E8 两小节各 ≤1 页，占 2 页）</td></tr>
       <tr><td>第 7 章 结论与展望</td><td class="code col-c">4</td><td><b>开发完毕后撰写</b> —— 素材来源已定：工作总结 ← §1.3 贡献；研究结论 ← 第 5 章三模块实测指标；局限 ← 第 8 章三类风险中未闭环部分；未来工作 ← §8.4 主动放弃三件事 <span class="pill p-in">已定</span></td></tr>
       <tr><td>参考文献</td><td class="code col-c">3</td><td>附录 C（30 篇以上，GB/T 7714）</td></tr>
       <tr><td>致谢 + 附录</td><td class="code col-c">1</td><td>附录 B 环境与复现 + 附录 D 实测数据速查表</td></tr>
@@ -473,7 +473,7 @@
     <div class="lg"><i style="background:#b3ab9c"></i><b>1</b><span>致谢 + 附录</span></div>
   </div>
   <div class="arch" style="margin-top:16px">
-    <p style="font-size:13.5px;color:var(--ink-2)"><b>页数分配本身就是一次表态：</b>系统设计 12 页 + 算法 14 页 + 实验 12 页 = 38 页，说明这 17 周的赌注押在「系统真的实现了 + 算法真的可复现」上，而不是押在方法创新。第 7 章结论与展望只给 4 页，<b>意味着「局限与展望」不会展开成大段自我批评</b>——它要写的是「做了什么、边界在哪、下一步做什么」，正好对应技术方案第 8 章的风险与主动放弃三件事。</p>
+    <p style="font-size:13.5px;color:var(--ink-2)"><b>页数分配本身就是一次表态：</b>系统设计 12 页 + 算法 14 页 + 实验 12 页 = 38 页，说明这 17 周的赌注押在「系统真的实现了 + 算法真的可复现」上，而不是押在方法创新。实验那 12 页里有 <b>2 页是 §5.3 探索性分析的两小节</b>（E7 / E8）——这 2 页不是新增篇幅，而是 E9–E14 被砍掉后腾出的图表与消融空间，所以全文仍是 70 页。第 7 章结论与展望只给 4 页，<b>意味着「局限与展望」不会展开成大段自我批评</b>——它要写的是「做了什么、边界在哪、下一步做什么」，正好对应技术方案第 8 章的风险与主动放弃三件事。</p>
   </div>
 </section>
 
@@ -592,11 +592,12 @@
         <div><i>→</i><span><b>约 1 页</b>：绝对阈值的三档使用边界表（同模型同语言 / 换语料 / 换模型换语言）</span></div>
         <div><i>×</i><span><b>不进正文</b>：度量陷阱、评测协议与 bootstrap 方案、方向 A/B/C 逐条讨论——留仓库，答辩引用实测值</span></div>
         <div><i>✓</i><span>已写入技术方案 §5.3 定位框与实施方案实验矩阵（E7 / E8 由「砍掉」改为「降级为 ≤1 页」）</span></div>
+        <div><i>✓</i><span>这 2 页<b>不是新增篇幅</b>——E9–E14 砍掉后腾出的图表与消融空间正好由两小节占用，第 6 章仍是 12 页、全文仍是 70 页</span></div>
       </div>
     </div>
     <div class="al-item">
       <div class="al-q"><span class="n">C</span>1.2 商业对标整节删除 <span class="pill p-in">已定</span></div>
-      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">本科设计跟成熟产品对标是<b>自己给自己挖坑</b>——评审只会问「你比 AptEdge 强在哪」，而本课题的优势恰恰在于题型不同（治理知识库本身，不是 RAG 问答）。参考文献应服务于<b>算法设计与开发内容</b>，不服务于对标。该节已整节删除，§1 重新编号（1.3→1.2、1.4→1.3、1.5→1.4），<b>18 处交叉引用与审计文档同步更新</b>。</p>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">本科设计跟成熟产品对标是<b>自己给自己挖坑</b>——评审只会问「你比 AptEdge 强在哪」，而本课题的优势恰恰在于题型不同（治理知识库本身，不是 RAG 问答）。参考文献应服务于<b>算法设计与开发内容</b>，不服务于对标。该节已整节删除，§1 重新编号（1.3→1.2、1.4→1.3、1.5→1.4），<b>22 处交叉引用（技术方案 4 处 + 审计文档 18 处）同步更新</b>。</p>
     </div>
   </div>
 </section>
@@ -624,7 +625,7 @@
         <div><i>→</i><span><b>阈值 0.62 绑死「模型 × 语言」</b>：它是在 bge-small-zh-v1.5 CPU 编码上标定的。线上换 API 模型 → 刻度漂移，0.62 不再成立，<b>必须重新标定并落新产物</b>（已有实测：跨模型跨语言 F1 掉到 0.3261）</span></div>
         <div><i>→</i><span><b>向量库替换不了本项目任何一环</b>：缺口是段落级<b>两级 max</b> 聚合、腐化是纯规则、重复要<b>全量两两图</b>——top-k 检索表达不了任何一个，ANN 的近似误差还会直接污染 P/R/F1</span></div>
         <div><i>→</i><span><b>净增工作量 7–11.5 天</b>（复审估算），全部挤在 W7–W9——正是 FastAPI 看板的三周窗口，而 W8 末就是 G8 判断点；且会与 W3 的 300 条人工标注抢同一份时间</span></div>
-        <div><i>→</i><span><b>已顺手修掉一个更急的隐患</b>：<code class="mono">embed.py</code> 原本没固定 device，FlagEmbedding 在 <code class="mono">devices=None</code> 时会<b>自动选 CUDA</b>——装上 CUDA 版 torch 的那一刻产物会静默换设备。已显式固定 <code class="mono">devices="cpu"</code> 并把 <code class="mono">device</code> 字段落进 <code class="mono">embeddings_meta.json</code>，实测通过</span></div>
+        <div><i>→</i><span><b>已顺手修掉一个更急的隐患</b>：<code class="mono">embed.py</code> 原本没固定 device，FlagEmbedding 在 <code class="mono">devices=None</code> 时会<b>自动选 CUDA</b>——装上 CUDA 版 torch 的那一刻产物会静默换设备。已显式固定 <code class="mono">devices="cpu"</code> 并把 <code class="mono">device</code> 字段落进 <code class="mono">embeddings_meta.json</code>（隔离副本实跑输出 <code class="mono">"device": "cpu"</code>，既有产物未改动）</span></div>
       </div>
     </div>
   </div>
@@ -632,7 +633,7 @@
 
 <footer>
   <div>数据来源：<code>poc/kbgovernance/metrics.json</code> + 同目录 CSV（<code>granularity.csv</code> / <code>gap_threshold.csv</code> / <code>corrupt_rule_ablation.csv</code> / <code>dup_threshold.csv</code> / <code>corrupt_docs.csv</code> / <code>top15_gaps.csv</code> / <code>dup_groups_best.csv</code> / <code>standardize/*.csv</code>）</div>
-  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（1188 行）· <code>docs/技术方案/本科版实施方案.md</code></div>
+  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（1204 行）· <code>docs/技术方案/本科版实施方案.md</code></div>
 </footer>
 
 </div>
