@@ -141,7 +141,7 @@ python check_numbers.py
   合计表，各文档自己的 `n.1` 小节是同一批内容的表格版。
 - 退出码 **2**：待检查的文档路径不存在。
 
-用法：`python check_numbers.py`（默认扫上级目录三份文档：`企业知识库质量治理系统技术方案.md`、
+用法：`python check_numbers.py`（默认扫 `docs/技术方案/` 下三份文档：`企业知识库质量治理系统技术方案.md`、
 `本科版实施方案.md`、`数字溯源审计.md`）、`python check_numbers.py a.md b.md`
 （位置参数可传 0 到多个，不传即默认三份）、`python check_numbers.py --report out.md`、
 `python check_numbers.py --selftest`（只跑判定逻辑自证，不读产物也不写文件）。
