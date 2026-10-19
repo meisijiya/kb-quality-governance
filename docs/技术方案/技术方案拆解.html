@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技术方案拆解 · 企业知识库质量治理系统</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f5f0;
+    --card:#ffffff;
+    --line:#e9e3d6;
+    --line-soft:#f0ece2;
+    --ink:#14171e;
+    --ink-2:#3a4256;
+    --muted:#7c7a72;
+    --primary:#2f6f5e;
+    --primary-soft:rgba(47,111,94,.08);
+    --amber:#c97b3f;
+    --amber-soft:rgba(201,123,63,.09);
+    --rose:#b06367;
+    --rose-soft:rgba(176,99,103,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Outfit','PingFang SC','Microsoft YaHei',sans-serif;
+    font-size:14.5px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(ellipse 60% 45% at 0% 0%, rgba(47,111,94,.055), transparent 60%),
+      radial-gradient(ellipse 55% 40% at 100% 100%, rgba(201,123,63,.05), transparent 60%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:1024px;margin:0 auto;padding:56px 24px 96px}
+  .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+
+  /* ---------- hero ---------- */
+  header.hero{padding-bottom:34px;border-bottom:1px solid var(--line);margin-bottom:40px}
+  .eyebrow{display:flex;align-items:center;gap:8px;color:var(--primary);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:16px}
+  h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:33px;line-height:1.25;letter-spacing:-.005em;margin-bottom:16px}
+  h1 em{font-style:normal;color:var(--primary)}
+  .lede{font-size:15.5px;color:var(--ink-2);max-width:760px;margin-bottom:22px}
+  .lede strong{color:var(--ink);font-weight:600}
+  .hero-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .hf{background:var(--card);padding:14px 16px}
+  .hf-k{font-size:11.5px;color:var(--muted);letter-spacing:.05em;margin-bottom:5px}
+  .hf-v{font-size:19px;font-weight:600;color:var(--ink)}
+  .hf-v small{font-size:12px;font-weight:400;color:var(--muted);margin-left:4px}
+
+  /* ---------- section ---------- */
+  section{margin-bottom:46px}
+  .s-head{display:flex;align-items:baseline;gap:11px;margin-bottom:6px}
+  .s-num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--primary);font-weight:500;padding-top:3px}
+  h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:23px;letter-spacing:-.004em}
+  .s-sub{color:var(--muted);font-size:13.5px;margin-bottom:20px;padding-left:30px}
+  .s-sub b{color:var(--ink-2);font-weight:500}
+
+  /* ---------- chapter map ---------- */
+  .chap-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .ch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 15px;display:flex;flex-direction:column;gap:6px;transition:transform .2s,box-shadow .2s}
+  .ch:hover{transform:translateY(-2px);box-shadow:0 4px 16px -2px rgba(0,0,0,.06)}
+  .ch-tag{font-size:10.5px;font-weight:600;letter-spacing:.07em;padding:2px 7px;border-radius:5px;align-self:flex-start}
+  .t-core{background:var(--primary-soft);color:var(--primary)}
+  .t-keep{background:rgba(47,111,94,.06);color:#4a7a6c}
+  .t-neg{background:var(--amber-soft);color:var(--amber)}
+  .t-out{background:#f2efe8;color:var(--muted)}
+  .t-risk{background:var(--rose-soft);color:var(--rose)}
+  .ch-t{font-size:14px;font-weight:600;line-height:1.35}
+  .ch-d{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .ch-p{margin-top:auto;padding-top:8px;font-size:11.5px;color:var(--ink-2);border-top:1px dashed var(--line)}
+  .appx{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .appx span{font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 11px}
+
+  /* ---------- arch svg ---------- */
+  .arch{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px}
+  .arch svg{width:100%;height:auto;display:block}
+  .cap{font-size:12.5px;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+
+  /* ---------- table ---------- */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th{text-align:left;font-weight:600;font-size:11.5px;letter-spacing:.05em;color:var(--muted);padding:10px 13px;background:#fbfaf7;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:10px 13px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.code{font-family:'JetBrains Mono',monospace;font-size:12.5px}
+  .col-c{text-align:center}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .p-in{background:var(--primary-soft);color:var(--primary)}
+  .p-one{background:var(--amber-soft);color:var(--amber)}
+  .p-out{background:#f2efe8;color:var(--muted)}
+
+  /* ---------- bench ---------- */
+  .bench{display:grid;grid-template-columns:150px 1fr 58px;gap:12px;align-items:center;padding:5px 0}
+  .bench-label{font-size:13px;color:var(--ink-2)}
+  .bench-label small{display:block;color:var(--muted);font-size:11px}
+  .bench-track{height:15px;background:var(--line-soft);border-radius:6px;overflow:hidden;position:relative}
+  .bench-fill{height:100%;background:var(--primary);border-radius:6px;transition:width .4s}
+  .bench-fill.amber{background:var(--amber)}
+  .bench-fill.rose{background:var(--rose)}
+  .bench-fill.soft{background:#9dbdb2}
+  .bench-val{font-family:'JetBrains Mono',monospace;font-size:12.5px;text-align:right;color:var(--ink)}
+  .bench-val.hi{color:var(--primary);font-weight:500}
+  .bench-val.lo{color:var(--muted)}
+  .mark{position:absolute;top:-3px;width:2px;height:21px;background:var(--rose);border-radius:1px}
+
+  /* ---------- module cards ---------- */
+  .mods{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .mod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 19px}
+  .mod-h{display:flex;align-items:baseline;gap:9px;margin-bottom:4px}
+  .mod-h h3{font-size:16px;font-weight:600}
+  .mod-h .k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--primary);background:var(--primary-soft);padding:1px 7px;border-radius:5px}
+  .mod-p{font-size:12.5px;color:var(--muted);margin-bottom:13px}
+  .kv{display:grid;grid-template-columns:auto 1fr;row-gap:7px;column-gap:14px;margin:0;font-size:13px}
+  .kv dt{color:var(--muted);white-space:nowrap}
+  .kv dd{margin:0;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink)}
+
+  /* ---------- formula ---------- */
+  .formula{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+  .eq{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink);background:#fbfaf7;border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin:10px 0;overflow-x:auto}
+  .eq .hl{color:var(--primary)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+  /* ---------- page alloc ---------- */
+  .alloc{display:flex;height:40px;border-radius:10px;overflow:hidden;border:1px solid var(--line);margin-bottom:14px}
+  .alloc div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;font-family:'JetBrains Mono',monospace;min-width:2px}
+  .legend{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+  .lg{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 11px;display:flex;gap:8px;align-items:baseline}
+  .lg i{width:9px;height:9px;border-radius:2px;flex:none;margin-top:5px}
+  .lg b{font-family:'JetBrains Mono',monospace;font-size:12.5px}
+  .lg span{font-size:11.5px;color:var(--muted)}
+
+  /* ---------- abandons ---------- */
+  .abandons{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .ab{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px 19px;position:relative}
+  .ab .x{position:absolute;top:15px;right:17px;color:var(--rose);font-size:15px;font-weight:600;line-height:1}
+  .ab h4{font-size:14.5px;font-weight:600;margin-bottom:6px;padding-right:22px}
+  .ab p{font-size:13px;color:var(--ink-2)}
+  .ab .why{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--muted)}
+  .ab .why b{color:var(--ink-2);font-weight:500}
+
+  /* ---------- risks ---------- */
+  .risks{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .rk{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px 19px}
+  .rk h4{font-size:14.5px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .rk h4 svg{flex:none;color:var(--rose)}
+  .rk p{font-size:13px;color:var(--ink-2)}
+  .rk .ans{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--muted)}
+  .rk .ans b{color:var(--ink-2);font-weight:500}
+
+  /* ---------- qa ---------- */
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .qa details{border-bottom:1px solid var(--line-soft)}
+  .qa details:last-child{border-bottom:none}
+  .qa summary{cursor:pointer;padding:12px 17px;font-size:13.5px;font-weight:500;list-style:none;display:flex;align-items:center;gap:10px;transition:background .18s}
+  .qa summary:hover{background:#fbfaf7}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary .n{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--primary);flex:none}
+  .qa summary svg{margin-left:auto;color:var(--muted);transition:transform .2s;flex:none}
+  .qa details[open] summary svg{transform:rotate(180deg)}
+  .qa .a{padding:0 17px 15px 44px;font-size:13px;color:var(--ink-2)}
+
+  /* ---------- align ---------- */
+  .align{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+  .al-item{padding:15px 0;border-bottom:1px dashed var(--line)}
+  .al-item:last-child{border-bottom:none;padding-bottom:0}
+  .al-item:first-child{padding-top:0}
+  .al-q{font-size:14.5px;font-weight:600;margin-bottom:8px;display:flex;gap:9px;align-items:baseline}
+  .al-q .n{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--amber)}
+  .al-opts{display:flex;flex-direction:column;gap:5px;margin-left:22px}
+  .al-opts div{font-size:13px;color:var(--ink-2);display:flex;gap:8px}
+  .al-opts i{color:var(--muted);font-style:normal;font-family:'JetBrains Mono',monospace;font-size:11.5px;padding-top:2px}
+  .al-opts b{color:var(--ink);font-weight:600}
+
+  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer code{font-family:'JetBrains Mono',monospace;font-size:11.5px}
+
+  @media (max-width:860px){
+    .hero-facts{grid-template-columns:repeat(2,1fr)}
+    .chap-grid{grid-template-columns:repeat(2,1fr)}
+    .mods,.risks,.two,.legend{grid-template-columns:1fr}
+    .alloc{height:auto;flex-wrap:wrap}
+    .alloc div{flex:1 1 40px;height:32px}
+    .bench{grid-template-columns:104px 1fr 52px;gap:9px}
+  }
+  @media (max-width:560px){
+    .wrap{padding:32px 16px 64px}
+    h1{font-size:26px}
+    h2{font-size:20px}
+    .hero-facts{grid-template-columns:1fr}
+    .chap-grid{grid-template-columns:1fr}
+    table{font-size:12.5px}
+    th,td{padding:8px 9px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h20M2 12h20M2 17h10"/></svg>
+    技术方案 · 结构拆解
+  </div>
+  <h1>《基于语义聚类与时效性分析的企业知识库质量治理系统》<br>技术方案拆成 <em>七层</em>看</h1>
+  <p class="lede">
+    这份技术方案 1188 行、8 章 + 4 附录，但它真正押的只有一件事：<strong>把检索粒度从整篇下沉到段落</strong>。
+    其余大部分篇幅是<strong>已经跑完的负结果</strong>（第 5.3 节、第 6.3 节 E9–E14）——它们服务的那条立论被自己的实测推翻了，
+    所以不进论文正文，但答辩现场要能随时引用。下面按「骨架 → 架构 → 算法 → 实测 → 实验 → 篇幅 → 风险」逐层拆开。
+  </p>
+  <div class="hero-facts">
+    <div class="hf"><div class="hf-k">文档规模</div><div class="hf-v">1188 <small>行</small></div></div>
+    <div class="hf"><div class="hf-k">算法改进点</div><div class="hf-v">1 <small>个</small></div></div>
+    <div class="hf"><div class="hf-k">检测模块</div><div class="hf-v">3 <small>个</small></div></div>
+    <div class="hf"><div class="hf-k">已完成未入论文的实验</div><div class="hf-v">6 <small>条 E9–E14</small></div></div>
+  </div>
+</header>
+
+<!-- 1 骨架 -->
+<section>
+  <div class="s-head"><span class="s-num">01</span><h2>骨架：8 章 + 4 附录，各是什么定位</h2></div>
+  <p class="s-sub">技术方案是<b>写作期的元文档</b>，论文是<b>交付物</b>，两套章节不是一一对应：技术方案第 7/8 章不进论文正文，但它们的实质内容要落到论文第 7 章。标签：<b>核心</b>＝论文主章 · <b>保留</b>＝正文 · <b>规划</b>＝写作期元文档 · <b>风险</b>＝风险与对策</p>
+  <div class="chap-grid">
+    <div class="ch"><span class="ch-tag t-keep">保留</span><div class="ch-t">第 1 章 背景与问题定义</div><div class="ch-d">三类痛点的抽象、与 RAG 的边界表、4 条贡献</div><div class="ch-p">→ 论文第 1 章 绪论</div></div>
+    <div class="ch"><span class="ch-tag t-keep">保留</span><div class="ch-t">第 2 章 相关技术</div><div class="ch-d">BGE 向量、为什么是 HDBSCAN、RRF 为何不用</div><div class="ch-p">→ 论文第 2 章 相关技术</div></div>
+    <div class="ch"><span class="ch-tag t-keep">保留</span><div class="ch-t">第 3 章 需求分析</div><div class="ch-d">用例图、用例说明表、角色矩阵、非功能需求</div><div class="ch-p">→ 论文第 3 章 需求分析</div></div>
+    <div class="ch"><span class="ch-tag t-core">核心</span><div class="ch-t">第 4 章 系统总体设计</div><div class="ch-d">三层架构、7 模块、6 张表 DDL、技术选型</div><div class="ch-p">→ 论文第 4 章 系统设计</div></div>
+    <div class="ch"><span class="ch-tag t-core">核心</span><div class="ch-t">第 5 章 核心算法</div><div class="ch-d">5.1 覆盖度 · 5.2 缺口 · 5.3 探索 · 5.4 腐化 · 5.5 重复</div><div class="ch-p">→ 论文第 5 章 算法设计（最重）</div></div>
+    <div class="ch"><span class="ch-tag t-core">核心</span><div class="ch-t">第 6 章 实验设计</div><div class="ch-d">语料构造、双轨验证、E1–E14 实验矩阵、图表清单</div><div class="ch-p">→ 论文第 6 章 实验与结果</div></div>
+    <div class="ch"><span class="ch-tag t-out">规划</span><div class="ch-t">第 7 章 论文写作规划</div><div class="ch-d">70 页分配、验收关卡、答辩 12 问 + 8b</div><div class="ch-p">写作期元文档 · 不进论文正文</div></div>
+    <div class="ch"><span class="ch-tag t-risk">风险</span><div class="ch-t">第 8 章 风险与对策</div><div class="ch-d">技术风险、立论方向风险、数据风险、工程风险 + 主动放弃三件事</div><div class="ch-p">写作期元文档 · 内容要落进论文第 7 章</div></div>
+    <div class="ch" style="grid-column:span 3"><span class="ch-tag t-neg">降级 · ≤2 页</span><div class="ch-t">5.3 探索性分析：阈值可迁移性的形式化刻画、评测协议与负结果</div><div class="ch-d">形式化命题 5.1（单调等价性）、绝对阈值的失效边界表、度量陷阱。实测全部完成，数据在 <code class="mono">standardize/</code>，<b>不重跑</b>；其中命题与边界表以两小节（各 ≤1 页）进第 6 章，度量陷阱与评测协议留在仓库供答辩引用</div><div class="ch-p">方案明说：讲清楚要整整一章，会挤掉系统实现</div></div>
+  </div>
+  <table style="margin-top:16px">
+    <thead><tr><th style="width:150px">论文章节</th><th style="width:64px">页数</th><th>内容来源（技术方案落位）</th></tr></thead>
+    <tbody>
+      <tr><td>摘要 + 关键词</td><td class="code col-c">2</td><td>附录 A 题目 + §1.3 贡献定稿 + §1.4 题目不承诺什么</td></tr>
+      <tr><td>第 1 章 绪论</td><td class="code col-c">8</td><td>第 1 章 背景与问题定义（§1.1 三类痛点、§1.2 与 RAG 的区别、§1.3 贡献）</td></tr>
+      <tr><td>第 2 章 相关技术</td><td class="code col-c">8</td><td>第 2 章 相关技术</td></tr>
+      <tr><td>第 3 章 需求分析</td><td class="code col-c">6</td><td>第 3 章 需求分析（用例图、用例说明表、角色矩阵、非功能需求、可行性）</td></tr>
+      <tr><td>第 4 章 系统设计</td><td class="code col-c">12</td><td>第 4 章 系统总体设计（三层架构、7 模块、6 张表 DDL）+ 界面截图 3 张</td></tr>
+      <tr><td>第 5 章 算法设计</td><td class="code col-c">14</td><td>第 5 章 核心算法（§5.1 覆盖度 / §5.2 缺口 / §5.4 腐化 / §5.5 重复；§5.3 的 2 页排版位置在第 6 章）</td></tr>
+      <tr><td>第 6 章 实验与结果</td><td class="code col-c">12</td><td>第 6 章 实验设计（语料构造、双轨验证、E1–E14 矩阵中进论文的 4 条 + E7 / E8 两小节各 ≤1 页，占 2 页）</td></tr>
+      <tr><td>第 7 章 结论与展望</td><td class="code col-c">4</td><td><b>开发完毕后撰写</b> —— 素材来源已定：工作总结 ← §1.3 贡献；研究结论 ← 第 5 章三模块实测指标；局限 ← 第 8 章三类风险中未闭环部分；未来工作 ← §8.4 主动放弃三件事 <span class="pill p-in">已定</span></td></tr>
+      <tr><td>参考文献</td><td class="code col-c">3</td><td>附录 C（30 篇以上，GB/T 7714）</td></tr>
+      <tr><td>致谢 + 附录</td><td class="code col-c">1</td><td>附录 B 环境与复现 + 附录 D 实测数据速查表</td></tr>
+      <tr><td class="code">合计</td><td class="code col-c">70</td><td class="muted">—</td></tr>
+    </tbody>
+  </table>
+  <div class="appx">
+    <span>附录 A　论文题目（已定稿）</span>
+    <span>附录 B　环境与复现说明（WSL bash 坑 / torch CPU / HF_HOME）</span>
+    <span>附录 C　参考文献</span>
+    <span>附录 D　实测数据速查表</span>
+  </div>
+</section>
+
+<!-- 2 架构 -->
+<section>
+  <div class="s-head"><span class="s-num">02</span><h2>第 4 章：三层架构与 7 个模块</h2></div>
+  <p class="s-sub">技术方案 §4.1 给的是 mermaid 图，这里按同一结构重画；<b>§4.2 的 7 个模块名与关键类是后续 W7–W9 系统实现的契约</b>，spec #3 已逐字对齐</p>
+  <div class="arch">
+    <svg viewBox="0 0 900 330" role="img" aria-label="三层架构图">
+      <defs>
+        <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <path d="M0,0 L8,4.5 L0,9 z" fill="#9dbdb2"/>
+        </marker>
+      </defs>
+      <!-- 展示层 -->
+      <rect x="20" y="18" width="860" height="86" rx="12" fill="#f4faf7" stroke="#cfe3da"/>
+      <text x="38" y="42" font-family="Outfit" font-size="12" font-weight="600" fill="#2f6f5e" letter-spacing="1">展示层 · FastAPI 轻量看板</text>
+      <g font-family="Outfit" font-size="13" font-weight="500" fill="#14171e">
+        <rect x="38" y="54" width="240" height="34" rx="8" fill="#fff" stroke="#cfe3da"/>
+        <text x="158" y="76" text-anchor="middle">上传文档与工单</text>
+        <rect x="330" y="54" width="240" height="34" rx="8" fill="#fff" stroke="#cfe3da"/>
+        <text x="450" y="76" text-anchor="middle">一键运行治理扫描</text>
+        <rect x="622" y="54" width="240" height="34" rx="8" fill="#fff" stroke="#cfe3da"/>
+        <text x="742" y="76" text-anchor="middle">三类缺陷清单</text>
+      </g>
+      <!-- 算法层 -->
+      <rect x="20" y="130" width="860" height="104" rx="12" fill="#fdf6f0" stroke="#ecd8c2"/>
+      <text x="38" y="154" font-family="Outfit" font-size="12" font-weight="600" fill="#c97b3f" letter-spacing="1">算法层 · 向量化 → 聚类 → 三模块检测，五段由「一键扫描」同步串行调用</text>
+      <g font-family="Outfit" font-size="12" fill="#14171e">
+        <rect x="38" y="168" width="152" height="50" rx="8" fill="#fff" stroke="#ecd8c2"/>
+        <text x="114" y="189" text-anchor="middle" font-weight="600">向量化引擎</text>
+        <text x="114" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">bge-small-zh</text>
+        <rect x="203" y="168" width="152" height="50" rx="8" fill="#fff" stroke="#ecd8c2"/>
+        <text x="279" y="189" text-anchor="middle" font-weight="600">聚类引擎</text>
+        <text x="279" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">HDBSCAN mcs=5</text>
+        <rect x="368" y="168" width="152" height="50" rx="8" fill="#fff" stroke="#ecd8c2"/>
+        <text x="444" y="189" text-anchor="middle" font-weight="600">缺口识别</text>
+        <text x="444" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">段落级 τ=0.62</text>
+        <rect x="533" y="168" width="152" height="50" rx="8" fill="#fff" stroke="#ecd8c2"/>
+        <text x="609" y="189" text-anchor="middle" font-weight="600">腐化规则</text>
+        <text x="609" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">R1–R4 阈值 3</text>
+        <rect x="698" y="168" width="152" height="50" rx="8" fill="#fff" stroke="#ecd8c2"/>
+        <text x="774" y="189" text-anchor="middle" font-weight="600">重复检测</text>
+        <text x="774" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">余弦矩阵 0.95</text>
+      </g>
+      <!-- 数据层 -->
+      <rect x="20" y="258" width="860" height="56" rx="12" fill="#f7f5f0" stroke="#e9e3d6"/>
+      <text x="38" y="282" font-family="Outfit" font-size="12" font-weight="600" fill="#7c7a72" letter-spacing="1">数据层</text>
+      <g font-family="Outfit" font-size="12.5" fill="#14171e">
+        <rect x="120" y="270" width="250" height="32" rx="8" fill="#fff" stroke="#e9e3d6"/>
+        <text x="245" y="291" text-anchor="middle">SQLite · 6 张表</text>
+        <rect x="392" y="270" width="250" height="32" rx="8" fill="#fff" stroke="#e9e3d6"/>
+        <text x="517" y="291" text-anchor="middle">向量文件 · np.ndarray</text>
+      </g>
+      <line x1="450" y1="104" x2="450" y2="126" stroke="#9dbdb2" stroke-width="2" marker-end="url(#ar)"/>
+      <line x1="450" y1="234" x2="450" y2="254" stroke="#9dbdb2" stroke-width="2" marker-end="url(#ar)"/>
+    </svg>
+    <p class="cap">三处关键取舍已写死在方案里：<b>不引入向量数据库</b>（300×300 余弦矩阵实测 <0.01 秒，<code class="mono">metrics.json:dup.rows[*].seconds</code> 记为 0.0）、<b>不引入任务队列</b>（单进程同步）、<b>不做服务端渲染</b>。向量单独存 <code class="mono">.npy</code>，不走数据库。</p>
+  </div>
+  <table>
+    <thead><tr><th style="width:44px">#</th><th>模块</th><th>职责</th><th>输入</th><th>输出</th><th>关键类</th></tr></thead>
+    <tbody>
+      <tr><td class="code col-c">M1</td><td>文档管理</td><td>知识文档上传与元数据维护</td><td>文档表单 / 上传文件</td><td>文档记录</td><td class="code">DocumentService</td></tr>
+      <tr><td class="code col-c">M2</td><td>工单导入</td><td>批量导入客服工单并解析意图标签</td><td>CSV / JSON</td><td>工单记录</td><td class="code">TicketImporter</td></tr>
+      <tr><td class="code col-c">M3</td><td>向量化引擎</td><td>段落切分 + 文本编码 + L2 归一化</td><td>文档 / 工单文本</td><td>向量矩阵</td><td class="code">EmbeddingEngine</td></tr>
+      <tr><td class="code col-c">M4</td><td>聚类引擎</td><td>HDBSCAN 密度聚类</td><td>工单向量</td><td>簇标签</td><td class="code">TicketClusterer</td></tr>
+      <tr><td class="code col-c">M5</td><td>缺口识别</td><td>段落级覆盖度计算 + 阈值判定 + 优先级排序</td><td>簇 + 文档向量</td><td>缺口清单</td><td class="code">GapDetector</td></tr>
+      <tr><td class="code col-c">M6</td><td>腐化规则引擎</td><td>4 条时效性规则匹配 + 加权打分</td><td>文档元数据 + 正文</td><td>腐化清单</td><td class="code">StaleRuleEngine</td></tr>
+      <tr><td class="code col-c">M7</td><td>重复检测</td><td>余弦矩阵 + 并查集 + 主文档选举</td><td>文档向量</td><td>重复分组</td><td class="code">DuplicateDetector</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 3 算法 -->
+<section>
+  <div class="s-head"><span class="s-num">03</span><h2>第 5 章：唯一的算法改进点怎么算的</h2></div>
+  <p class="s-sub">§5.1 · 整篇编码把多主题平均掉 → 切段落后取两级 max 聚合；<b>§5.1.3 用一整组失败实验堵死「换个归一化就能提升」这条追问</b></p>
+  <div class="formula">
+    <div class="eq">cover(t, d<sub>i</sub>) = <span class="hl">max</span><sub>p ∈ P<sub>i</sub></sub> cos( e(t), e(p) )<br>cover(t) = <span class="hl">max</span><sub>d<sub>i</sub> ∈ D</sub> cover(t, d<sub>i</sub>)</div>
+    <p style="font-size:13.5px;color:var(--ink-2)">先段落内取 max、再文档间取 max —— <b>两级 max</b> 正是让「一篇文档只讲一个子主题」不再被平均掉的原因。段落连续排列使 <code class="mono">np.maximum.reduceat</code> 一次向量化完成聚合，无需 Python 循环，2000×1852 矩阵乘法秒级。</p>
+  </div>
+  <div class="two">
+    <div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:8px">意图级分离度 AUC · 段落级（5 种打分）</p>
+      <div class="bench"><span class="bench-label">max-cosine<small>本文基准 · 采用</small></span><div class="bench-track"><div class="bench-fill" style="width:96.8%"></div></div><span class="bench-val hi">0.968</span></div>
+      <div class="bench"><span class="bench-label">margin<small>max − mean(top5)</small></span><div class="bench-track"><div class="bench-fill soft" style="width:92%"></div></div><span class="bench-val lo">0.920</span></div>
+      <div class="bench"><span class="bench-label">max ÷ top5<small>比值归一</small></span><div class="bench-track"><div class="bench-fill soft" style="width:88.8%"></div></div><span class="bench-val lo">0.888</span></div>
+      <div class="bench"><span class="bench-label">max − min<small>极差 · 反向点</small></span><div class="bench-track"><div class="bench-fill amber" style="width:88%"></div></div><span class="bench-val lo">0.880</span></div>
+      <div class="bench"><span class="bench-label">max ÷ std<small>标准化离群 · 失败</small></span><div class="bench-track"><div class="bench-fill rose" style="width:70.4%"></div></div><span class="bench-val lo">0.704</span></div>
+    </div>
+    <div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:8px">意图级分离度 AUC · 整篇级（同 5 种打分）</p>
+      <div class="bench"><span class="bench-label">max − min<small>极差 · 反向点</small></span><div class="bench-track"><div class="bench-fill amber" style="width:92.8%"></div></div><span class="bench-val" style="color:var(--amber)">0.928</span></div>
+      <div class="bench"><span class="bench-label">max-cosine<small>本文基准</small></span><div class="bench-track"><div class="bench-fill" style="width:88.8%"></div></div><span class="bench-val hi">0.888</span></div>
+      <div class="bench"><span class="bench-label">margin</span><div class="bench-track"><div class="bench-fill soft" style="width:83.2%"></div></div><span class="bench-val lo">0.832</span></div>
+      <div class="bench"><span class="bench-label">max ÷ top5</span><div class="bench-track"><div class="bench-fill soft" style="width:77.6%"></div></div><span class="bench-val lo">0.776</span></div>
+      <div class="bench"><span class="bench-label">max ÷ std<small>失败</small></span><div class="bench-track"><div class="bench-fill rose" style="width:49.6%"></div></div><span class="bench-val lo">0.496</span></div>
+    </div>
+  </div>
+  <div class="arch" style="margin-top:14px">
+    <p style="font-size:13.5px;color:var(--ink-2)"><b>必须如实交代的反向点：</b>极差 <code class="mono">max−min</code> 是唯一不服从「统计变换必然变差」的方案——整篇级下它 <b>0.928 &gt; 0.888</b>，但同一方案工单级从 0.8307 掉到 0.7829，段落级也从 0.968 掉到 0.8800。所以论文里<b>不能写「改变粒度是唯一解法」</b>，准确表述是：<b>在实测范围内，改粒度带来的意图级提升（+0.0800）大于任何单一统计变换带来的提升，而最优统计变换随粒度反转、不稳定。</b></p>
+  </div>
+</section>
+
+<!-- 4 三模块 -->
+<section>
+  <div class="s-head"><span class="s-num">04</span><h2>三模块实测：全部数字都能回到机读产物</h2></div>
+  <p class="s-sub">§5.2 / §5.4 / §5.5 · 所有指标值取自 <code class="mono">metrics.json</code>，耗时只有分项，没有合计秒数</p>
+  <div class="mods">
+    <div class="mod">
+      <div class="mod-h"><span class="k">M5</span><h3>知识缺口识别</h3></div>
+      <p class="mod-p">工单 HDBSCAN 聚类 → 簇代表元 → 段落级覆盖度 → 阈值判定 → 按工单数排序</p>
+      <dl class="kv">
+        <dt>threshold</dt><dd>0.62</dd>
+        <dt>gap_clusters</dt><dd>7</dd>
+        <dt>detected_intents</dt><dd>5</dd>
+        <dt>P / R / F1</dt><dd>0.8 / 0.8 / 0.8</dd>
+        <dt>缺口工单占比</dt><dd>18.55%（371 / 2000）</dd>
+      </dl>
+      <p class="mod-p" style="margin-top:11px;margin-bottom:0">聚类参数不敏感：mcs=5 与 10 的 F1 同为 0.800 → <b>消融重心放在打分函数而非聚类参数</b></p>
+    </div>
+    <div class="mod">
+      <div class="mod-h"><span class="k">M6</span><h3>内容腐化检测</h3></div>
+      <p class="mod-p">4 条时效性规则加权打分，R1 权重 3 / R2 权重 2 / R3 权重 2 / R4 权重 1，判定阈值 3</p>
+      <dl class="kv">
+        <dt>embedded / detected</dt><dd>62 / 69</dd>
+        <dt>TP / FP / FN</dt><dd>62 / 7 / 0</dd>
+        <dt>P / R / F1</dt><dd>0.8986 / 1.0 / 0.9466</dd>
+        <dt>耗时</dt><dd>0.42 秒</dd>
+        <dt>规则工程</dt><dd>R4 加两道约束后命中 88 篇</dd>
+      </dl>
+      <p class="mod-p" style="margin-top:11px;margin-bottom:0">消融：去掉任一条都塌到 0.6809–0.6857；<b>drop_R3 的 ΔF1 = 0</b>（R3 冗余，主动报告）</p>
+    </div>
+    <div class="mod">
+      <div class="mod-h"><span class="k">M7</span><h3>重复冗余检测</h3></div>
+      <p class="mod-p">余弦矩阵 → 阈值化邻接 → 并查集连通分量 → 主文档选举</p>
+      <dl class="kv">
+        <dt>threshold（采用）</dt><dd>0.95</dd>
+        <dt>dup_groups / docs</dt><dd>22 / 49</dd>
+        <dt>组级 F1 @0.95</dt><dd>1.0（乐观值）</dd>
+        <dt>组级 F1 @0.90</dt><dd>0.7037（真实基线）</dd>
+        <dt>组级 F1 @0.85</dt><dd>0.1778（过度合并）</dd>
+      </dl>
+      <p class="mod-p" style="margin-top:11px;margin-bottom:0">论文所有重复能力表述<b>一律以 0.7037 为基线</b>，1.0 只作为「本语料上界」出现</p>
+    </div>
+    <div class="mod">
+      <div class="mod-h"><span class="k">M3</span><h3>向量化引擎</h3></div>
+      <p class="mod-p">段落切分 → bge-small-zh-v1.5 编码 → L2 归一化，纯 CPU 推理</p>
+      <dl class="kv">
+        <dt>文档 / 工单 / 段落</dt><dd>300 / 2000 / 1852</dd>
+        <dt>维度</dt><dd>512</dd>
+        <dt>encode_seconds</dt><dd>15.43 秒</dd>
+        <dt>total_seconds</dt><dd>2.85 秒</dd>
+        <dt>平均每篇段落</dt><dd>6.2 段</dd>
+      </dl>
+      <p class="mod-p" style="margin-top:11px;margin-bottom:0">耗时按分项列：<b>向量化 15.43 + 检测 2.85</b>，不写合计秒数</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 实验矩阵 -->
+<section>
+  <div class="s-head"><span class="s-num">05</span><h2>第 6 章：14 条实验，4 条进论文 + 2 条降级成小节</h2></div>
+  <p class="s-sub">§6.3 实验矩阵 · <b>进论文 E1 / E2 / E5 / E6</b>；E3 / E4 降级为一句话；<b>E7 / E8 降级为各 ≤1 页的两小节</b>（合计 ≤2 页）；E9–E14 共 6 条<b>已跑完、不进论文、不重跑</b></p>
+  <table>
+    <thead><tr><th style="width:52px">编号</th><th>实验</th><th>自变量 → 因变量</th><th>指标</th><th style="width:88px">定位</th><th>数据</th></tr></thead>
+    <tbody>
+      <tr><td class="code col-c">E1</td><td>阈值扫描</td><td>阈值 0.30–0.74 → 检出意图数</td><td>P / R / F1</td><td class="col-c"><span class="pill p-in">进论文</span></td><td class="code">gap_threshold.csv</td></tr>
+      <tr><td class="code col-c">E2</td><td>段落级消融</td><td>段落级 / 整篇级 → 分离度</td><td>AUC（意图级 / 工单级）</td><td class="col-c"><span class="pill p-in">进论文</span></td><td class="code">granularity.csv</td></tr>
+      <tr><td class="code col-c">E3</td><td>归一化对照</td><td>margin / max÷std / max÷top5 / max−min</td><td>AUC</td><td class="col-c"><span class="pill p-one">一句话 + 小表</span></td><td class="code">granularity.csv</td></tr>
+      <tr><td class="code col-c">E4</td><td>聚类参数敏感性</td><td>mcs ∈ {3,5,10,15,20}</td><td>F1 / 簇数 / 噪声</td><td class="col-c"><span class="pill p-one">一句话</span></td><td class="code">gap_threshold.csv</td></tr>
+      <tr><td class="code col-c">E5</td><td>腐化规则消融</td><td>drop_Rn / only_Rn</td><td>P / R / F1</td><td class="col-c"><span class="pill p-in">进论文</span></td><td class="code">corrupt_rule_ablation.csv</td></tr>
+      <tr><td class="code col-c">E6</td><td>重复阈值扫描</td><td>0.80–0.98 → 组级 P/R/F1</td><td>F1</td><td class="col-c"><span class="pill p-in">进论文</span></td><td class="code">dup_threshold.csv</td></tr>
+      <tr><td class="code col-c">E7</td><td>阈值可迁移性</td><td>5 个自造场景 + banking77 双模型</td><td>F1 / AUC 衰减</td><td class="col-c"><span class="pill p-one">≤1 页边界表</span></td><td class="code">standardize/results_transfer.csv</td></tr>
+      <tr><td class="code col-c">E8</td><td>单调等价性验证</td><td>8 种打分 → 与 cover 的秩相关</td><td>Spearman ρ / AUC</td><td class="col-c"><span class="pill p-one">≤1 页命题表</span></td><td class="code">standardize/mechanism.csv</td></tr>
+      <tr><td class="code col-c">E9</td><td>5 场景 AUC 扫描</td><td>8 种打分 × 5 场景</td><td>AUC / best-F1</td><td class="col-c"><span class="pill p-out">不进货</span></td><td class="code">standardize/results_auc.csv</td></tr>
+      <tr><td class="code col-c">E10</td><td>阈值迁移实验</td><td>α 标定 → β/γ/γ-X/δ</td><td>F1 衰减</td><td class="col-c"><span class="pill p-out">不进货</span></td><td class="code">standardize/results_transfer.csv</td></tr>
+      <tr><td class="code col-c">E11</td><td>双模型 × 双语种</td><td>bge-small-en / bge-small-zh × banking77</td><td>AUC</td><td class="col-c"><span class="pill p-out">不进货</span></td><td class="code">standardize/results_banking77_{en,zh}.csv</td></tr>
+      <tr><td class="code col-c">E12</td><td>分组标准化消融</td><td>域内 / 全局 / 意图片（14 变体）</td><td>AUC / F1</td><td class="col-c"><span class="pill p-out">不进货</span></td><td class="code">standardize/ablation.csv</td></tr>
+      <tr><td class="code col-c">E13</td><td>度量陷阱散点图</td><td>各方案阈值极差 vs AUC</td><td>二者背离</td><td class="col-c"><span class="pill p-out">不进货</span></td><td class="code">standardize/results_directions.csv</td></tr>
+      <tr><td class="code col-c">E14</td><td>固定检出比例曲线</td><td>检出比例 10%–30%</td><td>σ / 平均 F1</td><td class="col-c"><span class="pill p-out">不进货</span></td><td class="code">standardize/results_directionC.csv</td></tr>
+    </tbody>
+  </table>
+  <div class="arch" style="margin-top:16px">
+    <p style="font-size:13.5px;color:var(--ink-2)"><b>为什么 E9–E14 明明跑完了却一篇都不写：</b>它们服务的立论是「阈值可迁移性评测」，而这个立论已被自己的实测推翻——域内标准化在合成语料上 AUC 0.992，搬到 banking77 英文真实语料只剩 <b>0.4344</b>（等同随机），同批实验里基线绝对余弦阈值是 0.9538。写进论文，评审必问「那你为什么不选 AUC 1.0000 的方案」，而正确答案是「因为它在真实语料上是 0.4344」——这需要整整一章才能交代，而这一章的篇幅要留给系统实现。<b>所以：数据留在仓库不重跑，答辩被追问时直接引用 CSV 里的值作答。</b></p>
+    <p style="font-size:13.5px;color:var(--ink-2);margin-top:12px"><b>E7 / E8 为什么留了 2 页：</b>它们给出的不是方法论创新，而是<b>可直接落地的工程结论</b>——「严格单调变换不改变 AUC，所以换刻度的方案一律无效」（一张表排除一整类做法）与「绝对阈值锚定的是模型 × 语言，跨模型必须重标」（三档边界表）。这两条答辩时能当场引用，导师要求删也随时可删（删掉后论文只剩段落级改进 + 三模块系统，题目照样成立）。</p>
+  </div>
+</section>
+<!-- 6 页数分配 -->
+<section>
+  <div class="s-head"><span class="s-num">06</span><h2>70 页怎么分：算法 14 页是唯一的重头</h2></div>
+  <p class="s-sub">§7.3 页数分配表 · <b>算法 14 页 + 实验 12 页 + 系统设计 12 页 = 38 页</b>，占全文一半以上；参考文献与致谢附录合计 4 页</p>
+  <div class="alloc">
+    <div style="width:2.86%;background:#b06367">2</div>
+    <div style="width:11.43%;background:#2f6f5e">8</div>
+    <div style="width:11.43%;background:#3d8570">8</div>
+    <div style="width:8.57%;background:#5a9b85">6</div>
+    <div style="width:17.14%;background:#7ab09c">12</div>
+    <div style="width:20%;background:#c97b3f">14</div>
+    <div style="width:17.14%;background:#a35f3c">12</div>
+    <div style="width:5.71%;background:#8a8377">4</div>
+    <div style="width:4.29%;background:#9a9384">3</div>
+    <div style="width:1.43%;background:#b3ab9c">1</div>
+  </div>
+  <div class="legend">
+    <div class="lg"><i style="background:#b06367"></i><b>2</b><span>摘要+关键词</span></div>
+    <div class="lg"><i style="background:#2f6f5e"></i><b>8</b><span>第 1 章 绪论</span></div>
+    <div class="lg"><i style="background:#3d8570"></i><b>8</b><span>第 2 章 相关技术</span></div>
+    <div class="lg"><i style="background:#5a9b85"></i><b>6</b><span>第 3 章 需求分析</span></div>
+    <div class="lg"><i style="background:#7ab09c"></i><b>12</b><span>第 4 章 系统设计</span></div>
+    <div class="lg"><i style="background:#c97b3f"></i><b>14</b><span>第 5 章 算法设计</span></div>
+    <div class="lg"><i style="background:#a35f3c"></i><b>12</b><span>第 6 章 实验与结果</span></div>
+    <div class="lg"><i style="background:#8a8377"></i><b>4</b><span>第 7 章 结论与展望</span></div>
+    <div class="lg"><i style="background:#9a9384"></i><b>3</b><span>参考文献</span></div>
+    <div class="lg"><i style="background:#b3ab9c"></i><b>1</b><span>致谢 + 附录</span></div>
+  </div>
+  <div class="arch" style="margin-top:16px">
+    <p style="font-size:13.5px;color:var(--ink-2)"><b>页数分配本身就是一次表态：</b>系统设计 12 页 + 算法 14 页 + 实验 12 页 = 38 页，说明这 17 周的赌注押在「系统真的实现了 + 算法真的可复现」上，而不是押在方法创新。实验那 12 页里有 <b>2 页是 §5.3 探索性分析的两小节</b>（E7 / E8）——这 2 页不是新增篇幅，而是 E9–E14 被砍掉后腾出的图表与消融空间，所以全文仍是 70 页。第 7 章结论与展望只给 4 页，<b>意味着「局限与展望」不会展开成大段自我批评</b>——它要写的是「做了什么、边界在哪、下一步做什么」，正好对应技术方案第 8 章的风险与主动放弃三件事。</p>
+  </div>
+</section>
+
+<!-- 7 风险 -->
+<section>
+  <div class="s-head"><span class="s-num">07</span><h2>风险与主动放弃：四类风险 + 砍掉三件事</h2></div>
+  <p class="s-sub">第 8 章 风险与对策 · 这一章是<b>写作期元文档</b>，不进论文正文，但内容要落进论文第 7 章与答辩话术</p>
+  <div class="risks">
+    <div class="rk">
+      <h4><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>8.1 技术风险</h4>
+      <p>HDBSCAN 参数敏感（mcs 5→10 时 F1 不变，风险可控）· 相似度计算规模（当前秒级，2000 篇仍可接受，尚未实测）· 阈值稳定性。</p>
+      <div class="ans"><b>阈值风险已被重新定性</b>：不是「跨语料失效」，而是「跨<b>模型 × 语言</b>失效」——同模型同语言内极差仅 0.0264。</div>
+    </div>
+    <div class="rk">
+      <h4><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>8.1.1 立论方向风险</h4>
+      <p>原计划的第二个改进点「语料基线标准化」整体不成立：域内标准化在 banking77 英文 / 中文真实语料上仅 0.4344 / 0.4946（等同随机），而基线绝对阈值为 0.9538 / 0.7925。</p>
+      <div class="ans"><b>路线已在 D14 前关闭，题目定为变体 C。</b>缓解方式：用「预测 → 证伪 → 修正」的完整叙事呈现，这在方法论上比「猜对了」更有说服力。</div>
+    </div>
+    <div class="rk">
+      <h4><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>8.2 数据风险</h4>
+      <p><b>本课题最大的单点风险</b>：自造数据被质疑「答案写进了题里」。</p>
+      <div class="ans"><b>对策</b>：① 双轨验证（自造 + banking77）② 按逐篇独立抽样埋设「自然陈旧但不算缺陷」对照文档，量化规则无法区分「真过期」与「只是很久没更新」③ 公开生成脚本与种子 ④ 主动讨论自造数据局限。</div>
+    </div>
+    <div class="rk">
+      <h4><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>8.3 工程风险</h4>
+      <p>Web 系统开发挤占算法时间。完整系统约需 13 个工作日（<b>计划估算，非实测</b>：数据扩量 1.5 + 阈值论证 1.5 + Web 4 + 论文 5 + 答辩 1）。</p>
+      <div class="ans"><b>真正的瓶颈是人工标注</b>（预算 300 条）——这是唯一无法通过编码加速的环节，必须在开题阶段就与导师确认时间预算。</div>
+    </div>
+  </div>
+  <h3 style="font-size:16px;font-weight:600;margin:26px 0 4px">主动放弃的三件事 —— 这是方案风险可控的核心策略</h3>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:13px">不是「做不完所以没做」，而是<b>主动判断不值得做</b>，并且每一条都写明了放弃理由</p>
+  <div class="abandons">
+    <div class="ab">
+      <span class="x">✕</span>
+      <h4>英文轨的深度调优</h4>
+      <p>banking77 只用于验证方法泛化性，不追求 SOTA。</p>
+      <div class="why"><b>放弃理由</b>：深度调优会吞噬全部时间，且与中文主场景无关。变体 C 题目也不含跨语言主张。</div>
+    </div>
+    <div class="ab">
+      <span class="x">✕</span>
+      <h4>引入向量数据库</h4>
+      <p>不引入 Faiss / Milvus，向量直接存 <code class="mono">np.ndarray</code>。</p>
+      <div class="why"><b>放弃理由</b>：实测 300×300 余弦矩阵 &lt; 0.01 秒（<code class="mono">metrics.json:dup.rows[*].seconds</code> 记为 0.0），数据规模完全不需要；引入只增加工程复杂度与部署成本。</div>
+    </div>
+    <div class="ab">
+      <span class="x">✕</span>
+      <h4>登录权限 / 多租户体系</h4>
+      <p>内部单域工具，三类角色用简单角色字段即可。</p>
+      <div class="why"><b>放弃理由</b>：做完整权限系统是纯粹的工程堆砌，无学术价值。本科版进一步简化为单角色 + 只读审计导出。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 答辩 -->
+<section>
+  <div class="s-head"><span class="s-num">08</span><h2>答辩：8 个必答问题，答案已经写好了</h2></div>
+  <p class="s-sub">§7.4 高频追问 12 条 + 8b · 这里挑出<b>最可能被问的 8 条</b>，每条都标了「方案里有没有给出可用数字」</p>
+  <div class="qa">
+    <details open>
+      <summary><span class="n">Q1</span>数据是真的吗？为什么不用公开数据集？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a">公开数据集只有「客户问什么」，没有配套的「知识库文档」，无法构造「哪些问题被覆盖了、哪些没有」的 ground truth。因此 ground truth 必须自建——而自建数据最容易被质疑「是不是把答案写进了题里」。<b>对策是双轨验证</b>：自造语料证明功能，banking77 证明方法不依赖我的数据。这是本设计最重要的防质疑手段。</div>
+    </details>
+    <details>
+      <summary><span class="n">Q2</span>算法改进点是什么？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a"><b>一个</b>：把检索粒度从整篇文档改为段落级，意图级分离度 AUC 从 0.8880 提升到 0.968。「提出更好的打分函数」这条路实测后走不通——严格单调变换不改变 AUC，因此分位数、z-score 这类「换刻度」方案在数学上不可能改进排序类指标。<b>这条命题是排除工具，不是第二个改进点</b>（详见 §5.3 定位说明）。</div>
+    </details>
+    <details>
+      <summary><span class="n">Q3</span>为什么用 bge-small 不用更大的模型？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a">三个理由：权重下载量 95.8 MB、换机器可复现；任务只需域内相似度比较，不需要极限语义判别；大模型会把 CPU 推理速度拖慢一个量级，影响「全量扫描 ≤ 60 秒」的性能承诺。<b>工程确定性在这里比精度更重要。</b></div>
+    </details>
+    <details>
+      <summary><span class="n">Q4</span>为什么不用 KMeans？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a">工单是无标签数据，事先不知道有多少业务意图——实际分出的簇数远多于预设的意图数。KMeans 必须预先指定 K，且对离群点敏感，而工单数据天然含长尾噪声。<br><span class="pill p-out">簇数 95 / 88 为无出处项</span> 审计文档已判：受审产物只记录阈值扫参，无总簇数列，论文中不可引用该数。</div>
+    </details>
+    <details>
+      <summary><span class="n">Q5</span>为什么不用大模型 / LLM 来判断？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a">成本与不确定性。判定逻辑是「聚类 + 相似度 + 规则」，全程可解释、可复现、毫秒级。若用 LLM 判断，300 篇文档的重复检测会产生数千次调用，成本高且每次输出不确定，无法给出稳定的 P/R/F1。</div>
+    </details>
+    <details>
+      <summary><span class="n">Q6</span>0.95 阈值下 F1 = 1.0，是不是数据太简单？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a"><b>是，论文里明确写了这一点。</b>埋入的重复件仅差 4 处同义词，组内余弦 0.9545–0.9845（整篇级口径），属于乐观值。真实语料的合理预期是 0.90 阈值下组级 F1 ≈ 0.7037，<b>论文以这个数字作为基线</b>。0.85 处组级 F1 仅 0.1778（过度合并），说明阈值曲线确实有区分度。</div>
+    </details>
+    <details>
+      <summary><span class="n">Q7</span>腐化检测是规则匹配，会不会太简单 / 不通用？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a">规则本身简单，但<b>规则工程是核心工作</b>。R4 加两道约束（对方领先 ≥ 365 天、标题包含度 ≥ 0.50）后命中数从全量收敛到 88 篇，这个修正过程本身是论文素材。四规则贡献度消融：F1 = 0.9466 来自四条联合，任一单规则都到不了（only_R2 / only_R3 / only_R4 的 F1 恒为 0，only_R1 也只有 0.6809）；去掉 R1 / R2 / R4 分别掉 0.2609 / 0.2657 / 0.2657，而<b>去掉 R3 一位不掉（ΔF1 = 0）</b>，说明 R3 在本语料上冗余，如实写进论文。</div>
+    </details>
+    <details>
+      <summary><span class="n">Q8</span>阈值 0.62 是不是过拟合到我的数据了？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a"><b>同一模型、同一语言内不是</b>：5 个场景迁移实验所需阈值极差只有 0.0264。但<b>跨模型或跨语言确实会崩</b>：中文语料标定的 cover ≤ 0.6463 搬到 banking77 英文语料，77 个意图全判成缺口，F1 从 0.8148 掉到 0.3261。准确表述是：<b>绝对阈值锚定的是「模型 × 语言」的刻度</b>，模型和语言不变时它很稳，变了就崩。</div>
+    </details>
+    <details>
+      <summary><span class="n">8b</span>你之前预测「领域内标准化最优」，实测证明是错的，这不是打脸吗？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="a">是预测错了，不回避。但保留这个预测-证伪过程比一开始就说对更有价值：① 它暴露了一个隐蔽陷阱——合成语料里缺口分散在不同业务域，恰好符合分组标准化的假设，真实数据里缺口是整片缺失；② 证伪它让我发现了命题 5.1，把一大类「我们做了归一化所以更鲁棒」的说法一刀切掉，这是可验证的正向贡献；③ 还发现「可迁移性」这个指标本身可以被优化成假象（有方案阈值极差仅 0.0018，但 AUC 只有 0.1120，比随机还差）。<b>结论：能诚实说清「什么方法在什么条件下有效、什么条件下无效」，比多凑一个看起来漂亮的方法更有研究价值。</b></div>
+    </details>
+  </div>
+</section>
+
+<!-- 9 已对齐 + 新增待拍板 -->
+<section>
+  <div class="s-head"><span class="s-num">09</span><h2>3 处已对齐，2 处新问题待拍板</h2></div>
+  <p class="s-sub">前 3 条是本轮<b>已定</b>的决策（已落到源文档）；后 2 条是独立复审新发现的<b>待拍板</b>项</p>
+  <div class="align">
+    <div class="al-item">
+      <div class="al-q"><span class="n">A</span>结论章：开发完毕后再写 <span class="pill p-in">已定</span></div>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">结论与展望<b>不在选题阶段动笔</b>——必须站在「系统已实现、实验已做完」的位置上写，才知道哪些结论站得住。但它的<b>素材来源已在方案内确定</b>，开发完成后按表拼装即可，不另起炉灶：</p>
+      <div class="al-opts">
+        <div><i>→</i><span><b>工作总结</b> ← §1.3 本文贡献（3 条，已实测）　<b>研究结论</b> ← 第 5 章三模块实测指标　<b>局限与不足</b> ← 第 8 章三类风险中未闭环的部分　<b>未来工作</b> ← §8.4 主动放弃的三件事</span></div>
+        <div><i>✓</i><span>已写入技术方案 §7.3 页数分配表下方，4 页体量不变</span></div>
+      </div>
+    </div>
+    <div class="al-item">
+      <div class="al-q"><span class="n">B</span>5.3 探索性分析留 2 页 <span class="pill p-in">已定</span></div>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">调研了本科计算机类论文的通行格式（4 份独立来源，含华南师大官方模板）：主流是 <b>6–7 章</b>结构——绪论 / 相关技术 / 需求分析 / 系统设计 / 系统实现与测试 / 总结与展望，算法与方法章与系统实现章并列最重。本课题 14 页算法章已按 4 条主线分配完，故 §5.3 <b>以 2 页为上限并入第 6 章</b>：</p>
+      <div class="al-opts">
+        <div><i>→</i><span><b>约 1 页</b>：命题 5.1（单调等价性）陈述 + 3 行证明 + 1 张 8 种打分秩等价表</span></div>
+        <div><i>→</i><span><b>约 1 页</b>：绝对阈值的三档使用边界表（同模型同语言 / 换语料 / 换模型换语言）</span></div>
+        <div><i>×</i><span><b>不进正文</b>：度量陷阱、评测协议与 bootstrap 方案、方向 A/B/C 逐条讨论——留仓库，答辩引用实测值</span></div>
+        <div><i>✓</i><span>已写入技术方案 §5.3 定位框与实施方案实验矩阵（E7 / E8 由「砍掉」改为「降级为 ≤1 页」）</span></div>
+        <div><i>✓</i><span>这 2 页<b>不是新增篇幅</b>——E9–E14 砍掉后腾出的图表与消融空间正好由两小节占用，第 6 章仍是 12 页、全文仍是 70 页</span></div>
+      </div>
+    </div>
+    <div class="al-item">
+      <div class="al-q"><span class="n">C</span>1.2 商业对标整节删除 <span class="pill p-in">已定</span></div>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">本科设计跟成熟产品对标是<b>自己给自己挖坑</b>——评审只会问「你比 AptEdge 强在哪」，而本课题的优势恰恰在于题型不同（治理知识库本身，不是 RAG 问答）。参考文献应服务于<b>算法设计与开发内容</b>，不服务于对标。该节已整节删除，§1 重新编号（1.3→1.2、1.4→1.3、1.5→1.4），<b>22 处交叉引用（技术方案 4 处 + 审计文档 18 处）同步更新</b>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 新增待拍板 -->
+<section>
+  <div class="s-head"><span class="s-num">10</span><h2>新发现：2 处需要你拍板</h2></div>
+  <p class="s-sub">独立复审发现的，<b>与 A/B/C 无关</b>，且都影响「结论是否站得住」</p>
+  <div class="align">
+    <div class="al-item">
+      <div class="al-q"><span class="n">D</span>「77/77 全判为缺口」是判定式的符号 bug，不是阈值效应 <span class="pill p-one">待拍板</span></div>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">复审在 <code class="mono">standardize/exp4_banking77.py</code> 里查到一个<b>实打实的代码缺陷</b>：第 160 行取 <code class="mono">med_all = intent_auc(-cover, ...)</code>，得到的是 <b>−cover 的中位数</b>（值域 [−1, 0]）；第 204 行却判 <code class="mono">v &lt;= 0.6463</code> —— 这个条件对该值域<b>恒真</b>，所以不论阈值取多少、cover 分布如何，都会「全部判为缺口」。</p>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>佐证</b>：中英文两份 xfer 产物的 cover 分布不同（min 0.6014 vs 0.6547），却报出<b>完全相同</b>的 77 / 0.1948 / 1.0 / 0.3261——若是真实阈值效应，英文侧 min 已高于 0.6463，结果不可能与中文侧相同。按正确写法（<code class="mono">v &gt;= -0.6463</code>）重算，英文场景 F1 应为 0，<b>比记录的 0.3261 更差</b>。</p>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px"><b>结论方向不变</b>（跨模型 / 跨语言绝对阈值崩溃），但「77/77」这个具体数字是产物缺陷的镜像，<b>答辩被追问「为什么恰好 77 个」会露怯</b>。涉及 3 份 CSV + 技术方案 6 处 + 实施方案 1 处 + 审计文档 8 处。</p>
+      <div class="al-opts">
+        <div><i>①</i><span><b>修产物</b>：改判定式后重跑 exp4，更新 3 份 CSV 与全部引用点——数字纪律与文档一致性最好，但<b>要动既有产物</b>，且新值未知</span></div>
+        <div><i>②</i><span><b>只改表述</b>：产物不动，文档改述为「跨模型迁移后绝对阈值失效（F1 0.3261 来自 <code class="mono">standardize/*.csv</code>）」，不再强调「恰好 77 个」——<b>与「一字节不动」原则不冲突</b></span></div>
+        <div><i>③</i><span>暂不处理，等 W2 落 <code class="mono">control_doc_ids</code> 时一并重跑</span></div>
+      </div>
+    </div>
+    <div class="al-item">
+      <div class="al-q"><span class="n">E</span>GPU 与向量数据库：引入它们会动到什么 <span class="pill p-one">待拍板</span></div>
+      <p style="font-size:13px;color:var(--ink-2);margin-left:22px">你提的两条新决策（向量化可走 GPU / 上线调 API；引入向量数据库）<b>会推翻方案里两处已写死的取舍</b>。复审核证后的关键事实：</p>
+      <div class="al-opts">
+        <div><i>→</i><span><b>阈值 0.62 绑死「模型 × 语言」</b>：它是在 bge-small-zh-v1.5 CPU 编码上标定的。线上换 API 模型 → 刻度漂移，0.62 不再成立，<b>必须重新标定并落新产物</b>（已有实测：跨模型跨语言 F1 掉到 0.3261）</span></div>
+        <div><i>→</i><span><b>向量库替换不了本项目任何一环</b>：缺口是段落级<b>两级 max</b> 聚合、腐化是纯规则、重复要<b>全量两两图</b>——top-k 检索表达不了任何一个，ANN 的近似误差还会直接污染 P/R/F1</span></div>
+        <div><i>→</i><span><b>净增工作量 7–11.5 天</b>（复审估算），全部挤在 W7–W9——正是 FastAPI 看板的三周窗口，而 W8 末就是 G8 判断点；且会与 W3 的 300 条人工标注抢同一份时间</span></div>
+        <div><i>→</i><span><b>已顺手修掉一个更急的隐患</b>：<code class="mono">embed.py</code> 原本没固定 device，FlagEmbedding 在 <code class="mono">devices=None</code> 时会<b>自动选 CUDA</b>——装上 CUDA 版 torch 的那一刻产物会静默换设备。已显式固定 <code class="mono">devices="cpu"</code> 并把 <code class="mono">device</code> 字段落进 <code class="mono">embeddings_meta.json</code>（隔离副本实跑输出 <code class="mono">"device": "cpu"</code>，既有产物未改动）</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>数据来源：<code>poc/kbgovernance/metrics.json</code> + 同目录 CSV（<code>granularity.csv</code> / <code>gap_threshold.csv</code> / <code>corrupt_rule_ablation.csv</code> / <code>dup_threshold.csv</code> / <code>corrupt_docs.csv</code> / <code>top15_gaps.csv</code> / <code>dup_groups_best.csv</code> / <code>standardize/*.csv</code>）</div>
+  <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（1204 行）· <code>docs/技术方案/本科版实施方案.md</code></div>
+</footer>
+
+</div>
+</body>
+</html>

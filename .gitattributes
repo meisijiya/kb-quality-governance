@@ -5,9 +5,9 @@
 # 直接打断 W2 的「语料可复现」关卡（G2）。因此按文件性质分别钉死。
 #
 # 现状（2026-10-19 实测）：
-#   .sh / .py / .md / requirements.txt  → LF
-#   .csv / .json / .log / 其余 .txt     → CRLF
-#   .npy                               → 二进制
+#   .sh / .py / .md / .html / requirements.txt → LF
+#   .csv / .json / .log / 其余 .txt            → CRLF
+#   .npy                                        → 二进制
 
 # 默认：识别为文本的文件，入库统一为 LF
 * text=auto
@@ -16,6 +16,7 @@
 *.sh  text eol=lf
 *.py  text eol=lf
 *.md  text eol=lf
+*.html text eol=lf
 
 # ---- 必须逐字节保留：机读产物，是论文数字的溯源依据 ----
 # 禁止任何换行转换，保证仓库里的字节与脚本产出完全一致
