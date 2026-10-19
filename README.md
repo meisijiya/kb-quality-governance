@@ -105,6 +105,25 @@ cd poc/kbgovernance
 
 ---
 
+## 参考仓库
+
+为避免重复造轮子，本项目挑了一批第三方开源仓库作为参考，**只克隆到本地 `reference/repo/`，不入库**。
+
+| 类别 | 内容 | 对应我们的什么 |
+|---|---|---|
+| `algo` | MinHash/SimHash 近重复、HDBSCAN、嵌入横评、检索评测基准 | 三模块的方法谱系与评测协议 |
+| `product` | 健康度评分产品、知识库系统、数据治理平台（含 freshness 质量维度） | 答辩商业对标与系统形态定位 |
+| `stack` | FastAPI + SQLModel + SQLite 全栈模板 | W7–W8 的 Web 交付骨架 |
+| `annotate` | 标注协作平台（含标注一致性工作流） | W3 的 300 条人工标注关卡 |
+
+清单、筛选理由、许可证与固定 commit SHA 见 [`reference/REFERENCES.md`](./reference/REFERENCES.md)。需要时按类别重建：
+
+```bash
+bash reference/clone_references.sh algo        # 或 product / stack / annotate，或不带参数取全部
+```
+
+---
+
 ## 分支与协作
 
 分支模型、命名规范、提交规范、PR 流程全部写在 [`AGENTS.md`](./AGENTS.md)。本仓库采用 **GitHub Flow 精简模型**：`main`（唯一长期分支，受保护）+ `feature/*` + `fix/*` 短期分支 + `main` 上的里程碑 tag。

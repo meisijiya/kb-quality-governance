@@ -170,6 +170,33 @@ cd poc/kbgovernance
 
 ---
 
+## 参考仓库
+
+`reference/repo/` 是第三方开源仓库的本地克隆体，**不入库**。入库的只有两份文件：
+
+| 文件 | 内容 |
+|---|---|
+| `reference/REFERENCES.md` | 清单：每个仓库的用途、筛选理由、许可证、固定 commit SHA |
+| `reference/clone_references.sh` | 按类别重建克隆体的脚本（SHA 固定，可复现） |
+
+克隆体不入库的理由：体积大、各自携带许可证、会与上游分叉污染本仓库历史。需要参考时按类别重建：
+
+```bash
+bash reference/clone_references.sh algo        # 算法参考（三模块方法谱系 / 嵌入 / 评测协议）
+bash reference/clone_references.sh product     # 产品形态对标（健康度评分 / 知识库 / 数据治理）
+bash reference/clone_references.sh stack       # 技术栈骨架（W7-W8 Web 交付）
+bash reference/clone_references.sh annotate    # 标注工具（W3 人工标注关卡）
+bash reference/clone_references.sh             # 全部
+```
+
+**纪律**：
+
+- 借鉴思路、**自己实现**。第三方代码不得直接拷进 `poc/` 或未来的系统实现目录。
+- 引用第三方实现时，在代码注释里写明来源仓库与 commit SHA，并先确认其许可证允许本用途。
+- 引入新的参考仓库时，先在 `reference/REFERENCES.md` 写清「它对应我们的哪个模块、为什么值得看」，再克隆。
+
+---
+
 ## Agent skills
 
 ### Issue tracker
