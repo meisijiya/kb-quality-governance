@@ -817,7 +817,9 @@ def write_report(audits, sources, files, out_path):
         lines.append("")
         lines.extend(table([r for r in rows if r["status"] == "OK"]))
 
-    with open(out_path, "w", encoding="utf-8") as f:
+    # newline="\n": 报告是入库产物，仓库 .gitattributes 对 *.md 声明 eol=lf。
+    # 用平台默认换行会写成 CRLF，导致每次跑门禁工作区都变「脏」而内容其实没变。
+    with open(out_path, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     return total, total_bad
 
