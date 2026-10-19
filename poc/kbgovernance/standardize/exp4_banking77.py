@@ -164,6 +164,7 @@ def main():
     print("\n[exp4] banking77 子场景迁移（知识库减半 / 只留 20 意图）：")
     rng = np.random.default_rng(SEED)
     sub_scen = []
+    sub_ctx = {}
     for tag, n_keep in [("KB减半", len(cov_ids) // 2), ("KB仅20意图", 20)]:
         keep_ids = set(sorted(cov_ids)[:n_keep])
         idx = np.array([i for i, s in enumerate(kb_src) if s in keep_ids])
@@ -182,6 +183,7 @@ def main():
                "S4min 双参考系min": -np.minimum(zg2, zw2),
                "S5 双参考系均值": -(zg2 + zw2) / 2.0}
         base_a = {r["方法"]: r["AUC"] for r in rows}
+        sub_ctx[tag] = (sc2, gap2)
         for nm, s in sc2.items():
             a, _ = intent_auc(s, tk_lab, gap2)
             f1, p, r, thr = best_f1_threshold(s, tk_lab, gap2)
@@ -203,9 +205,7 @@ def main():
     # 因此「cover <= thr 判为缺口」等价于「-cover >= -thr 判为缺口」。
     # 早期版本这里写的是 v <= thr，对 [-1, 0] 的取值恒真，导致无论阈值取多少
     # 都把全部 77 个意图判成缺口——那不是阈值效应，是判定式的符号缺陷。
-    for src_name, src_thr, direction in [
-            ("中文alpha ABS(cover<thr)", 0.6463, "le"),
-            ("中文alpha ABS(cover>thr, 反向)", 0.6463, "ge")]:
+    for src_thr, direction in [(0.6463, "le"), (0.6463, "ge")]:
         if direction == "le":
             det = {k for k, v in med_all.items() if v >= -src_thr}
             rule = f"cover <= {src_thr} -> 缺口"
@@ -223,24 +223,32 @@ def main():
         print(f"  中文阈值 {src_thr} [{rule}] -> 英文: 检出 {len(det)} 个意图, "
               f"P={p:.3f} R={r:.3f} F1={f:.3f}  (该场景最优 F1="
               f"{df[df['方法'] == 'ABS(绝对阈值)']['best_F1'].iloc[0]:.3f})")
-    # 同一方向下，各标准化方法自己的最优阈值搬过来会怎样
+    # 同一模型内的迁移：把「全量场景」各自的最优阈值原封不动搬到「KB减半」场景。
+    # 评估必须用**目标场景**的分数与 ground truth——早期版本这里误用了全量的
+    # 分数与全量的 15 个缺口意图，却把结果标成「KB减半」，于是「迁移后 F1」与
+    # 「全量最优 F1」恒等，构成循环论证。
+    sc_half, gap_half = sub_ctx["KB减半"]
+    sub_df = pd.DataFrame(sub_scen)
     for nm in ["S1 分位数排名", "S2 全局z-score", "S4 双参考系(域)"]:
         a_row = df[df.方法 == nm]
         if len(a_row) == 0:
             continue
-        s = SC[nm]
-        thr = float(a_row["最优阈值"].iloc[0])
-        _, medx = intent_auc(s, tk_lab, gap)
-        det = {k for k, v in medx.items() if v >= thr}
-        tp = len(det & gap)
+        thr = float(a_row["最优阈值"].iloc[0])                 # 全量场景的最优阈值
+        _, med_half = intent_auc(sc_half[nm], tk_lab, gap_half)  # 目标场景的分数与缺口集
+        det = {k for k, v in med_half.items() if v >= thr}
+        tp = len(det & gap_half)
         p = tp / len(det) if det else 0
-        r = tp / len(gap)
+        r = tp / len(gap_half)
         f = 2 * p * r / (p + r) if (p + r) > 0 else 0
+        hrow = sub_df[(sub_df.子场景 == "KB减半") & (sub_df.方法 == nm)]
+        best_half = float(hrow["F1"].iloc[0]) if len(hrow) else None
         xfer.append(dict(源="banking77 全量自身", 源阈值=round(thr, 4),
                          目标="banking77 KB减半", 判定=f"{nm} score>={thr:.4f}->缺口",
                          检出意图数=len(det), P=round(p, 4), R=round(r, 4),
-                         F1=round(f, 4), 该场景最优F1=None))
-        print(f"  {nm} 全量阈值 {thr:+.4f} -> KB减半: 检出 {len(det)}, F1={f:.3f}")
+                         F1=round(f, 4),
+                         该场景最优F1=round(best_half, 4) if best_half is not None else None))
+        print(f"  {nm} 全量阈值 {thr:+.4f} -> KB减半: 检出 {len(det)}, F1={f:.3f}"
+              f"  (KB减半 自身最优 F1={best_half})")
     pd.DataFrame(xfer).to_csv(os.path.join(HERE, f"results_xfer_banking77_{TAG}.csv"),
                               index=False, encoding="utf-8-sig")
 
