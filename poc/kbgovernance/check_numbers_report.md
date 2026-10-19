@@ -71,7 +71,7 @@
 | 399 | …个主题平均掉。实测：300 篇文档平均 140 字、正文按 `。` 与 `；` 切分后平均 5.2 句，整篇编码时**意图级分离度 AUC 仅 0.8880**（工单级 0.8307）。切分… | `5.2` | `derived_metrics.csv:docs.avg_sentences_per_doc` | `5.173333` |
 | 399 | …07）。切分时丢弃长度 < 8 字的片段（含标题段），得到 **1852 个段落，平均每篇 6.2 段**（`metrics.json:embedding.n_passages` = 185… | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
 | 399 | …s.json:embedding.n_passages` = 1852 ÷ 300 篇 = 6.17），分离度 AUC 提升至 **0.968**（工单级 0.8659），意图级绝对提升 0.… | `6.17` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
-| 528 | …只有 **0.4946**——两个模型、两种语言、两个独立数据集，AUC 全部落在随机水平（0.43–0.50）。而基线「绝对余弦阈值」在同一套实验中分别为 **0.9538 / 0.7925… | `0.43` | `standardize/results_banking77_en.csv:召回全部门槛[row=2][0]` | `0.431` |
+| 528 | …mall-zh-v1.5`）——**同一份语料、两个嵌入模型**，AUC 全部落在随机水平（0.43–0.50）。而基线「绝对余弦阈值」在同一套实验中分别为 **0.9538 / 0.7925… | `0.43` | `standardize/results_banking77_en.csv:召回全部门槛[row=2][0]` | `0.431` |
 | 702 | \| ABS 逐场景最优阈值 \| 0.1452 \| 基准 \| **0.8289** \| | `0.1452` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
 | 703 | \| **固定检出比例 25%** \| **0.0873** \| 标准差下降约四成 \| 0.5522 \| | `0.0873` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
 | 703 | \| **固定检出比例 25%** \| **0.0873** \| 标准差下降约四成 \| 0.5522 \| | `0.5522` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
@@ -163,7 +163,7 @@
 | 506 | ### 5.3 探索性分析：阈值可迁移性的形式化刻画、评测协议与负结果 | `5.3` | `章节号` | `` |
 | 514 | > \| 第 6 章 · 一小节 \| 命题 5.1（单调等价性）的一句话陈述 + 3 行证明 + 1 张秩等价表 \| 约 1 页 \| | `5.1` | `章节号` | `` |
 | 517 | > **不进正文的部分**：§5.3.4 的度量陷阱（跨场景极差可被优化成假象）、§5.3.5 的评测协议与 bootstrap… | `5.3 (×2)` | `章节号(§引用)` | `` |
-| 521 | …向不进题目**：它原本被设计为本文的第二个算法改进点，但实测发现它无法支撑一个改进点。命题 5.1（严格单调变换不改变 AUC）是已知事实，写不出新意；初稿预测最优的「领域内标准化」在 ba… | `5.1` | `章节号` | `` |
+| 521 | …向不进题目**：它原本被设计为本文的第二个算法改进点，但实测发现它无法支撑一个改进点。命题 5.1（严格单调变换不改变 AUC）是已知事实，写不出新意；初稿预测最优的「领域内标准化」在同一份… | `5.1` | `章节号` | `` |
 | 523 | …负结果。答辩时能说「我试过这条路，它不成立，边界在这里」，比「我没想到这条路」强得多。命题 5.1 同时是一张能用 1 张表、0 额外算力验证的证伪工具，可用于排除一整类「归一化更鲁棒」的无… | `5.1` | `章节号` | `` |
 | 547 | #### 5.3.1 一个形式化命题（探索性分析结论） | `5.3` | `章节号` | `` |
 | 549 | **命题 5.1（单调等价性）**：设 $g:\mathbb{R}\to\mathbb{R}$ 严格单调增，… | `5.1` | `章节号` | `` |
@@ -460,11 +460,11 @@
 | 46 | - **一个诚实的负结果**：跨场景阈值极差可以被单独优化成假象（某方案极差仅 **0.0018**，但 AUC 仅 **0.1120**，比随机更差）——「可迁移」与「有效」是两个独立性… | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
 | 46 | …跨场景阈值极差可以被单独优化成假象（某方案极差仅 **0.0018**，但 AUC 仅 **0.1120**，比随机更差）——「可迁移」与「有效」是两个独立性质。 | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
 | 58 | …写不出新意；初稿预测最优的 S1/S2 在数学上就不可能赢，实测 Spearman ρ = -1.000000 \| `standardize/mechanism.csv` \| | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 59 | \| 领域内标准化（S3）在合成语料 α 上 AUC 1.0000，但在 banking77 真实英文 / 中文语料上只有 **0.4344 / 0.4946… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 59 | …α 上 AUC 1.0000，但在 banking77 真实英文 / 中文语料上只有 **0.4344 / 0.4946**（等同随机）；同一批实验中基线「绝对余弦阈值」为 **0.9538 /… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 59 | …1.0000，但在 banking77 真实英文 / 中文语料上只有 **0.4344 / 0.4946**（等同随机）；同一批实验中基线「绝对余弦阈值」为 **0.9538 / 0.7925**… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 59 | …**0.4344 / 0.4946**（等同随机）；同一批实验中基线「绝对余弦阈值」为 **0.9538 / 0.7925**，全面占优 \| `standardize/results_bankin… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 59 | …/ 0.4946**（等同随机）；同一批实验中基线「绝对余弦阈值」为 **0.9538 / 0.7925**，全面占优 \| `standardize/results_banking77_en.cs… | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 59 | \| 领域内标准化（S3）在合成语料 α 上 AUC 1.0000，但在 banking77 上只有 **0.4344 / 0.4946**（同为真实语料、分… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 59 | …准化（S3）在合成语料 α 上 AUC 1.0000，但在 banking77 上只有 **0.4344 / 0.4946**（同为真实语料、分别用 `bge-small-en-v1.5` 与 `… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 59 | …语料 α 上 AUC 1.0000，但在 banking77 上只有 **0.4344 / 0.4946**（同为真实语料、分别用 `bge-small-en-v1.5` 与 `bge-small… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 59 | …e-small-zh-v1.5` 嵌入，等同随机）；同一批实验中基线「绝对余弦阈值」为 **0.9538 / 0.7925**，全面占优 \| `standardize/results_bankin… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 59 | …h-v1.5` 嵌入，等同随机）；同一批实验中基线「绝对余弦阈值」为 **0.9538 / 0.7925**，全面占优 \| `standardize/results_banking77_en.cs… | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
 | 60 | \| 「可迁移性」这个指标本身可被优化成假象：A2 方案跨场景阈值极差仅 **0.0018**（比基线 0.0264 小一个数量级），但 α 场景 AUC 仅 **0.1120**，… | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
 | 60 | …移性」这个指标本身可被优化成假象：A2 方案跨场景阈值极差仅 **0.0018**（比基线 0.0264 小一个数量级），但 α 场景 AUC 仅 **0.1120**，比随机还差 \| `stan… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
 | 60 | …**0.0018**（比基线 0.0264 小一个数量级），但 α 场景 AUC 仅 **0.1120**，比随机还差 \| `standardize/results_directions.csv… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
@@ -628,19 +628,19 @@
 | 515 | > \| 第 6 章 · 一小节 \| 绝对阈值的使用边界表（同一模型同语言 / 换语料 / 换模型换语言 三… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
 | 515 | …节 \| 绝对阈值的使用边界表（同一模型同语言 / 换语料 / 换模型换语言 三档） \| 约 1 页 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 519 | > **若导师认为连 2 页都不该给**：直接删掉这两小节，只保留段落级改进 + 三模块系统。这是变体 C 题目的设… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 521 | …初稿预测最优的「领域内标准化」在 banking77 真实英文 / 中文语料上只有 AUC 0.4344 / 0.4946，而基线「绝对余弦阈值」在同批实验中为 0.9538 / 0.7925；更… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 521 | …域内标准化」在 banking77 真实英文 / 中文语料上只有 AUC 0.4344 / 0.4946，而基线「绝对余弦阈值」在同批实验中为 0.9538 / 0.7925；更关键的是「跨场景阈… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 521 | …文语料上只有 AUC 0.4344 / 0.4946，而基线「绝对余弦阈值」在同批实验中为 0.9538 / 0.7925；更关键的是「跨场景阈值极差」这个度量本身可被优化成假象——A2 方案极差… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 521 | …small-en-v1.5` / `bge-small-zh-v1.5`）分别只有 AUC 0.4344 / 0.4946，而基线「绝对余弦阈值」在同批实验中为 0.9538 / 0.7925；更… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 521 | …v1.5` / `bge-small-zh-v1.5`）分别只有 AUC 0.4344 / 0.4946，而基线「绝对余弦阈值」在同批实验中为 0.9538 / 0.7925；更关键的是「跨场景阈… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 521 | …`）分别只有 AUC 0.4344 / 0.4946，而基线「绝对余弦阈值」在同批实验中为 0.9538 / 0.7925；更关键的是「跨场景阈值极差」这个度量本身可被优化成假象——A2 方案极差… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
 | 521 | …C 0.4344 / 0.4946，而基线「绝对余弦阈值」在同批实验中为 0.9538 / 0.7925；更关键的是「跨场景阈值极差」这个度量本身可被优化成假象——A2 方案极差只有 0.0018… | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
 | 521 | …0.7925；更关键的是「跨场景阈值极差」这个度量本身可被优化成假象——A2 方案极差只有 0.0018，AUC 却是 0.1120，比随机还差。**题目承诺一个已被自己证伪的方向，等于把攻击面主… | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
 | 521 | …场景阈值极差」这个度量本身可被优化成假象——A2 方案极差只有 0.0018，AUC 却是 0.1120，比随机还差。**题目承诺一个已被自己证伪的方向，等于把攻击面主动递给评委。** | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
 | 523 | …过这条路，它不成立，边界在这里」，比「我没想到这条路」强得多。命题 5.1 同时是一张能用 1 张表、0 额外算力验证的证伪工具，可用于排除一整类「归一化更鲁棒」的无效工作。 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 523 | …它不成立，边界在这里」，比「我没想到这条路」强得多。命题 5.1 同时是一张能用 1 张表、0 额外算力验证的证伪工具，可用于排除一整类「归一化更鲁棒」的无效工作。 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 527 | …全局 z-score、双侧参考分布、领域内标准化），并**预测「领域内标准化」最有可能突破 0.968 的基线**。 | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 528 | > **实测证明该预测完全错误**：领域内标准化在自造合成语料上确实达到 AUC 1.0000，但在 banking77 真实英文语料上只有 **0.4344**、在 banking77… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 528 | …合成语料上确实达到 AUC 1.0000，但在 banking77 真实英文语料上只有 **0.4344**、在 banking77 真实中文语料上只有 **0.4946**——两个模型、两种语言… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 528 | …真实英文语料上只有 **0.4344**、在 banking77 真实中文语料上只有 **0.4946**——两个模型、两种语言、两个独立数据集，AUC 全部落在随机水平（0.43–0.50）。… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 528 | …0.4946**——两个模型、两种语言、两个独立数据集，AUC 全部落在随机水平（0.43–0.50）。而基线「绝对余弦阈值」在同一套实验中分别为 **0.9538 / 0.7925**，全面… | `0.50` | `metrics.json:gap.cluster_rows[2].threshold` | `0.5` |
+| 528 | > **实测证明该预测完全错误**：领域内标准化在自造合成语料上确实达到 AUC 1.0000，但在 banking77 真实语料上只有 **0.4344**（`bge-small-en… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 528 | …自造合成语料上确实达到 AUC 1.0000，但在 banking77 真实语料上只有 **0.4344**（`bge-small-en-v1.5`）、**0.4946**（`bge-small-… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 528 | …g77 真实语料上只有 **0.4344**（`bge-small-en-v1.5`）、**0.4946**（`bge-small-zh-v1.5`）——**同一份语料、两个嵌入模型**，AUC… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 528 | …zh-v1.5`）——**同一份语料、两个嵌入模型**，AUC 全部落在随机水平（0.43–0.50）。而基线「绝对余弦阈值」在同一套实验中分别为 **0.9538 / 0.7925**，全面… | `0.50` | `metrics.json:gap.cluster_rows[2].threshold` | `0.5` |
 | 528 | …C 全部落在随机水平（0.43–0.50）。而基线「绝对余弦阈值」在同一套实验中分别为 **0.9538 / 0.7925**，全面占优。 | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
 | 528 | …平（0.43–0.50）。而基线「绝对余弦阈值」在同一套实验中分别为 **0.9538 / 0.7925**，全面占优。 | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
 | 530 | …能赢**。实测显示二者的 Spearman 秩相关系数与原始 cover 均为 **ρ = -1.000000**，AUC 恒等于基线的 0.9680。 | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
@@ -2266,7 +2266,7 @@
 
 | 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
 |---|---|---|---|---|
-| 52 | 「文档位置」中 `附录D` = 技术方案第 1097–1204 行。 | `1204` | `` | `` |
+| 52 | 「文档位置」中 `附录D` = 技术方案第 1109–1217 行。 | `1217` | `` | `` |
 | 193 | （A3 一行文档未列于附录 D，但正文 5.3.4 表已列，数值与 `results_directions.csv` 一致。） | `5.3` | `` | `` |
 | 206 | ### 2.3 正文各节（154 条） | `154` | `` | `` |
 
@@ -2336,8 +2336,8 @@
 | 38 | …18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边界三 cover 分布表所依赖的 `scenario_meta.json` / `b… | `5.3` | `章节号(§引用)` | `` |
 | 40 | …sv`、`granularity_dup.csv` 补齐机读出处并改判为 `一致`，详见 §2.1 与 §5.1。 | `2.1` | `章节号(§引用)` | `` |
 | 40 | …anularity_dup.csv` 补齐机读出处并改判为 `一致`，详见 §2.1 与 §5.1。 | `5.1` | `章节号(§引用)` | `` |
-| 46 | **正文已无 `不一致` 条目**：本轮唯一的残留是 `§5.3.3 边界一` 的「换算成 cover 刻度即 cover ≤ 0.6463 ~ 0.665… | `5.3` | `章节号(§引用)` | `` |
-| 52 | 「文档位置」中 `附录D` = 技术方案第 1097–1204 行。 | `1097` | `外部文件行号引用` | `` |
+| 46 | **正文已无 `不一致` 条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出… | `5.3` | `章节号(§引用)` | `` |
+| 52 | 「文档位置」中 `附录D` = 技术方案第 1109–1217 行。 | `1109` | `外部文件行号引用` | `` |
 | 54 | ### 2.1 附录 D 主表（42 条） | `2.1` | `章节号` | `` |
 | 59 | \| 附录D 主表「文档数 / 工单数」 \| 2000 \| `metrics.json` → `embedding.n_tickets` \| 20… | `2000 (×2)` | `年份/日期` | `` |
 | 63 | …`embedding.n_passages` ÷ `embedding.n_docs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `1852` | `端口号` | `` |
@@ -2700,9 +2700,9 @@
 | 24 | …zh.csv`（用 `BAAI/bge-small-zh-v1.5` 跑出、最优 F1 为 0.6207）自曝为英文语料，与同表数值自相矛盾。已改为随嵌入模型输出 `banking77（bge-s… | `0.6207` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
 | 25 | 2. **§5.3.3 边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cove… | `0.6657` | `derived_metrics.csv:threshold.abs_alpha_recall_all_cover_scale` | `0.6657` |
 | 25 | …边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 25 | …全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（全部出自 `re… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 25 | …」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（全部出自 `results_auc.csv` 的 `召回全部门槛的阈值… | `0.6633` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
-| 25 | …63 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（全部出自 `results_auc.csv` 的 `召回全部门槛的阈值` 列），并显式声… | `0.6897` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
+| 25 | …全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `de… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 25 | …」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `derived_metrics.csv` 的 `thres… | `0.6633` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
+| 25 | …63 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `derived_metrics.csv` 的 `threshold.abs_… | `0.6897` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
 | 26 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.94… | `8 (×5)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 26 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
 | 26 | …补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
@@ -2732,11 +2732,11 @@
 | 42 | …列计数。正文的无出处比例显著高于附录 D，原因集中在：HDBSCAN 簇数与耗时（95 / 88 / 两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen… | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
 | 44 | > **计数口径（第五轮起明确）**：以上三处「条」一律指 §2 各表的**判定行数**（一行一个原子声明），不再用其它口径混算。第五轮之前 §1 的统计与… | `2 (×3)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 44 | …一律指 §2 各表的**判定行数**（一行一个原子声明），不再用其它口径混算。第五轮之前 §1 的统计与 §2 表格已存在偏差（各节标题标的条数与表内实际行数对不上），本轮一并按判定行数… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 46 | …本轮唯一的残留是 `§5.3.3 边界一` 的「换算成 cover 刻度即 cover ≤ 0.6463 ~ 0.6657 的窄带」——0.6463 出自 `ablation.csv` 的「最优阈… | `0.6463 (×3)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 46 | …`§5.3.3 边界一` 的「换算成 cover 刻度即 cover ≤ 0.6463 ~ 0.6657 的窄带」——0.6463 出自 `ablation.csv` 的「最优阈值」口径、0.66… | `0.6657 (×2)` | `derived_metrics.csv:threshold.abs_alpha_recall_all_cover_scale` | `0.6657` |
-| 46 | …`results_auc.csv` 的「召回全部门槛」口径，两者不是同一口径。该处已改写为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（全部出自「召回全… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 46 | …全部门槛」口径，两者不是同一口径。该处已改写为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（全部出自「召回全部」口径），并显式声明 0.6463 属「最优 F1」… | `0.6633` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
-| 46 | …者不是同一口径。该处已改写为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（全部出自「召回全部」口径），并显式声明 0.6463 属「最优 F1」口径、两者不可合成… | `0.6897` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
+| 46 | …已无 `不一致` 条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出处是 `derived_metrics.csv` 的 `thre… | `0.6633` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
+| 46 | …条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出处是 `derived_metrics.csv` 的 `threshold.abs… | `0.6897` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
+| 46 | …over_band_lo/hi`（由 `results_auc.csv` 的「召回全部门槛」5 行取负换算，5 个场景的门槛带一律出自这一口径）。同段出现的 0.6463 属**另一口径… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 46 | …sv` 的「召回全部门槛」5 行取负换算，5 个场景的门槛带一律出自这一口径）。同段出现的 0.6463 属**另一口径**：`ablation.csv` 的 `最优阈值` 列字面值为 -0.64… | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 46 | ….6463 属**另一口径**：`ablation.csv` 的 `最优阈值` 列字面值为 -0.6463，取负后才是 cover 刻度（`derived_metrics.csv:threshold… | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
 | 50 | ## 2. 核心溯源表 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 54 | ### 2.1 附录 D 主表（42 条） | `42` | `ground_truth.json:seed` | `42` |
 | 58 | \| 附录D 主表「文档数 / 工单数」 \| 300 \| `poc/kbgovernance/metrics.json` → `embeddin… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
@@ -3164,14 +3164,14 @@
 | 279 | …_en.csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 279 | …csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `0.413` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
 | 280 | \| §5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \|… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 280 | …5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \| `results_auc.csv` `方法=ABS(… | `0.6633 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
-| 280 | …\| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \| `results_auc.csv` `方法=ABS(绝对阈值)` 五行… | `0.6897 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
-| 280 | …ults_auc.csv` `方法=ABS(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，取绝对值得… | `-0.6657 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
-| 280 | …sv` `方法=ABS(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，取绝对值得 0.6633 ~… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
-| 280 | …S(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，取绝对值得 0.6633 ~ 0.6897 \| 同… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
-| 280 | …行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，取绝对值得 0.6633 ~ 0.6897 \| 同值 \| 一致 \| | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
+| 280 | …5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \| `derived_metrics.csv` 键 `t… | `0.6633 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
+| 280 | …\| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \| `derived_metrics.csv` 键 `threshold.… | `0.6897 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
+| 280 | …ults_auc.csv` `方法=ABS(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算）… | `-0.6657 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
+| 280 | …sv` `方法=ABS(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
+| 280 | …S(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633 / 0.6897 \|… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
+| 280 | …行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633 / 0.6897 \| 一致 \| | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
 | 281 | \| §5.3.3 边界一 \| 「0.6463 与该窄带不是同一个口径，不能合成同一条区间」 \| 0.6463 出自 `ablation.… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 281 | …0.6463 出自 `ablation.csv` ABS 行 `最优阈值`（最优阈值口径）；0.6657 出自 `results_auc.csv` α 行 `召回全部门槛的阈值`（召回全部口径）… | `0.6657` | `derived_metrics.csv:threshold.abs_alpha_recall_all_cover_scale` | `0.6657` |
+| 281 | …」 \| 0.6463 出自 `ablation.csv` ABS 行 `最优阈值`（字面值 -0.6463，cover 刻度换算见 `derived_metrics.csv:threshold.ab… | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
 | 282 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_x… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 282 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_b… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
 | 282 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_banking77_… | `0.0000 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |

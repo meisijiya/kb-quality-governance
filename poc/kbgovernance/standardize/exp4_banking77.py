@@ -3,7 +3,7 @@
 exp4_banking77.py -- 实验 4：在真实语料 banking77 上验证 S1-S4。
 
 语料恒为 banking77（英文文本），嵌入模型由环境变量 BK_MODEL 决定
-（BAAI/bge-small-en-v1.5 / BAAI/bge-small-zh），产物文件名后缀由 BK_TAG 决定。
+（BAAI/bge-small-en-v1.5 / BAAI/bge-small-zh-v1.5），产物文件名后缀由 BK_TAG 决定。
 两者搭配会得到两套刻度不同的结果，因此「目标场景」标注必须同时带出模型名。
 
 数据源: PolyAI/banking77, CC-BY-4.0。
