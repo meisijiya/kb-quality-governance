@@ -1,9 +1,9 @@
 # 实测数字一致性检查报告
 
 - 受检文档：**3** 份
-  - `D:\26code\毕设\企业知识库质量治理系统技术方案.md`
-  - `D:\26code\毕设\本科版实施方案.md`
-  - `D:\26code\毕设\数字溯源审计.md`
+  - `D:\26code\毕设\docs\技术方案\企业知识库质量治理系统技术方案.md`
+  - `D:\26code\毕设\docs\技术方案\本科版实施方案.md`
+  - `D:\26code\毕设\docs\技术方案\数字溯源审计.md`
 - 产物来源（28 个文件）：`metrics.json`、`embeddings_meta.json`、`ground_truth.json`、`granularity.csv`、`granularity_dup.csv`、`corrupt_rule_ablation.csv`、`gap_threshold.csv`、`dup_threshold.csv`、`dup_groups_best.csv`、`corrupt_docs.csv`、`top15_gaps.csv`、`derived_metrics.csv`、`standardize/ablation.csv`、`standardize/banking77_meta.json`、`standardize/banking77_meta_en.json`、`standardize/banking77_meta_zh.json`、`standardize/mechanism.csv`、`standardize/results_auc.csv`、`standardize/results_banking77.csv`、`standardize/results_banking77_en.csv`、`standardize/results_banking77_zh.csv`、`standardize/results_directionC.csv`、`standardize/results_directions.csv`、`standardize/results_transfer.csv`、`standardize/results_xfer_banking77.csv`、`standardize/results_xfer_banking77_en.csv`、`standardize/results_xfer_banking77_zh.csv`、`standardize/scenario_meta.json`
 - 产物数值叶子：**3278** 个
 
@@ -26,7 +26,7 @@
 
 ## 文档 1 / 3：`企业知识库质量治理系统技术方案.md`
 
-- 完整路径：`D:\26code\毕设\企业知识库质量治理系统技术方案.md`
+- 完整路径：`D:\26code\毕设\docs\技术方案\企业知识库质量治理系统技术方案.md`
 - 抽到的数值断言：**1368** 处
 - 判定统计：OK=**1019**　ROUNDED=**29**　STRUCTURAL=**159**　EXTERNAL=**144**　CITED=**0**　ALLOWED=**1**　UNSOURCED=**16**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
@@ -1444,7 +1444,7 @@
 
 ## 文档 2 / 3：`本科版实施方案.md`
 
-- 完整路径：`D:\26code\毕设\本科版实施方案.md`
+- 完整路径：`D:\26code\毕设\docs\技术方案\本科版实施方案.md`
 - 抽到的数值断言：**650** 处
 - 判定统计：OK=**523**　ROUNDED=**6**　STRUCTURAL=**101**　EXTERNAL=**0**　CITED=**0**　ALLOWED=**0**　UNSOURCED=**20**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
@@ -2142,7 +2142,7 @@
 
 ## 文档 3 / 3：`数字溯源审计.md`
 
-- 完整路径：`D:\26code\毕设\数字溯源审计.md`
+- 完整路径：`D:\26code\毕设\docs\技术方案\数字溯源审计.md`
 - 抽到的数值断言：**1199** 处
 - 判定统计：OK=**816**　ROUNDED=**41**　STRUCTURAL=**255**　EXTERNAL=**0**　CITED=**83**　ALLOWED=**0**　UNSOURCED=**4**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
