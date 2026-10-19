@@ -9,6 +9,10 @@ embed.py -- 把 300 篇文档 + 2000 条工单向量化，落盘为 .npy
 
 最终实际使用的方案会写进 embeddings_meta.json，detect.py 读取该文件，
 保证报告里不会出现"降级了却声称用了 BGE"的情况。
+
+计算设备同理：FlagEmbedding 在 devices=None 时会自动选 CUDA（NPU/MPS 同理），
+本项目的产物必须在 CPU 上可复现，因此显式固定 devices="cpu"，
+并把实际使用的 device 字段落进 embeddings_meta.json。
 """
 import json
 import os
@@ -60,12 +64,15 @@ def make_encoder():
     meta = {"attempts": []}
     try:
         from FlagEmbedding import FlagModel
-        m = FlagModel(MODEL_NAME, use_fp16=False)
+        # devices 必须显式给 "cpu"：FlagEmbedding 的 get_target_devices 在
+        # devices=None 时会自动探测并选 cuda/npu/mps，而本项目的阈值 0.62
+        # 是在 CPU 编码的向量上标定的，换设备会让产物与已落盘的指标口径脱节。
+        m = FlagModel(MODEL_NAME, use_fp16=False, devices="cpu")
 
         def enc(texts):
             return np.asarray(m.encode(texts, batch_size=64), dtype=np.float32)
-        meta.update(scheme="FlagEmbedding", model=MODEL_NAME, fallback=False)
-        print("[embed] 方案 1 FlagEmbedding + BAAI/bge-small-zh-v1.5 初始化成功")
+        meta.update(scheme="FlagEmbedding", model=MODEL_NAME, fallback=False, device="cpu")
+        print("[embed] 方案 1 FlagEmbedding + BAAI/bge-small-zh-v1.5 初始化成功 (device=cpu)")
         return enc, meta
     except Exception as e:
         meta["attempts"].append({"scheme": "FlagEmbedding", "error": repr(e)})
@@ -80,8 +87,8 @@ def make_encoder():
                                         normalize_embeddings=True,
                                         show_progress_bar=False), dtype=np.float32)
         meta["attempts"].append({"scheme": "sentence-transformers", "chosen": True})
-        meta.update(scheme="sentence-transformers", model=MODEL_NAME, fallback=True)
-        print("[embed] 方案 2 sentence-transformers 成功（已降级）")
+        meta.update(scheme="sentence-transformers", model=MODEL_NAME, fallback=True, device="cpu")
+        print("[embed] 方案 2 sentence-transformers 成功（已降级，device=cpu）")
         return enc2, meta
     except Exception as e2:
         meta["attempts"].append({"scheme": "sentence-transformers", "error": repr(e2)})
@@ -97,7 +104,7 @@ def make_encoder():
         d[d == 0] = 1.0
         return np.asarray(M / d[:, None], dtype=np.float32)
     meta.update(scheme="TF-IDF char-bigram", model="TfidfVectorizer(analyzer=char,2-gram)",
-                fallback=True,
+                fallback=True, device="cpu",
                 note="降级方案：字符 bigram TF-IDF，余弦尺度与 BGE 不同，阈值须另行扫参")
     return enc3, meta
 
