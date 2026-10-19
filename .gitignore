@@ -42,6 +42,11 @@ hf_cache/
 # ---- 临时工作区（过程笔记，任务结束即删）----
 .scratch/
 
+# ---- 第三方参考仓库（克隆体不入库，只跟踪 reference/REFERENCES.md 清单与 clone_references.sh）----
+# 理由：克隆体体积大、携带各自许可证、且会与上游分叉污染本仓库历史。
+# 需要时用 `bash reference/clone_references.sh <类别>` 按需重建。
+reference/repo/
+
 # ---- 编辑器 / 系统 ----
 .vscode/
 .idea/
