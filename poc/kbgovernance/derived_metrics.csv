@@ -1,5 +1,7 @@
 ﻿derived_key,value,formula,inputs,source_files
 threshold.abs_5scenario_range,0.026400,"max(-0.6657,-0.6633,-0.6897,-0.6792,-0.6657) - min(-0.6657,-0.6633,-0.6897,-0.6792,-0.6657) = -0.6633 - (-0.6897)",alpha=-0.665700|beta=-0.663300|gamma=-0.689700|gamma-X=-0.679200|delta=-0.665700,standardize/results_auc.csv
+threshold.abs_5scenario_recall_all_cover_band_lo,0.663300,"-1 * max(-0.6657,-0.6633,-0.6897,-0.6792,-0.6657) = cover <= 0.6633 门槛带下界",alpha=0.665700|beta=0.663300|gamma=0.689700|gamma-X=0.679200|delta=0.665700,standardize/results_auc.csv
+threshold.abs_5scenario_recall_all_cover_band_hi,0.689700,"-1 * min(-0.6657,-0.6633,-0.6897,-0.6792,-0.6657) = cover <= 0.6897 门槛带上界",alpha=0.665700|beta=0.663300|gamma=0.689700|gamma-X=0.679200|delta=0.665700,standardize/results_auc.csv
 directionC.abs_mean_f1_4scenario,0.828900,"mean(0.8889,0.625,0.8387,0.963) = 0.8889 + 0.625 + 0.8387 + 0.963 / 4",alpha=0.888900|beta=0.625000|gamma=0.838700|gamma-X=0.963000,standardize/results_auc.csv
 directionC.abs_sd_f1_4scenario,0.145206,"stdev(n-1) of (0.8889,0.625,0.8387,0.963) = 0.145206",alpha=0.888900|beta=0.625000|gamma=0.838700|gamma-X=0.963000,standardize/results_auc.csv
 directionC.fixed25_mean_f1_4scenario,0.552175,"mean(0.6667,0.5,0.5714,0.4706) = 0.6667 + 0.5 + 0.5714 + 0.4706 / 4",alpha=0.666700|beta=0.500000|gamma=0.571400|gamma-X=0.470600,standardize/results_directionC.csv

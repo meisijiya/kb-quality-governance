@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-exp4_banking77.py -- 实验 4：在真实英文语料 banking77 上验证 S1-S4。
+exp4_banking77.py -- 实验 4：在真实语料 banking77 上验证 S1-S4。
+
+语料恒为 banking77（英文文本），嵌入模型由环境变量 BK_MODEL 决定
+（BAAI/bge-small-en-v1.5 / BAAI/bge-small-zh），产物文件名后缀由 BK_TAG 决定。
+两者搭配会得到两套刻度不同的结果，因此「目标场景」标注必须同时带出模型名。
 
 数据源: PolyAI/banking77, CC-BY-4.0。
   HF 上的 PolyAI/banking77 只有 banking77.py 脚本，datasets 3.x 已不支持脚本式加载
@@ -30,6 +34,11 @@ from standardize import (auc, best_f1_threshold, get_encoder, group_zscore,  # n
 
 MODEL = os.environ.get("BK_MODEL", "BAAI/bge-small-en-v1.5")
 TAG = os.environ.get("BK_TAG", MODEL.split("/")[-1])
+# banking77 语料本身恒为英文文本，变化的只有嵌入模型；但「目标场景」标的是
+# 「语料 + 模型」的组合（刻度由模型决定），因此目标标注必须跟着模型走。
+# 早期版本把目标写死成「banking77 英文」，导致 bge-small-zh 跑出来的那份
+# 产物自曝为英文语料，与同表 zh 专属数值自相矛盾。
+MODEL_TAG = MODEL.split("/")[-1]
 SEED = 42
 
 
@@ -194,7 +203,7 @@ def main():
                                  AUC衰减=round(a - base_a[nm], 4)))
         print(f"  [{tag}] KB {len(kb2)} 篇, 新 ground truth {len(gap2)} 个缺口意图")
 
-    # ---- 跨语料迁移（核心）：把中文合成语料上定出的阈值原封不动搬到英文真实语料
+    # ---- 跨语料迁移（核心）：把中文合成语料上定出的阈值原封不动搬到 banking77 真实语料
     print("\n[exp4] 跨语料阈值迁移（源=中文合成语料 alpha，abs 阈值 0.6463）：")
     print("      银行库 cover 分布 min=%.4f mean=%.4f max=%.4f，"
           "中文语料最优阈值 0.6463 落在银行库分布的哪个位置？" %
@@ -216,11 +225,12 @@ def main():
         p = tp / len(det) if det else 0
         r = tp / len(gap)
         f = 2 * p * r / (p + r) if (p + r) > 0 else 0
-        xfer.append(dict(源="中文合成语料 alpha", 源阈值=src_thr, 目标="banking77 英文",
+        xfer.append(dict(源="中文合成语料 alpha", 源阈值=src_thr,
+                         目标=f"banking77（{MODEL_TAG}）",
                          判定=rule, 检出意图数=len(det),
                          P=round(p, 4), R=round(r, 4), F1=round(f, 4),
                          该场景最优F1=round(df[df.方法 == "ABS(绝对阈值)"]["best_F1"].iloc[0], 4)))
-        print(f"  中文阈值 {src_thr} [{rule}] -> 英文: 检出 {len(det)} 个意图, "
+        print(f"  中文阈值 {src_thr} [{rule}] -> {MODEL_TAG}: 检出 {len(det)} 个意图, "
               f"P={p:.3f} R={r:.3f} F1={f:.3f}  (该场景最优 F1="
               f"{df[df['方法'] == 'ABS(绝对阈值)']['best_F1'].iloc[0]:.3f})")
     # 同一模型内的迁移：把「全量场景」各自的最优阈值原封不动搬到「KB减半」场景。
