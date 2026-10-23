@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>企业知识库质量治理系统 Web 端原型</title>
+<meta name="description" content="企业知识库质量治理系统 Web 端原型：上传文档与工单、一键运行治理扫描、三类缺陷清单。">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="upload">
+
+<!-- 图标精灵：纯几何 SVG，1.7px 描边，跟随 currentColor -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4"/><path d="M8.2 7.8 12 4l3.8 3.8"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 6"/><path d="M20.5 3v6h-6"/><path d="M10 9.2 15 12l-5 2.8z"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h10"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.2"/><path d="M12 7.9h.01"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 4.2 21 19.4H3z"/><path d="M12 10v4.2"/><path d="M12 17.1h.01"/></symbol>
+    <symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.2 9.2 14.8 14.8"/><path d="M14.8 9.2 9.2 14.8"/></symbol>
+    <symbol id="i-success" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m8.4 12.2 2.5 2.5 4.7-5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9.5 5.5 7 6.5-7 6.5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v10.5"/><path d="M8.2 10.8 12 14.6l3.8-3.8"/><path d="M4.5 18.5h15"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 6.5A1.5 1.5 0 0 0 13.5 5h-7A1.5 1.5 0 0 0 5 6.5v7A1.5 1.5 0 0 0 6.5 15"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z"/><path d="M13 3v6h6"/><path d="M9 13h6"/><path d="M9 17h4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11"/><path d="m17.5 6.5-11 11"/></symbol>
+    <symbol id="i-brand" viewBox="0 0 24 24"><path d="M4 5.5h7v13H4z"/><path d="M13 5.5h7v7h-7z"/><path d="M13 14.5h7v4h-7z"/></symbol>
+    <symbol id="i-empty" viewBox="0 0 120 80"><rect x="10" y="12" width="100" height="58" rx="6"/><path d="M10 52h100"/><path d="M26 30h34"/><path d="M26 40h22"/><circle cx="84" cy="36" r="11"/><path d="m92 44 10 10"/></symbol>
+    <symbol id="i-result" viewBox="0 0 72 72"><circle cx="36" cy="36" r="24"/><path d="m26 26 20 20"/><path d="m46 26-20 20"/></symbol>
+  </defs>
+</svg>
+
+<header class="app-header">
+  <button class="icon-btn menu-toggle" id="menuToggle" type="button" aria-label="打开功能面导航" aria-expanded="false" aria-controls="appAside">
+    <svg class="icon"><use href="#i-menu"></use></svg>
+  </button>
+  <div class="brand">
+    <svg class="icon brand-icon"><use href="#i-brand"></use></svg>
+    <span class="brand-name">企业知识库质量治理系统</span>
+  </div>
+  <div class="corpus-scale" id="corpusScale" aria-label="当前语料规模">
+    <span class="scale-label">语料规模</span>
+    <span class="scale-item"><b>300</b> 篇文档</span>
+    <span class="scale-dot" aria-hidden="true"></span>
+    <span class="scale-item"><b>2000</b> 条工单</span>
+    <span class="scale-dot" aria-hidden="true"></span>
+    <span class="scale-item"><b>1852</b> 个文档段落</span>
+  </div>
+  <div class="header-right">
+    <span class="tag tag-success" id="scanBadge" data-tip="扫描状态：已完成（status=completed）">
+      <svg class="icon"><use href="#i-success"></use></svg>已完成
+    </span>
+  </div>
+</header>
+
+<div class="global-progress" id="globalProgress" hidden><span></span></div>
+
+<div class="app-body">
+  <aside class="app-aside" id="appAside">
+    <nav class="side-menu" aria-label="功能面导航">
+      <button class="menu-item is-active" type="button" data-page="upload" aria-current="page">
+        <svg class="icon"><use href="#i-upload"></use></svg><span class="menu-text">上传文档与工单</span>
+      </button>
+      <button class="menu-item" type="button" data-page="scan">
+        <svg class="icon"><use href="#i-scan"></use></svg><span class="menu-text">一键运行治理扫描</span>
+      </button>
+      <button class="menu-item" type="button" data-page="lists">
+        <svg class="icon"><use href="#i-list"></use></svg><span class="menu-text">三类缺陷清单</span>
+      </button>
+    </nav>
+    <p class="aside-note">原型说明：页面数字全部取自 <code>data/</code> 产物；上传与扫描为静态态，不发起真实请求。</p>
+  </aside>
+  <div class="aside-mask" id="asideMask" hidden></div>
+
+  <main class="app-main">
+    <div class="main-inner">
+
+      <!-- ============ 页面一：上传文档与工单 ============ -->
+      <section class="page" id="page-upload" data-page="upload" aria-labelledby="upload-title">
+        <div class="page-head">
+          <div>
+            <h1 class="page-title" id="upload-title">上传文档与工单</h1>
+            <p class="page-sub">先导入语料，再运行治理扫描</p>
+          </div>
+          <div class="state-switcher">
+            <span class="sw-label">状态演示</span>
+            <div class="seg" role="group" aria-label="切换上传页状态">
+              <button class="seg-btn is-on" type="button" data-target="upload" data-state="success" aria-pressed="true">成功态</button>
+              <button class="seg-btn" type="button" data-target="upload" data-state="empty" aria-pressed="false">空态</button>
+              <button class="seg-btn" type="button" data-target="upload" data-state="loading" aria-pressed="false">加载态</button>
+              <button class="seg-btn" type="button" data-target="upload" data-state="error" aria-pressed="false">错误态</button>
+              <button class="seg-btn" type="button" data-target="upload" data-state="busy" aria-pressed="false">扫描占用</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-warning" id="scanLockAlert" hidden role="alert">
+          <svg class="icon alert-icon"><use href="#i-warning"></use></svg>
+          <div><span class="alert-title">扫描进行中，暂不能导入语料</span></div>
+        </div>
+
+        <div class="alert alert-warning" id="corpusClearedAlert" hidden role="alert">
+          <svg class="icon alert-icon"><use href="#i-warning"></use></svg>
+          <div>
+            <span class="alert-title">上次扫描已清空语料，如需再次扫描请重新上传</span>
+            <span class="alert-desc">清库按外键子表到父表顺序执行，一次扫描会清掉文档表行，因此扫描后语料为空。</span>
+          </div>
+        </div>
+
+        <!-- 区块 2 语料现状卡 -->
+        <section class="card" aria-labelledby="u-corpus-title">
+          <div class="card-head">
+            <h2 class="card-title" id="u-corpus-title">语料现状</h2>
+            <span class="card-desc">数据来源：GET /api/corpus/stats</span>
+          </div>
+          <div data-states="success,busy">
+            <div class="stat-grid">
+              <div class="stat"><div class="stat-label">文档数</div><div class="stat-value">300<span class="stat-unit">篇</span></div></div>
+              <div class="stat"><div class="stat-label">工单数</div><div class="stat-value">2000<span class="stat-unit">条</span></div></div>
+              <div class="stat"><div class="stat-label">文档段落数</div><div class="stat-value">1852<span class="stat-unit">个</span></div></div>
+            </div>
+            <p class="hint">参考语料规模 300 篇文档 / 2000 条工单 / 1852 个文档段落。</p>
+          </div>
+          <div data-states="empty">
+            <div class="stat-grid">
+              <div class="stat"><div class="stat-label">文档数</div><div class="stat-value">0<span class="stat-unit">篇</span></div></div>
+              <div class="stat"><div class="stat-label">工单数</div><div class="stat-value">0<span class="stat-unit">条</span></div></div>
+              <div class="stat"><div class="stat-label">文档段落数</div><div class="stat-value">0<span class="stat-unit">个</span></div></div>
+            </div>
+            <p class="hint">当前库中没有任何语料，导入后方可运行治理扫描。</p>
+          </div>
+          <div data-states="loading">
+            <div class="sk-list" aria-hidden="true"><span class="sk" style="height:32px"></span><span class="sk" style="height:32px"></span><span class="sk" style="height:32px"></span></div>
+          </div>
+          <div data-states="error">
+            <div class="alert alert-error" role="alert">
+              <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+              <div>
+                <span class="alert-title">语料统计获取失败</span>
+                <span class="alert-desc">未取得当前语料规模。下方导入区仍可操作，导入成功后统计项会重新出数。</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 区块 3 文档导入区 -->
+        <section class="card" aria-labelledby="u-doc-title">
+          <div class="card-head">
+            <h2 class="card-title" id="u-doc-title">文档导入</h2>
+            <span class="card-desc">POST /api/documents，源列 docs.csv</span>
+          </div>
+          <div class="two-col">
+            <div>
+              <div class="upload-drag" id="docUpload" tabindex="0" role="button" aria-label="拖拽或点击上传文档文件（CSV 或 JSON）">
+                <svg class="icon upload-icon"><use href="#i-upload"></use></svg>
+                <div class="upload-title">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="upload-hint">支持 CSV / JSON，单次批量导入文档</div>
+              </div>
+              <ul class="upload-list" data-states="success">
+                <li class="upload-item">
+                  <svg class="icon item-icon"><use href="#i-file"></use></svg>
+                  <span class="item-name">docs.csv</span>
+                  <span class="item-meta">已导入 300 篇文档</span>
+                  <span class="tag tag-success">成功</span>
+                </li>
+                <li class="upload-item is-failed">
+                  <svg class="icon item-icon"><use href="#i-file"></use></svg>
+                  <span class="item-name">docs_v2.csv</span>
+                  <span class="item-meta">文档编码重复，本批未入库</span>
+                  <span class="tag tag-danger">失败</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <div data-states="success,busy">
+                <div class="alert alert-success">
+                  <svg class="icon alert-icon"><use href="#i-success"></use></svg>
+                  <div><span class="alert-title">已导入 300 篇文档</span><span class="alert-desc">整批事务已提交，文档表写入完成。</span></div>
+                </div>
+              </div>
+              <div data-states="empty">
+                <div class="empty">
+                  <svg class="icon empty-illus"><use href="#i-empty"></use></svg>
+                  <p class="empty-text">尚未导入任何语料</p>
+                  <p class="empty-sub">上传文档 CSV 或 JSON 后，此处显示导入结果</p>
+                </div>
+              </div>
+              <div data-states="loading">
+                <div class="sk-list" aria-hidden="true"><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span></div>
+              </div>
+              <div data-states="error">
+                <div class="alert alert-error" role="alert">
+                  <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+                  <div>
+                    <span class="alert-title">文档编码重复，本批未入库</span>
+                    <span class="alert-desc">
+                      错误码 <code>DUPLICATE_DOC_CODE</code>：冲突文档编码 <code>DOC0241</code>，位于第 2 行。整批事务回滚，已导入数据不受影响。
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div data-states="busy">
+                <div class="alert alert-warning">
+                  <svg class="icon alert-icon"><use href="#i-warning"></use></svg>
+                  <div><span class="alert-title">扫描进行中，暂不能导入语料</span><span class="alert-desc">上传控件在扫描期间整体禁用。</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sub-title">文档列头对照表</h3>
+          <div class="tbl-wrap tbl-wrap-static">
+            <table class="tbl" aria-label="文档导入列头对照表">
+              <thead>
+                <tr><th scope="col">界面字段</th><th scope="col">契约字段</th><th scope="col">产物列名（docs.csv）</th><th scope="col">必填</th><th scope="col">说明</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>文档编码</td><td><code>doc_code</code></td><td><code>doc_id</code></td><td><span class="tag tag-danger tag-plain">必填</span></td><td>唯一键；重复触发 <code>DUPLICATE_DOC_CODE</code></td></tr>
+                <tr><td>标题</td><td><code>title</code></td><td><code>title</code></td><td><span class="tag tag-danger tag-plain">必填</span></td><td>—</td></tr>
+                <tr><td>正文</td><td><code>content</code></td><td><code>content</code></td><td><span class="tag tag-danger tag-plain">必填</span></td><td>正文过短（少于 20 字）触发 <code>VALIDATION_FAILED</code></td></tr>
+                <tr><td>业务域</td><td><code>domain</code></td><td><code>category</code></td><td><span class="tag tag-info tag-plain">选填</span></td><td>契约改名，产物列名不变</td></tr>
+                <tr><td>创建时间</td><td><code>created_at</code></td><td><code>created_at</code></td><td><span class="tag tag-info tag-plain">选填</span></td><td>—</td></tr>
+                <tr><td>最后修改时间</td><td><code>last_modified</code></td><td><code>last_modified</code></td><td><span class="tag tag-info tag-plain">选填</span></td><td>内容腐化规则 R2、R4 的判定输入</td></tr>
+                <tr><td>生效日期</td><td><code>effective_date</code></td><td><code>effective_date</code></td><td><span class="tag tag-info tag-plain">选填</span></td><td>—</td></tr>
+                <tr><td>状态</td><td><code>status</code></td><td><code>status</code></td><td><span class="tag tag-info tag-plain">选填</span></td><td>契约默认「生效」</td></tr>
+                <tr><td>引用次数</td><td><code>ref_count</code></td><td><code>ref_count</code></td><td><span class="tag tag-info tag-plain">选填</span></td><td>契约默认 0；主文档选举的输入之一</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 区块 4 工单导入区 -->
+        <section class="card" aria-labelledby="u-ticket-title">
+          <div class="card-head">
+            <h2 class="card-title" id="u-ticket-title">工单导入</h2>
+            <span class="card-desc">POST /api/tickets，multipart 单文件，源列 tickets.csv</span>
+          </div>
+          <div class="two-col">
+            <div>
+              <div class="upload-drag upload-drag-sm" id="ticketUpload" tabindex="0" role="button" aria-label="点击上传工单 CSV 文件">
+                <svg class="icon upload-icon"><use href="#i-upload"></use></svg>
+                <div class="upload-title">点击上传<em>工单 CSV</em></div>
+                <div class="upload-hint">单文件上传，整批导入工单</div>
+              </div>
+              <ul class="upload-list" data-states="success">
+                <li class="upload-item">
+                  <svg class="icon item-icon"><use href="#i-file"></use></svg>
+                  <span class="item-name">tickets.csv</span>
+                  <span class="item-meta">已导入 2000 条工单</span>
+                  <span class="tag tag-success">成功</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <div class="alert alert-info">
+                <svg class="icon alert-icon"><use href="#i-info"></use></svg>
+                <div>
+                  <span class="alert-title">必填四列：ticket_id、created_at、content、intent_label</span>
+                  <span class="alert-desc">linked_doc_id 可留空；填写时须为已入库的文档编码。实测语料 2000 条工单中有 1629 条填写了该列。</span>
+                </div>
+              </div>
+              <div class="mt12" data-states="success,busy">
+                <div class="alert alert-success">
+                  <svg class="icon alert-icon"><use href="#i-success"></use></svg>
+                  <div><span class="alert-title">已导入 2000 条工单</span><span class="alert-desc">工单表写入完成，业务意图标签列参与聚类。</span></div>
+                </div>
+              </div>
+              <div data-states="empty">
+                <div class="empty">
+                  <svg class="icon empty-illus"><use href="#i-empty"></use></svg>
+                  <p class="empty-text">尚未导入任何语料</p>
+                  <p class="empty-sub">上传工单 CSV 后，此处显示导入结果</p>
+                </div>
+              </div>
+              <div data-states="loading">
+                <div class="sk-list" aria-hidden="true"><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span></div>
+              </div>
+              <div data-states="error">
+                <div class="alert alert-error" role="alert">
+                  <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+                  <div>
+                    <span class="alert-title">工单文件缺少必填列</span>
+                    <span class="alert-desc">
+                      错误码 <code>INVALID_IMPORT_FILE</code>：第 2 行缺少 <code>content</code>、<code>intent_label</code>，导入中止。正确表头为
+                      <code class="code-block">ticket_id, created_at, channel, content, intent_label, urgency, status, handling_minutes, linked_doc_id</code>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div data-states="busy">
+                <div class="alert alert-warning">
+                  <svg class="icon alert-icon"><use href="#i-warning"></use></svg>
+                  <div><span class="alert-title">扫描进行中，暂不能导入语料</span><span class="alert-desc">上传控件在扫描期间整体禁用。</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 区块 5 反馈与阻断区 -->
+        <section class="card" aria-labelledby="u-feedback-title">
+          <div class="card-head">
+            <h2 class="card-title" id="u-feedback-title">导入反馈与阻断</h2>
+            <span class="card-desc">逐条错误码与处置口径</span>
+          </div>
+          <div data-states="success">
+            <div class="alert alert-error" role="alert">
+              <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+              <div>
+                <span class="alert-title">工单号重复，该行未导入</span>
+                <span class="alert-desc">错误码 <code>DUPLICATE_TICKET_CODE</code>：工单号 <code>TK00119</code> 位于第 2 行，该行未入库，其余行已正常入库，不影响本批其他记录。</span>
+              </div>
+            </div>
+            <div class="tbl-wrap tbl-wrap-static mt12">
+              <table class="tbl" aria-label="导入批次明细">
+                <thead><tr><th scope="col">项目</th><th scope="col">结果</th><th scope="col">说明</th></tr></thead>
+                <tbody>
+                  <tr><td>文档导入</td><td>已导入 300 篇文档</td><td>事务已提交，文档表写入完成</td></tr>
+                  <tr><td>工单导入</td><td>已导入 2000 条工单</td><td>重复工单号的行按行拒绝，不回滚整批</td></tr>
+                  <tr><td>阻断原因</td><td>工单号重复</td><td>库中已存在相同 ticket_id，本批内亦不允许重复</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div data-states="empty">
+            <div class="alert alert-info">
+              <svg class="icon alert-icon"><use href="#i-info"></use></svg>
+              <div><span class="alert-title">当前没有导入记录</span><span class="alert-desc">尚未导入任何语料，因此没有成功明细，也没有阻断记录。</span></div>
+            </div>
+          </div>
+          <div data-states="loading">
+            <div class="sk-list" aria-hidden="true"><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span><span class="sk" style="height:28px"></span></div>
+          </div>
+          <div data-states="error">
+            <div class="alert alert-error" role="alert">
+              <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+              <div><span class="alert-title">本批导入未完成</span><span class="alert-desc">错误下方保留已成功部分的表格，已入库数据不受影响。</span></div>
+            </div>
+            <div class="tbl-wrap tbl-wrap-static mt12">
+              <table class="tbl" aria-label="已成功部分的导入明细">
+                <thead><tr><th scope="col">项目</th><th scope="col">结果</th><th scope="col">说明</th></tr></thead>
+                <tbody>
+                  <tr><td>文档导入</td><td>已导入 300 篇文档</td><td>已提交部分保留，失败部分单独拒绝</td></tr>
+                  <tr><td>工单导入</td><td>已导入 2000 条工单</td><td>已提交部分保留，失败部分单独拒绝</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div data-states="busy">
+            <div class="alert alert-warning">
+              <svg class="icon alert-icon"><use href="#i-warning"></use></svg>
+              <div><span class="alert-title">扫描进行中，暂不能导入语料</span><span class="alert-desc">本批反馈在扫描结束后刷新。</span></div>
+            </div>
+          </div>
+
+          <details class="disclosure" data-states="success,error">
+            <summary>导入错误码对照（5 类）</summary>
+            <div class="tbl-wrap tbl-wrap-static mt12">
+              <table class="tbl" aria-label="导入错误码对照表">
+                <thead><tr><th scope="col">错误码</th><th scope="col">触发条件</th><th scope="col">界面文案与处置</th></tr></thead>
+                <tbody>
+                  <tr><td><code>DUPLICATE_DOC_CODE</code></td><td>文档编码重复</td><td>文档编码重复，本批未入库；列出冲突的 doc_id 与行号；整批事务回滚，已导入数据不受影响</td></tr>
+                  <tr><td><code>DUPLICATE_TICKET_CODE</code></td><td>工单号重复</td><td>工单号重复，该行未导入；列出 ticket_id 与行号</td></tr>
+                  <tr><td><code>INVALID_IMPORT_FILE</code></td><td>工单 CSV 缺列</td><td>工单文件缺少必填列；列出缺失列名与正确表头；导入中止</td></tr>
+                  <tr><td><code>VALIDATION_FAILED</code></td><td>文档正文过短</td><td>正文过短，未入库；列出 doc_id 与正文长度</td></tr>
+                  <tr><td><code>NOT_FOUND</code></td><td>关联工单的 linked_doc_id 查不到</td><td>关联文档不存在，该行未导入；列出 ticket_id 与 linked_doc_id</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+
+        <!-- 区块 6 下一步指引 -->
+        <section class="card" aria-labelledby="u-next-title">
+          <div class="card-head">
+            <h2 class="card-title" id="u-next-title">下一步</h2>
+            <span class="card-desc">语料就绪后运行治理扫描</span>
+          </div>
+          <div data-states="success">
+            <p class="hint mb12" id="uploadNextHint">文档与工单均已入库，语料就绪。</p>
+            <button class="btn btn-primary" type="button" data-goto="scan">语料已就绪，去运行治理扫描</button>
+          </div>
+          <div data-states="empty">
+            <p class="hint mb12">导入语料后才能运行扫描。</p>
+            <button class="btn" type="button" disabled title="导入语料后才能运行扫描">语料已就绪，去运行治理扫描</button>
+          </div>
+          <div data-states="loading">
+            <div class="sk-list" aria-hidden="true"><span class="sk" style="height:32px;width:220px"></span></div>
+          </div>
+          <div data-states="error">
+            <p class="hint mb12">导入未完成，语料未就绪。</p>
+            <button class="btn" type="button" disabled title="导入语料后才能运行扫描">语料已就绪，去运行治理扫描</button>
+          </div>
+          <div data-states="busy">
+            <p class="hint mb12">扫描进行中，暂不能重复运行。</p>
+            <button class="btn" type="button" disabled title="扫描进行中，暂不能重复运行">语料已就绪，去运行治理扫描</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============ 页面二：一键运行治理扫描 ============ -->
+      <section class="page" id="page-scan" data-page="scan" aria-labelledby="scan-title" hidden>
+        <div class="page-head">
+          <div>
+            <h1 class="page-title" id="scan-title">一键运行治理扫描</h1>
+            <p class="page-sub">向量化 → 聚类 → 三模块检测 → 落库</p>
+          </div>
+          <div class="state-switcher">
+            <span class="sw-label">状态演示</span>
+            <div class="seg" role="group" aria-label="切换扫描页状态">
+              <button class="seg-btn is-on" type="button" data-target="scan" data-state="success" aria-pressed="true">成功态</button>
+              <button class="seg-btn" type="button" data-target="scan" data-state="empty" aria-pressed="false">未扫描</button>
+              <button class="seg-btn" type="button" data-target="scan" data-state="loading" aria-pressed="false">加载态</button>
+              <button class="seg-btn" type="button" data-target="scan" data-state="error" aria-pressed="false">错误态</button>
+              <button class="seg-btn" type="button" data-target="scan" data-state="running" aria-pressed="false">扫描中</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 区块 2 扫描前检查卡 -->
+        <section class="card" aria-labelledby="s-check-title">
+          <div class="card-head">
+            <h2 class="card-title" id="s-check-title">扫描前检查</h2>
+            <span class="card-desc">语料是否就绪、模型权重是否就位</span>
+          </div>
+          <div class="desc-grid desc-grid-3">
+            <div class="desc-cell"><span class="desc-label">文档数</span><span class="desc-value">300</span></div>
+            <div class="desc-cell"><span class="desc-label">工单数</span><span class="desc-value">2000</span></div>
+            <div class="desc-cell"><span class="desc-label">模型权重</span><span class="desc-value">已就位</span></div>
+          </div>
+          <p class="hint mt12">文档数与工单数取自 corpus/stats；模型权重缺失时扫描无法启动，需把 HF_HOME 指向本地缓存目录。</p>
+        </section>
+
+        <!-- 区块 3 扫描操作区 -->
+        <section class="card" aria-labelledby="s-action-title">
+          <div class="card-head">
+            <h2 class="card-title" id="s-action-title">扫描操作</h2>
+            <span class="card-desc">运行前会先确认清库语义</span>
+          </div>
+          <div data-states="success,empty,loading,error">
+            <button class="btn btn-primary btn-lg" type="button" id="runScanBtn">运行治理扫描</button>
+            <p class="hint mt12">
+              需求阈值（非实测）：单次全量扫描 ≤ 60 秒；页面响应 ≤ 2 秒。
+            </p>
+            <p class="hint">
+              清库语义：重复扫描旧结果清空不叠加。清库按外键子表到父表顺序执行，因此一次扫描会清掉文档表行，扫描后语料为空，下次扫描需重新上传。
+            </p>
+          </div>
+          <div data-states="running">
+            <button class="btn btn-primary btn-lg is-loading" type="button" disabled>
+              <span class="spin" aria-hidden="true"></span>扫描进行中
+            </button>
+            <p class="hint mt12">同一时刻只允许一个扫描；重复点击返回 <code>SCAN_IN_PROGRESS</code>，界面提示「已有扫描在进行，请稍候」。</p>
+          </div>
+        </section>
+
+        <!-- 区块 4 扫描进行中态 -->
+        <section class="card" aria-labelledby="s-progress-title" data-states="running">
+          <div class="card-head">
+            <h2 class="card-title" id="s-progress-title">扫描进行中</h2>
+            <span class="card-desc">GET /api/scan/status = running</span>
+          </div>
+          <div class="prog-ind" role="progressbar" aria-label="扫描进行中，进度不可量化"><span></span></div>
+          <ol class="steps" id="scanSteps">
+            <li class="step is-done"><span class="step-dot"></span>向量化</li>
+            <li class="step is-process"><span class="step-dot"></span>语义聚类</li>
+            <li class="step"><span class="step-dot"></span>三模块检测</li>
+            <li class="step"><span class="step-dot"></span>结果落库</li>
+          </ol>
+          <p class="hint mt12">
+            进度条不定量：产物中不存在百分比读数，因此不显示百分比数值。三模块检测段实测 3.09 秒（含聚类与检测，不含向量化），此说明仅作口径参考，不作为进度读数。
+          </p>
+        </section>
+
+        <!-- 区块 5 扫描结果总览 -->
+        <section class="card" aria-labelledby="s-result-title">
+          <div class="card-head">
+            <h2 class="card-title" id="s-result-title">扫描结果总览</h2>
+            <span class="card-desc">三类缺陷的主指标</span>
+          </div>
+          <div data-states="success,running">
+            <div class="tbl-wrap tbl-wrap-static" id="scanOverviewWrap">
+              <table class="tbl" aria-label="三模块主指标总览">
+                <thead>
+                  <tr>
+                    <th scope="col">缺陷类</th><th scope="col">阈值</th><th scope="col">精确率</th><th scope="col">召回率</th><th scope="col">F1</th><th scope="col">命中数（统计单元）</th>
+                  </tr>
+                </thead>
+                <tbody id="scanOverviewBody"></tbody>
+              </table>
+            </div>
+            <p class="hint mt12">三个命中数的统计单元不同：知识缺口按簇、内容腐化按文档、重复冗余按组，因此三个数字不可横向比较。</p>
+            <h3 class="sub-title">命中规模</h3>
+            <div class="tbl-wrap tbl-wrap-static">
+              <table class="tbl" aria-label="命中规模补充表">
+                <thead><tr><th scope="col">缺陷类</th><th scope="col">命中规模</th><th scope="col">备注</th></tr></thead>
+                <tbody>
+                  <tr><td>知识缺口</td><td>涉及业务意图 5 个</td><td>命中 7 个缺口簇，同一业务意图可对应多个缺口簇，未按意图去重</td></tr>
+                  <tr><td>内容腐化</td><td>埋入 62 篇 / 检出 69 篇</td><td>埋入文档为评测语料中的注入腐化文档</td></tr>
+                  <tr><td>重复冗余</td><td>覆盖文档 49 篇</td><td>P / R / F1 为组级口径，属乐观值</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="foot-note">重复冗余 F1 = 1.0000 为乐观值，论文附录 D 已标注此口径。</p>
+          </div>
+          <div data-states="empty">
+            <div class="empty">
+              <svg class="icon empty-illus"><use href="#i-empty"></use></svg>
+              <p class="empty-text">尚无扫描结果</p>
+              <p class="empty-sub">运行一次治理扫描后，此处显示三模块主指标</p>
+              <button class="btn btn-primary mt12" type="button" data-goto="scan">运行治理扫描</button>
+            </div>
+          </div>
+          <div data-states="loading">
+            <div class="sk-list" aria-hidden="true"><span class="sk" style="height:36px"></span><span class="sk" style="height:36px"></span><span class="sk" style="height:36px"></span></div>
+          </div>
+          <div data-states="error">
+            <div class="alert alert-error" role="alert">
+              <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+              <div><span class="alert-title">扫描失败，上一次结果已保留</span><span class="alert-desc">错误码 <code>SCAN_FAILED</code>。可区分的错误码还包括 <code>EMPTY_CORPUS</code>（语料为空，无法启动扫描）与 <code>MODEL_WEIGHTS_MISSING</code>（模型权重缺失，需把 HF_HOME 设为 D:/hf_cache）。</span></div>
+            </div>
+            <div class="result">
+              <svg class="icon result-icon"><use href="#i-result"></use></svg>
+              <p class="result-title">扫描未完成</p>
+              <p class="result-sub">本次扫描未产出新的模块指标，上一轮结果保持可见且只读。</p>
+              <button class="btn btn-primary mt12" type="button" id="retryScanBtn">重新运行治理扫描</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 区块 6 耗时分项 -->
+        <section class="card" aria-labelledby="s-seconds-title">
+          <div class="card-head">
+            <h2 class="card-title" id="s-seconds-title">耗时分项</h2>
+            <span class="card-desc">只列分项，不写全链路总耗时</span>
+          </div>
+          <div data-states="success,running">
+            <div class="tbl-wrap tbl-wrap-static">
+              <table class="tbl" aria-label="各阶段耗时表">
+                <thead><tr><th scope="col">阶段</th><th scope="col">产物键</th><th scope="col">实测耗时</th><th scope="col">口径</th></tr></thead>
+                <tbody>
+                  <tr><td>向量化</td><td><code>embedding.encode_seconds</code></td><td class="num">14.61 秒</td><td>文档与工单统一编码</td></tr>
+                  <tr><td>语义聚类</td><td>—</td><td class="num">—</td><td>聚类耗时未落盘</td></tr>
+                  <tr><td>知识缺口识别</td><td>—</td><td class="num">—</td><td>契约 seconds.gap 为 null，未落盘</td></tr>
+                  <tr><td>内容腐化检测</td><td><code>corrupt.seconds</code></td><td class="num">0.4 秒</td><td>规则判定</td></tr>
+                  <tr><td>重复冗余检测</td><td><code>dup.best.seconds</code></td><td class="num">0.0 秒</td><td>组内最大余弦相似度</td></tr>
+                  <tr><td>三模块检测段合计</td><td><code>total_seconds</code></td><td class="num">3.09 秒</td><td>仅覆盖检测段，不含向量化</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="hint mt12">需求阈值（非实测）：单次全量扫描 ≤ 60 秒；页面响应 ≤ 2 秒。实测值只来自上表。</p>
+          </div>
+          <div data-states="empty">
+            <div class="empty">
+              <svg class="icon empty-illus"><use href="#i-empty"></use></svg>
+              <p class="empty-text">尚无扫描结果</p>
+              <p class="empty-sub">从未扫描时 seconds 与 modules 均为 null，因此不显示占位符</p>
+            </div>
+          </div>
+          <div data-states="loading">
+            <div class="sk-list" aria-hidden="true"><span class="sk" style="height:32px"></span><span class="sk" style="height:32px"></span><span class="sk" style="height:32px"></span><span class="sk" style="height:32px"></span><span class="sk" style="height:32px"></span></div>
+          </div>
+          <div data-states="error">
+            <div class="alert alert-error" role="alert">
+              <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+              <div><span class="alert-title">耗时分项未更新</span><span class="alert-desc">本轮扫描失败，上一次的分项耗时保持只读。</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 区块 7 口径与说明 -->
+        <section class="card" aria-labelledby="s-note-title">
+          <div class="card-head">
+            <h2 class="card-title" id="s-note-title">口径与说明</h2>
+            <span class="card-desc">阈值口径、统计单元、耗时口径、降级说明</span>
+          </div>
+          <div class="alert alert-info">
+            <svg class="icon alert-icon"><use href="#i-info"></use></svg>
+            <div>
+              <span class="alert-title">三类缺陷的统计单元不同，不可横向比较</span>
+              <span class="alert-desc">知识缺口按缺口簇、内容腐化按文档、重复冗余按重复组。耗时只列分项，total_seconds 仅覆盖三模块检测段。</span>
+            </div>
+          </div>
+          <details class="disclosure">
+            <summary>阈值口径</summary>
+            <div class="tbl-wrap tbl-wrap-static mt12">
+              <table class="tbl" aria-label="阈值口径表">
+                <thead><tr><th scope="col">缺陷类</th><th scope="col">阈值</th><th scope="col">产物键</th><th scope="col">判定说明</th></tr></thead>
+                <tbody>
+                  <tr><td>知识缺口</td><td class="num">0.62</td><td><code>gap.best.threshold</code></td><td>段落级语义覆盖度中位数低于阈值即入选</td></tr>
+                  <tr><td>内容腐化</td><td class="num">3</td><td><code>corrupt.score_threshold</code></td><td>风险分达到阈值即入选</td></tr>
+                  <tr><td>重复冗余</td><td class="num">0.95</td><td><code>dup.best.threshold</code></td><td>组内最大余弦相似度达到阈值即入选</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <details class="disclosure">
+            <summary>聚类与规则口径</summary>
+            <div class="tbl-wrap tbl-wrap-static mt12">
+              <table class="tbl" aria-label="聚类参数与规则口径表">
+                <thead><tr><th scope="col">项目</th><th scope="col">取值</th><th scope="col">产物键</th></tr></thead>
+                <tbody>
+                  <tr><td>聚类参数</td><td class="num">mcs = 5，95 簇 / 0 噪声</td><td><code>gap.best.min_cluster_size</code>、<code>gap.clusters["5"]</code></td></tr>
+                  <tr><td>腐化规则权重</td><td class="num">R1 3 / R2 2 / R3 2 / R4 1</td><td><code>corrupt.rule_weight</code></td></tr>
+                  <tr><td>腐化规则命中数</td><td class="num">R1 32 / R2 38 / R3 32 / R4 88</td><td><code>corrupt.rule_hit_counts</code>（口径：全部 300 篇文档）</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <details class="disclosure">
+            <summary>腐化评测统计</summary>
+            <div class="tbl-wrap tbl-wrap-static mt12">
+              <table class="tbl" aria-label="腐化评测统计表">
+                <thead><tr><th scope="col">项目</th><th scope="col">取值</th></tr></thead>
+                <tbody>
+                  <tr><td>真阳性 / 假阳性 / 假阴性</td><td class="num">62 / 7 / 0</td></tr>
+                  <tr><td>误报来源</td><td class="num">对照 6 / 重复继承 1 / 其他 0</td></tr>
+                  <tr><td>风险分分布</td><td class="num">0:186 / 1:45 / 3:37 / 5:26 / 6:5 / 8:1</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+          <details class="disclosure">
+            <summary>无评测基线时的降级说明</summary>
+            <p class="hint mt12">
+              若部署语料无评测基线（has_ground_truth=false），精确率、召回率、F1 为 null，界面显示「—」并附说明「当前语料无评测基线」，不补任何数。
+            </p>
+          </details>
+        </section>
+
+        <!-- 区块 8 去清单页 -->
+        <section class="card" aria-labelledby="s-golist-title">
+          <div class="card-head">
+            <h2 class="card-title" id="s-golist-title">查看清单</h2>
+            <span class="card-desc">三类缺陷清单在同一页面的三个 Tab 内</span>
+          </div>
+          <div data-states="success">
+            <button class="btn btn-primary" type="button" data-goto="lists">查看三类缺陷清单</button>
+          </div>
+          <div data-states="running">
+            <button class="btn" type="button" disabled title="扫描进行中">查看三类缺陷清单</button>
+          </div>
+          <div data-states="empty">
+            <button class="btn" type="button" disabled title="尚无扫描结果">查看三类缺陷清单</button>
+          </div>
+          <div data-states="loading">
+            <div class="sk-list" aria-hidden="true"><span class="sk" style="height:32px;width:180px"></span></div>
+          </div>
+          <div data-states="error">
+            <button class="btn" type="button" disabled title="扫描未完成">查看三类缺陷清单</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- ============ 页面三：三类缺陷清单 ============ -->
+      <section class="page" id="page-lists" data-page="lists" aria-labelledby="lists-title" hidden>
+        <div class="page-head">
+          <div>
+            <h1 class="page-title" id="lists-title">三类缺陷清单</h1>
+            <p class="page-sub">知识缺口 / 内容腐化 / 重复冗余</p>
+          </div>
+          <div class="state-switcher">
+            <span class="sw-label">状态演示</span>
+            <div class="seg" role="group" aria-label="切换清单页状态">
+              <button class="seg-btn is-on" type="button" data-target="lists" data-state="success" aria-pressed="true">成功态</button>
+              <button class="seg-btn" type="button" data-target="lists" data-state="never" aria-pressed="false">未扫描</button>
+              <button class="seg-btn" type="button" data-target="lists" data-state="nohit" aria-pressed="false">无命中</button>
+              <button class="seg-btn" type="button" data-target="lists" data-state="loading" aria-pressed="false">加载态</button>
+              <button class="seg-btn" type="button" data-target="lists" data-state="error" aria-pressed="false">错误态</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 区块 2 类别切换 -->
+        <section class="card card-flush">
+          <div class="tabs" role="tablist" aria-label="缺陷类别">
+            <button class="tab is-on" type="button" role="tab" id="tab-gap" aria-selected="true" aria-controls="listPanel" data-tab="gap">
+              知识缺口<span class="badge">7</span>
+            </button>
+            <button class="tab" type="button" role="tab" id="tab-corrupt" aria-selected="false" aria-controls="listPanel" data-tab="corrupt">
+              内容腐化<span class="badge">69</span>
+            </button>
+            <button class="tab" type="button" role="tab" id="tab-dup" aria-selected="false" aria-controls="listPanel" data-tab="dup">
+              重复冗余<span class="badge">22</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 区块 3 指标条 -->
+        <section class="card" aria-labelledby="l-metric-title">
+          <div class="card-head">
+            <h2 class="card-title" id="l-metric-title">判定指标</h2>
+            <span class="card-desc">阈值与精确率 / 召回率 / F1 直接显示在清单页</span>
+          </div>
+          <div data-states="success,nohit">
+            <div class="desc-grid desc-grid-5" id="listMetricGrid"></div>
+            <div class="desc-grid desc-grid-2 mt12" id="listCaliGrid"></div>
+          </div>
+          <div data-states="loading">
+            <div class="sk-list" aria-hidden="true"><span class="sk" style="height:56px"></span><span class="sk" style="height:28px"></span></div>
+          </div>
+          <div data-states="never">
+            <p class="hint">从未扫描时 modules 为 null，指标条整块不显示。</p>
+          </div>
+          <div data-states="error">
+            <div class="alert alert-error" role="alert">
+              <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+              <div><span class="alert-title">清单接口失败</span><span class="alert-desc">未取得本轮模块指标，指标条整块不显示。</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 区块 4 列表区 -->
+        <section class="card" id="listPanel" role="tabpanel" aria-labelledby="l-list-title">
+          <div class="card-head">
+            <h2 class="card-title" id="l-list-title">明细列表</h2>
+            <span class="card-desc">顺序固定为源 CSV 行序，不分页、不做列排序</span>
+          </div>
+
+          <div data-states="success">
+            <div id="listAlertHost"></div>
+            <div class="tbl-wrap" id="listTableWrap">
+              <table class="tbl" id="listTable" aria-label="缺陷明细列表">
+                <thead id="listHead"></thead>
+                <tbody id="listBody"></tbody>
+              </table>
+            </div>
+            <p class="hint mt12">详情在列表行内就地展开；同一页面的三个 Tab 不做路由跳转。</p>
+          </div>
+
+          <div data-states="never">
+            <div class="empty">
+              <svg class="icon empty-illus"><use href="#i-empty"></use></svg>
+              <p class="empty-text">尚无扫描结果，请先运行治理扫描</p>
+              <p class="empty-sub">扫描完成后，三类缺陷清单会出现在本页的三个 Tab 内</p>
+              <button class="btn btn-primary mt12" type="button" data-goto="scan">去运行扫描</button>
+            </div>
+          </div>
+
+          <div data-states="nohit">
+            <div class="empty">
+              <svg class="icon empty-illus"><use href="#i-empty"></use></svg>
+              <p class="empty-text">本次扫描未发现该类缺陷</p>
+              <p class="empty-sub">阈值与精确率 / 召回率 / F1 仍按本轮取值显示</p>
+            </div>
+          </div>
+
+          <div data-states="loading">
+            <div class="sk-list" aria-hidden="true"><span class="sk" style="height:40px"></span><span class="sk" style="height:40px"></span><span class="sk" style="height:40px"></span><span class="sk" style="height:40px"></span></div>
+          </div>
+
+          <div data-states="error">
+            <div class="alert alert-error" role="alert">
+              <svg class="icon alert-icon"><use href="#i-error"></use></svg>
+              <div><span class="alert-title">清单接口失败</span><span class="alert-desc">本轮清单未能加载，可重新运行扫描后再试。</span></div>
+            </div>
+            <div class="result">
+              <svg class="icon result-icon"><use href="#i-result"></use></svg>
+              <p class="result-title">清单加载失败</p>
+              <p class="result-sub">上一次扫描的结果文件仍然保留在库中。</p>
+              <button class="btn btn-primary mt12" type="button" data-goto="scan">去运行扫描</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 区块 6 下载区 -->
+        <section class="card" aria-labelledby="l-dl-title" data-states="success,nohit">
+          <div class="card-head">
+            <h2 class="card-title" id="l-dl-title">下载结果</h2>
+            <span class="card-desc">下载的是源 CSV 原文</span>
+          </div>
+          <button class="btn" type="button" id="downloadBtn">
+            <svg class="icon"><use href="#i-download"></use></svg>下载当前清单 CSV
+          </button>
+          <p class="hint mt12" id="downloadHint">当前 Tab：知识缺口。</p>
+        </section>
+
+        <!-- 区块 7 口径与免责 -->
+        <section class="card" aria-labelledby="l-note-title" data-states="success,nohit">
+          <div class="card-head">
+            <h2 class="card-title" id="l-note-title">口径与免责</h2>
+            <span class="card-desc">阈值锚定、乐观值标注、无基线说明</span>
+          </div>
+          <div class="alert alert-info">
+            <svg class="icon alert-icon"><use href="#i-info"></use></svg>
+            <div>
+              <span class="alert-title">阈值取本轮扫描实际采用值</span>
+              <span class="alert-desc">
+                知识缺口 0.62、内容腐化 3、重复冗余 0.95。重复冗余 F1 = 1.0000 为乐观值，论文附录 D 已标注此口径。
+                若部署语料无评测基线，精确率、召回率、F1 显示「—」并注明「当前语料无评测基线」。
+              </span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <footer class="page-foot">
+        原型说明：本页所有数字均取自 <code>data/</code> 下的真实产物（<code>top15_gaps.csv</code>、<code>corrupt_docs.csv</code>、<code>dup_groups_best.csv</code>、<code>metrics.json</code>）；上传、扫描、下载均为静态态，不发起真实请求。
+      </footer>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
