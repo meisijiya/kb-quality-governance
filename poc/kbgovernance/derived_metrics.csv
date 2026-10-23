@@ -50,4 +50,4 @@ docs.avg_chars_per_doc,140.206667,sum(len(content)) / 300 = 300 篇正文平均�
 docs.min_chars_per_doc,111,min(len(content)),,docs.csv
 docs.max_chars_per_doc,191,max(len(content)),,docs.csv
 embedding.throughput_texts_per_sec_first_run,278.657718,4152 / 14.9 = 总条数 / 首跑向量化耗时(run_all.log),total_texts=4152|run_all.log 向量化耗时(秒)=14.900000,embeddings_meta.json;run_all.log
-embedding.throughput_texts_per_sec_repro,269.086196,4152 / 15.43 = 总条数 / embeddings_meta.encode_seconds,total_texts=4152|encode_seconds=15.430000,embeddings_meta.json
+embedding.throughput_texts_per_sec_repro,284.188912,4152 / 14.61 = 总条数 / embeddings_meta.encode_seconds,total_texts=4152|encode_seconds=14.610000,embeddings_meta.json

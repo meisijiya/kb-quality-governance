@@ -1,11 +1,12 @@
 # 实测数字一致性检查报告
 
-- 受检文档：**3** 份
+- 受检文档：**4** 份
   - `D:\26code\毕设\docs\技术方案\企业知识库质量治理系统技术方案.md`
   - `D:\26code\毕设\docs\技术方案\本科版实施方案.md`
   - `D:\26code\毕设\docs\技术方案\数字溯源审计.md`
-- 产物来源（26 个文件）：`metrics.json`、`embeddings_meta.json`、`ground_truth.json`、`granularity.csv`、`granularity_dup.csv`、`corrupt_rule_ablation.csv`、`gap_threshold.csv`、`dup_threshold.csv`、`dup_groups_best.csv`、`corrupt_docs.csv`、`top15_gaps.csv`、`derived_metrics.csv`、`standardize/ablation.csv`、`standardize/banking77_meta.json`、`standardize/banking77_meta_en.json`、`standardize/banking77_meta_zh.json`、`standardize/mechanism.csv`、`standardize/results_auc.csv`、`standardize/results_banking77_en.csv`、`standardize/results_banking77_zh.csv`、`standardize/results_directionC.csv`、`standardize/results_directions.csv`、`standardize/results_transfer.csv`、`standardize/results_xfer_banking77_en.csv`、`standardize/results_xfer_banking77_zh.csv`、`standardize/scenario_meta.json`
-- 产物数值叶子：**3112** 个
+  - `D:\26code\毕设\docs\技术方案\开发前准备清单.md`
+- 产物来源（27 个文件）：`metrics.json`、`embeddings_meta.json`、`ground_truth.json`、`repro_check.json`、`granularity.csv`、`granularity_dup.csv`、`corrupt_rule_ablation.csv`、`gap_threshold.csv`、`dup_threshold.csv`、`dup_groups_best.csv`、`corrupt_docs.csv`、`top15_gaps.csv`、`derived_metrics.csv`、`standardize/ablation.csv`、`standardize/banking77_meta.json`、`standardize/banking77_meta_en.json`、`standardize/banking77_meta_zh.json`、`standardize/mechanism.csv`、`standardize/results_auc.csv`、`standardize/results_banking77_en.csv`、`standardize/results_banking77_zh.csv`、`standardize/results_directionC.csv`、`standardize/results_directions.csv`、`standardize/results_transfer.csv`、`standardize/results_xfer_banking77_en.csv`、`standardize/results_xfer_banking77_zh.csv`、`standardize/scenario_meta.json`
+- 产物数值叶子：**3723** 个
 
 > 判定口径（先命中先定）：`EXTERNAL` = 参考文献著录 / arXiv 编号 / 模型规格 / 第三方依赖安装包体积 / 依赖安装说明；`STRUCTURAL` = 章节号（含 §引用与表格「文档位置」列）/ 外部文件行号 / 年份日期 / 列表序号 / SQL 类型长度 / 模型维度参数量 / 版本号 / 端口号等结构性编号；`ALLOWED` = 已登记的非产物来源（仅限计划参数与外部第三方事实）；`OK` = 产物中有同值（容差 1e-6，数字后紧跟 `%` 时额外做一次百分数↔小数换算）；`ROUNDED` = 产物值按该数字小数位四舍五入后相等；`CITED` = 引用语境 —— 数字落在 markdown 表格的引用列（表头含「文档写的数字」「文档写法」「断言」「出处」「判定」「偏差性质」「未被引用的内容」等），或落在带溯源判定词（`受审集合内无` / `仅见于` / `已被实测修正` / `改判` …）的行里，即本文档在**转述并判定**他处数值或做自己的计数，而非自己做了一次实测断言。判据是位置与措辞，不是数值白名单；`UNSOURCED` = 找不到任何出处。
 
@@ -15,20 +16,21 @@
 
 | 文档 | 断言数 | OK | ROUNDED | STRUCTURAL | EXTERNAL | CITED | ALLOWED | UNSOURCED | 指标类 UNSOURCED（致命） |
 |---|---|---|---|---|---|---|---|---|---|
-| `企业知识库质量治理系统技术方案.md` | 1491 | 1112 | 30 | 188 | 144 | 0 | 1 | 16 | **0** |
-| `本科版实施方案.md` | 670 | 541 | 6 | 103 | 0 | 0 | 0 | 20 | **0** |
-| `数字溯源审计.md` | 1302 | 933 | 37 | 283 | 0 | 47 | 0 | 2 | **0** |
-| **合计** | **3463** | 2586 | 73 | 574 | 144 | 47 | 1 | 38 | **0** |
+| `企业知识库质量治理系统技术方案.md` | 1503 | 1124 | 30 | 189 | 144 | 0 | 1 | 15 | **0** |
+| `本科版实施方案.md` | 671 | 542 | 6 | 103 | 0 | 0 | 0 | 20 | **0** |
+| `数字溯源审计.md` | 1327 | 956 | 37 | 290 | 0 | 42 | 0 | 2 | **0** |
+| `开发前准备清单.md` | 458 | 263 | 0 | 182 | 0 | 6 | 0 | 7 | **0** |
+| **合计** | **3959** | 2885 | 73 | 764 | 144 | 48 | 1 | 44 | **0** |
 
 - 总退出码：**0**（没有指标类数字缺出处）
 
 ---
 
-## 文档 1 / 3：`企业知识库质量治理系统技术方案.md`
+## 文档 1 / 4：`企业知识库质量治理系统技术方案.md`
 
 - 完整路径：`D:\26code\毕设\docs\技术方案\企业知识库质量治理系统技术方案.md`
-- 抽到的数值断言：**1491** 处
-- 判定统计：OK=**1112**　ROUNDED=**30**　STRUCTURAL=**188**　EXTERNAL=**144**　CITED=**0**　ALLOWED=**1**　UNSOURCED=**16**
+- 抽到的数值断言：**1503** 处
+- 判定统计：OK=**1124**　ROUNDED=**30**　STRUCTURAL=**189**　EXTERNAL=**144**　CITED=**0**　ALLOWED=**1**　UNSOURCED=**15**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
 
 ### 1.1 指标类 UNSOURCED —— 致命项，必须为空或逐条补出处
@@ -44,7 +46,7 @@
 | 698 | …+ 最坏分位数）**：设标注样本量为 $m$，对标定集做 $B$ 次有放回重采样（**$B=1000$ 为协议参数，非实测**；本小节标定流程尚未实现），每次得到最优阈值 $\hat{\the… | `1000` | `` | `` |
 | 733 | …）**：R4 的原始表述「同 category 下存在更新时间更新的文档」在实测中会让 **275/300 篇文档全部命中**（`RESULT.md` §规则工程记录；该中间态未单独落盘为… | `275` | `` | `` |
 | 733 | …的文档，该规则完全丧失区分度。实际实现加了两道约束才可用：① 对方更新时间领先本篇 **≥ 365 天**（而非任意领先）；② 标题 bigram 包含度 **≥ 0.50**。修正后 R4… | `365` | `` | `` |
-| 816 | **防作弊设计（关键）**：额外埋设 **4% 的「自然陈旧但不算缺陷」文档**（600–900 天未更新）。若不设此对照，腐化模块会取得虚假满分，评测将失去意义。 | `900` | `` | `` |
+| 816 | **防作弊设计（关键）**：额外埋设「自然陈旧但不算缺陷」对照文档（600–900 天未更新）。生成器按 4% 概率逐篇抽样，实际命中 **10 篇**（`corrupt_d… | `900` | `` | `` |
 | 827 | \| 轨道二 \| banking77 \| 13,083 条真实客服意图（英文） \| **方法泛化性**：真实数据上是否仍有效 \| | `13,083` | `` | `` |
 | 901 | ### 7.3 70 页报告页数分配 | `70` | `` | `` |
 | 915 | \| **合计** \| **70** \| \| | `70` | `` | `` |
@@ -54,7 +56,6 @@
 | 970 | …跟踪治理闭环（检测 → 治理 → 关闭）。如果只存文档表，治理过程无法追溯。落库实体清单以 4.3 数据库设计一节为准。 | `4.3` | `` | `` |
 | 972 | 12. **如果企业有 100 万条工单怎么办？** | `100` | `` | `` |
 | 993 | …服力；② 形式化命题本身是一个**可验证的正向结论**（不是纯失败），且只需 1 张表；③ 5.3.3 的使用边界表是可直接落地的工程产物。题目已按实测结果改写，不留「承诺了却没做」的缺口。 | `5.3` | `` | `` |
-| 1005 | …Web 4 天 + 论文 5 天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 500 条标注量估算）——这是唯一无法通过编码加速的环节。因此应在开题阶段就与导师确认标注时间预算… | `500` | `` | `` |
 
 ### 1.3 ROUNDED —— 产物值四舍五入后等于文档写法（需人工确认语义一致）
 
@@ -89,9 +90,9 @@
 | 857 | …\| 10%–30% \| F1 标准差 / 平均 F1 \| σ, F1 \| 逐场景调阈值 (0.1452 / 0.8289) \| `results_directionC.csv` \| 图3-7 \| | `0.1452` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
 | 1012 | \| 引入向量数据库（Faiss/Milvus） \| 实测 300×300 余弦矩阵 < 0.01 秒（`metrics.json:dup.seconds`），数据规模完全不需要；且三个检测… | `0.01` | `standardize/results_directions.csv:召回全部阈值[row=25][0]` | `0.0051` |
 | 1158 | \| 文档段落数 \| 1852（平均 6.17 段/篇 = 1852 ÷ 300） \| | `6.17` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
-| 1260 | …/ β / γ / γ-X）样本标准差（n-1）。ABS 逐场景最优阈值 F1 标准差 **0.1452** / 平均 F1 **0.8289**；固定 25% 检出比例标准差 **0.0873*… | `0.1452` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
-| 1260 | …*0.1452** / 平均 F1 **0.8289**；固定 25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522**（牺牲约 33%）。 | `0.0873` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
-| 1260 | …*0.8289**；固定 25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522**（牺牲约 33%）。 | `0.5522` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
+| 1261 | …/ β / γ / γ-X）样本标准差（n-1）。ABS 逐场景最优阈值 F1 标准差 **0.1452** / 平均 F1 **0.8289**；固定 25% 检出比例标准差 **0.0873*… | `0.1452` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
+| 1261 | …*0.1452** / 平均 F1 **0.8289**；固定 25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522**（牺牲约 33%）。 | `0.0873` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
+| 1261 | …*0.8289**；固定 25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522**（牺牲约 33%）。 | `0.5522` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
 
 ### 1.4 STRUCTURAL —— 结构性编号（章节号/外部文件行号/年份/序号/SQL 长度/模型维度参数量/版本号/端口号）
 
@@ -137,15 +138,15 @@
 | 103 | ### 2.4 研究现状 | `2.4` | `章节号` | `` |
 | 112 | ### 3.1 可行性分析 | `3.1` | `章节号` | `` |
 | 114 | …链路在目标硬件上跑通。实测：生成数据秒级完成；向量化 4152 条文本（300 篇文档 + 2000 条工单 + 1852 个文档段落，三项与 `metrics.json:embedding`… | `2000` | `年份/日期` | `` |
-| 114 | …_docs` / `n_tickets` / `n_passages` 逐项对齐）耗时 **15.43 秒**；三模块检测合计 **2.85 秒**。全程 CPU，无 GPU 训练，无 7B 以… | `15.43` | `章节号` | `` |
-| 114 | …/ `n_passages` 逐项对齐）耗时 **15.43 秒**；三模块检测合计 **2.85 秒**。全程 CPU，无 GPU 训练，无 7B 以上模型。耗时取自当前 `metrics… | `2.85` | `章节号` | `` |
+| 114 | …_docs` / `n_tickets` / `n_passages` 逐项对齐）耗时 **14.61 秒**；三模块检测合计 **3.09 秒**。全程 CPU，无 GPU 训练，无 7B 以… | `14.61` | `章节号` | `` |
+| 114 | …/ `n_passages` 逐项对齐）耗时 **14.61 秒**；三模块检测合计 **3.09 秒**。全程 CPU，无 GPU 训练，无 7B 以上模型。耗时取自当前 `metrics… | `3.09` | `章节号` | `` |
 | 116 | **数据可行性（已实测验证）**：原型已构造 300 篇文档 / 2000 条工单 / 8 业务域 / 30 意图的语料，三类缺陷均已按可公开说明的规则埋入并被检出—… | `2000` | `年份/日期` | `` |
 | 116 | …埋入并被检出——缺口 F1=0.800（阈值 0.62）、腐化 F1=0.9466、重复在 0.95 阈值下组级 F1=1.0000，三值分别取自 `metrics.json` 的 `gap.… | `0.95` | `章节号` | `` |
 | 122 | ### 3.2 用例图 | `3.2` | `章节号` | `` |
 | 146 | ### 3.3 用例说明表 | `3.3` | `章节号` | `` |
 | 156 | ### 3.4 角色功能矩阵 | `3.4` | `章节号` | `` |
 | 168 | ### 3.5 非功能需求 | `3.5` | `章节号` | `` |
-| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 2.85 秒，向量化 15.43 秒，留足余量 \| | `2000` | `年份/日期` | `` |
+| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.09 秒，向量化 14.61 秒，留足余量 \| | `2000` | `年份/日期` | `` |
 | 174 | \| 数据规模支持 \| 2000 条工单 / 300 篇文档（已实测口径） \| **本系统面向中小型企业单个知识域**；进一… | `2000` | `年份/日期` | `` |
 | 175 | ….seconds` 为 0.0 秒；本课题以本地跑通为准，不要求线上部署，部署形态的取舍见 8.5 节 \| | `8.5` | `章节号` | `` |
 | 185 | ### 4.1 系统架构 | `4.1` | `章节号` | `` |
@@ -217,7 +218,7 @@
 | 806 | …规模参数**：300 篇文档 × 8 个业务域 × 25 个已覆盖意图（每意图 12 篇）；2000 条工单 × 30 个意图（含 5 个缺口意图）；每篇文档 111–191 字（均值 140… | `2000` | `年份/日期` | `` |
 | 814 | …内容腐化 \| 32 篇正文追加绝对过期表述；30 篇 `last_modified` 置为 2022–2023 年 \| 62 篇 \| | `2022` | `年份/日期` | `` |
 | 814 | …\| 32 篇正文追加绝对过期表述；30 篇 `last_modified` 置为 2022–2023 年 \| 62 篇 \| | `2023` | `年份/日期` | `` |
-| 820 | **可复现性**：`random.seed(42)` + `np.random.seed(42)`。已实测：连续两次运行产物 md5 完全一… | `42 (×2)` | `随机种子` | `` |
+| 820 | **可复现性**：`random.seed(42)` + `np.random.seed(42)`。**可复现性证据**（`poc/kbgo… | `42 (×2)` | `随机种子` | `` |
 | 822 | ### 6.2 双轨验证设计 | `6.2` | `章节号` | `` |
 | 826 | \| 轨道一 \| 自造中文 \| 300 文档 / 2000 工单 \| **功能验证**：有 ground truth，可算 P/R/F1 \| | `2000` | `年份/日期` | `` |
 | 831 | ### 6.3 实验矩阵 | `6.3` | `章节号` | `` |
@@ -266,6 +267,7 @@
 | 991 | …1.4 与附录 A）。该方向不作为本文贡献，保留为 5.3 节的探索性分析与负结果：命题 5.1 用 3 行证明把一整类「归一化更鲁棒」的说法证伪；5.3.3 给出精确的使用边界表；5.3… | `5.1` | `章节号` | `` |
 | 995 | ### 8.2 数据风险 | `8.2` | `章节号` | `` |
 | 1001 | ### 8.3 工程风险 | `8.3` | `章节号` | `` |
+| 1005 | …天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 300 条标注预算估算，见 §7.3）——这是唯一无法通过编码加速的环节。因此应在开题阶段就与导师确认标注时间预算，必要时采用双… | `7.3` | `章节号(§引用)` | `` |
 | 1007 | ### 8.4 建议主动放弃的三件事 | `8.4` | `章节号` | `` |
 | 1012 | …标。引入只会增加工程复杂度与部署成本。**「什么规模、什么需求下才该上向量库」的边界条件见 5.5.1 节** \| | `5.5` | `章节号` | `` |
 | 1017 | ### 8.5 部署形态的取舍：以本地跑通为准 | `8.5` | `章节号` | `` |
@@ -281,10 +283,10 @@
 | 1156 | \| 文档数 / 工单数 \| 300 / 2000 \| | `2000` | `年份/日期` | `` |
 | 1159 | …ng 方案 \| FlagEmbedding + BGE/bge-small-zh-v1.5，512 维，CPU \| | `512` | `模型维度` | `` |
 | 1173 | …2 组 mean 0.9803 / 0.5671–1.0000（跨段落命中导致的离群值，见 5.5.3） \| | `5.5` | `章节号` | `` |
-| 1180 | ### 检索粒度 × 打分方案对照（`granularity.csv`，2000 工单 / 300 文档 / 371 条已标注） | `2000` | `年份/日期` | `` |
-| 1202 | …0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `0.0` | `章节号` | `` |
-| 1209 | …。only_R1 与 drop_R2 / drop_R4 数值相同（0.6809）的成因见 5.4.1。 | `5.4` | `章节号` | `` |
-| 1211 | …化实验实测（`poc/kbgovernance/standardize/`，本次实测总耗时 26.2 秒，随环境波动） | `26.2` | `章节号` | `` |
+| 1181 | ### 检索粒度 × 打分方案对照（`granularity.csv`，2000 工单 / 300 文档 / 371 条已标注） | `2000` | `年份/日期` | `` |
+| 1203 | …0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `0.0` | `章节号` | `` |
+| 1210 | …。only_R1 与 drop_R2 / drop_R4 数值相同（0.6809）的成因见 5.4.1。 | `5.4` | `章节号` | `` |
+| 1212 | …化实验实测（`poc/kbgovernance/standardize/`，本次实测总耗时 26.2 秒，随环境波动） | `26.2` | `章节号` | `` |
 
 ### 1.5 EXTERNAL —— 引用他人文献或外部标准的数字
 
@@ -466,11 +468,11 @@
 | 38 | …argin / max÷std / max÷top5，两种粒度下意图级 AUC 0.496–0.920，均低于同粒度基准），说明「在实测过的方案里，改变检索粒度收益最大」，而不是「改变粒度是唯一… | `0.920` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
 | 39 | 2. **三模块治理系统（已实测）**：知识缺口 F1=**0.800**、内容腐化 F1=**0.9466**、重复冗余组级 F1=**0.7037**（0.9… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
 | 39 | …**三模块治理系统（已实测）**：知识缺口 F1=**0.800**、内容腐化 F1=**0.9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 39 | …口 F1=**0.800**、内容腐化 F1=**0.9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 2.85 秒（… | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 39 | …800**、内容腐化 F1=**0.9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 2.85 秒（`metric… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 39 | …F1=**0.9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 2.85 秒（`metrics.json:total… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 39 | ….9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 2.85 秒（`metrics.json:total_seco… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 39 | …*0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 2.85 秒（`metrics.json:total_seconds`）。 | `2.85` | `metrics.json:total_seconds` | `2.85` |
+| 39 | …口 F1=**0.800**、内容腐化 F1=**0.9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.09 秒（… | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 39 | …800**、内容腐化 F1=**0.9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.09 秒（`metric… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 39 | …F1=**0.9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.09 秒（`metrics.json:total… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 39 | ….9466**、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.09 秒（`metrics.json:total_seco… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
+| 39 | …*0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.09 秒（`metrics.json:total_seconds`）。 | `3.09` | `metrics.json:total_seconds` | `3.09` |
 | 40 | …验指标，Web 侧提供上传、一键扫描与三类清单（详见 5.2 / 5.4 / 5.5 与第 4 章）。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 44 | …「换刻度」方案**在数学上不可能**改进任何排序类指标；实测 Spearman ρ = **-1.000000** 佐证。 | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
 | 45 | …*：绝对阈值锚定的是「模型 × 语言」的刻度——同模型同语言内的**阈值刻度**极差仅 **0.0264**（很稳，但换语料 / 换规模后召回仍需重新核对，见 5.3.3 边界一），跨模型/跨语言… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
@@ -494,9 +496,9 @@
 | 61 | …固定 25% 使跨场景 F1 标准差从 0.1452 降到 0.0873，但平均 F1 从 0.8289 掉到 0.5522 \| `standardize/results_directionC.c… | `0.8289` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
 | 67 | ## 第 2 章 相关技术与研究现状 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 75 | \| bge-small-zh-v1.5 \| 约 24M \| 95.8 MB（`metrics.json:embedding.model_download_mb`… | `95.8` | `metrics.json:embedding.model_download_mb` | `95.8` |
-| 75 | …`metrics.json:embedding.model_download_mb`） \| 512 \| 4152 条文本 / 15.43 秒 \| | `512` | `metrics.json:embedding.dim` | `512` |
-| 75 | …cs.json:embedding.model_download_mb`） \| 512 \| 4152 条文本 / 15.43 秒 \| | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
-| 75 | …edding.model_download_mb`） \| 512 \| 4152 条文本 / 15.43 秒 \| | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
+| 75 | …`metrics.json:embedding.model_download_mb`） \| 512 \| 4152 条文本 / 14.61 秒 \| | `512` | `metrics.json:embedding.dim` | `512` |
+| 75 | …cs.json:embedding.model_download_mb`） \| 512 \| 4152 条文本 / 14.61 秒 \| | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
+| 75 | …edding.model_download_mb`） \| 512 \| 4152 条文本 / 14.61 秒 \| | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 79 | **选型结论：bge-small-zh-v1.5。** 理由有三：① 本机为 8GB 显存的笔记本，小模型完全够用且无需 GPU；② 权重 95.8 MB 使换机器/换环境… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 79 | …。** 理由有三：① 本机为 8GB 显存的笔记本，小模型完全够用且无需 GPU；② 权重 95.8 MB 使换机器/换环境的成本几乎为零；③ 本课题的向量只用于「同域相似度比较」而非极限语义… | `95.8` | `metrics.json:embedding.model_download_mb` | `95.8` |
 | 84 | - **阈值与「模型 × 语料 × 设备」三元组绑死**。缺口阈值 0.62 标定在该模型对本文中文语料的 CPU 编码结果上。BGE 模型卡明确建议「按自己数据上的相… | `0.62 (×3)` | `metrics.json:gap.best.threshold` | `0.62` |
@@ -507,17 +509,17 @@
 | 87 | …1.5 的余弦相似度基线显著偏高——全部 2000 条工单的「被覆盖度」分布为 **min=0.5629 / mean=0.6891 / max=0.8294**。这意味着「完全没有对应文档」的工… | `0.5629` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
 | 87 | …偏高——全部 2000 条工单的「被覆盖度」分布为 **min=0.5629 / mean=0.6891 / max=0.8294**。这意味着「完全没有对应文档」的工单，其最高相似度也有 0.5… | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
 | 87 | …工单的「被覆盖度」分布为 **min=0.5629 / mean=0.6891 / max=0.8294**。这意味着「完全没有对应文档」的工单，其最高相似度也有 0.563。这是第 5.3 节算… | `0.8294` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
-| 93 | …需要预先指定簇数 K。本课题面对的是无标签客服工单，事先不知道有多少个业务意图——原型中 30 个意图，实际分出 **95 个簇**（min_cluster_size=5），簇数是未知的… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 93 | …题面对的是无标签客服工单，事先不知道有多少个业务意图——原型中 30 个意图，实际分出 **95 个簇**（min_cluster_size=5），簇数是未知的，KMeans 无从下手。此… | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 93 | …图——原型中 30 个意图，实际分出 **95 个簇**（min_cluster_size=5），簇数是未知的，KMeans 无从下手。此外 KMeans 对离群点敏感，而工单数据天然含… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 93 | …ans 无从下手。此外 KMeans 对离群点敏感，而工单数据天然含长尾噪声（实测 mcs=10 时有 9 条被标为噪声）。 | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 93 | …下手。此外 KMeans 对离群点敏感，而工单数据天然含长尾噪声（实测 mcs=10 时有 9 条被标为噪声）。 | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 93 | …需要预先指定簇数 K。本课题面对的是无标签客服工单，事先不知道有多少个业务意图——原型中 30 个意图，实际分出 **95 个簇**（min_cluster_size=5，`metric… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 93 | …题面对的是无标签客服工单，事先不知道有多少个业务意图——原型中 30 个意图，实际分出 **95 个簇**（min_cluster_size=5，`metrics.json` → `gap… | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 93 | …图——原型中 30 个意图，实际分出 **95 个簇**（min_cluster_size=5，`metrics.json` → `gap.clusters.5.n_clusters`）… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 93 | …ans 无从下手。此外 KMeans 对离群点敏感，而工单数据天然含长尾噪声（实测 mcs=10 时有 9 条被标为噪声，`metrics.json` → `gap.clusters.10… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 93 | …下手。此外 KMeans 对离群点敏感，而工单数据天然含长尾噪声（实测 mcs=10 时有 9 条被标为噪声，`metrics.json` → `gap.clusters.10.n_no… | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
 | 100 | $$RRF(d)=\sum_{r\in R}\frac{1}{k+\text{rank}_r(d)}$$ | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 110 | ## 第 3 章 需求分析 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 114 | …技术可行性（已实测验证）**：三模块全链路在目标硬件上跑通。实测：生成数据秒级完成；向量化 4152 条文本（300 篇文档 + 2000 条工单 + 1852 个文档段落，三项与 `metr… | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
 | 114 | …验证）**：三模块全链路在目标硬件上跑通。实测：生成数据秒级完成；向量化 4152 条文本（300 篇文档 + 2000 条工单 + 1852 个文档段落，三项与 `metrics.json… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 114 | …实测：生成数据秒级完成；向量化 4152 条文本（300 篇文档 + 2000 条工单 + 1852 个文档段落，三项与 `metrics.json:embedding` 的 `n_docs`… | `1852` | `metrics.json:embedding.n_passages` | `1852` |
-| 114 | …5.43 秒**；三模块检测合计 **2.85 秒**。全程 CPU，无 GPU 训练，无 7B 以上模型。耗时取自当前 `metrics.json`，跨机器必然波动，此处只描述本次实测… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 114 | …4.61 秒**；三模块检测合计 **3.09 秒**。全程 CPU，无 GPU 训练，无 7B 以上模型。耗时取自当前 `metrics.json`，跨机器必然波动，此处只描述本次实测… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 116 | **数据可行性（已实测验证）**：原型已构造 300 篇文档 / 2000 条工单 / 8 业务域 / 30 意图的语料，三类缺陷均已按可公开说… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 116 | **数据可行性（已实测验证）**：原型已构造 300 篇文档 / 2000 条工单 / 8 业务域 / 30 意图的语料，三类缺陷均已按可公开说明的规则埋入并被检出——缺口 F1=0… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 116 | …性（已实测验证）**：原型已构造 300 篇文档 / 2000 条工单 / 8 业务域 / 30 意图的语料，三类缺陷均已按可公开说明的规则埋入并被检出——缺口 F1=0.800（阈值 0… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
@@ -525,12 +527,12 @@
 | 116 | …0 意图的语料，三类缺陷均已按可公开说明的规则埋入并被检出——缺口 F1=0.800（阈值 0.62）、腐化 F1=0.9466、重复在 0.95 阈值下组级 F1=1.0000，三值分别取自… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
 | 116 | …均已按可公开说明的规则埋入并被检出——缺口 F1=0.800（阈值 0.62）、腐化 F1=0.9466、重复在 0.95 阈值下组级 F1=1.0000，三值分别取自 `metrics.json… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
 | 116 | …0.800（阈值 0.62）、腐化 F1=0.9466、重复在 0.95 阈值下组级 F1=1.0000，三值分别取自 `metrics.json` 的 `gap.best` / `corrupt… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 118 | **工程可行性（已实测验证）**：存储层为 SQLite 的 6 张表加一份向量 `np.ndarray` 文件；重复检测环节实测耗时 `metrics.j… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 118 | **工程可行性（已实测验证）**：存储层为 SQLite 的 6 张表加一份向量 `np.ndarray` 文件；重复检测环节实测耗时 `metrics.j… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 118 | …y` 文件；重复检测环节实测耗时 `metrics.json:dup.seconds` 为 0.0 秒，说明当前文档规模不需要引入独立向量数据库。展示层为 FastAPI 单进程同步接口，无… | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 120 | **时间可行性（计划估算，非实测）**：开发窗口为 **W1–W10（10 周）**，排期以《本科版实施方案.md》第 6 章为唯一权威版本。瓶颈不是编码而是人工标注… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 120 | …实测）**：开发窗口为 **W1–W10（10 周）**，排期以《本科版实施方案.md》第 6 章为唯一权威版本。瓶颈不是编码而是人工标注（预算 300 条，其中至少 100 条需双人独… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 120 | …实测）**：开发窗口为 **W1–W10（10 周）**，排期以《本科版实施方案.md》第 6 章为唯一权威版本。瓶颈不是编码而是人工标注（预算 300 条，其中至少 100 条需双人独… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 120 | …*，排期以《本科版实施方案.md》第 6 章为唯一权威版本。瓶颈不是编码而是人工标注（预算 300 条，其中至少 100 条需双人独立标注），该项长度不可压缩、起点不可控，已排为 W3 关键… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 150 | \| UC1 \| 上传文档与工单 \| 知识库管理员 \| 服务已启动，SQLite 6 张表已建 \| 1) 录入文档标题/正文/业务域/生效日期并保存 2) 批量导入工单 CSV… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 150 | \| UC1 \| 上传文档与工单 \| 知识库管理员 \| 服务已启动，SQLite 6 张表已建 \| 1) 录入文档标题/正文/业务域/生效日期并保存 2) 批量导入工单 CSV… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 150 | …C1 \| 上传文档与工单 \| 知识库管理员 \| 服务已启动，SQLite 6 张表已建 \| 1) 录入文档标题/正文/业务域/生效日期并保存 2) 批量导入工单 CSV 并解析意图标签… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 150 | …务已启动，SQLite 6 张表已建 \| 1) 录入文档标题/正文/业务域/生效日期并保存 2) 批量导入工单 CSV 并解析意图标签 3) 分别落入 `document` 与 `tic… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 150 | …) 录入文档标题/正文/业务域/生效日期并保存 2) 批量导入工单 CSV 并解析意图标签 3) 分别落入 `document` 与 `ticket` 两表 \| ① 正文过短（<20 字… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
@@ -550,29 +552,29 @@
 | 153 | …规则组合与风险分 2) 在重复页查看各重复分组与主文档选举结果 3) 展开条目查看完整字段 4) 下载 `corrupt_docs.csv` 与 `dup_groups_best.csv… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 154 | \| UC5 \| 下载结果数据 \| 知识库管理员 / 客服主管 \| 已有扫描结果 \| 1) 在三类清单页点击下载 2) 系统直接返回扫描时已落盘的 CSV 原始文件 \| ① 产物文… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 154 | …结果数据 \| 知识库管理员 / 客服主管 \| 已有扫描结果 \| 1) 在三类清单页点击下载 2) 系统直接返回扫描时已落盘的 CSV 原始文件 \| ① 产物文件缺失则提示重新运行扫描 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 2.85 秒，向量化 15.43 秒，留足… | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
-| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 2.85 秒，向量化 15.43 秒，留足余量 \| | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 172 | …描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 2.85 秒，向量化 15.43 秒，留足余量 \| | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
+| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.09 秒，向量化 14.61 秒，留足… | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
+| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.09 秒，向量化 14.61 秒，留足余量 \| | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 172 | …描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.09 秒，向量化 14.61 秒，留足余量 \| | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 173 | \| 页面响应时间 \| ≤ 2 秒 \| 纯查询与聚合，无大模型推理 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 174 | \| 数据规模支持 \| 2000 条工单 / 300 篇文档（已实测口径） \| **本系统面向中小型企业单个知识域**；进一步扩量不属于本文范围… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 175 | \| 部署依赖 \| **本地单机**：单进程 + SQLite，无外部服务 \| 存储层为 6 张表加向量文件，检测环节实测 `dup.seconds` 为 0.0 秒；本课题以本地跑通… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 175 | \| 部署依赖 \| **本地单机**：单进程 + SQLite，无外部服务 \| 存储层为 6 张表加向量文件，检测环节实测 `dup.seconds` 为 0.0 秒；本课题以本地跑通… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 175 | …无外部服务 \| 存储层为 6 张表加向量文件，检测环节实测 `dup.seconds` 为 0.0 秒；本课题以本地跑通为准，不要求线上部署，部署形态的取舍见 8.5 节 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 177 | \| 并发量 \| **不涉及高并发** \| 内部单知识域工具，设计并发 ≤ 5 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 183 | ## 第 4 章 系统总体设计 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 200 | D1[("SQLite<br/>6 张表")] --- D2[("向量文件<br/>np.ndarray")] | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 205 | …量化 + 聚类 + 三模块检测，五者由「一键扫描」同步串行调用；数据层落 SQLite 的 6 张表，向量以 `np.ndarray` 文件形式单独保存，不引入独立的向量数据库。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 200 | D1[("SQLite<br/>6 张表")] --- D2[("向量文件<br/>np.ndarray")] | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 205 | …量化 + 聚类 + 三模块检测，五者由「一键扫描」同步串行调用；数据层落 SQLite 的 6 张表，向量以 `np.ndarray` 文件形式单独保存，不引入独立的向量数据库。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 207 | ### 4.2 功能模块划分（7 个） | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 216 | \| M6 \| 腐化规则引擎 \| 4 条时效性规则匹配 + 加权打分 \| 文档元数据+正文 \| 腐化清单 \| `StaleRul… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 297 | …result.threshold_used` 记录该轮扫描采用的覆盖度阈值（当前实测最优为 0.62）。`duplicate_group.member_doc_ids` 以 JSON 数组存组… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
 | 314 | ref_count INTEGER NOT NULL DEFAULT 0 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 357 | …riority INTEGER NOT NULL DEFAULT 0, | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 392 | …/ 嵌入式数据库 \| **SQLite**（设计值，尚未实测） \| 系统是单用户、单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 2.85 秒，向量化 15.43… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 392 | …） \| 系统是单用户、单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 2.85 秒，向量化 15.43 秒），不存在多连接写入压力；SQLite 免安装、免部署、零外部依… | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 392 | …单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 2.85 秒，向量化 15.43 秒），不存在多连接写入压力；SQLite 免安装、免部署、零外部依赖，答辩现场可直接复制… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
+| 392 | …/ 嵌入式数据库 \| **SQLite**（设计值，尚未实测） \| 系统是单用户、单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.09 秒，向量化 14.61… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 392 | …） \| 系统是单用户、单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.09 秒，向量化 14.61 秒），不存在多连接写入压力；SQLite 免安装、免部署、零外部依… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 392 | …单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.09 秒，向量化 14.61 秒），不存在多连接写入压力；SQLite 免安装、免部署、零外部依赖，答辩现场可直接复制… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 393 | …ilvus / 直接 numpy \| **直接 numpy**（已实测） \| 文档数实测为 300 篇（`metrics.json` → `embedding.n_docs`），300×30… | `300 (×3)` | `metrics.json:embedding.n_docs` | `300` |
 | 393 | …0.01 秒（`metrics.json` → `dup.best.seconds` 记为 0.0，运行日志记为 0.00s），此规模下引入 Faiss/Milvus 只会增加部署依赖而不带… | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 393 | …rics.json` → `dup.best.seconds` 记为 0.0，运行日志记为 0.00s），此规模下引入 Faiss/Milvus 只会增加部署依赖而不带来任何检索收益；向量以… | `0.00` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 393 | …任何检索收益；向量以 `np.ndarray` 文件保存，加载即用，无需常驻服务，与数据层 6 张表的轻量口径一致。**「什么规模、什么需求下才该上向量库」的边界论证见 5.5.1 节。… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 393 | …任何检索收益；向量以 `np.ndarray` 文件保存，加载即用，无需常驻服务，与数据层 6 张表的轻量口径一致。**「什么规模、什么需求下才该上向量库」的边界论证见 5.5.1 节。… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 399 | ## 第 5 章 核心算法设计（本文重点） | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 405 | 整篇文档直接编码会把多个主题平均掉。实测：300 篇文档平均 140 字、正文按 `。` 与 `；` 切分后平均 5.2 句，整篇编码时**… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
 | 405 | …正文按 `。` 与 `；` 切分后平均 5.2 句，整篇编码时**意图级分离度 AUC 仅 0.8880**（工单级 0.8307）。切分时丢弃长度 < 8 字的片段（含标题段），得到 **185… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
@@ -611,21 +613,23 @@
 | 446 | …，但同一方案在工单级上从 0.8307 掉到 0.7829，段落级下也从 0.968 掉到 0.8800。因此论文中不应写「改变粒度是唯一解法」，准确表述是：**在实测范围内，改变检索粒度带来的意… | `0.8800` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
 | 446 | …中不应写「改变粒度是唯一解法」，准确表述是：**在实测范围内，改变检索粒度带来的意图级提升（+0.0800）大于任何单一统计变换带来的提升，而最优统计变换随粒度反转、不稳定。** | `+0.0800` | `derived_metrics.csv:granularity.intent_auc_passage_minus_doc` | `0.08` |
 | 454 | \| 5 \| 95 \| 0 \| ≈1 秒级 \| 0.800 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 454 | \| 5 \| 95 \| 0 \| ≈1 秒级 \| 0.800 \| | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
+| 454 | \| 5 \| 95 \| 0 \| ≈1 秒级 \| 0.800 \| | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
 | 454 | \| 5 \| 95 \| 0 \| ≈1 秒级 \| 0.800 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 454 | \| 5 \| 95 \| 0 \| ≈1 秒级 \| 0.800 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 454 | \| 5 \| 95 \| 0 \| ≈1 秒级 \| 0.800 \| | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
 | 455 | \| 10 \| 88 \| 9 \| ≈1 秒级 \| 0.800 \| | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 455 | \| 10 \| 88 \| 9 \| ≈1 秒级 \| 0.800 \| | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
+| 455 | \| 10 \| 88 \| 9 \| ≈1 秒级 \| 0.800 \| | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
 | 455 | \| 10 \| 88 \| 9 \| ≈1 秒级 \| 0.800 \| | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
 | 455 | \| 10 \| 88 \| 9 \| ≈1 秒级 \| 0.800 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 455 | \| 10 \| 88 \| 9 \| ≈1 秒级 \| 0.800 \| | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
 | 457 | > **耗时口径说明**：HDBSCAN 聚类耗时受机器负载影响，波动约 ±25%，且该值未写入 `metrics.json`（当前产物只记录 `total_seconds… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 457 | …otal_seconds` 与 `corrupt.seconds`），因此**只报量级（约 1 秒级）**，不引用具体数值。簇数与噪声条数是可复现的确定性结果，重复运行完全一致（95 /… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 457 | …（约 1 秒级）**，不引用具体数值。簇数与噪声条数是可复现的确定性结果，重复运行完全一致（95 / 0 与 88 / 9）。 | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 457 | …秒级）**，不引用具体数值。簇数与噪声条数是可复现的确定性结果，重复运行完全一致（95 / 0 与 88 / 9）。 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 457 | …*，不引用具体数值。簇数与噪声条数是可复现的确定性结果，重复运行完全一致（95 / 0 与 88 / 9）。 | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
-| 457 | …具体数值。簇数与噪声条数是可复现的确定性结果，重复运行完全一致（95 / 0 与 88 / 9）。 | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 457 | …otal_seconds` 与 `corrupt.seconds`），因此**只报量级（约 1 秒级）**，不引用具体数值。簇数与噪声条数是可复现的确定性结果，已落盘 `metrics.… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 457 | …确定性结果，已落盘 `metrics.json` → `gap.clusters`（mcs=5 → `n_clusters`=95 / `n_noise`=0；mcs=10 → `n_c… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 457 | …s.json` → `gap.clusters`（mcs=5 → `n_clusters`=95 / `n_noise`=0；mcs=10 → `n_clusters`=88 / `n_n… | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 457 | …clusters`（mcs=5 → `n_clusters`=95 / `n_noise`=0；mcs=10 → `n_clusters`=88 / `n_noise`=9），重复运行完… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 457 | …rs`（mcs=5 → `n_clusters`=95 / `n_noise`=0；mcs=10 → `n_clusters`=88 / `n_noise`=9），重复运行完全一致。 | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 457 | …sters`=95 / `n_noise`=0；mcs=10 → `n_clusters`=88 / `n_noise`=9），重复运行完全一致。 | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 457 | …noise`=0；mcs=10 → `n_clusters`=88 / `n_noise`=9），重复运行完全一致。 | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
 | 472 | …ickets}$ 为簇内工单数，$\overline{urgency}$ 为紧急度均值（高=3，中=2，低=1）。直觉是「问得多且急」的缺口最该优先补录。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 472 | …ts}$ 为簇内工单数，$\overline{urgency}$ 为紧急度均值（高=3，中=2，低=1）。直觉是「问得多且急」的缺口最该优先补录。 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 472 | …为簇内工单数，$\overline{urgency}$ 为紧急度均值（高=3，中=2，低=1）。直觉是「问得多且急」的缺口最该优先补录。 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
@@ -637,9 +641,9 @@
 | 497 | \| 环节 \| 复杂度 \| 实测耗时（2000 工单 / 300 文档） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 499 | \| HDBSCAN 聚类 \| $O(N\log N)$ 级 \| 实测约 1 秒级（该值未落盘到 `metrics.json`，只报量级） \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 500 | \| 簇覆盖度中位数 \| $O(\sum_i n_i \log n_i)$ \| 包含在上述约 1 秒级耗时内 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 501 | \| 阈值判定与排序 \| $O(C\log C)$，C 为簇数（95） \| 可忽略 \| | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
+| 501 | \| 阈值判定与排序 \| $O(C\log C)$，C 为簇数（95） \| 可忽略 \| | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
 | 504 | …er_result` 表），后续增量工单可只对受影响簇重算，这也是本系统能把「全量扫描 ≤ 60 秒」作为性能承诺的原因。 | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
-| 508 | 当前实现把一个意图可能拆成多个簇（实测 95 簇 > 30 意图），最终以「簇内多数意图标签」归并。这会使得**同一个意图在结果里出现多… | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
+| 508 | 当前实现把一个意图可能拆成多个簇（实测 95 簇 > 30 意图），最终以「簇内多数意图标签」归并。这会使得**同一个意图在结果里出现多… | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
 | 508 | 当前实现把一个意图可能拆成多个簇（实测 95 簇 > 30 意图），最终以「簇内多数意图标签」归并。这会使得**同一个意图在结果里出现多条记录**（如… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
 | 508 | …并。这会使得**同一个意图在结果里出现多条记录**（如 Top15 中「社保转移办理」出现 3 次）。当前按意图去重后的 F1=0.800 仍可接受，但这是本模块最明显的改进空间，应在论… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 508 | …现多条记录**（如 Top15 中「社保转移办理」出现 3 次）。当前按意图去重后的 F1=0.800 仍可接受，但这是本模块最明显的改进空间，应在论文局限章节主动说明。 | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
@@ -647,12 +651,12 @@
 | 516 | …成七章），算法与方法这一章通常与系统实现章并列最重。本课题的 **14 页算法章** 已按 4 条主线分配（覆盖度公式 4 页、缺口判定 3 页、腐化规则 3 页、重复检测 2 页、粒度… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 516 | …最重。本课题的 **14 页算法章** 已按 4 条主线分配（覆盖度公式 4 页、缺口判定 3 页、腐化规则 3 页、重复检测 2 页、粒度消融 2 页），**本节以「2 页」为上限并入… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 516 | …* 已按 4 条主线分配（覆盖度公式 4 页、缺口判定 3 页、腐化规则 3 页、重复检测 2 页、粒度消融 2 页），**本节以「2 页」为上限并入第 6 章实验与结果**——**这… | `2 (×4)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 516 | …、腐化规则 3 页、重复检测 2 页、粒度消融 2 页），**本节以「2 页」为上限并入第 6 章实验与结果**——**这 2 页不是新增篇幅**：E9–E14 被砍掉后腾出的图表与消融… | `6 (×2)` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 516 | …、腐化规则 3 页、重复检测 2 页、粒度消融 2 页），**本节以「2 页」为上限并入第 6 章实验与结果**——**这 2 页不是新增篇幅**：E9–E14 被砍掉后腾出的图表与消融… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 516 | …新增篇幅**：E9–E14 被砍掉后腾出的图表与消融空间正好由这两小节占用，第 6 章仍是 12 页、全文页数不变。形态为： | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 520 | > \| 第 6 章 · 一小节 \| 命题 5.1（单调等价性）的一句话陈述 + 3 行证明 + 1 张秩等… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 520 | > \| 第 6 章 · 一小节 \| 命题 5.1（单调等价性）的一句话陈述 + 3 行证明 + 1 张秩等… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 520 | > \| 第 6 章 · 一小节 \| 命题 5.1（单调等价性）的一句话陈述 + 3 行证明 + 1 张秩等价表 \| 约 1 页 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 520 | …\| 第 6 章 · 一小节 \| 命题 5.1（单调等价性）的一句话陈述 + 3 行证明 + 1 张秩等价表 \| 约 1 页 \| | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 521 | > \| 第 6 章 · 一小节 \| 绝对阈值的使用边界表（同一模型同语言 / 换语料 / 换模型换语言 三… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 521 | > \| 第 6 章 · 一小节 \| 绝对阈值的使用边界表（同一模型同语言 / 换语料 / 换模型换语言 三… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 521 | …节 \| 绝对阈值的使用边界表（同一模型同语言 / 换语料 / 换模型换语言 三档） \| 约 1 页 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 525 | > **若导师认为连 2 页都不该给**：直接删掉这两小节，只保留段落级改进 + 三模块系统。这是变体 C 题目的设… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 527 | …small-en-v1.5` / `bge-small-zh-v1.5`）分别只有 AUC 0.4344 / 0.4946，而基线「绝对余弦阈值」在同批实验中为 0.9538 / 0.7925；更… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
@@ -897,21 +901,21 @@
 | 728 | \| R3 \| 正文含绝对过期年份 2024/2025 \| 2 \| 32 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 728 | \| R3 \| 正文含绝对过期年份 2024/2025 \| 2 \| 32 \| | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
 | 729 | \| R4 \| 同 category 下存在更新时间更新的文档 \| 1 \| 88 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 729 | \| R4 \| 同 category 下存在更新时间更新的文档 \| 1 \| 88 \| | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
+| 729 | \| R4 \| 同 category 下存在更新时间更新的文档 \| 1 \| 88 \| | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
 | 731 | …ts} w_i,\quad \text{判定为腐化} \iff riskScore \ge 3$$ | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 733 | …R4 的原始表述「同 category 下存在更新时间更新的文档」在实测中会让 **275/300 篇文档全部命中**（`RESULT.md` §规则工程记录；该中间态未单独落盘为 CSV… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 733 | …间领先本篇 **≥ 365 天**（而非任意领先）；② 标题 bigram 包含度 **≥ 0.50**。修正后 R4 命中降至 88 篇。这段修正过程本身就是论文的实验素材。 | `0.50` | `metrics.json:gap.cluster_rows[2].threshold` | `0.5` |
-| 733 | …非任意领先）；② 标题 bigram 包含度 **≥ 0.50**。修正后 R4 命中降至 88 篇。这段修正过程本身就是论文的实验素材。 | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
+| 733 | …非任意领先）；② 标题 bigram 包含度 **≥ 0.50**。修正后 R4 命中降至 88 篇。这段修正过程本身就是论文的实验素材。 | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
 | 735 | **实测结果**：埋入 62 篇 / 检出 69 篇（TP=62, FP=7, FN=0），**precision=0.… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
 | 735 | **实测结果**：埋入 62 篇 / 检出 69 篇（TP=62, FP=7, FN=0），**precision=0.8986, reca… | `69` | `metrics.json:corrupt.detected` | `69` |
 | 735 | **实测结果**：埋入 62 篇 / 检出 69 篇（TP=62, FP=7, FN=0），**precision=0.8986, recall=1.0, F1=0.9… | `7 (×3)` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 735 | **实测结果**：埋入 62 篇 / 检出 69 篇（TP=62, FP=7, FN=0），**precision=0.8986, recall=1.0, F1=0.9466**，… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 735 | …62 篇 / 检出 69 篇（TP=62, FP=7, FN=0），**precision=0.8986, recall=1.0, F1=0.9466**，耗时 0.42 秒（`metrics.j… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
-| 735 | …TP=62, FP=7, FN=0），**precision=0.8986, recall=1.0, F1=0.9466**，耗时 0.42 秒（`metrics.json:corrupt.… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 735 | …P=7, FN=0），**precision=0.8986, recall=1.0, F1=0.9466**，耗时 0.42 秒（`metrics.json:corrupt.seconds`）。7… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 735 | …*precision=0.8986, recall=1.0, F1=0.9466**，耗时 0.42 秒（`metrics.json:corrupt.seconds`）。7 个误报**全部只由… | `0.42` | `metrics.json:corrupt.seconds` | `0.42` |
+| 735 | …62 篇 / 检出 69 篇（TP=62, FP=7, FN=0），**precision=0.8986, recall=1.0, F1=0.9466**，耗时 0.4 秒（`metrics.js… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
+| 735 | …TP=62, FP=7, FN=0），**precision=0.8986, recall=1.0, F1=0.9466**，耗时 0.4 秒（`metrics.json:corrupt.s… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 735 | …P=7, FN=0），**precision=0.8986, recall=1.0, F1=0.9466**，耗时 0.4 秒（`metrics.json:corrupt.seconds`）。7… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 735 | …*precision=0.8986, recall=1.0, F1=0.9466**，耗时 0.4 秒（`metrics.json:corrupt.seconds`）。7 个误报**全部只由… | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
 | 735 | …s.json:corrupt.seconds`）。7 个误报**全部只由 R2（更新时间超 18 个月）与 R4（同域存在更新文档）这两条日期驱动的规则触发**，其中 6 篇来自刻意埋设的… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
-| 735 | …2（更新时间超 18 个月）与 R4（同域存在更新文档）这两条日期驱动的规则触发**，其中 6 篇来自刻意埋设的「自然陈旧但不算缺陷」对照文档，第 7 篇是重复件继承了主文档的陈旧 `l… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 735 | …2（更新时间超 18 个月）与 R4（同域存在更新文档）这两条日期驱动的规则触发**，其中 6 篇来自刻意埋设的「自然陈旧但不算缺陷」对照文档，第 7 篇是重复件继承了主文档的陈旧 `l… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 739 | 为回答「F1=0.9466 到底是谁挣来的」，逐条屏蔽（leave-one-rule-out）与单条独用（only-R… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
 | 739 | …`detect.py` 完全一致：分组单位 = 文档，判定 = `risk_score ≥ 3`，权重与阈值一律从 `metrics.json:corrupt` 读取（`corrupt_… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 743 | \| **all（四条全用）** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
@@ -975,7 +979,7 @@
 | 751 | \| only_R4 \| 0.0000 \| 0.0000 \| **0.0000** \| 0 \| 0 \| 0 \| 62 \| 88 \|… | `0.0000 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 751 | \| only_R4 \| 0.0000 \| 0.0000 \| **0.0000** \| 0 \| 0 \| 0 \| 62 \| 88 \| -0.9466 \| | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 751 | …\| 0.0000 \| 0.0000 \| **0.0000** \| 0 \| 0 \| 0 \| 62 \| 88 \| -0.9466 \| | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 751 | …0000 \| 0.0000 \| **0.0000** \| 0 \| 0 \| 0 \| 62 \| 88 \| -0.9466 \| | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
+| 751 | …0000 \| 0.0000 \| **0.0000** \| 0 \| 0 \| 0 \| 62 \| 88 \| -0.9466 \| | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
 | 751 | …\| 0.0000 \| **0.0000** \| 0 \| 0 \| 0 \| 62 \| 88 \| -0.9466 \| | `-0.9466` | `corrupt_rule_ablation.csv:delta_f1[row=7][0]` | `-0.9466` |
 | 753 | **正式结论：F1=0.9466 来自四条规则的联合，而不是任何一条单规则。** 证据有三层： | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
 | 755 | 1. **没有任何单规则能达到 0.9466。** only_R2 / only_R3 / only_R4 的 F1 全为 **0**—… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
@@ -1002,7 +1006,7 @@
 | 759 | …），以及不依赖 R1、由 **R2 + R4（2+1=3）** 联合过线的 37 篇（其中 30 TP / 7 FP）。这也解释了 drop_R1 为何仍能剩下 43 次判定（37 篇 R… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
 | 759 | …R1、由 **R2 + R4（2+1=3）** 联合过线的 37 篇（其中 30 TP / 7 FP）。这也解释了 drop_R1 为何仍能剩下 43 次判定（37 篇 R2∧R4 +… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 759 | …线的 37 篇（其中 30 TP / 7 FP）。这也解释了 drop_R1 为何仍能剩下 43 次判定（37 篇 R2∧R4 + 6 篇 R3∧R4）。 | `43` | `corrupt_rule_ablation.csv:detected[row=2][0]` | `43` |
-| 759 | …FP）。这也解释了 drop_R1 为何仍能剩下 43 次判定（37 篇 R2∧R4 + 6 篇 R3∧R4）。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 759 | …FP）。这也解释了 drop_R1 为何仍能剩下 43 次判定（37 篇 R2∧R4 + 6 篇 R3∧R4）。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 761 | **关于 only_R1 与 drop_R2 / drop_R4 数值完全相同（均为 0.6809）的解释**：这不是统计口径错误，而是**权重结构与本语料命中结构的共同结果**。阈值 3… | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
 | 761 | …09）的解释**：这不是统计口径错误，而是**权重结构与本语料命中结构的共同结果**。阈值 3 之下，只有「R1 单独（3 分）」与「R2+R4（3 分）」「R3+R4（3 分）」两种组… | `3 (×4)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 761 | …）」与「R2+R4（3 分）」「R3+R4（3 分）」两种组合能过线。实测语料中 R2 的 38 次命中只以「R2+R4」形式出现（37 篇）加上 1 篇四规则齐中，R3 的 32 次命中… | `38` | `metrics.json:corrupt.rule_hit_counts.R2_更新时间超18个月` | `38` |
@@ -1053,7 +1057,7 @@
 | 796 | …an 0.9796 / min 0.9545 / max 0.9845；段落级为 mean 0.9803 / **min 0.5671** / max 1.0000。段落级出现 0.5671 与… | `0.9803` | `granularity_dup.csv:mean_max_sim[row=2][0]` | `0.9803` |
 | 796 | …0.9545 / max 0.9845；段落级为 mean 0.9803 / **min 0.5671** / max 1.0000。段落级出现 0.5671 与 1.0000 两个离群值，是因… | `0.5671 (×2)` | `granularity_dup.csv:min_max_sim[row=2][0]` | `0.5671` |
 | 796 | ….9845；段落级为 mean 0.9803 / **min 0.5671** / max 1.0000。段落级出现 0.5671 与 1.0000 两个离群值，是因为段落级下同组不同版本**互相… | `1.0000 (×3)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 800 | ## 第 6 章 实验设计 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 800 | ## 第 6 章 实验设计 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 806 | **规模参数**：300 篇文档 × 8 个业务域 × 25 个已覆盖意图（每意图 12 篇）；2000 条工单 ×… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 806 | **规模参数**：300 篇文档 × 8 个业务域 × 25 个已覆盖意图（每意图 12 篇）；2000 条工单 × 30 个意图（… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 806 | **规模参数**：300 篇文档 × 8 个业务域 × 25 个已覆盖意图（每意图 12 篇）；2000 条工单 × 30 个意图（含 5 个缺口意图）… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
@@ -1076,11 +1080,15 @@
 | 814 | \| 内容腐化 \| 32 篇正文追加绝对过期表述；30 篇 `last_modified` 置为 2022–2023… | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
 | 814 | \| 内容腐化 \| 32 篇正文追加绝对过期表述；30 篇 `last_modified` 置为 2022–2023 年 \| 62 篇 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
 | 814 | …加绝对过期表述；30 篇 `last_modified` 置为 2022–2023 年 \| 62 篇 \| | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 816 | **防作弊设计（关键）**：额外埋设 **4% 的「自然陈旧但不算缺陷」文档**（600–900 天未更新）。若不设此对照，腐化模块会取… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 816 | **防作弊设计（关键）**：额外埋设 **4% 的「自然陈旧但不算缺陷」文档**（600–900 天未更新）。若不设此对照，腐化模块会取得虚假满分，评测将失去意义。 | `600` | `standardize/scenario_meta.json:n_docs.delta` | `600` |
+| 816 | **防作弊设计（关键）**：额外埋设「自然陈旧但不算缺陷」对照文档（600–900 天未更新）。生成器按 4% 概率逐篇抽样，实际命中 **10 篇**（`corru… | `600` | `standardize/scenario_meta.json:n_docs.delta` | `600` |
+| 816 | …（关键）**：额外埋设「自然陈旧但不算缺陷」对照文档（600–900 天未更新）。生成器按 4% 概率逐篇抽样，实际命中 **10 篇**（`corrupt_docs.csv` → `i… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 816 | …不算缺陷」对照文档（600–900 天未更新）。生成器按 4% 概率逐篇抽样，实际命中 **10 篇**（`corrupt_docs.csv` → `in_control_sample`… | `10 (×3)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 816 | …（`corrupt_docs.csv` → `in_control_sample` 列 = 1 共 10 行；`ground_truth.json` → `control_doc_ids… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 816 | …盘（`corrupt_docs.csv` → `fp_reason` 列）：10 篇对照中 6 篇构成误报（`fp_reason` = `control_stale`），另 1 篇误报为… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 818 | **人工校验方案**：① 随机抽取 10% 文档与 10% 工单由人工复核内容合理性；② 三类缺陷清单各抽 20 条人工验证标注正确… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
 | 818 | …**：① 随机抽取 10% 文档与 10% 工单由人工复核内容合理性；② 三类缺陷清单各抽 20 条人工验证标注正确性；③ 双人独立标注计算一致性（Cohen's Kappa），目标 ≥… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
 | 818 | …条人工验证标注正确性；③ 双人独立标注计算一致性（Cohen's Kappa），目标 ≥ 0.8。 | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 820 | …可复现性证据**（`poc/kbgovernance/repro_check.json`）：13 个全链路产物经两次独立运行比对，全部一致——字节确定产物逐字节一致，含计时字段的产物剔除计… | `13 (×3)` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
 | 826 | \| 轨道一 \| 自造中文 \| 300 文档 / 2000 工单 \| **功能验证**：有 ground truth，可算 P/R… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 835 | \| E1 \| 阈值扫描 \| 阈值 0.30–0.74 \| 检出意图数 \| P/R/F1 \| — \| 图3-1 阈值-F1 曲线 \| | `0.30` | `metrics.json:gap.cluster_rows[0].threshold` | `0.3` |
 | 835 | \| E1 \| 阈值扫描 \| 阈值 0.30–0.74 \| 检出意图数 \| P/R/F1 \| — \| 图3-1 阈值-F1 曲线 \| | `0.74` | `metrics.json:gap.cluster_rows[10].threshold` | `0.74` |
@@ -1103,7 +1111,7 @@
 | 841 | …andardize/results_transfer.csv`，32 行 = 8 方案 × 4 目标场景；跨模型跨语言迁移见 `standardize/results_xfer_bank… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 841 | …ardize/results_xfer_banking77_{en,zh}.csv`） \| 5 个自造场景（α/β/γ/γ-X/δ）+ banking77 双模型（bge-small-e… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 843 | **关于 E7–E14 的定位（重要）**：E7–E14 共 8 条实验**全部已完成实测**，数据文件保留在 `poc/kbgovernance/stan… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 843 | …c/kbgovernance/standardize/` 下。**E7 与 E8 降级为第 6 章中各不超过 1 页的两小节**（合计上限 2 页，形态见 §5.3 开头的定位说明）——… | `6 (×2)` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 843 | …c/kbgovernance/standardize/` 下。**E7 与 E8 降级为第 6 章中各不超过 1 页的两小节**（合计上限 2 页，形态见 §5.3 开头的定位说明）——… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 843 | …nance/standardize/` 下。**E7 与 E8 降级为第 6 章中各不超过 1 页的两小节**（合计上限 2 页，形态见 §5.3 开头的定位说明）——E8 给命题 5.… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 843 | …ze/` 下。**E7 与 E8 降级为第 6 章中各不超过 1 页的两小节**（合计上限 2 页，形态见 §5.3 开头的定位说明）——E8 给命题 5.1 的陈述与秩等价表，E7 给… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 843 | ….4 节），而题目已定为不承诺该方向：若把整组写进论文，评审会追问「那你为什么不选 AUC 1.0000 的方案」，而正确答案是「因为它在真实语料上是 0.4344 / 0.4946」——这需要整… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
@@ -1127,7 +1135,7 @@
 | 855 | …F1 \| AUC \| ABS 基线 α AUC 0.968；域内分位数 S3 在 α 上 0.992（均见 `ablation.csv`），同一「域内标准化」思路迁到 banking77（bg… | `0.992` | `standardize/ablation.csv:alpha_AUC[row=11][0]` | `0.992` |
 | 855 | …内标准化」思路迁到 banking77（bge-small-en-v1.5）全量语料后只剩 0.4344（`results_banking77_en.csv`） \| `ablation.csv`（… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
 | 855 | …ts_banking77_en.csv`） \| `ablation.csv`（双段表：前段 14 个变体的 α 指标，后段 6 种打分 × 5 场景） \| 表4-6 \| | `14` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
-| 855 | …csv`） \| `ablation.csv`（双段表：前段 14 个变体的 α 指标，后段 6 种打分 × 5 场景） \| 表4-6 \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 855 | …csv`） \| `ablation.csv`（双段表：前段 14 个变体的 α 指标，后段 6 种打分 × 5 场景） \| 表4-6 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 855 | …`ablation.csv`（双段表：前段 14 个变体的 α 指标，后段 6 种打分 × 5 场景） \| 表4-6 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 855 | ….csv`（双段表：前段 14 个变体的 α 指标，后段 6 种打分 × 5 场景） \| 表4-6 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 856 | …**度量陷阱散点图** \| 各方案 \| 阈值极差 vs AUC \| 二者背离 \| ABS (0.0264, 0.968) \| `results_directions.csv` \| **图3-6 散… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
@@ -1186,12 +1194,12 @@
 | 882 | \| **表4-6** \| **分组标准化消融（14 变体）** \| 变体 \| AUC / F1 \| 分组粒度越细、把整组缺失抹得越彻底、性能越… | `14` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
 | 883 | \| 表4-7 \| 绝对阈值的三档使用边界 \| 三档：同一模型同语言 / 换语料 / 换模型换语言 \|… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 887 | ## 第 7 章 论文写作规划 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 891 | 本课题的实际排期**不在本文维护**，唯一权威版本是同目录的 `本科版实施方案.md` 第 6 章（当前为 W1–W17，2026-10-14 → 2027-02-09）。本文只负责技术… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 891 | 本课题的实际排期**不在本文维护**，唯一权威版本是同目录的 `本科版实施方案.md` 第 6 章（当前为 W1–W17，2026-10-14 → 2027-02-09）。本文只负责技术… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 893 | 之所以不在本文另附一张时间表：本课题的范围已按 3–4 个月的可用窗口裁剪（题目定为变体 C），范围一旦增删，排期与降级预案必须同步变化。两处… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 893 | 之所以不在本文另附一张时间表：本课题的范围已按 3–4 个月的可用窗口裁剪（题目定为变体 C），范围一旦增删，排期与降级预案必须同步变化。两处各维… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 893 | …易被追问穿的地方。需要查进度、查阶段产出物、查关卡时，一律以 `本科版实施方案.md` 第 6 章为准。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 897 | 验收关卡（G1–G10 及其不达标时的降级动作）与 13 周压缩预案，见 `本科版实施方案.md` 第 6 章。本节不重复列出，也不维护第二份关卡表… | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
-| 897 | …1–G10 及其不达标时的降级动作）与 13 周压缩预案，见 `本科版实施方案.md` 第 6 章。本节不重复列出，也不维护第二份关卡表。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 893 | …易被追问穿的地方。需要查进度、查阶段产出物、查关卡时，一律以 `本科版实施方案.md` 第 6 章为准。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 897 | 验收关卡（G1–G10 及其不达标时的降级动作）与 13 周压缩预案，见 `本科版实施方案.md` 第 6 章。本节不重复列出，也不维护第二份关卡表… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 897 | …1–G10 及其不达标时的降级动作）与 13 周压缩预案，见 `本科版实施方案.md` 第 6 章。本节不重复列出，也不维护第二份关卡表。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 899 | 需要说明的是：本文第 5 章的形式化命题是**论文内容而非过程关卡**，它已完成实测，并以 §5.3 两小节的形式进… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 899 | …题是**论文内容而非过程关卡**，它已完成实测，并以 §5.3 两小节的形式进入实验章节（表4-3 秩等价表、表4-7 绝对阈值三档使用边界表）；度量陷阱与评测协议只留在本方案与 `st… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 899 | …不受此处变更影响。论文里实际落地的形态是「形式化刻画 + 一个诚实的负结果」（两小节，各 ≤1 页），这一表述以第 5 章与第 8 章为准。 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
@@ -1202,12 +1210,12 @@
 | 907 | \| 第2章 相关技术 \| 8 \| BGE / HDBSCAN / 检索技术 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 907 | \| 第2章 相关技术 \| 8 \| BGE / HDBSCAN / 检索技术 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 908 | \| 第3章 需求分析 \| 6 \| 用例图、用例说明表、非功能需求、可行性 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 908 | \| 第3章 需求分析 \| 6 \| 用例图、用例说明表、非功能需求、可行性 \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 908 | \| 第3章 需求分析 \| 6 \| 用例图、用例说明表、非功能需求、可行性 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 909 | \| 第4章 系统设计 \| 12 \| 架构图、模块图、ER 图、数据库 DDL \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 909 | \| 第4章 系统设计 \| 12 \| 架构图、模块图、ER 图、数据库 DDL \| | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
 | 910 | \| **第5章 算法设计** \| **14** \| **本文核心** \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 910 | \| **第5章 算法设计** \| **14** \| **本文核心** \| | `14` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
-| 911 | \| 第6章 实验与结果 \| 12 \| 含全部图表与消融；其中 2 页承载第 5 章 §5.3 的两小… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 911 | \| 第6章 实验与结果 \| 12 \| 含全部图表与消融；其中 2 页承载第 5 章 §5.3 的两小… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 911 | \| 第6章 实验与结果 \| 12 \| 含全部图表与消融；其中 2 页承载第 5 章 §5.3 的两小节（E7 / E8） \| | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
 | 911 | \| 第6章 实验与结果 \| 12 \| 含全部图表与消融；其中 2 页承载第 5 章 §5.3 的两小节（E7 / E8） \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 911 | \| 第6章 实验与结果 \| 12 \| 含全部图表与消融；其中 2 页承载第 5 章 §5.3 的两小节（E7 / E8） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
@@ -1225,7 +1233,7 @@
 | 938 | 三个理由：参数 24M、权重下载量 95.8 MB，换机器可复现；本机 8GB 显存且任务只需域内相似度比较，不需要极限语义判别；大模型… | `95.8` | `metrics.json:embedding.model_download_mb` | `95.8` |
 | 938 | 三个理由：参数 24M、权重下载量 95.8 MB，换机器可复现；本机 8GB 显存且任务只需域内相似度比较，不需要极限语义判别；大模型会把 CPU 推理速度拖慢一个… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 938 | …似度比较，不需要极限语义判别；大模型会把 CPU 推理速度拖慢一个量级，影响「全量扫描 ≤ 60 秒」的性能承诺。**工程确定性在这里比精度更重要。** | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
-| 941 | 工单是无标签数据，事先不知道有多少业务意图——实际分出 95 个簇。KMeans 必须预先指定 K，且对离群点敏感，而工单数据天然含长尾噪声。 | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
+| 941 | 工单是无标签数据，事先不知道有多少业务意图——实际分出 95 个簇。KMeans 必须预先指定 K，且对离群点敏感，而工单数据天然含长尾噪声。 | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
 | 944 | …的判定逻辑是「聚类 + 相似度 + 规则」，全程可解释、可复现、毫秒级。若用 LLM 判断，300 篇文档的重复检测会产生数千次调用，成本高且每次输出不确定，无法在论文中给出稳定的 P/R/… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 946 | 6. **0.95 阈值下 F1=1.0，是不是你数据出得太简单？** | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 947 | 是的，我在论文里明确写了这一点。埋入的重复件仅差 4 处同义词，组内余弦 0.9545–0.9845（整篇级口径），属于乐观值。真实语料的合理预… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
@@ -1235,7 +1243,7 @@
 | 947 | …0.9845（整篇级口径），属于乐观值。真实语料的合理预期是 0.90 阈值下的组级 F1≈0.70，论文以这个数字作为基线。 | `0.70` | `metrics.json:gap.cluster_rows[4].threshold` | `0.7` |
 | 950 | 规则本身简单，但规则工程是核心工作。最直接的证据：R4 的原始表述让 275/300 篇文档全部命中（`RESULT.md` 规则工程记录），完全丧失区分度；我加了两道约束（对… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 950 | …d` 规则工程记录），完全丧失区分度；我加了两道约束（对方领先 ≥365 天、标题包含度 ≥0.50）才降到 88 篇。这个修正过程本身是论文素材。更进一步我做了**四规则贡献度消融**（`c… | `0.50` | `metrics.json:gap.cluster_rows[2].threshold` | `0.5` |
-| 950 | …），完全丧失区分度；我加了两道约束（对方领先 ≥365 天、标题包含度 ≥0.50）才降到 88 篇。这个修正过程本身是论文素材。更进一步我做了**四规则贡献度消融**（`corrupt_… | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
+| 950 | …），完全丧失区分度；我加了两道约束（对方领先 ≥365 天、标题包含度 ≥0.50）才降到 88 篇。这个修正过程本身是论文素材。更进一步我做了**四规则贡献度消融**（`corrupt_… | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
 | 950 | …了**四规则贡献度消融**（`corrupt_rule_ablation.csv`）：F1=0.9466 来自四条规则的联合，任一单规则都到不了——only_R2 / only_R3 / only… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
 | 950 | …一单规则都到不了——only_R2 / only_R3 / only_R4 的 F1 恒为 0（权重低于判定阈值 3），only_R1 也只有 0.6809；去掉 R1 / R2 / R… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 950 | …nly_R2 / only_R3 / only_R4 的 F1 恒为 0（权重低于判定阈值 3），only_R1 也只有 0.6809；去掉 R1 / R2 / R4 分别掉 0.260… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
@@ -1282,12 +1290,12 @@
 | 991 | …附录 A）。该方向不作为本文贡献，保留为 5.3 节的探索性分析与负结果：命题 5.1 用 3 行证明把一整类「归一化更鲁棒」的说法证伪；5.3.3 给出精确的使用边界表；5.3.4 给… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 993 | …猜对了」更有说服力；② 形式化命题本身是一个**可验证的正向结论**（不是纯失败），且只需 1 张表；③ 5.3.3 的使用边界表是可直接落地的工程产物。题目已按实测结果改写，不留「承诺… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 999 | …对照文档，用来**量化规则引擎无法区分「真过期」与「只是很久没更新」这一已知局限**（实测 7 篇误报全部只由日期驱动的 R2/R4 触发，其中 6 篇来自这批对照文档，第 7 篇是重复… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 999 | …是很久没更新」这一已知局限**（实测 7 篇误报全部只由日期驱动的 R2/R4 触发，其中 6 篇来自这批对照文档，第 7 篇是重复件继承了主文档的陈旧 `last_modified`）… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 1005 | **对策**：按实测吞吐与实验规模推算，完整系统约需 **13 个工作日**（**计划估算，非实测**：数据扩量 1.5 天 + 阈值论证 1.5 天 +… | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
-| 1005 | …**（**计划估算，非实测**：数据扩量 1.5 天 + 阈值论证 1.5 天 + Web 4 天 + 论文 5 天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 500 条… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 1005 | …，非实测**：数据扩量 1.5 天 + 阈值论证 1.5 天 + Web 4 天 + 论文 5 天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 500 条标注量估算）——这… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 1005 | …扩量 1.5 天 + 阈值论证 1.5 天 + Web 4 天 + 论文 5 天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 500 条标注量估算）——这是唯一无法通过编码… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1005 | …是唯一无法通过编码加速的环节。因此应在开题阶段就与导师确认标注时间预算，必要时把标注量降到 300 条或采用双人分工。 | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 999 | …是很久没更新」这一已知局限**（实测 7 篇误报全部只由日期驱动的 R2/R4 触发，其中 6 篇来自这批对照文档，第 7 篇是重复件继承了主文档的陈旧 `last_modified`）… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 1005 | **对策**：按实测吞吐与实验规模推算，完整系统约需 **13 个工作日**（**计划估算，非实测**：数据扩量 1.5 天 + 阈值论证 1.5 天 +… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 1005 | …**（**计划估算，非实测**：数据扩量 1.5 天 + 阈值论证 1.5 天 + Web 4 天 + 论文 5 天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 300 条… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 1005 | …，非实测**：数据扩量 1.5 天 + 阈值论证 1.5 天 + Web 4 天 + 论文 5 天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 300 条标注预算估算，见… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 1005 | …扩量 1.5 天 + 阈值论证 1.5 天 + Web 4 天 + 论文 5 天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 300 条标注预算估算，见 §7.3）——这是… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1005 | …Web 4 天 + 论文 5 天 + 答辩 1 天）。其中**真正的瓶颈是人工标注**（按 300 条标注预算估算，见 §7.3）——这是唯一无法通过编码加速的环节。因此应在开题阶段就与导师… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 1012 | \| 引入向量数据库（Faiss/Milvus） \| 实测 300×300 余弦矩阵 < 0.01 秒（`metrics.json:dup.seconds`）… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
 | 1037 | …节逐字一致。立论落点：段落级语义覆盖度（`granularity.csv`：意图级 AUC 0.8880 → 0.968，工单级 0.8307 → 0.8659）+ 语义聚类与时效性规则驱动的三模… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
 | 1037 | …点：段落级语义覆盖度（`granularity.csv`：意图级 AUC 0.8880 → 0.968，工单级 0.8307 → 0.8659）+ 语义聚类与时效性规则驱动的三模块系统。 | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
@@ -1304,8 +1312,8 @@
 | 1158 | \| 文档段落数 \| 1852（平均 6.17 段/篇 = 1852 ÷ 300） \| | `1852 (×2)` | `metrics.json:embedding.n_passages` | `1852` |
 | 1158 | \| 文档段落数 \| 1852（平均 6.17 段/篇 = 1852 ÷ 300） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 1160 | \| 模型权重体积 \| 95.8 MB（`metrics.json:embedding.model_download_mb`… | `95.8` | `metrics.json:embedding.model_download_mb` | `95.8` |
-| 1161 | \| 向量化吞吐 \| 4152 条文本 / 15.43 秒（本次实测值，随环境波动） \| | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
-| 1161 | \| 向量化吞吐 \| 4152 条文本 / 15.43 秒（本次实测值，随环境波动） \| | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
+| 1161 | \| 向量化吞吐 \| 4152 条文本 / 14.61 秒（本次实测值，随环境波动） \| | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
+| 1161 | \| 向量化吞吐 \| 4152 条文本 / 14.61 秒（本次实测值，随环境波动） \| | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 1162 | \| 工单被覆盖度分布 \| min=0.5629 / mean=0.6891 / max=0.8294 \| | `0.5629` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
 | 1162 | \| 工单被覆盖度分布 \| min=0.5629 / mean=0.6891 / max=0.8294 \| | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
 | 1162 | \| 工单被覆盖度分布 \| min=0.5629 / mean=0.6891 / max=0.8294 \| | `0.8294` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
@@ -1331,7 +1339,7 @@
 | 1167 | …F1** \| **0.8986 / 1.0000 / 0.9466**（埋 62 / 检出 69，TP=62 FP=7 FN=0） \| | `69` | `metrics.json:corrupt.detected` | `69` |
 | 1167 | …986 / 1.0000 / 0.9466**（埋 62 / 检出 69，TP=62 FP=7 FN=0） \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 1167 | …1.0000 / 0.9466**（埋 62 / 检出 69，TP=62 FP=7 FN=0） \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1168 | \| 腐化耗时 \| 0.42 秒（`metrics.json:corrupt.seconds`） \| | `0.42` | `metrics.json:corrupt.seconds` | `0.42` |
+| 1168 | \| 腐化耗时 \| 0.4 秒（`metrics.json:corrupt.seconds`） \| | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
 | 1169 | …腐化规则消融（`corrupt_rule_ablation.csv`） \| drop_R1 0.6857 / drop_R2 0.6809 / **drop_R3 0.9466（ΔF1 = 0.0… | `0.6857` | `corrupt_rule_ablation.csv:f1[row=2][0]` | `0.6857` |
 | 1169 | …ule_ablation.csv`） \| drop_R1 0.6857 / drop_R2 0.6809 / **drop_R3 0.9466（ΔF1 = 0.0）** / drop_R4 0.6… | `0.6809 (×3)` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
 | 1169 | …\| drop_R1 0.6857 / drop_R2 0.6809 / **drop_R3 0.9466（ΔF1 = 0.0）** / drop_R4 0.6809；only_R1 0.6809… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
@@ -1352,224 +1360,230 @@
 | 1173 | \| 重复组组内余弦（段落级，同表） \| 22 组 mean 0.9803 / 0.5671–1.0000（跨段落命中导致的离群值，见 5.5.3） \| | `0.9803` | `granularity_dup.csv:mean_max_sim[row=2][0]` | `0.9803` |
 | 1173 | \| 重复组组内余弦（段落级，同表） \| 22 组 mean 0.9803 / 0.5671–1.0000（跨段落命中导致的离群值，见 5.5.3） \| | `0.5671` | `granularity_dup.csv:min_max_sim[row=2][0]` | `0.5671` |
 | 1173 | \| 重复组组内余弦（段落级，同表） \| 22 组 mean 0.9803 / 0.5671–1.0000（跨段落命中导致的离群值，见 5.5.3） \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1174 | \| HDBSCAN 聚类耗时 \| 约 1 秒级（该值未落盘到 `metrics.json`，只报量级） \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1175 | \| 三模块检测总耗时 \| 2.85 秒（`metrics.json:total_seconds`） \| | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 1176 | \| 标准化实验耗时 \| 26.2 秒（`standardize/run_std.log`，随环境波动） \| | `26.2` | `standardize/scenario_meta.json:total_seconds` | `26.2` |
-| 1180 | ### 检索粒度 × 打分方案对照（`granularity.csv`，2000 工单 / 300 文档 / 371 条已标注） | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 1180 | …× 打分方案对照（`granularity.csv`，2000 工单 / 300 文档 / 371 条已标注） | `371` | `ground_truth.json:gap_ticket_count` | `371` |
-| 1184 | \| doc_level \| max-cosine（基准） \| 0.888 \| 0.8307 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 1184 | \| doc_level \| max-cosine（基准） \| 0.888 \| 0.8307 \| | `0.8307` | `granularity.csv:auc[row=1][0]` | `0.8307` |
-| 1185 | \| doc_level \| max-top5mean（margin） \| 0.832 \| 0.7560 \| | `0.832` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
-| 1185 | \| doc_level \| max-top5mean（margin） \| 0.832 \| 0.7560 \| | `0.7560` | `granularity.csv:auc[row=2][0]` | `0.756` |
-| 1186 | \| doc_level \| max/std \| 0.496 \| 0.5239 \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 1186 | \| doc_level \| max/std \| 0.496 \| 0.5239 \| | `0.5239` | `granularity.csv:auc[row=3][0]` | `0.5239` |
-| 1187 | \| doc_level \| max/top5mean \| 0.776 \| 0.7179 \| | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
-| 1187 | \| doc_level \| max/top5mean \| 0.776 \| 0.7179 \| | `0.7179` | `granularity.csv:auc[row=4][0]` | `0.7179` |
-| 1188 | \| doc_level \| max-min（极差） \| 0.928 \| 0.7829 \| | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
-| 1188 | \| doc_level \| max-min（极差） \| 0.928 \| 0.7829 \| | `0.7829` | `granularity.csv:auc[row=5][0]` | `0.7829` |
-| 1189 | \| **passage_level** \| **max-cosine（采用）** \| **0.968** \| **0.8659** \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 1189 | …_level** \| **max-cosine（采用）** \| **0.968** \| **0.8659** \| | `0.8659` | `granularity.csv:auc[row=6][0]` | `0.8659` |
-| 1190 | \| passage_level \| max-top5mean（margin） \| 0.92 \| 0.8088 \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 1190 | …passage_level \| max-top5mean（margin） \| 0.92 \| 0.8088 \| | `0.8088` | `granularity.csv:auc[row=7][0]` | `0.8088` |
-| 1191 | \| passage_level \| max/std \| 0.704 \| 0.6029 \| | `0.704` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
-| 1191 | \| passage_level \| max/std \| 0.704 \| 0.6029 \| | `0.6029` | `granularity.csv:auc[row=8][0]` | `0.6029` |
-| 1192 | \| passage_level \| max/top5mean \| 0.888 \| 0.7940 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 1192 | \| passage_level \| max/top5mean \| 0.888 \| 0.7940 \| | `0.7940` | `granularity.csv:auc[row=9][0]` | `0.794` |
-| 1193 | \| passage_level \| max-min（极差） \| 0.88 \| 0.7800 \| | `0.88` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
-| 1193 | \| passage_level \| max-min（极差） \| 0.88 \| 0.7800 \| | `0.7800` | `granularity.csv:auc[row=10][0]` | `0.78` |
-| 1195 | …（`corrupt_rule_ablation.csv`，判定 `risk_score ≥ 3`，62 篇埋入） | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 1195 | …orrupt_rule_ablation.csv`，判定 `risk_score ≥ 3`，62 篇埋入） | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 1199 | \| **all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
-| 1199 | \| **all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \|… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1199 | \| **all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 1199 | \| **all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `69` | `metrics.json:corrupt.detected` | `69` |
-| 1199 | …**all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 1199 | …** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 1199 | …0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1199 | …986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
-| 1199 | …1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `1.08` | `corrupt_rule_ablation.csv:mean_risk[row=1][0]` | `1.08` |
-| 1200 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \|… | `0.8372` | `corrupt_rule_ablation.csv:precision[row=2][0]` | `0.8372` |
-| 1200 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0… | `0.5806` | `corrupt_rule_ablation.csv:recall[row=2][0]` | `0.5806` |
-| 1200 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `0.6857` | `corrupt_rule_ablation.csv:f1[row=2][0]` | `0.6857` |
-| 1200 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `43` | `corrupt_rule_ablation.csv:detected[row=2][0]` | `43` |
-| 1200 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `36` | `corrupt_rule_ablation.csv:tp[row=2][0]` | `36` |
-| 1200 | …rop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 1200 | …R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `26` | `metrics.json:gap.cluster_rows[4].detected_intents` | `26` |
-| 1200 | …0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
-| 1200 | …\| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `0.76` | `corrupt_rule_ablation.csv:mean_risk[row=2][0]` | `0.76` |
-| 1200 | …06 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `-0.2609` | `corrupt_rule_ablation.csv:delta_f1[row=2][0]` | `-0.2609` |
-| 1201 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \|… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1201 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \|… | `0.5161` | `corrupt_rule_ablation.csv:recall[row=3][0]` | `0.5161` |
-| 1201 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
-| 1201 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 1201 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1201 | …op_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 1201 | …\| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
-| 1201 | …\| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `0.8267` | `corrupt_rule_ablation.csv:mean_risk[row=3][0]` | `0.8267` |
-| 1201 | …\| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `-0.2657` | `corrupt_rule_ablation.csv:delta_f1[row=3][0]` | `-0.2657` |
-| 1202 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \|… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
-| 1202 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1202 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0**… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 1202 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `69` | `metrics.json:corrupt.detected` | `69` |
-| 1202 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 1202 | …op_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 1202 | …3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1202 | …0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
-| 1202 | …\| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `0.8667` | `corrupt_rule_ablation.csv:mean_risk[row=4][0]` | `0.8667` |
-| 1203 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1203 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -… | `0.5161` | `corrupt_rule_ablation.csv:recall[row=3][0]` | `0.5161` |
-| 1203 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
-| 1203 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 1203 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1203 | …op_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 1203 | …\| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `69` | `metrics.json:corrupt.detected` | `69` |
-| 1203 | …0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `0.7867` | `corrupt_rule_ablation.csv:mean_risk[row=5][0]` | `0.7867` |
-| 1203 | …1 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `-0.2657` | `corrupt_rule_ablation.csv:delta_f1[row=3][0]` | `-0.2657` |
-| 1204 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1204 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.… | `0.5161` | `corrupt_rule_ablation.csv:recall[row=3][0]` | `0.5161` |
-| 1204 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
-| 1204 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `32 (×3)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 1204 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1204 | …ly_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 1204 | …0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `0.32` | `corrupt_rule_ablation.csv:mean_risk[row=6][0]` | `0.32` |
-| 1204 | …161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `-0.2657` | `corrupt_rule_ablation.csv:delta_f1[row=3][0]` | `-0.2657` |
-| 1205 | \| only_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \|… | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1205 | \| only_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1205 | \| only_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 1205 | …only_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `38` | `metrics.json:corrupt.rule_hit_counts.R2_更新时间超18个月` | `38` |
-| 1205 | …_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `0.2533` | `corrupt_rule_ablation.csv:mean_risk[row=7][0]` | `0.2533` |
-| 1205 | …\| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `-0.9466` | `corrupt_rule_ablation.csv:delta_f1[row=7][0]` | `-0.9466` |
-| 1206 | \| only_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \|… | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1206 | \| only_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1206 | \| only_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 1206 | …only_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 1206 | …_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `0.2133` | `corrupt_rule_ablation.csv:mean_risk[row=8][0]` | `0.2133` |
-| 1206 | …\| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `-0.9466` | `corrupt_rule_ablation.csv:delta_f1[row=7][0]` | `-0.9466` |
-| 1207 | \| only_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \|… | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1207 | \| only_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1207 | \| only_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 1207 | …only_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
-| 1207 | …_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `0.2933` | `corrupt_rule_ablation.csv:mean_risk[row=9][0]` | `0.2933` |
-| 1207 | …\| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `-0.9466` | `corrupt_rule_ablation.csv:delta_f1[row=7][0]` | `-0.9466` |
-| 1209 | > 结论：F1 0.9466 来自四条规则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 1209 | …论：F1 0.9466 来自四条规则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.… | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 1209 | …0.9466 来自四条规则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.0）。o… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1209 | …来自四条规则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.0）。only_R1… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 1209 | …则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.0）。only_R1 与 drop… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1209 | …2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.0）。only_R1 与 drop_R2 / drop_R4 数值相同（0.6809）的成因见… | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1209 | …的 ΔF1 = 0.0）。only_R1 与 drop_R2 / drop_R4 数值相同（0.6809）的成因见 5.4.1。 | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
-| 1217 | \| ABS 绝对阈值（基线） \| 0.968 \| **0.9538** \| **0.7925** \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 1217 | \| ABS 绝对阈值（基线） \| 0.968 \| **0.9538** \| **0.7925** \| | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 1217 | \| ABS 绝对阈值（基线） \| 0.968 \| **0.9538** \| **0.7925** \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 1218 | \| S1 分位数排名 \| 0.968 \| 0.9538 \| 0.7925 \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 1218 | \| S1 分位数排名 \| 0.968 \| 0.9538 \| 0.7925 \| | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 1218 | \| S1 分位数排名 \| 0.968 \| 0.9538 \| 0.7925 \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 1219 | \| S2 全局z-score \| 0.968 \| 0.9538 \| 0.7925 \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 1219 | \| S2 全局z-score \| 0.968 \| 0.9538 \| 0.7925 \| | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 1219 | \| S2 全局z-score \| 0.968 \| 0.9538 \| 0.7925 \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 1220 | \| S3 领域内z \| 1.0 \| **0.4344** ❌ \| **0.4946** ❌ \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1220 | \| S3 领域内z \| 1.0 \| **0.4344** ❌ \| **0.4946** ❌ \| | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 1220 | \| S3 领域内z \| 1.0 \| **0.4344** ❌ \| **0.4946** ❌ \| | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 1221 | \| S3b 域内分位数 \| — \| 0.4860 \| 0.4962 \| | `0.4860` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
-| 1221 | \| S3b 域内分位数 \| — \| 0.4860 \| 0.4962 \| | `0.4962` | `standardize/results_banking77_zh.csv:AUC[row=5][0]` | `0.4962` |
-| 1222 | \| S4 双参考系(域) \| 0.984 \| 0.5538 \| 0.5441 \| | `0.984` | `dup_groups_best.csv:max_sim[row=5][0]` | `0.984` |
-| 1222 | \| S4 双参考系(域) \| 0.984 \| 0.5538 \| 0.5441 \| | `0.5538` | `standardize/results_banking77_en.csv:AUC[row=6][0]` | `0.5538` |
-| 1222 | \| S4 双参考系(域) \| 0.984 \| 0.5538 \| 0.5441 \| | `0.5441` | `standardize/results_banking77_zh.csv:AUC[row=6][0]` | `0.5441` |
-| 1223 | \| S4min 双参考系min \| — \| 0.8849 \| 0.7409 \| | `0.8849` | `standardize/results_banking77_en.csv:AUC[row=7][0]` | `0.8849` |
-| 1223 | \| S4min 双参考系min \| — \| 0.8849 \| 0.7409 \| | `0.7409` | `standardize/results_banking77_zh.csv:AUC[row=7][0]` | `0.7409` |
-| 1224 | \| S5 双参考系均值 \| 1.0 \| 0.7516 \| 0.6387 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1224 | \| S5 双参考系均值 \| 1.0 \| 0.7516 \| 0.6387 \| | `0.7516` | `standardize/results_banking77_en.csv:AUC[row=8][0]` | `0.7516` |
-| 1224 | \| S5 双参考系均值 \| 1.0 \| 0.7516 \| 0.6387 \| | `0.6387` | `standardize/results_banking77_zh.csv:AUC[row=8][0]` | `0.6387` |
-| 1225 | \| S6 去极值z \| 0.968 \| — \| — \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 1226 | \| S4b 双参考系(意图) \| 0.752 \| — \| — \| | `0.752` | `standardize/ablation.csv:alpha_AUC[row=8][0]` | `0.752` |
-| 1228 | **Spearman 秩相关（与 cover）**：ABS / S1 / S2 = **-1.000000**（AUC 恒为 0.968）；S6 = -0.999817；S5 = -0.971441… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 1228 | …cover）**：ABS / S1 / S2 = **-1.000000**（AUC 恒为 0.968）；S6 = -0.999817；S5 = -0.971441；S4 = -0.972351… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 1228 | …/ S1 / S2 = **-1.000000**（AUC 恒为 0.968）；S6 = -0.999817；S5 = -0.971441；S4 = -0.972351；S3 = -0.893715；… | `-0.999817` | `standardize/mechanism.csv:spearman_与cover[row=7][0]` | `-0.999817` |
-| 1228 | …-1.000000**（AUC 恒为 0.968）；S6 = -0.999817；S5 = -0.971441；S4 = -0.972351；S3 = -0.893715；S4b = -0.814022… | `-0.971441` | `standardize/mechanism.csv:spearman_与cover[row=6][0]` | `-0.971441` |
-| 1228 | …恒为 0.968）；S6 = -0.999817；S5 = -0.971441；S4 = -0.972351；S3 = -0.893715；S4b = -0.814022。 | `-0.972351` | `standardize/mechanism.csv:spearman_与cover[row=5][0]` | `-0.972351` |
-| 1228 | …-0.999817；S5 = -0.971441；S4 = -0.972351；S3 = -0.893715；S4b = -0.814022。 | `-0.893715` | `standardize/mechanism.csv:spearman_与cover[row=4][0]` | `-0.893715` |
-| 1228 | …-0.971441；S4 = -0.972351；S3 = -0.893715；S4b = -0.814022。 | `-0.814022` | `standardize/mechanism.csv:spearman_与cover[row=8][0]` | `-0.814022` |
-| 1234 | \| ABS 跨 5 场景阈值极差 \| **0.0264**（-0.6633 ~ -0.6897） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 1234 | \| ABS 跨 5 场景阈值极差 \| **0.0264**（-0.6633 ~ -0.6897） \| | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 1234 | \| ABS 跨 5 场景阈值极差 \| **0.0264**（-0.6633 ~ -0.6897） \| | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
-| 1234 | \| ABS 跨 5 场景阈值极差 \| **0.0264**（-0.6633 ~ -0.6897） \| | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
-| 1235 | …α 阈值 → banking77（bge-small-en-v1.5） \| cover ≤ 0.6463 → **正向检出 0 / 77，P=0，R=0，F1 0**（该场景最优 F1 为 0.8… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 1235 | …（bge-small-en-v1.5） \| cover ≤ 0.6463 → **正向检出 0 / 77，P=0，R=0，F1 0**（该场景最优 F1 为 0.8148）；反向 cov… | `0 (×4)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1235 | …-small-en-v1.5） \| cover ≤ 0.6463 → **正向检出 0 / 77，P=0，R=0，F1 0**（该场景最优 F1 为 0.8148）；反向 cover ≥… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 1235 | …463 → **正向检出 0 / 77，P=0，R=0，F1 0**（该场景最优 F1 为 0.8148）；反向 cover ≥ 0.6463 → **77/77 全判为缺口**，P=0.1948… | `0.8148` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
-| 1235 | …0.8148）；反向 cover ≥ 0.6463 → **77/77 全判为缺口**，P=0.1948，R=1.0000，F1 0.3261 \| | `0.1948` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
-| 1235 | …向 cover ≥ 0.6463 → **77/77 全判为缺口**，P=0.1948，R=1.0000，F1 0.3261 \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1235 | …0.6463 → **77/77 全判为缺口**，P=0.1948，R=1.0000，F1 0.3261 \| | `0.3261` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 1236 | …值 → banking77（bge-small-zh-v1.5） \| 同上：正向 **F1 0**（最优 0.6207）；反向 **77/77 全判为缺口**，F1 0.3261 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 1236 | …king77（bge-small-zh-v1.5） \| 同上：正向 **F1 0**（最优 0.6207）；反向 **77/77 全判为缺口**，F1 0.3261 \| | `0.6207` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
-| 1236 | …all-zh-v1.5） \| 同上：正向 **F1 0**（最优 0.6207）；反向 **77/77 全判为缺口**，F1 0.3261 \| | `77 (×2)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 1236 | …：正向 **F1 0**（最优 0.6207）；反向 **77/77 全判为缺口**，F1 0.3261 \| | `0.3261` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 1237 | …king77 全量 → KB 减半（同模型同语言） \| S1 / S2 沿用全量阈值：检出 19，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1… | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
-| 1237 | …7 全量 → KB 减半（同模型同语言） \| S1 / S2 沿用全量阈值：检出 19，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1 0.9474）；z… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 1237 | …减半（同模型同语言） \| S1 / S2 沿用全量阈值：检出 19，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1 0.9474）；zh 模型 S1 为… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 1237 | …\| S1 / S2 沿用全量阈值：检出 19，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1 0.9474）；zh 模型 S1 为 F1 0.4918（自… | `0.5846` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
-| 1237 | …，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1 0.9474）；zh 模型 S1 为 F1 0.4918（自身最优 0.8293）——不误报，但召回漏掉… | `0.9474` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
-| 1237 | …**0.5846**（KB 减半自身最优 F1 0.9474）；zh 模型 S1 为 F1 0.4918（自身最优 0.8293）——不误报，但召回漏掉 \| | `0.4918` | `standardize/results_xfer_banking77_zh.csv:F1[row=3][0]` | `0.4918` |
-| 1237 | …B 减半自身最优 F1 0.9474）；zh 模型 S1 为 F1 0.4918（自身最优 0.8293）——不误报，但召回漏掉 \| | `0.8293` | `standardize/results_banking77_zh.csv:F1[row=9][0]` | `0.8293` |
-| 1238 | \| banking77（bge-small-en-v1.5）最优阈值 \| cover ≤ 0.8495（产物记作 -0.8495，ABS 分数 = -cover） \| | `0.8495` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
-| 1238 | …（bge-small-en-v1.5）最优阈值 \| cover ≤ 0.8495（产物记作 -0.8495，ABS 分数 = -cover） \| | `-0.8495` | `derived_metrics.csv:banking77_en.abs_best_threshold_raw` | `-0.8495` |
-| 1239 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 1239 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 1239 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `75` | `standardize/scenario_meta.json:n_docs.beta` | `75` |
-| 1239 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `180` | `standardize/scenario_meta.json:n_docs.gamma` | `180` |
-| 1239 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `48` | `standardize/scenario_meta.json:n_docs.gamma-X` | `48` |
-| 1239 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `600` | `standardize/scenario_meta.json:n_docs.delta` | `600` |
-| 1245 | \| 中文合成语料 α（bge-small-zh-v1.5） \| 0.5629 \| **0.6891** \| 0.8294 \| 0.0529 \| | `0.5629` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
-| 1245 | \| 中文合成语料 α（bge-small-zh-v1.5） \| 0.5629 \| **0.6891** \| 0.8294 \| 0.0529 \| | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
-| 1245 | …α（bge-small-zh-v1.5） \| 0.5629 \| **0.6891** \| 0.8294 \| 0.0529 \| | `0.8294` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
-| 1245 | …all-zh-v1.5） \| 0.5629 \| **0.6891** \| 0.8294 \| 0.0529 \| | `0.0529` | `standardize/scenario_meta.json:cover_stats.alpha.sd` | `0.0529` |
-| 1246 | \| banking77（bge-small-**en**-v1.5） \| 0.6547 \| **0.8797** \| 0.9973 \| 0.0578 \| | `0.6547` | `standardize/banking77_meta.json:cover.min` | `0.6547` |
-| 1246 | …banking77（bge-small-**en**-v1.5） \| 0.6547 \| **0.8797** \| 0.9973 \| 0.0578 \| | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
-| 1246 | …ge-small-**en**-v1.5） \| 0.6547 \| **0.8797** \| 0.9973 \| 0.0578 \| | `0.9973` | `standardize/banking77_meta.json:cover.max` | `0.9973` |
-| 1246 | …**en**-v1.5） \| 0.6547 \| **0.8797** \| 0.9973 \| 0.0578 \| | `0.0578` | `standardize/banking77_meta.json:cover.sd` | `0.0578` |
-| 1247 | \| banking77（bge-small-zh-v1.5） \| 0.6014 \| **0.8386** \| 0.9874 \| 0.0544 \| | `0.6014` | `standardize/banking77_meta_zh.json:cover.min` | `0.6014` |
-| 1247 | \| banking77（bge-small-zh-v1.5） \| 0.6014 \| **0.8386** \| 0.9874 \| 0.0544 \| | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
-| 1247 | …77（bge-small-zh-v1.5） \| 0.6014 \| **0.8386** \| 0.9874 \| 0.0544 \| | `0.9874` | `standardize/banking77_meta_zh.json:cover.max` | `0.9874` |
-| 1247 | …all-zh-v1.5） \| 0.6014 \| **0.8386** \| 0.9874 \| 0.0544 \| | `0.0544` | `standardize/banking77_meta_zh.json:cover.sd` | `0.0544` |
-| 1253 | \| ABS -max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 1253 | \| ABS -max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.8075` | `standardize/ablation.csv:alpha_AUC[row=17][0]` | `0.8075` |
-| 1253 | \| ABS -max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.9022` | `standardize/ablation.csv:alpha_AUC[row=18][0]` | `0.9022` |
-| 1253 | \| ABS -max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.9135` | `standardize/ablation.csv:alpha_AUC[row=19][0]` | `0.9135` |
-| 1253 | …max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 1254 | \| A1 (top5-mean)/(max-min) \| 0.0960 \| 0.1615 \| 0.1400 \| 0.3173 \| — \| | `0.0960` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
-| 1254 | \| A1 (top5-mean)/(max-min) \| 0.0960 \| 0.1615 \| 0.1400 \| 0.3173 \| — \| | `0.1615` | `standardize/results_directions.csv:AUC[row=9][0]` | `0.1615` |
-| 1254 | …A1 (top5-mean)/(max-min) \| 0.0960 \| 0.1615 \| 0.1400 \| 0.3173 \| — \| | `0.1400` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
-| 1254 | …-mean)/(max-min) \| 0.0960 \| 0.1615 \| 0.1400 \| 0.3173 \| — \| | `0.3173` | `standardize/results_directions.csv:AUC[row=23][0]` | `0.3173` |
-| 1255 | \| **A2 (max-top5)/max** \| **0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018**… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 1255 | \| **A2 (max-top5)/max** \| **0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018** \| | `0.1491` | `standardize/results_directions.csv:AUC[row=10][0]` | `0.1491` |
-| 1255 | …**A2 (max-top5)/max** \| **0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018** \| | `0.1444` | `standardize/results_directions.csv:AUC[row=17][0]` | `0.1444` |
-| 1255 | …op5)/max** \| **0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018** \| | `0.2788` | `standardize/results_directions.csv:AUC[row=24][0]` | `0.2788` |
-| 1255 | …**0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018** \| | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
-| 1256 | \| A4 stop5-max \| 0.9200 \| 0.8509 \| 0.8644 \| 0.7981 \| — \| | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 1256 | \| A4 stop5-max \| 0.9200 \| 0.8509 \| 0.8644 \| 0.7981 \| — \| | `0.8509` | `standardize/results_directions.csv:AUC[row=12][0]` | `0.8509` |
-| 1256 | \| A4 stop5-max \| 0.9200 \| 0.8509 \| 0.8644 \| 0.7981 \| — \| | `0.8644` | `standardize/results_directions.csv:AUC[row=19][0]` | `0.8644` |
-| 1256 | \| A4 stop5-max \| 0.9200 \| 0.8509 \| 0.8644 \| 0.7981 \| — \| | `0.7981` | `standardize/results_directions.csv:AUC[row=26][0]` | `0.7981` |
-| 1257 | \| B 双向中心化 max-prior \| 0.8160 \| 0.6273 \| 0.6422 \| 0.7500 \| — \| | `0.8160` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
-| 1257 | \| B 双向中心化 max-prior \| 0.8160 \| 0.6273 \| 0.6422 \| 0.7500 \| — \| | `0.6273` | `standardize/results_directions.csv:AUC[row=13][0]` | `0.6273` |
-| 1257 | \| B 双向中心化 max-prior \| 0.8160 \| 0.6273 \| 0.6422 \| 0.7500 \| — \| | `0.6422` | `standardize/results_directions.csv:AUC[row=20][0]` | `0.6422` |
-| 1257 | …双向中心化 max-prior \| 0.8160 \| 0.6273 \| 0.6422 \| 0.7500 \| — \| | `0.7500` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
-| 1258 | \| B+ top5 双向中心化 \| 0.4960 \| 0.5031 \| 0.3378 \| 0.7115 \| — \| | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 1258 | \| B+ top5 双向中心化 \| 0.4960 \| 0.5031 \| 0.3378 \| 0.7115 \| — \| | `0.5031` | `standardize/results_directions.csv:AUC[row=14][0]` | `0.5031` |
-| 1258 | \| B+ top5 双向中心化 \| 0.4960 \| 0.5031 \| 0.3378 \| 0.7115 \| — \| | `0.3378` | `standardize/results_directions.csv:AUC[row=21][0]` | `0.3378` |
-| 1258 | \| B+ top5 双向中心化 \| 0.4960 \| 0.5031 \| 0.3378 \| 0.7115 \| — \| | `0.7115` | `standardize/results_directions.csv:AUC[row=28][0]` | `0.7115` |
-| 1260 | **方向 C（固定检出比例）**：口径为 4 场景（α / β / γ / γ-X）样本标准差（n-1）。ABS 逐场景最优阈值 F1… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 1260 | …（n-1）。ABS 逐场景最优阈值 F1 标准差 **0.1452** / 平均 F1 **0.8289**；固定 25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522*… | `0.8289` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
-| 1260 | …景最优阈值 F1 标准差 **0.1452** / 平均 F1 **0.8289**；固定 25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522**（牺牲约 33… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 1260 | …25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522**（牺牲约 33%）。 | `33` | `standardize/results_xfer_banking77_zh.csv:检出意图数[row=5][0]` | `33` |
+| 1174 | \| HDBSCAN 聚类数 / 噪声条数 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声（`metrics.j… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 1174 | \| HDBSCAN 聚类数 / 噪声条数 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声（`metrics.json`… | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 1174 | \| HDBSCAN 聚类数 / 噪声条数 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声（`metrics.json` → `gap… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1174 | …HDBSCAN 聚类数 / 噪声条数 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声（`metrics.json` → `gap.clusters`… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 1174 | …CAN 聚类数 / 噪声条数 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声（`metrics.json` → `gap.clusters`） \| | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 1174 | …/ 噪声条数 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声（`metrics.json` → `gap.clusters`） \| | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 1175 | \| HDBSCAN 聚类耗时 \| 约 1 秒级（该值未落盘到 `metrics.json`，只报量级） \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1176 | \| 三模块检测总耗时 \| 3.09 秒（`metrics.json:total_seconds`） \| | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 1177 | \| 标准化实验耗时 \| 26.2 秒（`standardize/run_std.log`，随环境波动） \| | `26.2` | `standardize/scenario_meta.json:total_seconds` | `26.2` |
+| 1181 | ### 检索粒度 × 打分方案对照（`granularity.csv`，2000 工单 / 300 文档 / 371 条已标注） | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 1181 | …× 打分方案对照（`granularity.csv`，2000 工单 / 300 文档 / 371 条已标注） | `371` | `ground_truth.json:gap_ticket_count` | `371` |
+| 1185 | \| doc_level \| max-cosine（基准） \| 0.888 \| 0.8307 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 1185 | \| doc_level \| max-cosine（基准） \| 0.888 \| 0.8307 \| | `0.8307` | `granularity.csv:auc[row=1][0]` | `0.8307` |
+| 1186 | \| doc_level \| max-top5mean（margin） \| 0.832 \| 0.7560 \| | `0.832` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
+| 1186 | \| doc_level \| max-top5mean（margin） \| 0.832 \| 0.7560 \| | `0.7560` | `granularity.csv:auc[row=2][0]` | `0.756` |
+| 1187 | \| doc_level \| max/std \| 0.496 \| 0.5239 \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 1187 | \| doc_level \| max/std \| 0.496 \| 0.5239 \| | `0.5239` | `granularity.csv:auc[row=3][0]` | `0.5239` |
+| 1188 | \| doc_level \| max/top5mean \| 0.776 \| 0.7179 \| | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
+| 1188 | \| doc_level \| max/top5mean \| 0.776 \| 0.7179 \| | `0.7179` | `granularity.csv:auc[row=4][0]` | `0.7179` |
+| 1189 | \| doc_level \| max-min（极差） \| 0.928 \| 0.7829 \| | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
+| 1189 | \| doc_level \| max-min（极差） \| 0.928 \| 0.7829 \| | `0.7829` | `granularity.csv:auc[row=5][0]` | `0.7829` |
+| 1190 | \| **passage_level** \| **max-cosine（采用）** \| **0.968** \| **0.8659** \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 1190 | …_level** \| **max-cosine（采用）** \| **0.968** \| **0.8659** \| | `0.8659` | `granularity.csv:auc[row=6][0]` | `0.8659` |
+| 1191 | \| passage_level \| max-top5mean（margin） \| 0.92 \| 0.8088 \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 1191 | …passage_level \| max-top5mean（margin） \| 0.92 \| 0.8088 \| | `0.8088` | `granularity.csv:auc[row=7][0]` | `0.8088` |
+| 1192 | \| passage_level \| max/std \| 0.704 \| 0.6029 \| | `0.704` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
+| 1192 | \| passage_level \| max/std \| 0.704 \| 0.6029 \| | `0.6029` | `granularity.csv:auc[row=8][0]` | `0.6029` |
+| 1193 | \| passage_level \| max/top5mean \| 0.888 \| 0.7940 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 1193 | \| passage_level \| max/top5mean \| 0.888 \| 0.7940 \| | `0.7940` | `granularity.csv:auc[row=9][0]` | `0.794` |
+| 1194 | \| passage_level \| max-min（极差） \| 0.88 \| 0.7800 \| | `0.88` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
+| 1194 | \| passage_level \| max-min（极差） \| 0.88 \| 0.7800 \| | `0.7800` | `granularity.csv:auc[row=10][0]` | `0.78` |
+| 1196 | …（`corrupt_rule_ablation.csv`，判定 `risk_score ≥ 3`，62 篇埋入） | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 1196 | …orrupt_rule_ablation.csv`，判定 `risk_score ≥ 3`，62 篇埋入） | `62` | `metrics.json:corrupt.embedded` | `62` |
+| 1200 | \| **all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
+| 1200 | \| **all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \|… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1200 | \| **all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 1200 | \| **all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `69` | `metrics.json:corrupt.detected` | `69` |
+| 1200 | …**all** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `62` | `metrics.json:corrupt.embedded` | `62` |
+| 1200 | …** \| 0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 1200 | …0.8986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1200 | …986 \| 1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
+| 1200 | …1.0000 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 1.08 \| — \| | `1.08` | `corrupt_rule_ablation.csv:mean_risk[row=1][0]` | `1.08` |
+| 1201 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \|… | `0.8372` | `corrupt_rule_ablation.csv:precision[row=2][0]` | `0.8372` |
+| 1201 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0… | `0.5806` | `corrupt_rule_ablation.csv:recall[row=2][0]` | `0.5806` |
+| 1201 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `0.6857` | `corrupt_rule_ablation.csv:f1[row=2][0]` | `0.6857` |
+| 1201 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `43` | `corrupt_rule_ablation.csv:detected[row=2][0]` | `43` |
+| 1201 | \| drop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `36` | `corrupt_rule_ablation.csv:tp[row=2][0]` | `36` |
+| 1201 | …rop_R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 1201 | …R1 \| 0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `26` | `metrics.json:gap.cluster_rows[4].detected_intents` | `26` |
+| 1201 | …0.8372 \| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
+| 1201 | …\| 0.5806 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `0.76` | `corrupt_rule_ablation.csv:mean_risk[row=2][0]` | `0.76` |
+| 1201 | …06 \| 0.6857 \| 43 \| 36 \| 7 \| 26 \| 114 \| 0.76 \| -0.2609 \| | `-0.2609` | `corrupt_rule_ablation.csv:delta_f1[row=2][0]` | `-0.2609` |
+| 1202 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \|… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1202 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \|… | `0.5161` | `corrupt_rule_ablation.csv:recall[row=3][0]` | `0.5161` |
+| 1202 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
+| 1202 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 1202 | \| drop_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1202 | …op_R2 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 1202 | …\| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
+| 1202 | …\| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `0.8267` | `corrupt_rule_ablation.csv:mean_risk[row=3][0]` | `0.8267` |
+| 1202 | …\| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 114 \| 0.8267 \| -0.2657 \| | `-0.2657` | `corrupt_rule_ablation.csv:delta_f1[row=3][0]` | `-0.2657` |
+| 1203 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \|… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
+| 1203 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1203 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0**… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 1203 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `69` | `metrics.json:corrupt.detected` | `69` |
+| 1203 | \| drop_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `62` | `metrics.json:corrupt.embedded` | `62` |
+| 1203 | …op_R3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 1203 | …3 \| 0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1203 | …0.8986 \| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
+| 1203 | …\| 1.0 \| **0.9466** \| 69 \| 62 \| 7 \| 0 \| 114 \| 0.8667 \| **0.0** \| | `0.8667` | `corrupt_rule_ablation.csv:mean_risk[row=4][0]` | `0.8667` |
+| 1204 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1204 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -… | `0.5161` | `corrupt_rule_ablation.csv:recall[row=3][0]` | `0.5161` |
+| 1204 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
+| 1204 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 1204 | \| drop_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1204 | …op_R4 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 1204 | …\| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `69` | `metrics.json:corrupt.detected` | `69` |
+| 1204 | …0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `0.7867` | `corrupt_rule_ablation.csv:mean_risk[row=5][0]` | `0.7867` |
+| 1204 | …1 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 69 \| 0.7867 \| -0.2657 \| | `-0.2657` | `corrupt_rule_ablation.csv:delta_f1[row=3][0]` | `-0.2657` |
+| 1205 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1205 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.… | `0.5161` | `corrupt_rule_ablation.csv:recall[row=3][0]` | `0.5161` |
+| 1205 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
+| 1205 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `32 (×3)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 1205 | \| only_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1205 | …ly_R1 \| 1.0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 1205 | …0 \| 0.5161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `0.32` | `corrupt_rule_ablation.csv:mean_risk[row=6][0]` | `0.32` |
+| 1205 | …161 \| 0.6809 \| 32 \| 32 \| 0 \| 30 \| 32 \| 0.32 \| -0.2657 \| | `-0.2657` | `corrupt_rule_ablation.csv:delta_f1[row=3][0]` | `-0.2657` |
+| 1206 | \| only_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \|… | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1206 | \| only_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1206 | \| only_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `62` | `metrics.json:corrupt.embedded` | `62` |
+| 1206 | …only_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `38` | `metrics.json:corrupt.rule_hit_counts.R2_更新时间超18个月` | `38` |
+| 1206 | …_R2 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `0.2533` | `corrupt_rule_ablation.csv:mean_risk[row=7][0]` | `0.2533` |
+| 1206 | …\| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 38 \| 0.2533 \| -0.9466 \| | `-0.9466` | `corrupt_rule_ablation.csv:delta_f1[row=7][0]` | `-0.9466` |
+| 1207 | \| only_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \|… | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1207 | \| only_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1207 | \| only_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `62` | `metrics.json:corrupt.embedded` | `62` |
+| 1207 | …only_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 1207 | …_R3 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `0.2133` | `corrupt_rule_ablation.csv:mean_risk[row=8][0]` | `0.2133` |
+| 1207 | …\| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 32 \| 0.2133 \| -0.9466 \| | `-0.9466` | `corrupt_rule_ablation.csv:delta_f1[row=7][0]` | `-0.9466` |
+| 1208 | \| only_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \|… | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1208 | \| only_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1208 | \| only_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `62` | `metrics.json:corrupt.embedded` | `62` |
+| 1208 | …only_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 1208 | …_R4 \| 0.0 \| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `0.2933` | `corrupt_rule_ablation.csv:mean_risk[row=9][0]` | `0.2933` |
+| 1208 | …\| 0.0 \| 0.0 \| 0 \| 0 \| 0 \| 62 \| 88 \| 0.2933 \| -0.9466 \| | `-0.9466` | `corrupt_rule_ablation.csv:delta_f1[row=7][0]` | `-0.9466` |
+| 1210 | > 结论：F1 0.9466 来自四条规则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 1210 | …论：F1 0.9466 来自四条规则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.… | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 1210 | …0.9466 来自四条规则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.0）。o… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1210 | …来自四条规则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.0）。only_R1… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 1210 | …则的联合而非任一单条（only_R2/R3/R4 因权重 2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.0）。only_R1 与 drop… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1210 | …2/2/1 低于阈值 3 而恒为 0）；R3 为冗余规则（drop_R3 的 ΔF1 = 0.0）。only_R1 与 drop_R2 / drop_R4 数值相同（0.6809）的成因见… | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1210 | …的 ΔF1 = 0.0）。only_R1 与 drop_R2 / drop_R4 数值相同（0.6809）的成因见 5.4.1。 | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
+| 1218 | \| ABS 绝对阈值（基线） \| 0.968 \| **0.9538** \| **0.7925** \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 1218 | \| ABS 绝对阈值（基线） \| 0.968 \| **0.9538** \| **0.7925** \| | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 1218 | \| ABS 绝对阈值（基线） \| 0.968 \| **0.9538** \| **0.7925** \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 1219 | \| S1 分位数排名 \| 0.968 \| 0.9538 \| 0.7925 \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 1219 | \| S1 分位数排名 \| 0.968 \| 0.9538 \| 0.7925 \| | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 1219 | \| S1 分位数排名 \| 0.968 \| 0.9538 \| 0.7925 \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 1220 | \| S2 全局z-score \| 0.968 \| 0.9538 \| 0.7925 \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 1220 | \| S2 全局z-score \| 0.968 \| 0.9538 \| 0.7925 \| | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 1220 | \| S2 全局z-score \| 0.968 \| 0.9538 \| 0.7925 \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 1221 | \| S3 领域内z \| 1.0 \| **0.4344** ❌ \| **0.4946** ❌ \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1221 | \| S3 领域内z \| 1.0 \| **0.4344** ❌ \| **0.4946** ❌ \| | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 1221 | \| S3 领域内z \| 1.0 \| **0.4344** ❌ \| **0.4946** ❌ \| | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 1222 | \| S3b 域内分位数 \| — \| 0.4860 \| 0.4962 \| | `0.4860` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
+| 1222 | \| S3b 域内分位数 \| — \| 0.4860 \| 0.4962 \| | `0.4962` | `standardize/results_banking77_zh.csv:AUC[row=5][0]` | `0.4962` |
+| 1223 | \| S4 双参考系(域) \| 0.984 \| 0.5538 \| 0.5441 \| | `0.984` | `dup_groups_best.csv:max_sim[row=5][0]` | `0.984` |
+| 1223 | \| S4 双参考系(域) \| 0.984 \| 0.5538 \| 0.5441 \| | `0.5538` | `standardize/results_banking77_en.csv:AUC[row=6][0]` | `0.5538` |
+| 1223 | \| S4 双参考系(域) \| 0.984 \| 0.5538 \| 0.5441 \| | `0.5441` | `standardize/results_banking77_zh.csv:AUC[row=6][0]` | `0.5441` |
+| 1224 | \| S4min 双参考系min \| — \| 0.8849 \| 0.7409 \| | `0.8849` | `standardize/results_banking77_en.csv:AUC[row=7][0]` | `0.8849` |
+| 1224 | \| S4min 双参考系min \| — \| 0.8849 \| 0.7409 \| | `0.7409` | `standardize/results_banking77_zh.csv:AUC[row=7][0]` | `0.7409` |
+| 1225 | \| S5 双参考系均值 \| 1.0 \| 0.7516 \| 0.6387 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1225 | \| S5 双参考系均值 \| 1.0 \| 0.7516 \| 0.6387 \| | `0.7516` | `standardize/results_banking77_en.csv:AUC[row=8][0]` | `0.7516` |
+| 1225 | \| S5 双参考系均值 \| 1.0 \| 0.7516 \| 0.6387 \| | `0.6387` | `standardize/results_banking77_zh.csv:AUC[row=8][0]` | `0.6387` |
+| 1226 | \| S6 去极值z \| 0.968 \| — \| — \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 1227 | \| S4b 双参考系(意图) \| 0.752 \| — \| — \| | `0.752` | `standardize/ablation.csv:alpha_AUC[row=8][0]` | `0.752` |
+| 1229 | **Spearman 秩相关（与 cover）**：ABS / S1 / S2 = **-1.000000**（AUC 恒为 0.968）；S6 = -0.999817；S5 = -0.971441… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 1229 | …cover）**：ABS / S1 / S2 = **-1.000000**（AUC 恒为 0.968）；S6 = -0.999817；S5 = -0.971441；S4 = -0.972351… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 1229 | …/ S1 / S2 = **-1.000000**（AUC 恒为 0.968）；S6 = -0.999817；S5 = -0.971441；S4 = -0.972351；S3 = -0.893715；… | `-0.999817` | `standardize/mechanism.csv:spearman_与cover[row=7][0]` | `-0.999817` |
+| 1229 | …-1.000000**（AUC 恒为 0.968）；S6 = -0.999817；S5 = -0.971441；S4 = -0.972351；S3 = -0.893715；S4b = -0.814022… | `-0.971441` | `standardize/mechanism.csv:spearman_与cover[row=6][0]` | `-0.971441` |
+| 1229 | …恒为 0.968）；S6 = -0.999817；S5 = -0.971441；S4 = -0.972351；S3 = -0.893715；S4b = -0.814022。 | `-0.972351` | `standardize/mechanism.csv:spearman_与cover[row=5][0]` | `-0.972351` |
+| 1229 | …-0.999817；S5 = -0.971441；S4 = -0.972351；S3 = -0.893715；S4b = -0.814022。 | `-0.893715` | `standardize/mechanism.csv:spearman_与cover[row=4][0]` | `-0.893715` |
+| 1229 | …-0.971441；S4 = -0.972351；S3 = -0.893715；S4b = -0.814022。 | `-0.814022` | `standardize/mechanism.csv:spearman_与cover[row=8][0]` | `-0.814022` |
+| 1235 | \| ABS 跨 5 场景阈值极差 \| **0.0264**（-0.6633 ~ -0.6897） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 1235 | \| ABS 跨 5 场景阈值极差 \| **0.0264**（-0.6633 ~ -0.6897） \| | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 1235 | \| ABS 跨 5 场景阈值极差 \| **0.0264**（-0.6633 ~ -0.6897） \| | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
+| 1235 | \| ABS 跨 5 场景阈值极差 \| **0.0264**（-0.6633 ~ -0.6897） \| | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
+| 1236 | …α 阈值 → banking77（bge-small-en-v1.5） \| cover ≤ 0.6463 → **正向检出 0 / 77，P=0，R=0，F1 0**（该场景最优 F1 为 0.8… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 1236 | …（bge-small-en-v1.5） \| cover ≤ 0.6463 → **正向检出 0 / 77，P=0，R=0，F1 0**（该场景最优 F1 为 0.8148）；反向 cov… | `0 (×4)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1236 | …-small-en-v1.5） \| cover ≤ 0.6463 → **正向检出 0 / 77，P=0，R=0，F1 0**（该场景最优 F1 为 0.8148）；反向 cover ≥… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 1236 | …463 → **正向检出 0 / 77，P=0，R=0，F1 0**（该场景最优 F1 为 0.8148）；反向 cover ≥ 0.6463 → **77/77 全判为缺口**，P=0.1948… | `0.8148` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
+| 1236 | …0.8148）；反向 cover ≥ 0.6463 → **77/77 全判为缺口**，P=0.1948，R=1.0000，F1 0.3261 \| | `0.1948` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
+| 1236 | …向 cover ≥ 0.6463 → **77/77 全判为缺口**，P=0.1948，R=1.0000，F1 0.3261 \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1236 | …0.6463 → **77/77 全判为缺口**，P=0.1948，R=1.0000，F1 0.3261 \| | `0.3261` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 1237 | …值 → banking77（bge-small-zh-v1.5） \| 同上：正向 **F1 0**（最优 0.6207）；反向 **77/77 全判为缺口**，F1 0.3261 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 1237 | …king77（bge-small-zh-v1.5） \| 同上：正向 **F1 0**（最优 0.6207）；反向 **77/77 全判为缺口**，F1 0.3261 \| | `0.6207` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
+| 1237 | …all-zh-v1.5） \| 同上：正向 **F1 0**（最优 0.6207）；反向 **77/77 全判为缺口**，F1 0.3261 \| | `77 (×2)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 1237 | …：正向 **F1 0**（最优 0.6207）；反向 **77/77 全判为缺口**，F1 0.3261 \| | `0.3261` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 1238 | …king77 全量 → KB 减半（同模型同语言） \| S1 / S2 沿用全量阈值：检出 19，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1… | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
+| 1238 | …7 全量 → KB 减半（同模型同语言） \| S1 / S2 沿用全量阈值：检出 19，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1 0.9474）；z… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 1238 | …减半（同模型同语言） \| S1 / S2 沿用全量阈值：检出 19，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1 0.9474）；zh 模型 S1 为… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 1238 | …\| S1 / S2 沿用全量阈值：检出 19，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1 0.9474）；zh 模型 S1 为 F1 0.4918（自… | `0.5846` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
+| 1238 | …，P=1.0000，R=0.4130，F1 **0.5846**（KB 减半自身最优 F1 0.9474）；zh 模型 S1 为 F1 0.4918（自身最优 0.8293）——不误报，但召回漏掉… | `0.9474` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
+| 1238 | …**0.5846**（KB 减半自身最优 F1 0.9474）；zh 模型 S1 为 F1 0.4918（自身最优 0.8293）——不误报，但召回漏掉 \| | `0.4918` | `standardize/results_xfer_banking77_zh.csv:F1[row=3][0]` | `0.4918` |
+| 1238 | …B 减半自身最优 F1 0.9474）；zh 模型 S1 为 F1 0.4918（自身最优 0.8293）——不误报，但召回漏掉 \| | `0.8293` | `standardize/results_banking77_zh.csv:F1[row=9][0]` | `0.8293` |
+| 1239 | \| banking77（bge-small-en-v1.5）最优阈值 \| cover ≤ 0.8495（产物记作 -0.8495，ABS 分数 = -cover） \| | `0.8495` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
+| 1239 | …（bge-small-en-v1.5）最优阈值 \| cover ≤ 0.8495（产物记作 -0.8495，ABS 分数 = -cover） \| | `-0.8495` | `derived_metrics.csv:banking77_en.abs_best_threshold_raw` | `-0.8495` |
+| 1240 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 1240 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 1240 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `75` | `standardize/scenario_meta.json:n_docs.beta` | `75` |
+| 1240 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `180` | `standardize/scenario_meta.json:n_docs.gamma` | `180` |
+| 1240 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `48` | `standardize/scenario_meta.json:n_docs.gamma-X` | `48` |
+| 1240 | \| 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| | `600` | `standardize/scenario_meta.json:n_docs.delta` | `600` |
+| 1246 | \| 中文合成语料 α（bge-small-zh-v1.5） \| 0.5629 \| **0.6891** \| 0.8294 \| 0.0529 \| | `0.5629` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
+| 1246 | \| 中文合成语料 α（bge-small-zh-v1.5） \| 0.5629 \| **0.6891** \| 0.8294 \| 0.0529 \| | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
+| 1246 | …α（bge-small-zh-v1.5） \| 0.5629 \| **0.6891** \| 0.8294 \| 0.0529 \| | `0.8294` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
+| 1246 | …all-zh-v1.5） \| 0.5629 \| **0.6891** \| 0.8294 \| 0.0529 \| | `0.0529` | `standardize/scenario_meta.json:cover_stats.alpha.sd` | `0.0529` |
+| 1247 | \| banking77（bge-small-**en**-v1.5） \| 0.6547 \| **0.8797** \| 0.9973 \| 0.0578 \| | `0.6547` | `standardize/banking77_meta.json:cover.min` | `0.6547` |
+| 1247 | …banking77（bge-small-**en**-v1.5） \| 0.6547 \| **0.8797** \| 0.9973 \| 0.0578 \| | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
+| 1247 | …ge-small-**en**-v1.5） \| 0.6547 \| **0.8797** \| 0.9973 \| 0.0578 \| | `0.9973` | `standardize/banking77_meta.json:cover.max` | `0.9973` |
+| 1247 | …**en**-v1.5） \| 0.6547 \| **0.8797** \| 0.9973 \| 0.0578 \| | `0.0578` | `standardize/banking77_meta.json:cover.sd` | `0.0578` |
+| 1248 | \| banking77（bge-small-zh-v1.5） \| 0.6014 \| **0.8386** \| 0.9874 \| 0.0544 \| | `0.6014` | `standardize/banking77_meta_zh.json:cover.min` | `0.6014` |
+| 1248 | \| banking77（bge-small-zh-v1.5） \| 0.6014 \| **0.8386** \| 0.9874 \| 0.0544 \| | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
+| 1248 | …77（bge-small-zh-v1.5） \| 0.6014 \| **0.8386** \| 0.9874 \| 0.0544 \| | `0.9874` | `standardize/banking77_meta_zh.json:cover.max` | `0.9874` |
+| 1248 | …all-zh-v1.5） \| 0.6014 \| **0.8386** \| 0.9874 \| 0.0544 \| | `0.0544` | `standardize/banking77_meta_zh.json:cover.sd` | `0.0544` |
+| 1254 | \| ABS -max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 1254 | \| ABS -max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.8075` | `standardize/ablation.csv:alpha_AUC[row=17][0]` | `0.8075` |
+| 1254 | \| ABS -max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.9022` | `standardize/ablation.csv:alpha_AUC[row=18][0]` | `0.9022` |
+| 1254 | \| ABS -max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.9135` | `standardize/ablation.csv:alpha_AUC[row=19][0]` | `0.9135` |
+| 1254 | …max（基线） \| 0.9680 \| 0.8075 \| 0.9022 \| 0.9135 \| 0.0264 \| | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 1255 | \| A1 (top5-mean)/(max-min) \| 0.0960 \| 0.1615 \| 0.1400 \| 0.3173 \| — \| | `0.0960` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
+| 1255 | \| A1 (top5-mean)/(max-min) \| 0.0960 \| 0.1615 \| 0.1400 \| 0.3173 \| — \| | `0.1615` | `standardize/results_directions.csv:AUC[row=9][0]` | `0.1615` |
+| 1255 | …A1 (top5-mean)/(max-min) \| 0.0960 \| 0.1615 \| 0.1400 \| 0.3173 \| — \| | `0.1400` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
+| 1255 | …-mean)/(max-min) \| 0.0960 \| 0.1615 \| 0.1400 \| 0.3173 \| — \| | `0.3173` | `standardize/results_directions.csv:AUC[row=23][0]` | `0.3173` |
+| 1256 | \| **A2 (max-top5)/max** \| **0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018**… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 1256 | \| **A2 (max-top5)/max** \| **0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018** \| | `0.1491` | `standardize/results_directions.csv:AUC[row=10][0]` | `0.1491` |
+| 1256 | …**A2 (max-top5)/max** \| **0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018** \| | `0.1444` | `standardize/results_directions.csv:AUC[row=17][0]` | `0.1444` |
+| 1256 | …op5)/max** \| **0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018** \| | `0.2788` | `standardize/results_directions.csv:AUC[row=24][0]` | `0.2788` |
+| 1256 | …**0.1120** \| 0.1491 \| 0.1444 \| **0.2788** \| **0.0018** \| | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
+| 1257 | \| A4 stop5-max \| 0.9200 \| 0.8509 \| 0.8644 \| 0.7981 \| — \| | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 1257 | \| A4 stop5-max \| 0.9200 \| 0.8509 \| 0.8644 \| 0.7981 \| — \| | `0.8509` | `standardize/results_directions.csv:AUC[row=12][0]` | `0.8509` |
+| 1257 | \| A4 stop5-max \| 0.9200 \| 0.8509 \| 0.8644 \| 0.7981 \| — \| | `0.8644` | `standardize/results_directions.csv:AUC[row=19][0]` | `0.8644` |
+| 1257 | \| A4 stop5-max \| 0.9200 \| 0.8509 \| 0.8644 \| 0.7981 \| — \| | `0.7981` | `standardize/results_directions.csv:AUC[row=26][0]` | `0.7981` |
+| 1258 | \| B 双向中心化 max-prior \| 0.8160 \| 0.6273 \| 0.6422 \| 0.7500 \| — \| | `0.8160` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
+| 1258 | \| B 双向中心化 max-prior \| 0.8160 \| 0.6273 \| 0.6422 \| 0.7500 \| — \| | `0.6273` | `standardize/results_directions.csv:AUC[row=13][0]` | `0.6273` |
+| 1258 | \| B 双向中心化 max-prior \| 0.8160 \| 0.6273 \| 0.6422 \| 0.7500 \| — \| | `0.6422` | `standardize/results_directions.csv:AUC[row=20][0]` | `0.6422` |
+| 1258 | …双向中心化 max-prior \| 0.8160 \| 0.6273 \| 0.6422 \| 0.7500 \| — \| | `0.7500` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
+| 1259 | \| B+ top5 双向中心化 \| 0.4960 \| 0.5031 \| 0.3378 \| 0.7115 \| — \| | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 1259 | \| B+ top5 双向中心化 \| 0.4960 \| 0.5031 \| 0.3378 \| 0.7115 \| — \| | `0.5031` | `standardize/results_directions.csv:AUC[row=14][0]` | `0.5031` |
+| 1259 | \| B+ top5 双向中心化 \| 0.4960 \| 0.5031 \| 0.3378 \| 0.7115 \| — \| | `0.3378` | `standardize/results_directions.csv:AUC[row=21][0]` | `0.3378` |
+| 1259 | \| B+ top5 双向中心化 \| 0.4960 \| 0.5031 \| 0.3378 \| 0.7115 \| — \| | `0.7115` | `standardize/results_directions.csv:AUC[row=28][0]` | `0.7115` |
+| 1261 | **方向 C（固定检出比例）**：口径为 4 场景（α / β / γ / γ-X）样本标准差（n-1）。ABS 逐场景最优阈值 F1… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 1261 | …（n-1）。ABS 逐场景最优阈值 F1 标准差 **0.1452** / 平均 F1 **0.8289**；固定 25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522*… | `0.8289` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
+| 1261 | …景最优阈值 F1 标准差 **0.1452** / 平均 F1 **0.8289**；固定 25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522**（牺牲约 33… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 1261 | …25% 检出比例标准差 **0.0873** / 平均 F1 **0.5522**（牺牲约 33%）。 | `33` | `standardize/results_xfer_banking77_zh.csv:检出意图数[row=5][0]` | `33` |
 
 
 ---
 
-## 文档 2 / 3：`本科版实施方案.md`
+## 文档 2 / 4：`本科版实施方案.md`
 
 - 完整路径：`D:\26code\毕设\docs\技术方案\本科版实施方案.md`
-- 抽到的数值断言：**670** 处
-- 判定统计：OK=**541**　ROUNDED=**6**　STRUCTURAL=**103**　EXTERNAL=**0**　CITED=**0**　ALLOWED=**0**　UNSOURCED=**20**
+- 抽到的数值断言：**671** 处
+- 判定统计：OK=**542**　ROUNDED=**6**　STRUCTURAL=**103**　EXTERNAL=**0**　CITED=**0**　ALLOWED=**0**　UNSOURCED=**20**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
 
 ### 2.1 指标类 UNSOURCED —— 致命项，必须为空或逐条补出处
@@ -1588,7 +1602,7 @@
 | 127 | …判定结果，近似误差会直接污染指标。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量扫描将慢到不可用。10000 是按当前规模线性外推的规划容量，而实测语料只有 30… | `10000 (×2)` | `` | `` |
 | 129 | …77 轨道）** \| banking77 在原方案中只用于验证方法泛化性、不追求 SOTA（8.4 明示）。变体 C 题目不含跨语言主张，因此整条英文轨道在本科版中**不作为独立实验**，只… | `8.4` | `` | `` |
 | 130 | \| **LLM 判断** \| 原方案 7.5 第 5 问已判定：成本高、输出不确定、无法给出稳定的 P/R/F1。本科版判定逻辑全程为「… | `7.5` | `` | `` |
-| 133 | …，全量扫描 2.85 秒，无需增量。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量扫描将慢到不可用。10000 是按当前规模线性外推的规划容量，而实测语料只有 30… | `10000 (×2)` | `` | `` |
+| 133 | …，全量扫描 3.09 秒，无需增量。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量扫描将慢到不可用。10000 是按当前规模线性外推的规划容量，而实测语料只有 30… | `10000 (×2)` | `` | `` |
 | 187 | …*裁剪后图表总数：8 张图（含 3 张非数据图）+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 16 项，净减 5 项。 | `6.4` | `` | `` |
 | 201 | …1-03 \| **人工标注（关键路径）** \| 300 条人工标注（见 §7.3）；其中 ≥100 条双人独立标注；Cohen's Kappa 计算结果与混淆矩阵 \| 第 2 章（定稿）+… | `100` | `` | `` |
 | 222 | - **不可压缩**：§7.3 的 290 条（取整 300 条预算）是双人对齐所需的最小量，再减则 Kappa 的置信区间宽到无法支… | `290` | `` | `` |
@@ -1635,8 +1649,8 @@
 | 78 | \| **M-数据·语料构造** \| 自造中文语料：300 篇文档 / 2000 条工单 / 8 个业务域 / 30 个意图；三类缺陷按可公开说明的规则埋入；另按逐篇独立抽… | `2000` | `年份/日期` | `` |
 | 78 | …ontrol_doc_ids` 为准，不得用抽样率代替篇数**）；`random.seed(42)` + `np.random.seed(42)` 固定随机源 \| `gen_data.py… | `42 (×2)` | `随机种子` | `` |
 | 80 | …0.62、gap_clusters=7、detected_intents=5、P/R/F1=0.8/0.8/0.8，与正文一致 \| 论文第 5 章（核心算法·覆盖度计算与缺口判定） \| | `0.8 (×3)` | `章节号(枚举)` | `` |
-| 81 | …=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.42；**防作弊对照文档的判定结果必须逐篇落盘并在正文如… | `1.0` | `章节号(枚举)` | `` |
-| 81 | …62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.42；**防作弊对照文档的判定结果必须逐篇落盘并在正文如实报告**——当前实测：7 篇误报**全… | `0.42` | `章节号(枚举)` | `` |
+| 81 | …=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.4；**防作弊对照文档的判定结果必须逐篇落盘并在正文如实… | `1.0` | `章节号(枚举)` | `` |
+| 81 | …62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.4；**防作弊对照文档的判定结果必须逐篇落盘并在正文如实报告**——当前实测：7 篇误报**全… | `0.4` | `章节号(枚举)` | `` |
 | 82 | …5、dup_groups=22、detected_docs=49、group P/R/F1=1.0/1.0/1.0；**同时必须在正文写明 0.90 阈值下组级 F1=0.7037 为真实预… | `1.0 (×3)` | `章节号(枚举)` | `` |
 | 82 | …_docs=49、group P/R/F1=1.0/1.0/1.0；**同时必须在正文写明 0.90 阈值下组级 F1=0.7037 为真实预期基线**（见 §8 风险二） \| 论文第 5 章… | `0.90` | `章节号(枚举)` | `` |
 | 83 | …nularity.csv`**（5 种打分 × 2 种粒度共 10 行，n_tickets=2000、n_labeled=371 逐行一致）。图表只能从该 CSV 生成，不允许从任何叙述性文档… | `2000` | `年份/日期` | `` |
@@ -1644,7 +1658,7 @@
 | 89 | ### 2.1 四项不可砍（3–4 个月压力下仍然保留） | `2.1` | `章节号` | `` |
 | 100 | ### 2.2 为 17 周而做的范围收缩（与 §3 砍掉表逐条对应） | `2.2` | `章节号` | `` |
 | 115 | > 本表前六行为**为 17 周排期而砍**，与 §2.2 的收缩表逐条对应；其余各行为立论层面的裁剪，与时间长短无关。 | `2.2` | `章节号(§引用)` | `` |
-| 119 | …0 工单并出具耗时报告。扩展语料不产生任何新结论，只增加聚类耗时与失败面；本科版所有结论在 2000 工单规模上已完整成立（`metrics.json` 中 `total_seconds=2.… | `2000` | `年份/日期` | `` |
+| 119 | …0 工单并出具耗时报告。扩展语料不产生任何新结论，只增加聚类耗时与失败面；本科版所有结论在 2000 工单规模上已完整成立（`metrics.json` 中 `total_seconds=3.… | `2000` | `年份/日期` | `` |
 | 126 | …* \| 原方案含 `user` / `audit_log` 两张表与三类角色的完整功能矩阵（3.4 节 8 行权限）。原方案 8.4 已判定「做完整权限系统是纯粹的工程堆砌，无学术价值」，本… | `3.4` | `章节号` | `` |
 | 127 | …de_seconds` / `corrupt.seconds`），不含任何合计秒数，详见 §7.2 的 3b \| | `7.2` | `章节号(§引用)` | `` |
 | 128 | …成论文必需项。向量模型已冻结为 `BAAI/bge-small-zh-v1.5`（技术方案 2.1 节的主链路唯一向量模型），该模型在云端有可用的 `feature-extraction`… | `2.1 (×2)` | `章节号` | `` |
@@ -1666,7 +1680,7 @@
 | 180 | …ters=7，detected_intents=5）；腐化 P/R/F1 = 0.8986/1.0/0.9466（detected=69，tp=62，fp=7，fn=0）；重复 0.95 阈… | `1.0 (×2)` | `章节号(枚举)` | `` |
 | 180 | …86/1.0/0.9466（detected=69，tp=62，fp=7，fn=0）；重复 0.95 阈值下组级与文档级 P/R/F1 均为 1.0（dup_groups=22，detecte… | `0.95 (×2)` | `章节号(枚举)` | `` |
 | 180 | …2，detected_docs=49）。**表下必须加注：0.95 处为乐观值，真实预期见 0.90 组级 F1=0.7037。** \| | `0.90` | `章节号` | `` |
-| 182 | …0 秒为需求阈值，非实测）：向量化 15.43 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.42 秒、三模块检测合计 2.85 秒。答辩现场… | `2000` | `年份/日期` | `` |
+| 182 | …0 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.4 秒、三模块检测合计 3.09 秒。答辩现场可… | `2000` | `年份/日期` | `` |
 | 191 | ## 6. 倒排时间表（W1–W17，2026-10-14 → 2027-02-09） | `2026` | `年份/日期` | `` |
 | 191 | ## 6. 倒排时间表（W1–W17，2026-10-14 → 2027-02-09） | `2027` | `年份/日期` | `` |
 | 193 | > **开发交付窗口 = W1–W10（2026-10-14 → 2026-12-22）**；论文写作自 W1 起逐章并行，W11–W14… | `2026 (×2)` | `年份/日期` | `` |
@@ -1682,7 +1696,7 @@
 | 268 | 1. **禁止手填**：任何数字不得由人工键入论文或 PPT。图表由脚本从上述文件生成，正文数… | `1` | `列表序号` | `` |
 | 269 | 2. **禁止 AI 生成未在产物中出现过的指标**：不得让任何 AI 工具「补一个合理的对比… | `2` | `列表序号` | `` |
 | 270 | 3. **禁止从正文反推产物**：`poc/kbgovernance/RESULT.md` 是… | `3` | `列表序号` | `` |
-| 277 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 15.43 秒 \| `metrics.json` → `e… | `2000` | `年份/日期` | `` |
+| 277 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 14.61 秒 \| `metrics.json` → `e… | `2000` | `年份/日期` | `` |
 | 287 | **7.3 人工标注预算：300 条（不是 500 条）** | `7.3` | `章节号` | `` |
 | 287 | **7.3 人工标注预算：300 条（不是 500 条）** | `300` | `列表序号` | `` |
 | 287 | **7.3 人工标注预算：300 条（不是 500 条）** | `500` | `列表序号` | `` |
@@ -1748,18 +1762,18 @@
 | 16 | …窗口 \| **17 周，2026-10-14 → 2027-02-09**（落在用户给定的 3–4 个月内，取上界） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 16 | …\| **17 周，2026-10-14 → 2027-02-09**（落在用户给定的 3–4 个月内，取上界） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 22 | ### 0.2 为什么开发窗口只有 10 周，且论文必须并行 | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 26 | …PU 推理，没有 GPU 也没有多机，所有实验耗时由一台机器串行承担（当前有效实测：向量化 15.43 秒、三模块检测合计 2.85 秒，均来自 `metrics.json`）。这意味着开发期一… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 26 | …多机，所有实验耗时由一台机器串行承担（当前有效实测：向量化 15.43 秒、三模块检测合计 2.85 秒，均来自 `metrics.json`）。这意味着开发期一旦拖期，**没有任何富余算力去… | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 26 | …期，**没有任何富余算力去并行补跑**。若采用「先做完系统再开始写论文」的串行排法，论文的 6 章全部压在最后 4 周，任何一次导师改稿或查重超标都会把全文顶到答辩周，而答辩周不可压缩。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 26 | …PU 推理，没有 GPU 也没有多机，所有实验耗时由一台机器串行承担（当前有效实测：向量化 14.61 秒、三模块检测合计 3.09 秒，均来自 `metrics.json`）。这意味着开发期一… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 26 | …多机，所有实验耗时由一台机器串行承担（当前有效实测：向量化 14.61 秒、三模块检测合计 3.09 秒，均来自 `metrics.json`）。这意味着开发期一旦拖期，**没有任何富余算力去… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 26 | …期，**没有任何富余算力去并行补跑**。若采用「先做完系统再开始写论文」的串行排法，论文的 6 章全部压在最后 4 周，任何一次导师改稿或查重超标都会把全文顶到答辩周，而答辩周不可压缩。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 26 | …算力去并行补跑**。若采用「先做完系统再开始写论文」的串行排法，论文的 6 章全部压在最后 4 周，任何一次导师改稿或查重超标都会把全文顶到答辩周，而答辩周不可压缩。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 27 | 2. **时间随时可能缩水。** 用户给定的是 3–4 个月区间，本文件取上界 17 周。若实际可用时间只有 13 周，被砍掉的必须是**排在… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 27 | 2. **时间随时可能缩水。** 用户给定的是 3–4 个月区间，本文件取上界 17 周。若实际可用时间只有 13 周，被砍掉的必须是**排在最后… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 27 | 2. **时间随时可能缩水。** 用户给定的是 3–4 个月区间，本文件取上界 17 周。若实际可用时间只有 13 周，被砍掉的必须是**排在最后的写作阶段**，而不是被埋在中… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
-| 27 | …可能缩水。** 用户给定的是 3–4 个月区间，本文件取上界 17 周。若实际可用时间只有 13 周，被砍掉的必须是**排在最后的写作阶段**，而不是被埋在中间的标注与实验。因此本排期把不… | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
-| 28 | …人有空。这块时间**长度不可压缩、起点不可控**，因此被排到 W3 并标为关键路径（详见 §6 的关键路径段）。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 27 | …可能缩水。** 用户给定的是 3–4 个月区间，本文件取上界 17 周。若实际可用时间只有 13 周，被砍掉的必须是**排在最后的写作阶段**，而不是被埋在中间的标注与实验。因此本排期把不… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 28 | …人有空。这块时间**长度不可压缩、起点不可控**，因此被排到 W3 并标为关键路径（详见 §6 的关键路径段）。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 32 | 本文件的 §2（必做范围表）、§3（主动砍掉表）、§6（时间表）必须互相一致：**§6 里出现的每一项功能… | `2 (×3)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 32 | 本文件的 §2（必做范围表）、§3（主动砍掉表）、§6（时间表）必须互相一致：**§6 里出现的每一项功能，都能在 §2 必做… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 32 | 本文件的 §2（必做范围表）、§3（主动砍掉表）、§6（时间表）必须互相一致：**§6 里出现的每一项功能，都能在 §2 必做表里找到对应行；§2… | `6 (×2)` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 32 | 本文件的 §2（必做范围表）、§3（主动砍掉表）、§6（时间表）必须互相一致：**§6 里出现的每一项功能，都能在 §2 必做表里找到对应行；§2… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 36 | ## 1. 题目定稿 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 54 | \| 绝对阈值锚定的是「模型 × 语言」的刻度；同模型同语言内跨场景阈值极差仅 0.0264，跨模型或跨语言则全线崩溃 \| 极差 0.0264：`derived_metrics.csv… | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
 | 55 | \| 中文语料上标定的 `cover ≤ 0.6463` 搬到 banking77（bge-small-en-v1.5）语料，**正向判定一个缺口… | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
@@ -1789,13 +1803,14 @@
 | 78 | \| **M-数据·语料构造** \| 自造中文语料：300 篇文档 / 2000 条工单 / 8 个业务域 / 30 个意图；三类缺陷按可公开说明的规… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 78 | \| **M-数据·语料构造** \| 自造中文语料：300 篇文档 / 2000 条工单 / 8 个业务域 / 30 个意图；三类缺陷按可公开说明的规则埋入；另按逐篇独立抽样埋入「自然陈旧… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 78 | …语料构造** \| 自造中文语料：300 篇文档 / 2000 条工单 / 8 个业务域 / 30 个意图；三类缺陷按可公开说明的规则埋入；另按逐篇独立抽样埋入「自然陈旧但不算缺陷」文档作为… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 78 | …docs.csv` 逐篇给出每篇对照文档的命中规则与 `risk_score` \| 论文第 3 章（需求分析·数据可行性）+ 第 4 章（系统设计·数据构造） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 78 | …档的命中规则与 `risk_score` \| 论文第 3 章（需求分析·数据可行性）+ 第 4 章（系统设计·数据构造） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 78 | …一致性以 `poc/kbgovernance/repro_check.json` 为证**（13 个全链路产物全部一致：字节确定产物逐字节一致，含计时字段的产物剔除计时字段后一致，`.np… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 78 | …的命中规则、`risk_score` 与误报归因（`fp_reason` 列） \| 论文第 3 章（需求分析·数据可行性）+ 第 4 章（系统设计·数据构造） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 78 | …与误报归因（`fp_reason` 列） \| 论文第 3 章（需求分析·数据可行性）+ 第 4 章（系统设计·数据构造） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 79 | \| **M-数据·人工校验** \| 随机抽取 10% 文档与 10% 工单人工复核内容合理性；三类缺陷清单各抽 20 条人工验证标注正确性；双… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
 | 79 | …工校验** \| 随机抽取 10% 文档与 10% 工单人工复核内容合理性；三类缺陷清单各抽 20 条人工验证标注正确性；双人独立标注 \| 人工复核记录表交付；双人标注的 Cohen's K… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
 | 79 | …人工复核记录表交付；双人标注的 Cohen's Kappa 计算结果写入实验章节（目标 ≥ 0.8，未达 0.8 必须在正文写明实际值与处理方式） \| 论文第 3 章 + 第 6 章（实验·… | `0.8 (×2)` | `metrics.json:gap.best.precision` | `0.8` |
 | 79 | …写入实验章节（目标 ≥ 0.8，未达 0.8 必须在正文写明实际值与处理方式） \| 论文第 3 章 + 第 6 章（实验·数据可信度） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 79 | …标 ≥ 0.8，未达 0.8 必须在正文写明实际值与处理方式） \| 论文第 3 章 + 第 6 章（实验·数据可信度） \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 79 | …标 ≥ 0.8，未达 0.8 必须在正文写明实际值与处理方式） \| 论文第 3 章 + 第 6 章（实验·数据可信度） \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 80 | …v` 输出；`metrics.json` 中 `gap.best` 为 threshold=0.62、gap_clusters=7、detected_intents=5、P/R/F1=0.8/… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
 | 80 | …n` 中 `gap.best` 为 threshold=0.62、gap_clusters=7、detected_intents=5、P/R/F1=0.8/0.8/0.8，与正文一致 \|… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 80 | …hreshold=0.62、gap_clusters=7、detected_intents=5、P/R/F1=0.8/0.8/0.8，与正文一致 \| 论文第 5 章（核心算法·覆盖度计算… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
@@ -1803,11 +1818,11 @@
 | 81 | \| **M-腐化检测** \| 4 条时效性规则（R1 正文过期日期 / R2 更新时间超 18 个月 / R3 正文含绝对过期年份 / R4 同类存在更新文档）+ 加权打分 + 阈值判定… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
 | 81 | …csv` 输出；`metrics.json` 中 `corrupt` 为 embedded=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
 | 81 | …rics.json` 中 `corrupt` 为 embedded=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seco… | `69` | `metrics.json:corrupt.detected` | `69` |
-| 81 | …`corrupt` 为 embedded=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.42；**… | `7 (×3)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 81 | …rupt` 为 embedded=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.42；**防作弊对照… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 81 | …mbedded=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.42；**防作弊对照文档的判定结果必须逐篇落盘并… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
-| 81 | …detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.42；**防作弊对照文档的判定结果必须逐篇落盘并在正文如实报告**——… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 81 | …如实报告**——当前实测：7 篇误报**全部只由日期驱动的 R2 + R4 触发**，其中 6 篇来自防作弊对照集，第 7 篇是重复件继承了主文档的陈旧 `last_modified`… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 81 | …`corrupt` 为 embedded=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.4；**防… | `7 (×3)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 81 | …rupt` 为 embedded=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.4；**防作弊对照文… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 81 | …mbedded=62、detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.4；**防作弊对照文档的判定结果必须逐篇落盘并在… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
+| 81 | …detected=69、tp=62、fp=7、fn=0、P/R/F1=0.8986/1.0/0.9466、seconds=0.4；**防作弊对照文档的判定结果必须逐篇落盘并在正文如实报告**——当… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 81 | …如实报告**——当前实测：7 篇误报**全部只由日期驱动的 R2 + R4 触发**，其中 6 篇来自防作弊对照集，第 7 篇是重复件继承了主文档的陈旧 `last_modified`… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 81 | …弊对照集，第 7 篇是重复件继承了主文档的陈旧 `last_modified` \| 论文第 5 章（时效性规则引擎） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 82 | …v` 输出；`metrics.json` 中 `dup.best` 为 threshold=0.95、dup_groups=22、detected_docs=49、group P/R/F1=1… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
 | 82 | …son` 中 `dup.best` 为 threshold=0.95、dup_groups=22、detected_docs=49、group P/R/F1=1.0/1.0/1.0；**同… | `22` | `metrics.json:dup.embedded_groups` | `22` |
@@ -1821,11 +1836,11 @@
 | 83 | …（5 种打分 × 2 种粒度共 10 行，n_tickets=2000、n_labeled=371 逐行一致）。图表只能从该 CSV 生成，不允许从任何叙述性文档抄数。同时须如实呈现 `do… | `371` | `ground_truth.json:gap_ticket_count` | `371` |
 | 83 | …不允许从任何叙述性文档抄数。同时须如实呈现 `doc_level/max-min` 意图级 0.928 > `doc_level/max-cosine` 0.8880 这一反向点 \| 论文第 6… | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
 | 83 | …l/max-min` 意图级 0.928 > `doc_level/max-cosine` 0.8880 这一反向点 \| 论文第 6 章（实验·E2） \| | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 83 | …8 > `doc_level/max-cosine` 0.8880 这一反向点 \| 论文第 6 章（实验·E2） \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 83 | …8 > `doc_level/max-cosine` 0.8880 这一反向点 \| 论文第 6 章（实验·E2） \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 84 | …组级/文档级 P/R/F1 与耗时 \| `dup_threshold.csv` 至少包含 0.85 / 0.90 / 0.95 三行（本文件写作时该文件已含这三行）；正文曲线点与文件逐行对应… | `0.85` | `metrics.json:dup.rows[0].threshold` | `0.85` |
 | 84 | …P/R/F1 与耗时 \| `dup_threshold.csv` 至少包含 0.85 / 0.90 / 0.95 三行（本文件写作时该文件已含这三行）；正文曲线点与文件逐行对应 \| 论文第… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
 | 84 | …与耗时 \| `dup_threshold.csv` 至少包含 0.85 / 0.90 / 0.95 三行（本文件写作时该文件已含这三行）；正文曲线点与文件逐行对应 \| 论文第 6 章（实验·… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 84 | …/ 0.95 三行（本文件写作时该文件已含这三行）；正文曲线点与文件逐行对应 \| 论文第 6 章（实验·E6） \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 84 | …/ 0.95 三行（本文件写作时该文件已含这三行）；正文曲线点与文件逐行对应 \| 论文第 6 章（实验·E6） \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 85 | \| **M-消融·腐化规则消融** \| 逐条移除 R1–R4（4 组）＋仅单条规则（4 组），输出每组的 P/R/F1、命中篇数与 `delta_f1` \|… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 85 | ….csv`**（`all` + `drop_R1–R4` + `only_R1–R4` 共 9 行）。须同时给出三条结论：① 四条联合 F1=0.9466，去掉任一条都掉到 0.6809… | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
 | 85 | …R4` + `only_R1–R4` 共 9 行）。须同时给出三条结论：① 四条联合 F1=0.9466，去掉任一条都掉到 0.6809–0.6857；② `drop_R3` 的 `delta_f… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
@@ -1833,13 +1848,13 @@
 | 85 | …行）。须同时给出三条结论：① 四条联合 F1=0.9466，去掉任一条都掉到 0.6809–0.6857；② `drop_R3` 的 `delta_f1=0`，R3 与其余规则语义冗余；③ `on… | `0.6857` | `corrupt_rule_ablation.csv:f1[row=2][0]` | `0.6857` |
 | 85 | …掉任一条都掉到 0.6809–0.6857；② `drop_R3` 的 `delta_f1=0`，R3 与其余规则语义冗余；③ `only_R2 / only_R3 / only_R4`… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 85 | …冗余；③ `only_R2 / only_R3 / only_R4` 单独使用 F1 均为 0.0，说明腐化判定必须由多条规则联合支撑 \| 论文第 6 章（实验·E5） \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 85 | …ly_R4` 单独使用 F1 均为 0.0，说明腐化判定必须由多条规则联合支撑 \| 论文第 6 章（实验·E5） \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 85 | …ly_R4` 单独使用 F1 均为 0.0，说明腐化判定必须由多条规则联合支撑 \| 论文第 6 章（实验·E5） \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 86 | …命令启动；走通「上传 → 扫描 → 看三类清单 → 下载 CSV」全链路；单次全量扫描 ≤ 60 秒（**该 60 秒为需求阈值，非实测**；实测分项见 `metrics.json`：`e… | `60 (×2)` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
-| 86 | …测分项见 `metrics.json`：`embedding.encode_seconds=15.43`、`total_seconds=2.85`、`corrupt.seconds=0.42`，… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 86 | …mbedding.encode_seconds=15.43`、`total_seconds=2.85`、`corrupt.seconds=0.42`，余量充足）；页面响应 ≤ 2 秒（同为需求… | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 86 | …=15.43`、`total_seconds=2.85`、`corrupt.seconds=0.42`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构… | `0.42` | `metrics.json:corrupt.seconds` | `0.42` |
-| 86 | …nds=2.85`、`corrupt.seconds=0.42`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 86 | ….seconds=0.42`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图 3 张） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 86 | …测分项见 `metrics.json`：`embedding.encode_seconds=14.61`、`total_seconds=3.09`、`corrupt.seconds=0.4`，余… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 86 | …mbedding.encode_seconds=14.61`、`total_seconds=3.09`、`corrupt.seconds=0.4`，余量充足）；页面响应 ≤ 2 秒（同为需求阈… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 86 | …=14.61`、`total_seconds=3.09`、`corrupt.seconds=0.4`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构… | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
+| 86 | …onds=3.09`、`corrupt.seconds=0.4`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 86 | …t.seconds=0.4`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图 3 张） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 86 | …秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图 3 张） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 87 | …些文件生成 \| 论文中每一个数字都能用「文件名 + 字段名」指出出处；手工填入的数字数量为 0 \| 贯穿全文，见 §7 数字纪律条款 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 87 | …一个数字都能用「文件名 + 字段名」指出出处；手工填入的数字数量为 0 \| 贯穿全文，见 §7 数字纪律条款 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
@@ -1859,20 +1874,20 @@
 | 108 | \| 界面截图 4 张 \| **界面截图 3 张**（上传页 / 扫描结果总览页 / 三类缺陷清单页） \| 「界面截图第 4 张与导出页… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 112 | ## 3. 主动砍掉表 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 115 | > 本表前六行为**为 17 周排期而砍**，与 §2.2 的收缩表逐条对应；其余各行为立论层面的裁剪，与时间长短无关。 | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
-| 119 | …00 工单规模上已完整成立（`metrics.json` 中 `total_seconds=2.85`、`embedding.encode_seconds=15.43`）。 \| W1–W10… | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 119 | …total_seconds=2.85`、`embedding.encode_seconds=15.43`）。 \| W1–W10 全部验收关卡提前通过，且导师明确要求展示规模适应性 \| | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
+| 119 | …00 工单规模上已完整成立（`metrics.json` 中 `total_seconds=3.09`、`embedding.encode_seconds=14.61`）。 \| W1–W10… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 119 | …total_seconds=3.09`、`embedding.encode_seconds=14.61`）。 \| W1–W10 全部验收关卡提前通过，且导师明确要求展示规模适应性 \| | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 120 | …分页 / 排序 / 跳转详情** \| 原形态是「分页 + 列排序 + 点击跳转独立详情页」。17 周排期下这三项合计约占 W8 的一半，而三类清单总共只有 49 / 69 / 22 条量级… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 120 | …+ 点击跳转独立详情页」。17 周排期下这三项合计约占 W8 的一半，而三类清单总共只有 49 / 69 / 22 条量级的行数（`metrics.json` 的 `dup.best`… | `49` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
 | 120 | …跳转独立详情页」。17 周排期下这三项合计约占 W8 的一半，而三类清单总共只有 49 / 69 / 22 条量级的行数（`metrics.json` 的 `dup.best` / `co… | `69` | `metrics.json:corrupt.detected` | `69` |
 | 120 | …情页」。17 周排期下这三项合计约占 W8 的一半，而三类清单总共只有 49 / 69 / 22 条量级的行数（`metrics.json` 的 `dup.best` / `corrupt… | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 122 | …户下无瓶颈」——这与 `metrics.json` 已给出的 `total_seconds=2.85` / `embedding.encode_seconds=15.43` 是同一句话。**1… | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 122 | …tal_seconds=2.85` / `embedding.encode_seconds=15.43` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 122 | …5` / `embedding.encode_seconds=15.43` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
+| 122 | …户下无瓶颈」——这与 `metrics.json` 已给出的 `total_seconds=3.09` / `embedding.encode_seconds=14.61` 是同一句话。**1… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 122 | …tal_seconds=3.09` / `embedding.encode_seconds=14.61` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 122 | …9` / `embedding.encode_seconds=14.61` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 122 | …` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的粗测，不做完整压测报告） \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 122 | …是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的粗测，不做完整压测报告） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 122 | …一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的粗测，不做完整压测报告） \| | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 123 | …跑出来的不一致，反而成为被追问的把柄。**降级为答辩现场直接跑系统**（当前实测端到端 ≈ 2.85 秒检测 + 15.43 秒向量化，现场跑得动）。 \| 学院强制要求提交演示视频（此时录一段… | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 123 | …为被追问的把柄。**降级为答辩现场直接跑系统**（当前实测端到端 ≈ 2.85 秒检测 + 15.43 秒向量化，现场跑得动）。 \| 学院强制要求提交演示视频（此时录一段不剪辑的屏幕录制即可）… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
+| 123 | …跑出来的不一致，反而成为被追问的把柄。**降级为答辩现场直接跑系统**（当前实测端到端 ≈ 3.09 秒检测 + 14.61 秒向量化，现场跑得动）。 \| 学院强制要求提交演示视频（此时录一段… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 123 | …为被追问的把柄。**降级为答辩现场直接跑系统**（当前实测端到端 ≈ 3.09 秒检测 + 14.61 秒向量化，现场跑得动）。 \| 学院强制要求提交演示视频（此时录一段不剪辑的屏幕录制即可）… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 124 | \| **界面截图第 4 张与导出页截图** \| 报告导出功能已按上一行砍掉，「导出页」因此不存在。第 4 张截图降… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 124 | …已按上一行砍掉，「导出页」因此不存在。第 4 张截图降级为「三类缺陷清单页」截图，最终 **3 张**：上传页 / 扫描结果总览页 / 三类缺陷清单页。这 3 张已覆盖老师红线要求的界面… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 126 | …案含 `user` / `audit_log` 两张表与三类角色的完整功能矩阵（3.4 节 8 行权限）。原方案 8.4 已判定「做完整权限系统是纯粹的工程堆砌，无学术价值」，本科版进一… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
@@ -1887,7 +1902,7 @@
 | 132 | \| **聚类参数敏感性全扫描（mcs ∈ {3,5,10,15,20}）** \| 原 E4 设计为五点折线。实测 `gap_threshold.csv`… | `15 (×2)` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
 | 132 | \| **聚类参数敏感性全扫描（mcs ∈ {3,5,10,15,20}）** \| 原 E4 设计为五点折线。实测 `gap_threshold.csv` 已含… | `20 (×2)` | `dup_groups_best.csv:group[row=20][0]` | `20` |
 | 132 | …` 已含 mcs=5 与 mcs=10 两组完整结果，两组在 0.62 阈值下 F1 同为 0.8，足以支撑「F1 对聚类粒度不敏感」这一句结论。 \| 导师要求完整敏感性曲线（此时补 mcs… | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 133 | …量扫描（UC5）** \| 需要外部数据源与调度器。本科版改为「手动点击重新扫描」，全量扫描 2.85 秒，无需增量。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量… | `2.85` | `metrics.json:total_seconds` | `2.85` |
+| 133 | …量扫描（UC5）** \| 需要外部数据源与调度器。本科版改为「手动点击重新扫描」，全量扫描 3.09 秒，无需增量。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量… | `3.09` | `metrics.json:total_seconds` | `3.09` |
 | 133 | …00 后，全量扫描将慢到不可用。10000 是按当前规模线性外推的规划容量，而实测语料只有 300 篇（`metrics.json` → `embedding.n_docs`），故这是一个未… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 133 | …onds` / `corrupt.seconds`），不含任何合计秒数，详见 §7.2 的 3b \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 135 | \| **在线文档编辑（UC1 全文 CRUD）** \| 原方案降级条件 3 已写明「砍掉在线编辑，只保留上传 + 扫描 + 报告」。 \| 无（本项已由原方案判定为降级… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
@@ -1913,7 +1928,7 @@
 | 147 | …op5mean` 0.920、`max/top5mean` 0.888、`max/std` 0.704，即 **0.704–0.920**；整篇级（`doc_level`）同三种打分对应 0.8… | `0.704 (×2)` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
 | 147 | …**0.704–0.920**；整篇级（`doc_level`）同三种打分对应 0.832、0.776、0.496，即 **0.496–0.832**。这一张 6 行小表说明「改进方向是改粒度而… | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
 | 147 | …4–0.920**；整篇级（`doc_level`）同三种打分对应 0.832、0.776、0.496，即 **0.496–0.832**。这一张 6 行小表说明「改进方向是改粒度而不是做文档级… | `0.496 (×2)` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 147 | …种打分对应 0.832、0.776、0.496，即 **0.496–0.832**。这一张 6 行小表说明「改进方向是改粒度而不是做文档级统计变换」，同时暴露「文档级做归一化反而损失更多… | `6 (×2)` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 147 | …种打分对应 0.832、0.776、0.496，即 **0.496–0.832**。这一张 6 行小表说明「改进方向是改粒度而不是做文档级统计变换」，同时暴露「文档级做归一化反而损失更多… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 148 | \| **E4** \| 聚类参数敏感性（mcs ∈ {3,5,10,15,20}，F1 / 簇数 / 噪声） \| **降级为讨论** \| 见 §3「… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 148 | \| **E4** \| 聚类参数敏感性（mcs ∈ {3,5,10,15,20}，F1 / 簇数 / 噪声） \| **降级为讨论** \| 见 §3「主动… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 148 | \| **E4** \| 聚类参数敏感性（mcs ∈ {3,5,10,15,20}，F1 / 簇数 / 噪声） \| **降级为讨论** \| 见 §3「主动砍掉表… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
@@ -1930,7 +1945,7 @@
 | 149 | …作）；③ `only_R2 / only_R3 / only_R4` 单独使用 F1 全为 0.0，`only_R1` 单独也只有 0.6809，印证「单条规则不足以判定腐化」。命中篇数亦可… | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 149 | …「单条规则不足以判定腐化」。命中篇数亦可引 `docs_with_hit` 列（`all` 114 篇、`drop_R4` 69 篇、`only_R4` 88 篇）。 \| **已有，无需补*… | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
 | 149 | …篇数亦可引 `docs_with_hit` 列（`all` 114 篇、`drop_R4` 69 篇、`only_R4` 88 篇）。 \| **已有，无需补**（`corrupt_rule… | `69` | `metrics.json:corrupt.detected` | `69` |
-| 149 | …h_hit` 列（`all` 114 篇、`drop_R4` 69 篇、`only_R4` 88 篇）。 \| **已有，无需补**（`corrupt_rule_ablation.csv`，… | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
+| 149 | …h_hit` 列（`all` 114 篇、`drop_R4` 69 篇、`only_R4` 88 篇）。 \| **已有，无需补**（`corrupt_rule_ablation.csv`，… | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
 | 150 | \| **E6** \| 重复阈值扫描（0.80–0.98，组级 P/R/F1） \| **保留** \| `dup_threshold.csv… | `0.80 (×2)` | `metrics.json:gap.best.precision` | `0.8` |
 | 150 | …，组级 P/R/F1） \| **保留** \| `dup_threshold.csv` 已有 0.85 / 0.90 / 0.95 三行完整结果。这条曲线同时承担两个作用：给出选阈值的依据，以及… | `0.85` | `metrics.json:dup.rows[0].threshold` | `0.85` |
 | 150 | …/F1） \| **保留** \| `dup_threshold.csv` 已有 0.85 / 0.90 / 0.95 三行完整结果。这条曲线同时承担两个作用：给出选阈值的依据，以及暴露「0.95… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
@@ -1940,13 +1955,13 @@
 | 151 | \| **E7** \| 阈值可迁移性（5 个自造场景 α/β/γ/γ-X/δ + banking77 双模型，迁移后 F1 与 AU… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 151 | …X/δ + banking77 双模型，迁移后 F1 与 AUC 衰减） \| **降级为 ≤1 页**（不单独成表成图） \| 变体 C 题目不含可迁移性承诺（§1.2）。该实验的结论是负… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 151 | …诺（§1.2）。该实验的结论是负的（跨模型跨语言全线崩溃），负结果需要整整一章篇幅才能讲透，17 周窗口内会挤掉系统实现。**正文形态：第 6 章实验与结果中一小节「绝对阈值的使用边界」，… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
-| 151 | …全线崩溃），负结果需要整整一章篇幅才能讲透，17 周窗口内会挤掉系统实现。**正文形态：第 6 章实验与结果中一小节「绝对阈值的使用边界」，约 1 页，含三档边界表（同模型同语言 / 换… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 151 | …全线崩溃），负结果需要整整一章篇幅才能讲透，17 周窗口内会挤掉系统实现。**正文形态：第 6 章实验与结果中一小节「绝对阈值的使用边界」，约 1 页，含三档边界表（同模型同语言 / 换… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 151 | …不进正文。实际产物为 `standardize/results_transfer.csv`（32 行 = 8 方案 × 4 目标场景，逐行给出迁移后 F1 / P / R、检出意图数、目标… | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
 | 151 | …产物为 `standardize/results_transfer.csv`（32 行 = 8 方案 × 4 目标场景，逐行给出迁移后 F1 / P / R、检出意图数、目标场景最优 F… | `8 (×2)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 151 | …andardize/results_transfer.csv`（32 行 = 8 方案 × 4 目标场景，逐行给出迁移后 F1 / P / R、检出意图数、目标场景最优 F1 与 AUC… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 152 | \| **E8** \| 单调等价性验证（8 种打分 × Spearman ρ / AUC） \| **降级为 ≤1 页**（不单独成表成… | `8 (×3)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 152 | …\| 单调等价性验证（8 种打分 × Spearman ρ / AUC） \| **降级为 ≤1 页**（不单独成表成图） \| 与 E7 同源：属于「阈值可迁移性评测」这一被砍掉的立论链。… | `1 (×3)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 152 | …严格单调变换不改变 AUC）是已知事实，在变体 C 题目下没有原创性落点。**正文形态：第 6 章中一小节「严格单调变换不改变 AUC」，约 1 页，含命题陈述 + 3 行证明 + 1… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 152 | …严格单调变换不改变 AUC）是已知事实，在变体 C 题目下没有原创性落点。**正文形态：第 6 章中一小节「严格单调变换不改变 AUC」，约 1 页，含命题陈述 + 3 行证明 + 1… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 152 | …**正文形态：第 6 章中一小节「严格单调变换不改变 AUC」，约 1 页，含命题陈述 + 3 行证明 + 1 张 8 种打分秩等价表**，定位是「用一张表把一整类『归一化更鲁棒』的说法… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 152 | …献点。`standardize/mechanism.csv` 保留在仓库。**若导师认为连 2 页都不该给，直接删掉这两小节**（见 §8 风险三第 5 条）。 \| 已有数据，无需补 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 152 | …` 保留在仓库。**若导师认为连 2 页都不该给，直接删掉这两小节**（见 §8 风险三第 5 条）。 \| 已有数据，无需补 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
@@ -1969,12 +1984,12 @@
 | 158 | \| **E14** \| 固定检出比例曲线（10%–30%，F1 标准差 / 平均 F1） \| **砍掉** \| 同 E13：服务于「如何公平比较不… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
 | 160 | **裁剪后进入论文的实验共 4 条**：E1（阈值扫描）、E2（段落级 vs 整篇级）、E5（腐化规则消融）、E6（重复阈… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 162 | **E7、E8 两条降级为「各 ≤1 页的小节」并入第 6 章**（合计上限 2 页）：E8 给命题 5.1 的陈述 + 3 行… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 162 | **E7、E8 两条降级为「各 ≤1 页的小节」并入第 6 章**（合计上限 2 页）：E8 给命题 5.1 的陈述 + 3 行证明 + 1 张秩等价… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 162 | **E7、E8 两条降级为「各 ≤1 页的小节」并入第 6 章**（合计上限 2 页）：E8 给命题 5.1 的陈述 + 3 行证明 + 1 张秩等价… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 162 | **E7、E8 两条降级为「各 ≤1 页的小节」并入第 6 章**（合计上限 2 页）：E8 给命题 5.1 的陈述 + 3 行证明 + 1 张秩等价表，E7 给绝对阈值的… | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 162 | …≤1 页的小节」并入第 6 章**（合计上限 2 页）：E8 给命题 5.1 的陈述 + 3 行证明 + 1 张秩等价表，E7 给绝对阈值的三档使用边界表。二者合计仍不足全文 3%，且… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 162 | …接落地的工程结论」而非方法论创新；若导师认为连 2 页都不该给，直接删掉这两小节即可（见 §8 风险三第 5 条）。 | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 162 | …论」而非方法论创新；若导师认为连 2 页都不该给，直接删掉这两小节即可（见 §8 风险三第 5 条）。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 164 | **E9–E14 共 6 条全部砍掉**，数据文件保留在仓库，答辩被追问时直接引用实测值作答。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 164 | **E9–E14 共 6 条全部砍掉**，数据文件保留在仓库，答辩被追问时直接引用实测值作答。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 168 | ## 5. 图表清单（裁剪版） | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 170 | > **数据来源文件路径已逐一核对存在于 `D:/26code/毕设/poc/kbgovernance/` 下**（含 `standardize/… | `26` | `metrics.json:gap.cluster_rows[4].detected_intents` | `26` |
 | 171 | > 下表每一项图表的数据源均已落盘，图 3-2 与表 4-2 分别取自 `granularity.csv` 与 `corrupt_ru… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
@@ -2025,15 +2040,15 @@
 | 181 | …—`only_R2 / only_R3 / only_R4` 的 F1 全为 0.0（召回 62 篇全漏），`only_R1` 也只有 0.6809。命中篇数取 `docs_with_hi… | `62` | `metrics.json:corrupt.embedded` | `62` |
 | 181 | …_R1` 也只有 0.6809。命中篇数取 `docs_with_hit` 列（`all` 114、`drop_R4` 69、`only_R4` 88）。 \| | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
 | 181 | …9。命中篇数取 `docs_with_hit` 列（`all` 114、`drop_R4` 69、`only_R4` 88）。 \| | `69` | `metrics.json:corrupt.detected` | `69` |
-| 181 | …_with_hit` 列（`all` 114、`drop_R4` 69、`only_R4` 88）。 \| | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
+| 181 | …_with_hit` 列（`all` 114、`drop_R4` 69、`only_R4` 88）。 \| | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
 | 182 | \| 表4-3 \| 全链路耗时表 \| `metrics.json`（`embedding.encode… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 182 | …econds` / `total_seconds`） \| 对照非功能需求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 15.43 秒（4152 条文本 = 30… | `60 (×2)` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
-| 182 | …\| 对照非功能需求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 15.43 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 182 | …求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 15.43 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.42 秒… | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
-| 182 | …60 秒」（该 60 秒为需求阈值，非实测）：向量化 15.43 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.42 秒、三模块检测合计 2… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 182 | …实测）：向量化 15.43 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.42 秒、三模块检测合计 2.85 秒。答辩现场可当场复跑验证。 \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
-| 182 | …秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.42 秒、三模块检测合计 2.85 秒。答辩现场可当场复跑验证。 \| | `0.42` | `metrics.json:corrupt.seconds` | `0.42` |
-| 182 | …0 文档 + 2000 工单 + 1852 段落）、腐化检测 0.42 秒、三模块检测合计 2.85 秒。答辩现场可当场复跑验证。 \| | `2.85` | `metrics.json:total_seconds` | `2.85` |
+| 182 | …econds` / `total_seconds`） \| 对照非功能需求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 30… | `60 (×2)` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
+| 182 | …\| 对照非功能需求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 182 | …求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.4 秒、… | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
+| 182 | …60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.4 秒、三模块检测合计 3.… | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 182 | …实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.4 秒、三模块检测合计 3.09 秒。答辩现场可当场复跑验证。 \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
+| 182 | …秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.4 秒、三模块检测合计 3.09 秒。答辩现场可当场复跑验证。 \| | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
+| 182 | …00 文档 + 2000 工单 + 1852 段落）、腐化检测 0.4 秒、三模块检测合计 3.09 秒。答辩现场可当场复跑验证。 \| | `3.09` | `metrics.json:total_seconds` | `3.09` |
 | 183 | \| 图3-6 \| 系统架构图 \| 不适用（非数据图表） \| 三层架构：展示层（FastAPI 轻量看… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 184 | \| 图3-7 \| ER 图 \| 不适用（非数据图表） \| 裁剪后实体：`document`、`tic… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 185 | \| 图3-8 \| 系统界面截图（**3 张**） \| 不适用（运行截图） \| 上传页 / 扫描结果总… | `3 (×3)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
@@ -2042,22 +2057,22 @@
 | 187 | **裁剪后图表总数：8 张图（含 3 张非数据图）+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 1… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 187 | **裁剪后图表总数：8 张图（含 3 张非数据图）+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 16 项，净减 5 项。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
 | 187 | …总数：8 张图（含 3 张非数据图）+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 16 项，净减 5 项。 | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 187 | …张图（含 3 张非数据图）+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 16 项，净减 5 项。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 187 | …张图（含 3 张非数据图）+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 16 项，净减 5 项。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 187 | …3 张非数据图）+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 16 项，净减 5 项。 | `16` | `metrics.json:gap.cluster_rows[7].detected_intents` | `16` |
 | 187 | …+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 16 项，净减 5 项。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 191 | ## 6. 倒排时间表（W1–W17，2026-10-14 → 2027-02-09） | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 191 | ## 6. 倒排时间表（W1–W17，2026-10-14 → 2027-02-09） | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 195 | > 「论文并行章」列给出本周动笔的论文章节。**写作不等到系统做完**：W1 就开第 1 章，每个开发阶段结束立即写对应章节，不留到 W11 之后集中写。理由见 §0.2。 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 199 | \| **W1** \| 10-14 → 10-20 \| 定题与方案裁剪 \| 本文件定稿；题目定为变体 C；§2 必做表与… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
 | 199 | …* \| 10-14 → 10-20 \| 定题与方案裁剪 \| 本文件定稿；题目定为变体 C；§2 必做表与 §3 砍掉表逐项签字确认 \| 第 1 章绪论（初稿） \| **G1：题目与范围锁… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 199 | …4 → 10-20 \| 定题与方案裁剪 \| 本文件定稿；题目定为变体 C；§2 必做表与 §3 砍掉表逐项签字确认 \| 第 1 章绪论（初稿） \| **G1：题目与范围锁定**——范围再… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 199 | …案裁剪 \| 本文件定稿；题目定为变体 C；§2 必做表与 §3 砍掉表逐项签字确认 \| 第 1 章绪论（初稿） \| **G1：题目与范围锁定**——范围再扩需导师签字，之后只减不加 \|… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 200 | \| **W2** \| 10-21 → 10-27 \| 语料重跑与可复现性验证 \| `gen_data.py` 重跑；`… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 200 | …csv` / `ground_truth.json`；连续两次 md5 一致的记录 \| 第 2 章相关技术（初稿） \| **G2：语料可复现**——两次运行 md5 不一致则本阶段不通过… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 200 | …truth.json`；`repro_check.json`（两次运行一致性证据） \| 第 2 章相关技术（初稿） \| **G2：语料可复现**——`repro_check.json`… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 201 | \| **W3** \| 10-28 → 11-03 \| **人工标注（关键路径）** \| 300 条人工标注（见 §7.… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
 | 201 | \| **W3** \| 10-28 → 11-03 \| **人工标注（关键路径）** \| 300 条人工标注（见 §7.3）；其中 ≥1… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
 | 201 | \| **W3** \| 10-28 → 11-03 \| **人工标注（关键路径）** \| 300 条人工标注（见 §7.3）；其中 ≥100 条双人独立标注；Cohen's Kappa 计… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 201 | …）；其中 ≥100 条双人独立标注；Cohen's Kappa 计算结果与混淆矩阵 \| 第 2 章（定稿）+ 第 6 章实验设置小节（Kappa 与标注规程） \| **G3：Kappa… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 201 | …双人独立标注；Cohen's Kappa 计算结果与混淆矩阵 \| 第 2 章（定稿）+ 第 6 章实验设置小节（Kappa 与标注规程） \| **G3：Kappa 值写入实验章节**——… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 201 | …双人独立标注；Cohen's Kappa 计算结果与混淆矩阵 \| 第 2 章（定稿）+ 第 6 章实验设置小节（Kappa 与标注规程） \| **G3：Kappa 值写入实验章节**——… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 201 | …（Kappa 与标注规程） \| **G3：Kappa 值写入实验章节**——Kappa < 0.8 必须在正文写明实际值与处理方式；< 0.6 触发降级（见下方关卡表） \| 输入 W2 的… | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
 | 201 | …appa 值写入实验章节**——Kappa < 0.8 必须在正文写明实际值与处理方式；< 0.6 触发降级（见下方关卡表） \| 输入 W2 的 `ground_truth.json`（标注… | `0.6` | `metrics.json:gap.cluster_rows[3].threshold` | `0.6` |
 | 202 | \| **W4** \| 11-04 → 11-10 \| 三模块全链路重跑 \| `metrics.json` 全量刷新；`… | `11 (×2)` | `dup_groups_best.csv:group[row=11][0]` | `11` |
@@ -2068,7 +2083,7 @@
 | 203 | …1-17 \| 实验图表化（一）：E2 段落级 vs 整篇级 + E5 腐化规则消融 \| 图 3-2（`passage_level/max-cosine`、`doc_level/max-c… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 203 | …vel/max-cosine`、`doc_level/max-min` 三条 ROC）与表 4-2（9 行），全部由 `granularity.csv` / `corrupt_rule_… | `4 (×3)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 203 | …max-cosine`、`doc_level/max-min` 三条 ROC）与表 4-2（9 行），全部由 `granularity.csv` / `corrupt_rule_abla… | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 203 | …csv` 脚本化生成，**不重跑实验** \| 第 4 章系统设计（架构图、模块图、ER 图、6 张表 DDL） \| **G5：图 3-2 的每个 AUC 都能在 `granularity… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 203 | …csv` 脚本化生成，**不重跑实验** \| 第 4 章系统设计（架构图、模块图、ER 图、6 张表 DDL） \| **G5：图 3-2 的每个 AUC 都能在 `granularity… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 203 | …ity.csv` 逐行指出**——含反向点 `doc_level/max-min` 意图级 0.928，正反证据不得只报其一；**表 4-2 必须含 `drop_R3` 的 `delta_f1=… | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
 | 203 | …，正反证据不得只报其一；**表 4-2 必须含 `drop_R3` 的 `delta_f1=0` 与 `only_R2/R3/R4` 的 F1=0.0** \| 输入 W4 的 `gran… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 203 | …rop_R3` 的 `delta_f1=0` 与 `only_R2/R3/R4` 的 F1=0.0** \| 输入 W4 的 `granularity.csv` 与 `corrupt_rule… | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
@@ -2078,22 +2093,22 @@
 | 204 | …图 3-3 / 图 3-4；表 4-1 三模块主指标汇总；表 4-3 全链路耗时表 \| 第 5 章核心算法（段落切分、覆盖度聚合、聚类、腐化规则、重复检测） \| **G6：全部实验图表可… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 205 | \| **W7** \| 11-25 → 12-01 \| 系统骨架 + 上传与扫描 \| FastAPI 项目骨架 + SQ… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
 | 205 | \| **W7** \| 11-25 → 12-01 \| 系统骨架 + 上传与扫描 \| FastAPI 项目骨架 + SQLite 建表（… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 205 | …-01 \| 系统骨架 + 上传与扫描 \| FastAPI 项目骨架 + SQLite 建表（6 张）；`run_all.sh` 接入；上传页；「一键扫描」接口与按钮 \| 第 5 章（定稿… | `6 (×2)` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 205 | …-01 \| 系统骨架 + 上传与扫描 \| FastAPI 项目骨架 + SQLite 建表（6 张）；`run_all.sh` 接入；上传页；「一键扫描」接口与按钮 \| 第 5 章（定稿… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 205 | …e 建表（6 张）；`run_all.sh` 接入；上传页；「一键扫描」接口与按钮 \| 第 5 章（定稿）+ 第 4 章界面截图 3 张拍摄 \| **G7：上传 → 扫描 → 落库端到端… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 205 | …run_all.sh` 接入；上传页；「一键扫描」接口与按钮 \| 第 5 章（定稿）+ 第 4 章界面截图 3 张拍摄 \| **G7：上传 → 扫描 → 落库端到端通**，`/docs`… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 205 | …sh` 接入；上传页；「一键扫描」接口与按钮 \| 第 5 章（定稿）+ 第 4 章界面截图 3 张拍摄 \| **G7：上传 → 扫描 → 落库端到端通**，`/docs` 可访问，6 张… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 206 | \| **W8** \| 12-02 → 12-08 \| 三类清单页（列表 + 展开详情） \| 缺口 / 腐化 / 重复三… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 206 | …下载（直接挂载 `poc/kbgovernance/` 下现成文件，不做报告生成） \| 第 6 章实验与结果（初稿，图 3-1~3-5、表 4-1~4-3 进稿） \| **G8：三页数字… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 206 | …下载（直接挂载 `poc/kbgovernance/` 下现成文件，不做报告生成） \| 第 6 章实验与结果（初稿，图 3-1~3-5、表 4-1~4-3 进稿） \| **G8：三页数字… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 206 | …bgovernance/` 下现成文件，不做报告生成） \| 第 6 章实验与结果（初稿，图 3-1~3-5、表 4-1~4-3 进稿） \| **G8：三页数字与 `metrics.jso… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 206 | …e/` 下现成文件，不做报告生成） \| 第 6 章实验与结果（初稿，图 3-1~3-5、表 4-1~4-3 进稿） \| **G8：三页数字与 `metrics.json` 一致**（页面… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 206 | …hreshold 与 F1）；**下载的 CSV 与源文件逐字节一致**。**W8 末为 §8 风险四的判断点**：骨架未通则降级为「CLI + 一页静态报告」 \| 输入 W7 的落库结… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 207 | \| **W9** \| 12-09 → 12-15 \| 联调与可复现性验证 \| 全链路跑通计时记录（对照 `metric… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 207 | …全链路跑通计时记录（对照 `metrics.json` 的 `total_seconds=2.85` / `embedding.encode_seconds=15.43`）；界面截图 3 张… | `2.85 (×2)` | `metrics.json:total_seconds` | `2.85` |
-| 207 | …tal_seconds=2.85` / `embedding.encode_seconds=15.43`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与… | `15.43 (×2)` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 207 | ….85` / `embedding.encode_seconds=15.43`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与展望）初稿 \| *… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 207 | …s=15.43`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与展望）初稿 \| **G9：实测分项耗时达标（`metrics.json` 的 `… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 207 | …43` / `total_seconds=2.85` / `corrupt.seconds=0.42`，对照 60 秒需求阈值余量充足），且复跑产物与 W4 首跑逐字节一致**（只允许耗时字段… | `0.42` | `metrics.json:corrupt.seconds` | `0.42` |
-| 207 | …tal_seconds=2.85` / `corrupt.seconds=0.42`，对照 60 秒需求阈值余量充足），且复跑产物与 W4 首跑逐字节一致**（只允许耗时字段抖动）。**不… | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
+| 207 | …全链路跑通计时记录（对照 `metrics.json` 的 `total_seconds=3.09` / `embedding.encode_seconds=14.61`）；界面截图 3 张… | `3.09 (×2)` | `metrics.json:total_seconds` | `3.09` |
+| 207 | …tal_seconds=3.09` / `embedding.encode_seconds=14.61`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与… | `14.61 (×2)` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 207 | ….09` / `embedding.encode_seconds=14.61`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与展望）初稿 \| *… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 207 | …s=14.61`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与展望）初稿 \| **G9：实测分项耗时达标（`metrics.json` 的 `… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 207 | …61` / `total_seconds=3.09` / `corrupt.seconds=0.4`，对照 60 秒需求阈值余量充足），且复跑产物与 W4 首跑逐字节一致**（只允许耗时字段… | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
+| 207 | …otal_seconds=3.09` / `corrupt.seconds=0.4`，对照 60 秒需求阈值余量充足），且复跑产物与 W4 首跑逐字节一致**（只允许耗时字段抖动）。**不… | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
 | 208 | \| **W10** \| 12-16 → 12-22 \| **系统冻结 + 开发交付窗口关闭** \| 冻结基线（打 tag… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
 | 208 | …关闭** \| 冻结基线（打 tag / 归档目录）；遗留 bug 清单（只修不加） \| 第 1–7 章齐稿 \| **G10：系统冻结，此后只修 bug 不加功能、不加实验**——W11… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 208 | …** \| 冻结基线（打 tag / 归档目录）；遗留 bug 清单（只修不加） \| 第 1–7 章齐稿 \| **G10：系统冻结，此后只修 bug 不加功能、不加实验**——W11 之后… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
@@ -2131,7 +2146,7 @@
 | 232 | \| G9 联调与可复现性 \| W9 末 \| 实测分项耗时超出 60 秒需求阈值（向量化 `embedding.encode_seconds` 与三模块检测 `… | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
 | 234 | **若实际可用时间少于 17 周**（用户给定 3 个月即 13 周的情况），按以下顺序顺次砍，**不重新排期**： | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 234 | **若实际可用时间少于 17 周**（用户给定 3 个月即 13 周的情况），按以下顺序顺次砍，**不重新排期**： | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 234 | **若实际可用时间少于 17 周**（用户给定 3 个月即 13 周的情况），按以下顺序顺次砍，**不重新排期**： | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
+| 234 | **若实际可用时间少于 17 周**（用户给定 3 个月即 13 周的情况），按以下顺序顺次砍，**不重新排期**： | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
 | 236 | 1. W16 缓冲周压缩为 1 周 → 砍 1 周 | `1 (×3)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 237 | 2. W12 / W13 合并为一轮审阅 → 砍 1 周 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 237 | 2. W12 / W13 合并为一轮审阅 → 砍 1 周 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
@@ -2160,17 +2175,17 @@
 | 270 | …说明文档，**不是数据源**。当前文档中仍属此类、尚未落到机读产物里的描述性数字有：语料的「8 个业务域 / 30 个意图」（埋设规则写在生成脚本里，未单独落 CSV），以及「CPU 运… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 270 | …数据源**。当前文档中仍属此类、尚未落到机读产物里的描述性数字有：语料的「8 个业务域 / 30 个意图」（埋设规则写在生成脚本里，未单独落 CSV），以及「CPU 运行」这一部署属性。这… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
 | 272 | …，现已删除；引用耗时只能按下列分项逐条对应到字段（耗时随机器波动，以产物当前值为准，规则见 3b）： | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 277 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 15.43 秒 \|… | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
-| 277 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 15.43 秒 \| `metrics.… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 277 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 15.43 秒 \| `metrics.json` → `embedding.e… | `1852` | `metrics.json:embedding.n_passages` | `1852` |
-| 277 | …向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 15.43 秒 \| `metrics.json` → `embedding.encode_second… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 278 | \| 三模块检测 \| 2.85 秒 \| `metrics.json` → `total_seconds` \| | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 279 | \| 其中腐化模块 \| 0.42 秒 \| `metrics.json` → `corrupt.seconds` \| | `0.42` | `metrics.json:corrupt.seconds` | `0.42` |
+| 277 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 14.61 秒 \|… | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
+| 277 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 14.61 秒 \| `metrics.… | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 277 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 14.61 秒 \| `metrics.json` → `embedding.e… | `1852` | `metrics.json:embedding.n_passages` | `1852` |
+| 277 | …向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 14.61 秒 \| `metrics.json` → `embedding.encode_second… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 278 | \| 三模块检测 \| 3.09 秒 \| `metrics.json` → `total_seconds` \| | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 279 | \| 其中腐化模块 \| 0.4 秒 \| `metrics.json` → `corrupt.seconds` \| | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
 | 283 | 已落盘的数字（如整篇级意图级 AUC 0.8880）一律从 `granularity.csv` 引用，不再回退到叙述性文档。 | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
 | 285 | 3b. **耗时值只认复跑值**：`metrics.json` 中的耗时字段在每次复跑时会有小… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 285 | …一采用**当前 `metrics.json` 中的复跑值**：`total_seconds=2.85`、`embedding.encode_seconds=15.43`、`corrupt.se… | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 285 | …total_seconds=2.85`、`embedding.encode_seconds=15.43`、`corrupt.seconds=0.42`。首次 PoC 运行记录在 `run_all… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 285 | …edding.encode_seconds=15.43`、`corrupt.seconds=0.42`。首次 PoC 运行记录在 `run_all.log` 中的旧值不再被任何章节引用；若论文… | `0.42` | `metrics.json:corrupt.seconds` | `0.42` |
+| 285 | …一采用**当前 `metrics.json` 中的复跑值**：`total_seconds=3.09`、`embedding.encode_seconds=14.61`、`corrupt.se… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 285 | …total_seconds=3.09`、`embedding.encode_seconds=14.61`、`corrupt.seconds=0.4`。首次 PoC 运行记录在 `run_all.… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 285 | …edding.encode_seconds=14.61`、`corrupt.seconds=0.4`。首次 PoC 运行记录在 `run_all.log` 中的旧值不再被任何章节引用；若论文… | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
 | 291 | \| 文档内容合理性复核 \| 30 条（10% × 300 篇） \| 抽检文档是否语义通顺、领域归属是否正确 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
 | 291 | \| 文档内容合理性复核 \| 30 条（10% × 300 篇） \| 抽检文档是否语义通顺、领域归属是否正确 \| | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
 | 291 | \| 文档内容合理性复核 \| 30 条（10% × 300 篇） \| 抽检文档是否语义通顺、领域归属是否正确 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
@@ -2183,14 +2198,14 @@
 | 298 | **300 条的依据**：完整方案的人工标注预算是 500 条，而唯一无法通过编码加速的环节正是人工标… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
 | 298 | …据**：完整方案的人工标注预算是 500 条，而唯一无法通过编码加速的环节正是人工标注。在 17 周排期里，300 条是能让 W3 在**一周内**完成的量级；500 条会把 W3 拖到两… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 302 | - 上述 290 条中，**至少 100 条必须由两人独立标注**（优先覆盖三类缺陷清单的 60 条全部双人标注），其余单人标注。 | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
-| 303 | - 计算 **Cohen's Kappa**，结果写入论文第 6 章实验设置小节，并附上混淆矩阵。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 303 | - 计算 **Cohen's Kappa**，结果写入论文第 6 章实验设置小节，并附上混淆矩阵。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 304 | - **目标 Kappa ≥ 0.8**。 | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
 | 305 | - **Kappa 在 0.6–0.8 之间**：必须正文写明实际值、列出争议样本、并说明后续以哪一方标注为准；同时按 §6 的… | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 305 | …–0.8 之间**：必须正文写明实际值、列出争议样本、并说明后续以哪一方标注为准；同时按 §6 的 G3 降级动作，把双人标注范围收缩到三类缺陷清单 60 条。 | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 305 | …–0.8 之间**：必须正文写明实际值、列出争议样本、并说明后续以哪一方标注为准；同时按 §6 的 G3 降级动作，把双人标注范围收缩到三类缺陷清单 60 条。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 305 | …明后续以哪一方标注为准；同时按 §6 的 G3 降级动作，把双人标注范围收缩到三类缺陷清单 60 条。 | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
 | 306 | - **Kappa < 0.6**：视为标注规程失败。**17 周排期下不重写规程重标**——按 §6 的 G3 降级动作… | `0.6` | `metrics.json:gap.cluster_rows[3].threshold` | `0.6` |
 | 306 | - **Kappa < 0.6**：视为标注规程失败。**17 周排期下不重写规程重标**——按 §6 的 G3 降级动作，砍掉「自然陈旧但不算缺陷」防作… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
-| 306 | …Kappa < 0.6**：视为标注规程失败。**17 周排期下不重写规程重标**——按 §6 的 G3 降级动作，砍掉「自然陈旧但不算缺陷」防作弊对照这条的人工标注（改由脚本按生成规则… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 306 | …Kappa < 0.6**：视为标注规程失败。**17 周排期下不重写规程重标**——按 §6 的 G3 降级动作，砍掉「自然陈旧但不算缺陷」防作弊对照这条的人工标注（改由脚本按生成规则… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 307 | - 防作弊对照（4% 自然陈旧但不算缺陷的文档）**必须由标注者独立判断**，不得提前告知哪些是埋设的缺陷——… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 314 | - [ ] 人工标注量是否控制在 300 条预算内，Kappa 是否已计算并写入？ | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 319 | ## 8. 答辩四个必答风险 | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
@@ -2201,7 +2216,7 @@
 | 330 | …不设此对照，腐化模块会取得虚假满分。** 实测腐化模块 P=0.8986、R=1.0、F1=0.9466（`metrics.json` → `corrupt`）：7 篇误报**全部只由 R2（更新… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
 | 330 | …6、R=1.0、F1=0.9466（`metrics.json` → `corrupt`）：7 篇误报**全部只由 R2（更新时间超 18 个月）与 R4（同域存在更新文档）这两条日期驱… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 330 | …trics.json` → `corrupt`）：7 篇误报**全部只由 R2（更新时间超 18 个月）与 R4（同域存在更新文档）这两条日期驱动的规则触发**，其中 6 篇来自这批对照文… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
-| 330 | …2（更新时间超 18 个月）与 R4（同域存在更新文档）这两条日期驱动的规则触发**，其中 6 篇来自这批对照文档，第 7 篇是重复件继承了主文档的陈旧 `last_modified`。… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 330 | …2（更新时间超 18 个月）与 R4（同域存在更新文档）这两条日期驱动的规则触发**，其中 6 篇来自这批对照文档，第 7 篇是重复件继承了主文档的陈旧 `last_modified`。… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 331 | …ularity.csv`）：同一 `max-cosine` 打分下，段落级 AUC 意图级 0.968 / 工单级 0.8659，整篇级 0.8880 / 0.8307；文档级再做统计变换（`m… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
 | 331 | …）：同一 `max-cosine` 打分下，段落级 AUC 意图级 0.968 / 工单级 0.8659，整篇级 0.8880 / 0.8307；文档级再做统计变换（`max/std`、`max/… | `0.8659` | `granularity.csv:auc[row=6][0]` | `0.8659` |
 | 331 | …osine` 打分下，段落级 AUC 意图级 0.968 / 工单级 0.8659，整篇级 0.8880 / 0.8307；文档级再做统计变换（`max/std`、`max/top5mean`、`… | `0.8880 (×2)` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
@@ -2214,7 +2229,7 @@
 | 331 | …0.496 / 0.776 / 0.832，段落级同三种为 0.704 / 0.888 / 0.920。如果方法在识别埋设特征，改粒度与改打分都不会带来系统性提升。**并且主动交代反向点**：整… | `0.920` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
 | 331 | …带来系统性提升。**并且主动交代反向点**：整篇级换成 `max-min` 时意图级反而到 0.928，高于本文基准的 0.8880。这说明本文观察到的是「在选定打分形式下粒度有效」，不是「粒度… | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
 | 335 | …*禁忌**：不要说「我的数据和真实数据很像」。不要说「差异可以忽略」。**不要说「误报只有 7 篇，说明模型在读内容证据而非只看日期」——这 7 篇误报恰恰全部只由日期驱动的 R2/R4… | `7 (×4)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 335 | …日期驱动的 R2/R4 触发，与实测相反。也不要说「7 篇误报全部来自对照文档」——实际是 6 篇来自对照集，第 7 篇是重复件继承了主文档的陈旧 `last_modified`。** | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 335 | …日期驱动的 R2/R4 触发，与实测相反。也不要说「7 篇误报全部来自对照文档」——实际是 6 篇来自对照集，第 7 篇是重复件继承了主文档的陈旧 `last_modified`。** | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 339 | **质疑原话**：你重复检测 F1 是 1.0，一分不差。这显然是过拟合或者数据太简单。 | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 341 | **应对（必须先说 1.0 是乐观值，再给真实基线）**： | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
 | 343 | 1. **主动定性**：`dup_threshold.csv` 中 0.95 阈值下组级与文档级 P/R/F1 均为 1.0，**这是乐观值，原因是埋设的重复件仅差 4… | `0.95 (×3)` | `metrics.json:dup.rows[2].threshold` | `0.95` |
@@ -2250,10 +2265,10 @@
 | 368 | **背景**：本课题可用时间只有 3–4 个月（本排期取上界 17 周），开发与实验窗口只有 W1–W10。Web 看板在排期里… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
 | 368 | **背景**：本课题可用时间只有 3–4 个月（本排期取上界 17 周），开发与实验窗口只有 W1–W10。Web 看板在排期里只占… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 368 | **背景**：本课题可用时间只有 3–4 个月（本排期取上界 17 周），开发与实验窗口只有 W1–W10。Web 看板在排期里只占 W7–W9 三周，其中… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
-| 368 | …与实验窗口只有 W1–W10。Web 看板在排期里只占 W7–W9 三周，其中 W8 是 §6 的 G8 判断点。这个背景决定了答辩时必须主动交代降级路径，而不是等评审问「你这怎么没做完… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 368 | …与实验窗口只有 W1–W10。Web 看板在排期里只占 W7–W9 三周，其中 W8 是 §6 的 G8 判断点。这个背景决定了答辩时必须主动交代降级路径，而不是等评审问「你这怎么没做完… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 372 | …**：开发 W1–W10、论文全程并行写作、W15–W16 留了两周缓冲，W17 答辩。这 17 周里排掉的是范围，不是质量——被砍的每一项都在 §3 有理由，砍掉的是演示视频、压测、分页… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 372 | …6 留了两周缓冲，W17 答辩。这 17 周里排掉的是范围，不是质量——被砍的每一项都在 §3 有理由，砍掉的是演示视频、压测、分页排序、报告排版这类**不产生结论**的东西。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 373 | …测结论必然是「无瓶颈」，与 `metrics.json` 的 `total_seconds=2.85` 是同一句话）、报告排版（改为直接下载已产出的 CSV）。**这三项砍掉不影响论文的任何一… | `2.85` | `metrics.json:total_seconds` | `2.85` |
+| 373 | …测结论必然是「无瓶颈」，与 `metrics.json` 的 `total_seconds=3.09` 是同一句话）、报告排版（改为直接下载已产出的 CSV）。**这三项砍掉不影响论文的任何一… | `3.09` | `metrics.json:total_seconds` | `3.09` |
 | 374 | …为「CLI 工具 + 一页静态报告」，不再做 Web。** 理由要讲清楚——**在只有 3–4 个月的情况下，一个能跑的三层分报告页远胜于一个做不完的看板**。评审看的是「这个系统能不能… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 386 | \| §0 排期口径与并行理由 \| 第 7.1 节（原方案无并行安排） \| 新增 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
 | 387 | \| §1 题目定稿 \| 附录 A（选变体 C 而非推荐的 A） \| 立论收窄 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
@@ -2268,26 +2283,26 @@
 | 390 | \| §4 实验矩阵 \| 第 6.3 节（E1–E14） \| 保留 4、降级 2、砍掉 8 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 391 | \| §5 图表清单 \| 第 6.4 节（10 图 6 表 → 8 图 3 表，截图 3 张） \| 净… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 391 | \| §5 图表清单 \| 第 6.4 节（10 图 6 表 → 8 图 3 表，截图 3 张） \| 净减 5 项 \| | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 391 | \| §5 图表清单 \| 第 6.4 节（10 图 6 表 → 8 图 3 表，截图 3 张） \| 净减 5 项 \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 391 | \| §5 图表清单 \| 第 6.4 节（10 图 6 表 → 8 图 3 表，截图 3 张） \| 净减 5 项 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 391 | \| §5 图表清单 \| 第 6.4 节（10 图 6 表 → 8 图 3 表，截图 3 张） \| 净减 5 项 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 391 | \| §5 图表清单 \| 第 6.4 节（10 图 6 表 → 8 图 3 表，截图 3 张） \| 净减 5 项 \| | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 392 | \| §6 倒排时间表 \| 第 7.1 节（7 个月倒排 → 17 周，开发窗口 10 周，论文并行）… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 392 | \| §6 倒排时间表 \| 第 7.1 节（7 个月倒排 → 17 周，开发窗口 10 周，论文并行）… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 | 392 | \| §6 倒排时间表 \| 第 7.1 节（7 个月倒排 → 17 周，开发窗口 10 周，论文并行） \| 压缩 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 392 | \| §6 倒排时间表 \| 第 7.1 节（7 个月倒排 → 17 周，开发窗口 10 周，论文并行） \| 压缩 \| | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 392 | \| §6 倒排时间表 \| 第 7.1 节（7 个月倒排 → 17 周，开发窗口 10 周，论文并行） \| 压缩 \| | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
 | 393 | \| §7 数字纪律 \| 原方案无对应章节（新增） \| 新增 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 394 | \| §8 答辩风险 \| 第 7.5 节第 1/6/8b 问（重写为应对话术）+ 新增时间风险 \| 保… | `8 (×2)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
 | 394 | \| §8 答辩风险 \| 第 7.5 节第 1/6/8b 问（重写为应对话术）+ 新增时间风险 \| 保留并扩充 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 394 | \| §8 答辩风险 \| 第 7.5 节第 1/6/8b 问（重写为应对话术）+ 新增时间风险 \| 保留并扩充 \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
+| 394 | \| §8 答辩风险 \| 第 7.5 节第 1/6/8b 问（重写为应对话术）+ 新增时间风险 \| 保留并扩充 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
 
 
 ---
 
-## 文档 3 / 3：`数字溯源审计.md`
+## 文档 3 / 4：`数字溯源审计.md`
 
 - 完整路径：`D:\26code\毕设\docs\技术方案\数字溯源审计.md`
-- 抽到的数值断言：**1302** 处
-- 判定统计：OK=**933**　ROUNDED=**37**　STRUCTURAL=**283**　EXTERNAL=**0**　CITED=**47**　ALLOWED=**0**　UNSOURCED=**2**
+- 抽到的数值断言：**1327** 处
+- 判定统计：OK=**956**　ROUNDED=**37**　STRUCTURAL=**290**　EXTERNAL=**0**　CITED=**42**　ALLOWED=**0**　UNSOURCED=**2**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
 
 ### 3.1 指标类 UNSOURCED —— 致命项，必须为空或逐条补出处
@@ -2298,8 +2313,8 @@
 
 | 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
 |---|---|---|---|---|
-| 193 | （A3 一行文档未列于附录 D，但正文 5.3.4 表已列，数值与 `results_directions.csv` 一致。） | `5.3` | `` | `` |
-| 206 | ### 2.3 正文各节（154 条） | `154` | `` | `` |
+| 196 | （A3 一行文档未列于附录 D，但正文 5.3.4 表已列，数值与 `results_directions.csv` 一致。） | `5.3` | `` | `` |
+| 209 | ### 2.3 正文各节（155 条） | `155` | `` | `` |
 
 ### 3.3 ROUNDED —— 产物值四舍五入后等于文档写法（需人工确认语义一致）
 
@@ -2307,331 +2322,338 @@
 
 | 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
 |---|---|---|---|---|
-| 40 | …UC 0.936、失败归一化 0.512 / 0.448 / 0.384、方向 C 的 σ 0.1452 与组内余弦区间 0.9545–0.9845，本次已分别由 `granularity.csv… | `0.1452` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
-| 63 | \| 附录D 主表「文档段落数」 \| 平均 6.2 段/篇 \| 由 `embedding.n_passages` ÷ `embedding.n… | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
-| 63 | …n_passages` ÷ `embedding.n_docs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `6.1733 (×2)` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
-| 199 | \| 附录D 方向 C · ABS 逐场景最优阈值 F1 标准差 \| 0.1452 \| `results_auc.csv` 中 alpha / beta / gamma /… | `0.1452 (×2)` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
-| 201 | \| 附录D 方向 C · 固定 25% 检出比例标准差 \| 0.0873 \| `results_directionC.csv` `固定检出比例=0.25` 四场景… | `0.0873 (×3)` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
-| 202 | \| 附录D 方向 C · 固定 25% 平均 F1 \| 0.5522 \| 同上四值均值 = 0.552175 \| 0.5522 \| 一致（四舍五入） \| | `0.5522 (×2)` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
-| 203 | \| 附录D 方向 C · 稳 40% \| 40% \| 由 (0.1452 - 0.0873) / 0.1452 = 39.9% 推得 \| 39.9% \| 一致（推算… | `0.1452 (×2)` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
-| 203 | \| 附录D 方向 C · 稳 40% \| 40% \| 由 (0.1452 - 0.0873) / 0.1452 = 39.9% 推得 \| 39.9% \| 一致（推算） \| | `0.0873` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
-| 204 | \| 附录D 方向 C · 牺牲 33% \| 33% \| 由 (0.8289 - 0.5522) / 0.8289 = 33.4% 推得 \| 33.4% \| 一致（推算） \| | `0.5522` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
-| 241 | \| §5.1 段落切分动机 \| 300 篇平均 140 字 \| 受审集合内无正文字数字段 \| — \| 【无出处】 \| | `140` | `derived_metrics.csv:docs.avg_chars_per_doc` | `140.206667` |
-| 242 | \| §5.1 段落切分动机 \| 约 6.2 句/篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
-| 245 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入） \| | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
-| 245 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入） \| | `6.1733 (×2)` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
-| 255 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类耗时字段（`run_all*.log`… | `1.1` | `corrupt_rule_ablation.csv:mean_risk[row=1][0]` | `1.08` |
-| 289 | \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.6463 = 0.2032 \| 0.2032 \| 一致（四舍五入… | `0.20` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
-| 298 | \| §5.3.5 方向 C 表 \| ABS 标准差 0.1452 / 平均 F1 0.8289 \| `results_auc.csv` 四场景（alpha… | `0.1452 (×2)` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
-| 299 | \| §5.3.5 方向 C 表 \| 固定 25% 标准差 0.0873 / 平均 F1 0.5522 \| `results_directionC.csv` `固定… | `0.0873 (×2)` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
-| 299 | \| §5.3.5 方向 C 表 \| 固定 25% 标准差 0.0873 / 平均 F1 0.5522 \| `results_directionC.csv` `固定检出比例=0.25` 四场景… | `0.5522 (×2)` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
-| 300 | \| §5.3.5 诚实提示 \| 30% 标准差 0.0883 \| `results_directionC.csv` `固定检出比例=0.3` 四场景 `… | `0.0883 (×2)` | `derived_metrics.csv:directionC.fixed30_sd_f1_4scenario` | `0.088303` |
-| 301 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023… | `0.20` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
-| 301 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023 / 0.2… | `0.27` | `standardize/results_banking77_zh.csv:P[row=5][0]` | `0.2727` |
-| 301 | …18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023 / 0.2647 \| 一致（四舍五入为区间） \| | `0.2744` | `derived_metrics.csv:directionC.fixed10_sd_f1_4scenario` | `0.274425` |
-| 301 | ….27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023 / 0.2647 \| 一致（四舍五入为区间） \| | `0.2647` | `derived_metrics.csv:directionC.fixed18p55_sd_f1_4scenario` | `0.264723` |
-| 302 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（… | `0.1452` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
-| 302 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `0.0873` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
-| 302 | …实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `0.5522` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
-| 318 | \| §5.5.1 \| 300×300 余弦矩阵 < 0.01 秒 \| `metrics.json` → `dup.rows[*].seconds` =… | `0.01` | `standardize/results_directions.csv:召回全部阈值[row=25][0]` | `0.0051` |
-| 331 | \| §6.1 规模参数 \| 每篇 111–191 字、均值 140 \| 受审集合内无记录 \| — \| 【无出处】 \| | `140` | `derived_metrics.csv:docs.avg_chars_per_doc` | `140.206667` |
-| 346 | \| §6.3 E14 对照 \| 0.1452 / 0.8289 \| 同 §5.3.5 \| 0.1452 / 0.8289 \| 一致 \| | `0.1452 (×2)` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
-| 376 | …档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027） \| | `6.1733` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
-| 384 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概… | `0.20` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
-| 384 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位… | `0.27` | `standardize/results_banking77_zh.csv:P[row=5][0]` | `0.2727` |
-| 384 | …5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `0.2744` | `derived_metrics.csv:directionC.fixed10_sd_f1_4scenario` | `0.274425` |
-| 384 | …5%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `0.2647` | `derived_metrics.csv:directionC.fixed18p55_sd_f1_4scenario` | `0.264723` |
-| 441 | \| mcs=5 分出 **95 个簇**、噪声 **0 条**、耗时 **≈1.1 秒** \| `run_all.log` 记为 95 簇 / 0 噪声 / **1.18s*… | `1.1` | `corrupt_rule_ablation.csv:mean_risk[row=1][0]` | `1.08` |
-| 463 | \| 每篇文档正文 **111–191 字、均值 140 字、约 6.2 句** \| `run_all.log` `[gen_data] 正文长度(… | `140 (×2)` | `derived_metrics.csv:docs.avg_chars_per_doc` | `140.206667` |
-| 463 | \| 每篇文档正文 **111–191 字、均值 140 字、约 6.2 句** \| `run_all.log` `[gen_data] 正文长度(字): min=… | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
+| 42 | 原先判为无出处的整篇级 AUC、三种失败归一化 AUC、方向 C 的 σ 0.1452 与组内余弦区间 0.9545–0.9845，本次已分别由 `granularity.csv… | `0.1452` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
+| 65 | \| 附录D 主表「文档段落数」 \| 平均 6.2 段/篇 \| 由 `embedding.n_passages` ÷ `embedding.n… | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
+| 65 | …n_passages` ÷ `embedding.n_docs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `6.1733 (×2)` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
+| 202 | \| 附录D 方向 C · ABS 逐场景最优阈值 F1 标准差 \| 0.1452 \| `results_auc.csv` 中 alpha / beta / gamma /… | `0.1452 (×2)` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
+| 204 | \| 附录D 方向 C · 固定 25% 检出比例标准差 \| 0.0873 \| `results_directionC.csv` `固定检出比例=0.25` 四场景… | `0.0873 (×3)` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
+| 205 | \| 附录D 方向 C · 固定 25% 平均 F1 \| 0.5522 \| 同上四值均值 = 0.552175 \| 0.5522 \| 一致（四舍五入） \| | `0.5522 (×2)` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
+| 206 | \| 附录D 方向 C · 稳 40% \| 40% \| 由 (0.1452 - 0.0873) / 0.1452 = 39.9% 推得 \| 39.9% \| 一致（推算… | `0.1452 (×2)` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
+| 206 | \| 附录D 方向 C · 稳 40% \| 40% \| 由 (0.1452 - 0.0873) / 0.1452 = 39.9% 推得 \| 39.9% \| 一致（推算） \| | `0.0873` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
+| 207 | \| 附录D 方向 C · 牺牲 33% \| 33% \| 由 (0.8289 - 0.5522) / 0.8289 = 33.4% 推得 \| 33.4% \| 一致（推算） \| | `0.5522` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
+| 245 | \| §5.1 段落切分动机 \| 300 篇平均 140 字 \| 受审集合内无正文字数字段 \| — \| 【无出处】 \| | `140` | `derived_metrics.csv:docs.avg_chars_per_doc` | `140.206667` |
+| 246 | \| §5.1 段落切分动机 \| 约 6.2 句/篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
+| 249 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入） \| | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
+| 249 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入） \| | `6.1733 (×2)` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
+| 259 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类耗时字段（`run_all*.log`… | `1.1` | `corrupt_rule_ablation.csv:mean_risk[row=1][0]` | `1.08` |
+| 293 | \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.6463 = 0.2032 \| 0.2032 \| 一致（四舍五入… | `0.20` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
+| 302 | \| §5.3.5 方向 C 表 \| ABS 标准差 0.1452 / 平均 F1 0.8289 \| `results_auc.csv` 四场景（alpha… | `0.1452 (×2)` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
+| 303 | \| §5.3.5 方向 C 表 \| 固定 25% 标准差 0.0873 / 平均 F1 0.5522 \| `results_directionC.csv` `固定… | `0.0873 (×2)` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
+| 303 | \| §5.3.5 方向 C 表 \| 固定 25% 标准差 0.0873 / 平均 F1 0.5522 \| `results_directionC.csv` `固定检出比例=0.25` 四场景… | `0.5522 (×2)` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
+| 304 | \| §5.3.5 诚实提示 \| 30% 标准差 0.0883 \| `results_directionC.csv` `固定检出比例=0.3` 四场景 `… | `0.0883 (×2)` | `derived_metrics.csv:directionC.fixed30_sd_f1_4scenario` | `0.088303` |
+| 305 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023… | `0.20` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
+| 305 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023 / 0.2… | `0.27` | `standardize/results_banking77_zh.csv:P[row=5][0]` | `0.2727` |
+| 305 | …18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023 / 0.2647 \| 一致（四舍五入为区间） \| | `0.2744` | `derived_metrics.csv:directionC.fixed10_sd_f1_4scenario` | `0.274425` |
+| 305 | ….27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023 / 0.2647 \| 一致（四舍五入为区间） \| | `0.2647` | `derived_metrics.csv:directionC.fixed18p55_sd_f1_4scenario` | `0.264723` |
+| 306 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（… | `0.1452` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
+| 306 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `0.0873` | `derived_metrics.csv:directionC.fixed25_sd_f1_4scenario` | `0.087297` |
+| 306 | …实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `0.5522` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
+| 322 | \| §5.5.1 \| 300×300 余弦矩阵 < 0.01 秒 \| `metrics.json` → `dup.rows[*].seconds` =… | `0.01` | `standardize/results_directions.csv:召回全部阈值[row=25][0]` | `0.0051` |
+| 335 | \| §6.1 规模参数 \| 每篇 111–191 字、均值 140 \| 受审集合内无记录 \| — \| 【无出处】 \| | `140` | `derived_metrics.csv:docs.avg_chars_per_doc` | `140.206667` |
+| 350 | \| §6.3 E14 对照 \| 0.1452 / 0.8289 \| 同 §5.3.5 \| 0.1452 / 0.8289 \| 一致 \| | `0.1452 (×2)` | `derived_metrics.csv:directionC.abs_sd_f1_4scenario` | `0.145206` |
+| 380 | …档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027） \| | `6.1733` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
+| 388 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概… | `0.20` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
+| 388 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位… | `0.27` | `standardize/results_banking77_zh.csv:P[row=5][0]` | `0.2727` |
+| 388 | …5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `0.2744` | `derived_metrics.csv:directionC.fixed10_sd_f1_4scenario` | `0.274425` |
+| 388 | …5%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `0.2647` | `derived_metrics.csv:directionC.fixed18p55_sd_f1_4scenario` | `0.264723` |
+| 445 | \| mcs=5 分出 **95 个簇**、噪声 **0 条**、耗时 **≈1.1 秒** \| 簇数与噪声可核验：`metrics.json` → `gap.clusters… | `1.1` | `corrupt_rule_ablation.csv:mean_risk[row=1][0]` | `1.08` |
+| 466 | \| 每篇文档正文 **111–191 字、均值 140 字、约 6.2 句** \| `run_all.log` `[gen_data] 正文长度(… | `140 (×2)` | `derived_metrics.csv:docs.avg_chars_per_doc` | `140.206667` |
+| 466 | \| 每篇文档正文 **111–191 字、均值 140 字、约 6.2 句** \| `run_all.log` `[gen_data] 正文长度(字): min=… | `6.2` | `derived_metrics.csv:embedding.passages_per_doc` | `6.173333` |
 
 ### 3.4 STRUCTURAL —— 结构性编号（章节号/外部文件行号/年份/序号/SQL 长度/模型维度参数量/版本号/端口号）
 
 | 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
 |---|---|---|---|---|
 | 10 | …篇级 AUC、三种失败归一化 AUC、组内余弦区间因此改判为 `一致`。新增的两张整表在 §2.1 中按「整表一条声明 + 声明内逐行复核」计入。 | `2.1` | `章节号(§引用)` | `` |
-| 14 | **第三轮复核（2026-10-19）**：技术方案的耗时值已刷新为当前 `metrics.json`（`embed… | `2026` | `年份/日期` | `` |
-| 16 | **第四轮复核（2026-10-19，范围未变说明）**：技术方案本轮有三处结构性改动——§1.2「商业对标」整节删… | `2026` | `年份/日期` | `` |
-| 16 | **第四轮复核（2026-10-19，范围未变说明）**：技术方案本轮有三处结构性改动——§1.2「商业对标」整节删除并重编号、E7/E8 由「不进论文」降级为正文两小节（各 ≤1 页）、§… | `1.2 (×2)` | `章节号(§引用)` | `` |
-| 16 | …「商业对标」整节删除并重编号、E7/E8 由「不进论文」降级为正文两小节（各 ≤1 页）、§6.4 图表清单随之调整。**这三处均未改变原子声明集合**：删除的 §1.2 商业对标节内不含任… | `6.4 (×2)` | `章节号(§引用)` | `` |
-| 16 | …对标节内不含任何数字（仅有 AptEdge / Ravenna 两条定性描述），新增内容（§5.3 定位框、图表清单中的表4-7、页数归属说明）不含任何可核验的实测数值，§6.3 / §6.… | `5.3` | `章节号(§引用)` | `` |
-| 16 | …新增内容（§5.3 定位框、图表清单中的表4-7、页数归属说明）不含任何可核验的实测数值，§6.3 / §6.4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 1… | `6.3` | `章节号(§引用)` | `` |
-| 18 | **第五轮复核（2026-10-19，xfer 判定式符号缺陷修正）**：`standardize/exp4_ban… | `2026` | `年份/日期` | `` |
-| 18 | …77 全判为缺口（F1 0.3261）。本报告 §2 的相关判定行已按新产物重核（正向取第 1 数据行、反向取第 2 数据行），§1 的原子声明计数随之变化。 | `1 (×2)` | `外部文件行号引用` | `` |
-| 20 | ….json` 与 `banking77_meta_en.json` 内容相同，但审计报告 §2.3 与 §5 的旁注位置直接引用了前者，故保留不动。 | `2.3` | `章节号(§引用)` | `` |
-| 22 | **第六轮复核（2026-10-20，跨语料目标标签与口径混用修正）**： | `2026` | `年份/日期` | `` |
-| 24 | 1. **目标语料标签修正**：`standardize/exp4_banking77.py`… | `1` | `列表序号` | `` |
-| 25 | 2. **§5.3.3 边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与… | `2` | `列表序号` | `` |
-| 25 | 2. **§5.3.3 边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与「最优阈值」口径… | `5.3` | `章节号(§引用)` | `` |
-| 26 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.… | `3` | `列表序号` | `` |
-| 26 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846… | `7.4 (×4)` | `章节号(§引用)` | `` |
-| 38 | …18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边界三 cover 分布表所依赖的 `scenario_meta.json` / `b… | `5.3` | `章节号(§引用)` | `` |
-| 40 | …sv`、`granularity_dup.csv` 补齐机读出处并改判为 `一致`，详见 §2.1 与 §5.1。 | `2.1` | `章节号(§引用)` | `` |
-| 40 | …anularity_dup.csv` 补齐机读出处并改判为 `一致`，详见 §2.1 与 §5.1。 | `5.1` | `章节号(§引用)` | `` |
-| 46 | **正文已无 `不一致` 条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出… | `5.3` | `章节号(§引用)` | `` |
-| 54 | ### 2.1 附录 D 主表（42 条） | `2.1` | `章节号` | `` |
-| 59 | \| 附录D 主表「文档数 / 工单数」 \| 2000 \| `metrics.json` → `embedding.n_tickets` \| 20… | `2000 (×2)` | `年份/日期` | `` |
-| 63 | …`embedding.n_passages` ÷ `embedding.n_docs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `1852` | `端口号` | `` |
-| 69 | …ng.n_docs` + `n_tickets` + `n_passages` = 300+2000+1852 \| 4152 \| 一致（推算） \| | `2000` | `年份/日期` | `` |
-| 76 | …cision` / `gap.best.recall` / `gap.best.f1` \| 0.8 / 0.8 / 0.8 \| 一致 \| | `0.8 (×3)` | `章节号(枚举)` | `` |
-| 77 | …baseline_auc`；`standardize/results_auc.csv` 第 2 行 `场景=alpha, 方法=ABS(绝对阈值), 列=AUC` \| 0.968 \| 一… | `2` | `外部文件行号引用` | `` |
-| 84 | …/ `corrupt.recall` / `corrupt.f1` \| 0.8986 / 1.0 / 0.9466 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
-| 86 | …only_R2–R4 0.0 \| `corrupt_rule_ablation.csv` 8 行 `列=f1` \| 同值 \| 一致 \| | `8` | `外部文件行号引用` | `` |
-| 88 | …` `granularity=passage_level` 行同三列 \| 0.5671 / 1.0 / 0.9803 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
-| 95 | \| 附录D 主表「重复冗余（0.90 阈值）组级 F1」 \| 0.7037 \| `poc/kbgovernance/dup_th… | `0.90` | `章节号(文档位置列)` | `` |
-| 95 | …7037 \| `poc/kbgovernance/dup_threshold.csv` 第 3 数据行（`threshold=0.9`）列 `group_f1`；`metrics.jso… | `3` | `外部文件行号引用` | `` |
-| 96 | \| 附录D 主表「重复冗余（0.90 阈值）」 \| 32 组 / 77 篇 \| `dup_threshold.csv` `thr… | `0.90` | `章节号(文档位置列)` | `` |
-| 97 | \| 附录D 主表「重复冗余（0.95 阈值）组级 F1」 \| 1.0 \| `dup_threshold.csv` `thresh… | `0.95 (×2)` | `章节号(文档位置列)` | `` |
-| 98 | \| 附录D 主表「重复冗余（0.95 阈值）」 \| 22 组 / 49 篇 \| `dup_threshold.csv` `thr… | `0.95 (×2)` | `章节号(文档位置列)` | `` |
-| 101 | ### 2.2 附录 D · 标准化实验实测小节（69 条） | `2.2` | `章节号` | `` |
-| 108 | …38 \| `standardize/results_banking77_en.csv` 第 2 数据行（`子场景=全量, 方法=ABS(绝对阈值), 列=AUC`） \| 0.9538 \|… | `2` | `外部文件行号引用` | `` |
-| 109 | …25 \| `standardize/results_banking77_zh.csv` 第 2 数据行 `方法=ABS(绝对阈值), 列=AUC` \| 0.7925 \| 一致 \| | `2` | `外部文件行号引用` | `` |
-| 134 | …S \| -1.000000 \| `standardize/mechanism.csv` 第 2 数据行列 `spearman_与cover` \| -1.0 \| 一致（精度，见 §3） \| | `2` | `外部文件行号引用` | `` |
-| 149 | …`standardize/results_xfer_banking77_en.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`）列 `检出意图数` \| 0… | `1` | `外部文件行号引用` | `` |
-| 153 | …· 中文 α → 英文 检出意图数（反向） \| 77 / 77 全判为缺口 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）列 `检出意图数` \| 77… | `2` | `外部文件行号引用` | `` |
-| 158 | …`standardize/results_xfer_banking77_zh.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`）`检出意图数` \| 0 \|… | `1` | `外部文件行号引用` | `` |
-| 162 | …录D 迁移表 · 中文 α → 中文 检出意图数（反向） \| 77 / 77 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）`检出意图数` \| 77 \|… | `2` | `外部文件行号引用` | `` |
-| 169 | …1 0.8293） \| `results_xfer_banking77_zh.csv` 第 3 数据行 `F1` 与 `该场景最优F1` \| 0.4918 / 0.8293 \| 一致 \| | `3` | `外部文件行号引用` | `` |
-| 188 | …`方向=A2 (max-top5)/max` 四行 `召回全部阈值` = 0.0001 / 0.0 / 0.0 / 0.0018，极差 0.0018 \| 0.0018 \| 一致 \| | `0.0 (×2)` | `章节号(枚举)` | `` |
-| 201 | …差 \| 0.0873 \| `results_directionC.csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.… | `0.25` | `章节号(枚举)` | `` |
-| 201 | …directionC.csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.0873 \| 0.0873 \| 一致 \| | `0.5` | `章节号(枚举)` | `` |
-| 206 | ### 2.3 正文各节（154 条） | `2.3` | `章节号` | `` |
-| 210 | \| §1.3 贡献 1 \| 整篇级 AUC 0.8880 \| `granularity.csv` `do… | `1.3` | `章节号(§引用)` | `` |
-| 211 | \| §1.3 贡献 1 \| 段落级 AUC 0.968 \| `results_auc.csv` `alp… | `1.3` | `章节号(§引用)` | `` |
-| 212 | \| §1.3 贡献 1 \| 工单级 AUC 0.8307 → 0.8659 \| `granularity… | `1.3` | `章节号(§引用)` | `` |
-| 213 | \| §1.3 贡献 1 \| 失败归一化 AUC 0.496–0.920 \| `granularity.c… | `1.3` | `章节号(§引用)` | `` |
-| 214 | \| §1.3 贡献 2 \| 缺口 F1 = 0.800 \| `metrics.json` → `gap.… | `1.3` | `章节号(§引用)` | `` |
-| 215 | \| §1.3 贡献 2 \| 腐化 F1 = 0.9466 \| `metrics.json` → `cor… | `1.3` | `章节号(§引用)` | `` |
-| 216 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshol… | `1.3` | `章节号(§引用)` | `` |
-| 217 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshol… | `1.3` | `章节号(§引用)` | `` |
-| 218 | \| §1.3 贡献 2 \| 三模块合计 2.85 秒 \| `metrics.json` → `total… | `1.3` | `章节号(§引用)` | `` |
-| 219 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.cs… | `1.3` | `章节号(§引用)` | `` |
-| 220 | \| §1.3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5… | `1.3` | `章节号(§引用)` | `` |
-| 221 | \| §1.3 贡献 4 \| 中文 0.6463 \| `standardize/ablation.csv`… | `1.3` | `章节号(§引用)` | `` |
-| 221 | …4 \| 中文 0.6463 \| `standardize/ablation.csv` 第 2 数据行 `变体=ABS 绝对余弦,-cover（基线 0.968）, 列=最优阈值` =… | `2` | `外部文件行号引用` | `` |
-| 222 | \| §1.3 贡献 4 \| 正向判定 F1 = 0 \| `results_xfer_banking77_… | `1.3` | `章节号(§引用)` | `` |
-| 222 | …判定 F1 = 0 \| `results_xfer_banking77_en.csv` 第 1 数据行列 `F1` \| 0.0 \| 一致 \| | `1` | `外部文件行号引用` | `` |
-| 223 | \| §1.3 贡献 4 \| 反向判定 77/77 全判为缺口 \| 同文件第 2 数据行 `检出意图数`… | `1.3` | `章节号(§引用)` | `` |
-| 223 | \| §1.3 贡献 4 \| 反向判定 77/77 全判为缺口 \| 同文件第 2 数据行 `检出意图数` \| 77 \| 一致 \| | `2` | `外部文件行号引用` | `` |
-| 224 | \| §1.3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2… | `1.3` | `章节号(§引用)` | `` |
-| 224 | ….3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2 数据行列 `F1` / `该场景最优F1` \| 0.3261 / 0.8148 \| 一致… | `2` | `外部文件行号引用` | `` |
-| 225 | \| §1.3 贡献 5 \| 极差 0.0018 \| `results_directions.csv` A… | `1.3` | `章节号(§引用)` | `` |
-| 226 | \| §1.3 贡献 5 \| AUC 0.1120 \| `results_directions.csv`… | `1.3` | `章节号(§引用)` | `` |
-| 227 | \| §2.1 选型表 \| 参数量约 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `2.1` | `章节号(§引用)` | `` |
-| 227 | \| §2.1 选型表 \| 参数量约 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `24` | `模型参数量` | `` |
-| 228 | \| §2.1 选型表 \| 权重 95.8 MB \| `metrics.json` → `embeddin… | `2.1` | `章节号(§引用)` | `` |
-| 229 | \| §2.1 选型表 \| 512 维 \| `metrics.json` → `embedding.dim… | `2.1` | `章节号(§引用)` | `` |
-| 230 | \| §2.2 基线偏高 \| min 0.5629 / mean 0.6891 / max 0.8294… | `2.2` | `章节号(§引用)` | `` |
-| 231 | \| §2.3 不用 KMeans \| 实测 95 个簇（mcs=5） \| 受审集合内 `gap_thre… | `2.3` | `章节号(§引用)` | `` |
-| 232 | \| §2.3 不用 KMeans \| 30 个意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `2.3` | `章节号(§引用)` | `` |
-| 233 | \| §2.3 不用 KMeans \| mcs=10 噪声 9 条 \| 受审集合内无噪声数列 \| — \|… | `2.3` | `章节号(§引用)` | `` |
-| 234 | \| §3.1 技术可行性 \| 生成数据约 1 秒 \| 受审集合内无生成耗时字段 \| — \| 【无出处】… | `3.1` | `章节号(§引用)` | `` |
-| 235 | \| §3.1 技术可行性 \| 4152 条文本 \| `embedding.n_docs+n_ticket… | `3.1` | `章节号(§引用)` | `` |
-| 236 | \| §3.1 技术可行性 \| 向量化 15.43 秒 \| `metrics.json` → `embed… | `3.1` | `章节号(§引用)` | `` |
-| 237 | \| §3.1 技术可行性 \| 三模块 2.85 秒 \| `metrics.json` → `total_… | `3.1` | `章节号(§引用)` | `` |
-| 238 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项… | `3.1` | `章节号(§引用)` | `` |
-| 238 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_… | `2000 (×2)` | `年份/日期` | `` |
-| 239 | \| §3.5 非功能需求 \| 检测环节 2.85 秒 \| `metrics.json` → `total… | `3.5` | `章节号(§引用)` | `` |
-| 240 | \| §3.5 非功能需求 \| 向量化 15.43 秒 \| `metrics.json` → `embed… | `3.5` | `章节号(§引用)` | `` |
-| 241 | \| §5.1 段落切分动机 \| 300 篇平均 140 字 \| 受审集合内无正文字数字段 \| — \| 【… | `5.1` | `章节号(§引用)` | `` |
-| 242 | \| §5.1 段落切分动机 \| 约 6.2 句/篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `5.1` | `章节号(§引用)` | `` |
-| 243 | \| §5.1 段落切分动机 \| 整篇级 AUC 0.8880（工单级 0.8307） \| `granul… | `5.1` | `章节号(§引用)` | `` |
-| 244 | \| §5.1 段落切分动机 \| 1852 个段落 \| `metrics.json` → `embeddi… | `5.1` | `章节号(§引用)` | `` |
-| 245 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1… | `5.1` | `章节号(§引用)` | `` |
-| 246 | \| §5.1 段落切分动机 \| 段落级 AUC 0.968 \| `results_auc.csv` `a… | `5.1` | `章节号(§引用)` | `` |
-| 247 | \| §5.1.3 对照表 \| 段落级 0.968 \| 同上 \| 0.968 \| 一致 \| | `5.1` | `章节号(§引用)` | `` |
-| 248 | \| §5.1.3 对照表 \| 整篇级 0.8880 \| `granularity.csv` `doc_l… | `5.1` | `章节号(§引用)` | `` |
-| 249 | \| §5.1.3 对照表 \| margin 0.9200 / 0.8320 \| `granularity… | `5.1` | `章节号(§引用)` | `` |
-| 250 | \| §5.1.3 对照表 \| max÷std 0.7040 / 0.4960 \| `granularit… | `5.1` | `章节号(§引用)` | `` |
-| 251 | \| §5.1.3 对照表 \| max÷top5 0.8880 / 0.7760 \| `granulari… | `5.1` | `章节号(§引用)` | `` |
-| 252 | \| §5.1.3 对照表 \| max-min 0.8800 / 0.9280 \| `granularit… | `5.1` | `章节号(§引用)` | `` |
-| 253 | \| §5.2.1 表 \| mcs=5 簇数 95 \| 受审集合内无总簇数列 \| — \| 【无出处】 \| | `5.2` | `章节号(§引用)` | `` |
-| 254 | \| §5.2.1 表 \| mcs=5 噪声 0 \| 受审集合内无噪声数列 \| — \| 【无出处】 \| | `5.2` | `章节号(§引用)` | `` |
-| 255 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类… | `5.2` | `章节号(§引用)` | `` |
-| 256 | \| §5.2.1 表 \| mcs=5 最优 F1 0.800 \| `metrics.json` → `g… | `5.2` | `章节号(§引用)` | `` |
-| 257 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 /… | `5.2` | `章节号(§引用)` | `` |
-| 258 | \| §5.2.1 表 \| mcs=10 最优 F1 0.800 \| `gap_threshold.csv… | `5.2` | `章节号(§引用)` | `` |
-| 259 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 /… | `5.2` | `章节号(§引用)` | `` |
-| 260 | \| §5.2.6 复杂度表 \| 簇数 C = 95 \| 受审集合内无总簇数列 \| — \| 【无出处】 \| | `5.2` | `章节号(§引用)` | `` |
-| 261 | \| §5.2.7 局限 \| 95 簇 > 30 意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `5.2` | `章节号(§引用)` | `` |
-| 262 | \| §5.2.7 局限 \| Top15「社保转移办理」出现 3 次 \| `poc/kbgovernanc… | `5.2` | `章节号(§引用)` | `` |
-| 263 | \| §5.2.7 局限 \| 按意图去重后 F1 = 0.800 \| `metrics.json` → `… | `5.2` | `章节号(§引用)` | `` |
-| 264 | \| §5.3 引言块 \| S3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4… | `5.3` | `章节号(§引用)` | `` |
-| 265 | \| §5.3.2 表 · ABS \| 0.9680 / 0.9538 / 0.7925 \| `resul… | `5.3` | `章节号(§引用)` | `` |
-| 266 | \| §5.3.2 表 · S3 \| 1.0000 / 0.4344 / 0.4946 \| 三文件 `S3… | `5.3` | `章节号(§引用)` | `` |
-| 267 | \| §5.3.2 表 · S3b \| 英文 0.4860 / 中文 0.4962 \| `results_… | `5.3` | `章节号(§引用)` | `` |
-| 268 | \| §5.3.2 表 · S4 \| 0.9840 / 0.5538 / 0.5441 \| 三文件 `S4… | `5.3` | `章节号(§引用)` | `` |
-| 269 | \| §5.3.2 表 · S5 \| 1.0000 / 0.7516 / 0.6387 \| 三文件 `S5… | `5.3` | `章节号(§引用)` | `` |
-| 269 | …1.0000 / 0.7516 / 0.6387 \| 三文件 `S5 双参考系均值` \| 1.0 / 0.7516 / 0.6387 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
-| 270 | \| §5.3.2 表 · S1 / S2 \| 0.9680 / 0.9538 / 0.7925 \| 三文… | `5.3` | `章节号(§引用)` | `` |
-| 271 | \| §5.3.2 差值 \| S3 在 α 领先基线 0.0320 \| 1.0 - 0.968 \| 0.0… | `5.3` | `章节号(§引用)` | `` |
-| 272 | \| §5.3.2 差值 \| 英文落后 0.5194 \| 0.9538 - 0.4344 \| 0.5194… | `5.3` | `章节号(§引用)` | `` |
-| 273 | \| §5.3.2 差值 \| 中文落后 0.2979 \| 0.7925 - 0.4946 \| 0.2979… | `5.3` | `章节号(§引用)` | `` |
-| 274 | \| §5.3.2 机理 \| α 的 5 个缺口意图分属人事行政/信息技术/财务管理/信息安全 \| 受审集… | `5.3` | `章节号(§引用)` | `` |
-| 275 | \| §5.3.2 机理 \| banking77 按 15 个整意图成片缺失 \| `standardize… | `5.3` | `章节号(§引用)` | `` |
-| 276 | \| §5.3.2 补充证据 \| ablation.csv S4b α AUC 0.752 / F1 0.… | `5.3` | `章节号(§引用)` | `` |
-| 277 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.689… | `5.3` | `章节号(§引用)` | `` |
-| 278 | \| §5.3.3 边界一 \| 极差 0.0264 \| 同上 5 值 max-min \| 0.0264 \|… | `5.3` | `章节号(§引用)` | `` |
-| 279 | \| §5.3.3 边界一 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.… | `5.3` | `章节号(§引用)` | `` |
-| 280 | \| §5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6… | `5.3` | `章节号(§引用)` | `` |
-| 281 | \| §5.3.3 边界一 \| 「0.6463 与该窄带不是同一个口径，不能合成同一条区间」 \| 0.64… | `5.3` | `章节号(§引用)` | `` |
-| 282 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F… | `5.3` | `章节号(§引用)` | `` |
-| 282 | …F1 0.0000 \| `results_xfer_banking77_en.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0… | `1` | `外部文件行号引用` | `` |
-| 283 | \| §5.3.3 边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、… | `5.3` | `章节号(§引用)` | `` |
-| 283 | …、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1… | `2` | `外部文件行号引用` | `` |
-| 284 | \| §5.3.3 边界二 表 · 中文（正向） \| 0 / 77、P 0.0000、R 0.0000、F… | `5.3` | `章节号(§引用)` | `` |
-| 284 | …F1 0.0000 \| `results_xfer_banking77_zh.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0… | `1` | `外部文件行号引用` | `` |
-| 285 | \| §5.3.3 边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、… | `5.3` | `章节号(§引用)` | `` |
-| 285 | …、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1… | `2` | `外部文件行号引用` | `` |
-| 286 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-e… | `5.3` | `章节号(§引用)` | `` |
-| 287 | \| §5.3.3 边界三 \| 两个 banking77 均值比中文合成高 0.1495–0.1906 \|… | `5.3` | `章节号(§引用)` | `` |
-| 288 | \| §5.3.3 边界三 \| banking77（bge-small-en-v1.5）最优阈值 cove… | `5.3` | `章节号(§引用)` | `` |
-| 289 | \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.646… | `5.3` | `章节号(§引用)` | `` |
-| 290 | \| §5.3.3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向… | `5.3` | `章节号(§引用)` | `` |
-| 291 | \| §5.3.3 使用边界表 \| banking77 全量 → KB 减半 S1/S2 迁移后 F1 0… | `5.3` | `章节号(§引用)` | `` |
-| 292 | \| §5.3.3 使用边界表 \| bge-en 与 bge-zh 均值相差 0.0411 \| `bank… | `5.3` | `章节号(§引用)` | `` |
-| 293 | \| §5.3.3 使用边界表 \| 跨语言迁移正向判定 F1 掉至 0 \| `results_xfer_b… | `5.3` | `章节号(§引用)` | `` |
-| 293 | …定 F1 掉至 0 \| `results_xfer_banking77_en.csv` 第 1 数据行 `F1` \| 0.0 \| 一致 \| | `1` | `外部文件行号引用` | `` |
-| 294 | \| §5.3.4 表 \| ABS / A1 / A2 / A3 / A4 / B 六行四场景 AUC \|… | `5.3` | `章节号(§引用)` | `` |
-| 295 | \| §5.3.4 论断 \| A2 极差 0.0018 / AUC 0.1120 \| `results_d… | `5.3` | `章节号(§引用)` | `` |
-| 296 | \| §5.3.4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 /… | `5.3` | `章节号(§引用)` | `` |
-| 297 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115… | `5.3` | `章节号(§引用)` | `` |
-| 298 | \| §5.3.5 方向 C 表 \| ABS 标准差 0.1452 / 平均 F1 0.8289 \| `r… | `5.3` | `章节号(§引用)` | `` |
-| 299 | \| §5.3.5 方向 C 表 \| 固定 25% 标准差 0.0873 / 平均 F1 0.5522 \|… | `5.3` | `章节号(§引用)` | `` |
-| 300 | \| §5.3.5 诚实提示 \| 30% 标准差 0.0883 \| `results_directionC… | `5.3` | `章节号(§引用)` | `` |
-| 301 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同… | `5.3` | `章节号(§引用)` | `` |
-| 302 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8… | `5.3` | `章节号(§引用)` | `` |
-| 303 | \| §5.4 规则表 \| R1 权重 3 / 命中 32 \| `metrics.json` → `cor… | `5.4` | `章节号(§引用)` | `` |
-| 304 | \| §5.4 规则表 \| R2 权重 2 / 命中 38 \| 同上 `R2_更新时间超18个月` \| 2… | `5.4` | `章节号(§引用)` | `` |
-| 305 | \| §5.4 规则表 \| R3 权重 2 / 命中 32 \| 同上 `R3_正文含绝对过期年份` \| 2… | `5.4` | `章节号(§引用)` | `` |
-| 306 | \| §5.4 规则表 \| R4 权重 1 / 命中 88 \| 同上 `R4_同类存在更新文档` \| 1… | `5.4` | `章节号(§引用)` | `` |
-| 307 | \| §5.4 判定式 \| riskScore ≥ 3 \| `metrics.json` → `corru… | `5.4` | `章节号(§引用)` | `` |
-| 308 | \| §5.4 规则工程细节 \| 原始 R4 会让 275/300 篇全部命中 \| 受审集合内无该消融记录… | `5.4` | `章节号(§引用)` | `` |
-| 309 | \| §5.4 规则工程细节 \| 领先 ≥ 365 天；标题 bigram 包含度 ≥ 0.50 \| 受审… | `5.4` | `章节号(§引用)` | `` |
-| 310 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metri… | `5.4` | `章节号(§引用)` | `` |
-| 311 | \| §5.4 实测结果 \| 0.8986 / 1.0 / 0.9466 \| `metrics.json`… | `5.4` | `章节号(§引用)` | `` |
-| 311 | \| §5.4 实测结果 \| 0.8986 / 1.0 / 0.9466 \| `metrics.json` → `corrupt.precisio… | `1.0` | `章节号(枚举)` | `` |
-| 312 | \| §5.4 实测结果 \| 耗时 0.42 秒 \| `metrics.json` → `corrupt.… | `5.4` | `章节号(§引用)` | `` |
-| 313 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈… | `5.4` | `章节号(§引用)` | `` |
-| 314 | \| §5.4.1 规则消融整表 \| 9 行的 P/R/F1/检出/TP/FP/FN/命中文档数/平均风险… | `5.4` | `章节号(§引用)` | `` |
-| 315 | \| §5.4.1 论断 \| drop_R3 的 ΔF1 = 0.0（P/R/F1 与 all 逐位相同）… | `5.4` | `章节号(§引用)` | `` |
-| 316 | \| §5.4.1 论断 \| only_R1 与 drop_R2 / drop_R4 逐位相同（0.680… | `5.4` | `章节号(§引用)` | `` |
-| 317 | \| §5.4.1 论断 \| 69 = 32（R1 单独）+ 37（R2∧R4） \| `corrupt_r… | `5.4` | `章节号(§引用)` | `` |
-| 318 | \| §5.5.1 \| 300×300 余弦矩阵 < 0.01 秒 \| `metrics.json` →… | `5.5` | `章节号(§引用)` | `` |
-| 319 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1… | `5.5` | `章节号(§引用)` | `` |
-| 320 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.70… | `5.5` | `章节号(§引用)` | `` |
-| 321 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0… | `5.5` | `章节号(§引用)` | `` |
-| 321 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0 \| `dup_thre… | `0.95 (×2)` | `章节号(枚举)` | `` |
-| 321 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0 \| `dup_threshold.csv` `thre… | `1.0 (×4)` | `章节号(枚举)` | `` |
-| 322 | \| §5.5.3 诚实标注 \| 组内余弦 0.9545–0.9845 \| `granularity_du… | `5.5` | `章节号(§引用)` | `` |
-| 322 | …_sim` / `max_max_sim`；与 `dup_groups_best.csv` 22 行 `max_sim` 同源 \| 0.9545 / 0.9845 \| 一致 \| | `22` | `外部文件行号引用` | `` |
-| 323 | \| §5.5.3 段落级组内余弦 \| 0.5671–1.0000（mean 0.9803） \| `gra… | `5.5` | `章节号(§引用)` | `` |
-| 323 | …` `granularity=passage_level` 行同三列 \| 0.5671 / 1.0 / 0.9803 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
-| 324 | \| §5.5.3 诚实标注 \| 0.85 下 223 篇被误判 \| `dup_threshold.csv… | `5.5` | `章节号(§引用)` | `` |
-| 325 | \| §5.5.3 诚实标注 \| 0.90 组级 F1 ≈ 0.70 \| 同上 0.7037 \| 0.70… | `5.5` | `章节号(§引用)` | `` |
-| 326 | \| §6.1 规模参数 \| 300 篇 \| `metrics.json` → `embedding.n_… | `6.1` | `章节号(§引用)` | `` |
-| 327 | \| §6.1 规模参数 \| 8 个业务域 \| 受审集合内无记录 \| — \| 【无出处】 \| | `6.1` | `章节号(§引用)` | `` |
-| 328 | \| §6.1 规模参数 \| 25 个已覆盖意图、每意图 12 篇 \| 受审集合内无记录 \| — \| 【无… | `6.1` | `章节号(§引用)` | `` |
-| 329 | \| §6.1 规模参数 \| 2000 条工单 \| `metrics.json` → `embedding… | `6.1` | `章节号(§引用)` | `` |
-| 329 | \| §6.1 规模参数 \| 2000 条工单 \| `metrics.json` → `embedding.n_tickets`… | `2000 (×2)` | `年份/日期` | `` |
-| 330 | \| §6.1 规模参数 \| 30 个意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `6.1` | `章节号(§引用)` | `` |
-| 331 | \| §6.1 规模参数 \| 每篇 111–191 字、均值 140 \| 受审集合内无记录 \| — \| 【… | `6.1` | `章节号(§引用)` | `` |
-| 332 | \| §6.1 规模参数 \| 缺口工单占比 18.6% \| `ground_truth.json` → `… | `6.1` | `章节号(§引用)` | `` |
-| 333 | \| §6.1 埋设表 \| 5 意图 / 371 工单 \| `ground_truth.json` → `… | `6.1` | `章节号(§引用)` | `` |
-| 334 | \| §6.1 埋设表 \| 重复 22 组 / 49 篇 \| `poc/kbgovernance/dup_… | `6.1` | `章节号(§引用)` | `` |
-| 335 | \| §6.1 埋设表 \| 腐化 62 篇 \| `metrics.json` → `corrupt.emb… | `6.1` | `章节号(§引用)` | `` |
-| 336 | \| §6.1 埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–… | `6.1` | `章节号(§引用)` | `` |
-| 336 | …§6.1 埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–2023 \| 受审集合内无拆分计数 \| — \| 【无出处】 \| | `2022` | `年份/日期` | `` |
-| 336 | …埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–2023 \| 受审集合内无拆分计数 \| — \| 【无出处】 \| | `2023` | `年份/日期` | `` |
-| 337 | \| §6.1 防作弊 \| 4% 自然陈旧文档 \| 受审集合内无该字段 \| — \| 【无出处】 \| | `6.1` | `章节号(§引用)` | `` |
-| 338 | \| §6.1 人工校验 \| 抽 10% / 20 条 / Kappa ≥ 0.8 \| 计划性承诺，受审集… | `6.1` | `章节号(§引用)` | `` |
-| 339 | \| §6.1 可复现性 \| seed=42、两次运行 md5 一致 \| `ground_truth.js… | `6.1` | `章节号(§引用)` | `` |
-| 339 | \| §6.1 可复现性 \| seed=42、两次运行 md5 一致 \| `ground_truth.json` → `seed`=42… | `42 (×2)` | `随机种子` | `` |
-| 340 | \| §6.2 双轨表 \| 300 文档 / 2000 工单 \| `embedding.n_docs` /… | `6.2` | `章节号(§引用)` | `` |
-| 340 | \| §6.2 双轨表 \| 300 文档 / 2000 工单 \| `embedding.n_docs` / `n_tickets` \| 同值 \|… | `2000` | `年份/日期` | `` |
-| 341 | \| §6.2 双轨表 \| banking77 13,083 条 \| `standardize/data/… | `6.2` | `章节号(§引用)` | `` |
-| 341 | ….csv`（10003 条）+ `banking77_test.csv`（3080 条）= 13083（旁注，受审集合外） \| 13083 \| 【无出处】 \| | `13083 (×2)` | `端口号` | `` |
-| 342 | \| §6.3 E9 对照 \| ABS 0.968 \| `results_auc.csv` `alpha/… | `6.3` | `章节号(§引用)` | `` |
-| 343 | \| §6.3 E11 对照 \| ABS 0.9538 / 0.7925 \| `results_banki… | `6.3` | `章节号(§引用)` | `` |
-| 344 | \| §6.3 E12 对照 \| 域内 0.968 / 0.4344 \| 前者为 ABS 基线 α、后者为… | `6.3` | `章节号(§引用)` | `` |
-| 345 | \| §6.3 E13 对照 \| ABS (0.0264, 0.968) \| `results_auc.c… | `6.3` | `章节号(§引用)` | `` |
-| 346 | \| §6.3 E14 对照 \| 0.1452 / 0.8289 \| 同 §5.3.5 \| 0.1452… | `6.3` | `章节号(§引用)` | `` |
-| 346 | \| §6.3 E14 对照 \| 0.1452 / 0.8289 \| 同 §5.3.5 \| 0.1452 / 0.8289 \| 一致 \| | `5.3` | `章节号(§引用)` | `` |
-| 347 | \| §6.4 图3-1 \| 可用窗口仅 0.60–0.64 \| `gap_threshold.csv`… | `6.4` | `章节号(§引用)` | `` |
-| 347 | ….64 \| `gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰为 0.6 / 0.62 / 0.64 三档 \| 0.60–0.64 \| 一致（推算） \| | `0.6` | `章节号(枚举)` | `` |
-| 347 | …`gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰为 0.6 / 0.62 / 0.64 三档 \| 0.60–0.64 \| 一致（推算） \| | `0.62` | `章节号(枚举)` | `` |
-| 348 | \| §6.4 图3-2 \| 0.968 > 0.8880 \| `results_auc.csv` `al… | `6.4` | `章节号(§引用)` | `` |
-| 349 | \| §6.4 图3-6 \| A2 0.0018 / 0.1120 \| `results_directio… | `6.4` | `章节号(§引用)` | `` |
-| 350 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*… | `6.4` | `章节号(§引用)` | `` |
-| 351 | \| §6.4 表4-5 \| 0.4344 / 0.4946 \| `results_banking77_{… | `6.4` | `章节号(§引用)` | `` |
-| 352 | \| §6.4 表4-6 \| 分组标准化消融 14 变体 \| `standardize/ablation.… | `6.4` | `章节号(§引用)` | `` |
-| 353 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granulari… | `7.4` | `章节号(§引用)` | `` |
-| 353 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granularity.csv` / `results_auc.csv`） \| 0.88… | `5.1` | `章节号(§引用)` | `` |
-| 354 | \| §7.4 问答 3 \| 参数 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `7.4` | `章节号(§引用)` | `` |
-| 354 | \| §7.4 问答 3 \| 参数 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `24` | `模型参数量` | `` |
-| 355 | \| §7.4 问答 4 \| 实际分出 95 个簇 \| 受审集合内无总簇数列 \| — \| 【无出处】 \| | `7.4` | `章节号(§引用)` | `` |
-| 356 | \| §7.4 问答 6 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.… | `7.4` | `章节号(§引用)` | `` |
-| 357 | \| §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.c… | `7.4` | `章节号(§引用)` | `` |
-| 358 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6… | `7.4` | `章节号(§引用)` | `` |
-| 359 | \| §7.4 问答 8 \| 「ground truth 从 15 个缺口意图变成 46 个」 \| 46… | `7.4` | `章节号(§引用)` | `` |
-| 359 | …_gap_intents` \| 46；15 \| 46 `一致`；15 `【无出处】`（同 §5.3.2 机理行） \| | `5.3` | `章节号(§引用)` | `` |
-| 360 | \| §7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5… | `7.4` | `章节号(§引用)` | `` |
-| 361 | \| §7.4 问答 8 \| 中文阈值 → banking77（bge-small-en-v1.5）：正向… | `7.4` | `章节号(§引用)` | `` |
-| 362 | \| §7.4 问答 8b \| 极差 0.0018 / AUC 0.1120 \| `results_dir… | `7.4` | `章节号(§引用)` | `` |
-| 374 | \| 2 \| 附录 D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.11… | `5.3` | `章节号(§引用)` | `` |
-| 375 | \| 3 \| 附录 D · Spearman 与 §1.3 贡献 3、§5.3 引言 \| -1.000000 \| `mechanism.csv` `s… | `1.3` | `章节号(§引用)` | `` |
-| 375 | \| 3 \| 附录 D · Spearman 与 §1.3 贡献 3、§5.3 引言 \| -1.000000 \| `mechanism.csv` `spearman_与c… | `5.3` | `章节号(§引用)` | `` |
-| 376 | \| 4 \| 附录 D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍… | `6.2 (×2)` | `章节号(文档位置列)` | `` |
-| 376 | \| 4 \| 附录 D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027… | `5.1` | `章节号(§引用)` | `` |
-| 378 | \| 6 \| 附录 D · 迁移表 与 §5.3.3「banking77（bge-small-en-v1.5）最优阈值 cover ≤ 0.… | `5.3` | `章节号(§引用)` | `` |
-| 379 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6463 \| `… | `1.3` | `章节号(§引用)` | `` |
-| 379 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6463 \| `ablation.csv… | `5.3` | `章节号(§引用)` | `` |
-| 380 | \| 8 \| §5.5.1「300×300 余弦矩阵实测耗时 < 0.01 秒」 \| < 0.01 秒 \| `me… | `5.5` | `章节号(§引用)` | `` |
-| 380 | \| 8 \| §5.5.1「300×300 余弦矩阵实测耗时 < 0.01 秒」 \| < 0.01 秒 \| `metrics.json` → `dup.rows[*]… | `0.01 (×2)` | `章节号(文档位置列)` | `` |
-| 381 | \| 9 \| 附录 D · 腐化 P/R/F1 与 §5.4 \| recall 1.0000 / F1 1.0 \| `corrupt.recall` =… | `5.4` | `章节号(§引用)` | `` |
-| 382 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_th… | `5.5` | `章节号(§引用)` | `` |
-| 382 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.c… | `7.4` | `章节号(§引用)` | `` |
-| 383 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.8495 - 0.6… | `5.3` | `章节号(§引用)` | `` |
-| 384 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2… | `5.3` | `章节号(§引用)` | `` |
-| 385 | \| 13 \| §5.3.3 / 附录 D \| bge-en 与 bge-zh 均值相差 0.0411 \| 0.87… | `5.3` | `章节号(§引用)` | `` |
-| 386 | \| 14 \| §5.2.1 / §5.2.7 / §6.4 \| P/R/F1 写 0.800 \| `metrics… | `5.2 (×2)` | `章节号(§引用)` | `` |
-| 386 | \| 14 \| §5.2.1 / §5.2.7 / §6.4 \| P/R/F1 写 0.800 \| `metrics.json` → `gap.best… | `6.4` | `章节号(§引用)` | `` |
-| 394 | ### 4.1 整文件未被引用的数值 | `4.1` | `章节号` | `` |
-| 398 | …nsfer.csv` \| **全部 32 行、10 列**均未在文档中出现。文档 E10（§6.3）只引用了文件名。表内含各打分 × 4 目标场景的 `迁移后F1`、`迁移后P`、`迁移后R… | `6.3` | `章节号(§引用)` | `` |
-| 398 | …标场景的 `迁移后F1`、`迁移后P`、`迁移后R`、`检出意图数`、`AUC衰减`，是 §5.3.3 边界一唯一未被利用的数据源。 \| | `5.3` | `章节号(§引用)` | `` |
-| 402 | ### 4.2 部分行/列未被引用 | `4.2` | `章节号` | `` |
-| 406 | …lts_xfer_banking77_en.csv` 的 `该场景最优F1` 列间接进入 §5.3.3 边界一与使用边界表；`子场景=KB仅20意图` 的 8 行仍完全未被引用，含列 `知识… | `5.3` | `章节号(§引用)` | `` |
-| 409 | …in_cluster_size=10` 的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68… | `0.62 (×2)` | `章节号(枚举)` | `` |
-| 409 | …10` 的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `m… | `0.3` | `章节号(枚举)` | `` |
-| 409 | …的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_c… | `0.4` | `章节号(枚举)` | `` |
-| 409 | …行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_clust… | `0.5` | `章节号(枚举)` | `` |
-| 409 | …文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_s… | `0.6` | `章节号(枚举)` | `` |
-| 409 | …用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=… | `0.7` | `章节号(枚举)` | `` |
-| 409 | …threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的… | `0.64` | `章节号(枚举)` | `` |
-| 409 | …hold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62… | `0.66` | `章节号(枚举)` | `` |
-| 409 | …0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62 之外的 1… | `0.68` | `章节号(枚举)` | `` |
-| 409 | …一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62 之外的 10 行均未… | `0.72` | `章节号(枚举)` | `` |
-| 409 | …F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62 之外的 10 行均未引用。文档… | `0.74` | `章节号(枚举)` | `` |
-| 412 | …（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `5.4` | `章节号(§引用)` | `` |
-| 423 | …分布、5 场景文档规模、banking77 缺口意图数** 三组关键数据。附录 D 与 §5.3.3 边界三的整张 cover 分布表全部依赖这四个 JSON，而它们不在受审集合内 ——… | `5.3` | `章节号(§引用)` | `` |
-| 425 | ### 5.1 整篇级 AUC 与失败归一化三组 AUC（已补齐，本次复核改判） | `5.1` | `章节号` | `` |
-| 435 | …论**：这组 AUC 原先只以 `poc/kbgovernance/RESULT.md` §2.3 的散文表格存在，机读产物已由 `granularity.csv` 补齐，本次复核据此改判为… | `2.3` | `章节号(§引用)` | `` |
-| 437 | ### 5.2 HDBSCAN 簇数、噪声数与聚类耗时 | `5.2` | `章节号` | `` |
-| 441 | …**≈1.1 秒** \| `run_all.log` 记为 95 簇 / 0 噪声 / **1.18s**；`run_all_repro.log` 记为 95 簇 / 0 噪声 / **1.0… | `1.18` | `章节号` | `` |
-| 441 | ….18s**；`run_all_repro.log` 记为 95 簇 / 0 噪声 / **1.07s**。文档已改为直接引用两次日志值并只报量级；因日志不在受审集合，判定仍为 `【无出处】`… | `1.07` | `章节号` | `` |
-| 442 | …**≈1.2 秒** \| `run_all.log` 记 88 簇 / 9 噪声 / **1.03s**；`run_all_repro.log` 记 88 簇 / 9 噪声 / **1.28… | `1.03` | `章节号` | `` |
-| 442 | …1.03s**；`run_all_repro.log` 记 88 簇 / 9 噪声 / **1.28s**。文档已改为直接引用两次日志值并只报量级；因日志不在受审集合，判定仍为 `【无出处】`… | `1.28` | `章节号` | `` |
-| 447 | ### 5.3 时间与体积 | `5.3` | `章节号` | `` |
-| 451 | \| bge-small-zh-v1.5 **参数量约 24M** \| 无产物；bge-base 102M / bge-large 326M 同样无据… | `24` | `模型参数量` | `` |
-| 451 | …bge-small-zh-v1.5 **参数量约 24M** \| 无产物；bge-base 102M / bge-large 326M 同样无据 \| | `102` | `模型参数量` | `` |
-| 451 | …**参数量约 24M** \| 无产物；bge-base 102M / bge-large 326M 同样无据 \| | `326` | `模型参数量` | `` |
-| 454 | \| R4 原始表述会让 **275/300 篇**全部命中 \| `RESULT.md` 360 行；无 CSV 记录该消融 \| | `360` | `外部文件行号引用` | `` |
-| 458 | ### 5.4 数据构造与人工校验承诺 | `5.4` | `章节号` | `` |
-| 464 | \| 缺口工单占比 **18.6%（371/2000）** \| `ground_truth.json` → `gap_tic… | `18.6 (×2)` | `章节号` | `` |
-| 464 | \| 缺口工单占比 **18.6%（371/2000）** \| `ground_truth.json` → `gap_ticket_ratio`… | `2000` | `年份/日期` | `` |
-| 465 | …分：**32 篇**追加过期表述 + **30 篇** `last_modified` 置 2022–2023 \| 合计 62 可核验（`metrics.json` → `corrupt.em… | `2022` | `年份/日期` | `` |
-| 465 | …2 篇**追加过期表述 + **30 篇** `last_modified` 置 2022–2023 \| 合计 62 可核验（`metrics.json` → `corrupt.embedde… | `2023` | `年份/日期` | `` |
-| 468 | \| `random.seed(42)` + `np.random.seed(42)`；连续两次运行 **md5 完全一致**… | `42 (×3)` | `随机种子` | `` |
+| 12 | **第七轮复核（2026-10-23）**：覆盖集合扩入 `poc/kbgovernance/repro_check… | `2026` | `年份/日期` | `` |
+| 12 | …control_sampled` / `gap.clusters` 字段。据此改判的条目：§5.2 聚类簇数与噪声条数、§5.4 误报归因、§6.1 防作弊对照集、§6.1 可复现性。另有一… | `5.2` | `章节号(§引用)` | `` |
+| 12 | …` / `gap.clusters` 字段。据此改判的条目：§5.2 聚类簇数与噪声条数、§5.4 误报归因、§6.1 防作弊对照集、§6.1 可复现性。另有一处此前判为无出处的断言因重跑产… | `5.4` | `章节号(§引用)` | `` |
+| 12 | …lusters` 字段。据此改判的条目：§5.2 聚类簇数与噪声条数、§5.4 误报归因、§6.1 防作弊对照集、§6.1 可复现性。另有一处此前判为无出处的断言因重跑产物而补上出处：`em… | `6.1 (×2)` | `章节号(§引用)` | `` |
+| 12 | …ng.device` = `cpu` 已可核验，附录 D「embedding 方案」行与 §3.1「全程 CPU」行改判为 `一致`，§5.3 的对应条目移除。**聚类耗时仍未落盘**（`m… | `3.1` | `章节号(§引用)` | `` |
+| 12 | …验，附录 D「embedding 方案」行与 §3.1「全程 CPU」行改判为 `一致`，§5.3 的对应条目移除。**聚类耗时仍未落盘**（`metrics.json` 不含该字段），相关… | `5.3` | `章节号(§引用)` | `` |
+| 16 | **第三轮复核（2026-10-19）**：技术方案的耗时值已刷新为当前 `metrics.json`（`embed… | `2026` | `年份/日期` | `` |
+| 18 | **第四轮复核（2026-10-19，范围未变说明）**：技术方案本轮有三处结构性改动——§1.2「商业对标」整节删… | `2026` | `年份/日期` | `` |
+| 18 | **第四轮复核（2026-10-19，范围未变说明）**：技术方案本轮有三处结构性改动——§1.2「商业对标」整节删除并重编号、E7/E8 由「不进论文」降级为正文两小节（各 ≤1 页）、§… | `1.2 (×2)` | `章节号(§引用)` | `` |
+| 18 | …「商业对标」整节删除并重编号、E7/E8 由「不进论文」降级为正文两小节（各 ≤1 页）、§6.4 图表清单随之调整。**这三处均未改变原子声明集合**：删除的 §1.2 商业对标节内不含任… | `6.4 (×2)` | `章节号(§引用)` | `` |
+| 18 | …对标节内不含任何数字（仅有 AptEdge / Ravenna 两条定性描述），新增内容（§5.3 定位框、图表清单中的表4-7、页数归属说明）不含任何可核验的实测数值，§6.3 / §6.… | `5.3` | `章节号(§引用)` | `` |
+| 18 | …新增内容（§5.3 定位框、图表清单中的表4-7、页数归属说明）不含任何可核验的实测数值，§6.3 / §6.4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 1… | `6.3` | `章节号(§引用)` | `` |
+| 20 | **第五轮复核（2026-10-19，xfer 判定式符号缺陷修正）**：`standardize/exp4_ban… | `2026` | `年份/日期` | `` |
+| 20 | …77 全判为缺口（F1 0.3261）。本报告 §2 的相关判定行已按新产物重核（正向取第 1 数据行、反向取第 2 数据行），§1 的原子声明计数随之变化。 | `1 (×2)` | `外部文件行号引用` | `` |
+| 22 | ….json` 与 `banking77_meta_en.json` 内容相同，但审计报告 §2.3 与 §5 的旁注位置直接引用了前者，故保留不动。 | `2.3` | `章节号(§引用)` | `` |
+| 24 | **第六轮复核（2026-10-20，跨语料目标标签与口径混用修正）**： | `2026` | `年份/日期` | `` |
+| 26 | 1. **目标语料标签修正**：`standardize/exp4_banking77.py`… | `1` | `列表序号` | `` |
+| 27 | 2. **§5.3.3 边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与… | `2` | `列表序号` | `` |
+| 27 | 2. **§5.3.3 边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与「最优阈值」口径… | `5.3` | `章节号(§引用)` | `` |
+| 28 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.… | `3` | `列表序号` | `` |
+| 28 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846… | `7.4 (×4)` | `章节号(§引用)` | `` |
+| 40 | …18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边界三 cover 分布表所依赖的 `scenario_meta.json` / `b… | `5.3` | `章节号(§引用)` | `` |
+| 42 | …sv`、`granularity_dup.csv` 补齐机读出处并改判为 `一致`，详见 §2.1 与 §5.1。**这组 AUC 现按粒度分列报告**：整篇级 max-cosine 意图级… | `2.1` | `章节号(§引用)` | `` |
+| 42 | …anularity_dup.csv` 补齐机读出处并改判为 `一致`，详见 §2.1 与 §5.1。**这组 AUC 现按粒度分列报告**：整篇级 max-cosine 意图级 0.8880… | `5.1` | `章节号(§引用)` | `` |
+| 48 | **正文已无 `不一致` 条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出… | `5.3` | `章节号(§引用)` | `` |
+| 56 | ### 2.1 附录 D 主表（43 条） | `2.1` | `章节号` | `` |
+| 61 | \| 附录D 主表「文档数 / 工单数」 \| 2000 \| `metrics.json` → `embedding.n_tickets` \| 20… | `2000 (×2)` | `年份/日期` | `` |
+| 65 | …`embedding.n_passages` ÷ `embedding.n_docs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `1852` | `端口号` | `` |
+| 71 | …ng.n_docs` + `n_tickets` + `n_passages` = 300+2000+1852 \| 4152 \| 一致（推算） \| | `2000` | `年份/日期` | `` |
+| 78 | …cision` / `gap.best.recall` / `gap.best.f1` \| 0.8 / 0.8 / 0.8 \| 一致 \| | `0.8 (×3)` | `章节号(枚举)` | `` |
+| 79 | …baseline_auc`；`standardize/results_auc.csv` 第 2 行 `场景=alpha, 方法=ABS(绝对阈值), 列=AUC` \| 0.968 \| 一… | `2` | `外部文件行号引用` | `` |
+| 86 | …/ `corrupt.recall` / `corrupt.f1` \| 0.8986 / 1.0 / 0.9466 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
+| 88 | …only_R2–R4 0.0 \| `corrupt_rule_ablation.csv` 8 行 `列=f1` \| 同值 \| 一致 \| | `8` | `外部文件行号引用` | `` |
+| 90 | …` `granularity=passage_level` 行同三列 \| 0.5671 / 1.0 / 0.9803 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
+| 98 | \| 附录D 主表「重复冗余（0.90 阈值）组级 F1」 \| 0.7037 \| `poc/kbgovernance/dup_th… | `0.90` | `章节号(文档位置列)` | `` |
+| 98 | …7037 \| `poc/kbgovernance/dup_threshold.csv` 第 3 数据行（`threshold=0.9`）列 `group_f1`；`metrics.jso… | `3` | `外部文件行号引用` | `` |
+| 99 | \| 附录D 主表「重复冗余（0.90 阈值）」 \| 32 组 / 77 篇 \| `dup_threshold.csv` `thr… | `0.90` | `章节号(文档位置列)` | `` |
+| 100 | \| 附录D 主表「重复冗余（0.95 阈值）组级 F1」 \| 1.0 \| `dup_threshold.csv` `thresh… | `0.95 (×2)` | `章节号(文档位置列)` | `` |
+| 101 | \| 附录D 主表「重复冗余（0.95 阈值）」 \| 22 组 / 49 篇 \| `dup_threshold.csv` `thr… | `0.95 (×2)` | `章节号(文档位置列)` | `` |
+| 104 | ### 2.2 附录 D · 标准化实验实测小节（69 条） | `2.2` | `章节号` | `` |
+| 111 | …38 \| `standardize/results_banking77_en.csv` 第 2 数据行（`子场景=全量, 方法=ABS(绝对阈值), 列=AUC`） \| 0.9538 \|… | `2` | `外部文件行号引用` | `` |
+| 112 | …25 \| `standardize/results_banking77_zh.csv` 第 2 数据行 `方法=ABS(绝对阈值), 列=AUC` \| 0.7925 \| 一致 \| | `2` | `外部文件行号引用` | `` |
+| 137 | …S \| -1.000000 \| `standardize/mechanism.csv` 第 2 数据行列 `spearman_与cover` \| -1.0 \| 一致（精度，见 §3） \| | `2` | `外部文件行号引用` | `` |
+| 152 | …`standardize/results_xfer_banking77_en.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`）列 `检出意图数` \| 0… | `1` | `外部文件行号引用` | `` |
+| 156 | …· 中文 α → 英文 检出意图数（反向） \| 77 / 77 全判为缺口 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）列 `检出意图数` \| 77… | `2` | `外部文件行号引用` | `` |
+| 161 | …`standardize/results_xfer_banking77_zh.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`）`检出意图数` \| 0 \|… | `1` | `外部文件行号引用` | `` |
+| 165 | …录D 迁移表 · 中文 α → 中文 检出意图数（反向） \| 77 / 77 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）`检出意图数` \| 77 \|… | `2` | `外部文件行号引用` | `` |
+| 172 | …1 0.8293） \| `results_xfer_banking77_zh.csv` 第 3 数据行 `F1` 与 `该场景最优F1` \| 0.4918 / 0.8293 \| 一致 \| | `3` | `外部文件行号引用` | `` |
+| 191 | …`方向=A2 (max-top5)/max` 四行 `召回全部阈值` = 0.0001 / 0.0 / 0.0 / 0.0018，极差 0.0018 \| 0.0018 \| 一致 \| | `0.0 (×2)` | `章节号(枚举)` | `` |
+| 204 | …差 \| 0.0873 \| `results_directionC.csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.… | `0.25` | `章节号(枚举)` | `` |
+| 204 | …directionC.csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.0873 \| 0.0873 \| 一致 \| | `0.5` | `章节号(枚举)` | `` |
+| 209 | ### 2.3 正文各节（155 条） | `2.3` | `章节号` | `` |
+| 213 | \| §1.3 贡献 1 \| 整篇级 AUC 0.8880 \| `granularity.csv` `do… | `1.3` | `章节号(§引用)` | `` |
+| 214 | \| §1.3 贡献 1 \| 段落级 AUC 0.968 \| `results_auc.csv` `alp… | `1.3` | `章节号(§引用)` | `` |
+| 215 | \| §1.3 贡献 1 \| 工单级 AUC 0.8307 → 0.8659 \| `granularity… | `1.3` | `章节号(§引用)` | `` |
+| 216 | \| §1.3 贡献 1 \| 失败归一化 AUC 0.496–0.920 \| `granularity.c… | `1.3` | `章节号(§引用)` | `` |
+| 217 | \| §1.3 贡献 2 \| 缺口 F1 = 0.800 \| `metrics.json` → `gap.… | `1.3` | `章节号(§引用)` | `` |
+| 218 | \| §1.3 贡献 2 \| 腐化 F1 = 0.9466 \| `metrics.json` → `cor… | `1.3` | `章节号(§引用)` | `` |
+| 219 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshol… | `1.3` | `章节号(§引用)` | `` |
+| 220 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshol… | `1.3` | `章节号(§引用)` | `` |
+| 221 | \| §1.3 贡献 2 \| 三模块合计 3.09 秒 \| `metrics.json` → `total… | `1.3` | `章节号(§引用)` | `` |
+| 222 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.cs… | `1.3` | `章节号(§引用)` | `` |
+| 223 | \| §1.3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5… | `1.3` | `章节号(§引用)` | `` |
+| 224 | \| §1.3 贡献 4 \| 中文 0.6463 \| `standardize/ablation.csv`… | `1.3` | `章节号(§引用)` | `` |
+| 224 | …4 \| 中文 0.6463 \| `standardize/ablation.csv` 第 2 数据行 `变体=ABS 绝对余弦,-cover（基线 0.968）, 列=最优阈值` =… | `2` | `外部文件行号引用` | `` |
+| 225 | \| §1.3 贡献 4 \| 正向判定 F1 = 0 \| `results_xfer_banking77_… | `1.3` | `章节号(§引用)` | `` |
+| 225 | …判定 F1 = 0 \| `results_xfer_banking77_en.csv` 第 1 数据行列 `F1` \| 0.0 \| 一致 \| | `1` | `外部文件行号引用` | `` |
+| 226 | \| §1.3 贡献 4 \| 反向判定 77/77 全判为缺口 \| 同文件第 2 数据行 `检出意图数`… | `1.3` | `章节号(§引用)` | `` |
+| 226 | \| §1.3 贡献 4 \| 反向判定 77/77 全判为缺口 \| 同文件第 2 数据行 `检出意图数` \| 77 \| 一致 \| | `2` | `外部文件行号引用` | `` |
+| 227 | \| §1.3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2… | `1.3` | `章节号(§引用)` | `` |
+| 227 | ….3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2 数据行列 `F1` / `该场景最优F1` \| 0.3261 / 0.8148 \| 一致… | `2` | `外部文件行号引用` | `` |
+| 228 | \| §1.3 贡献 5 \| 极差 0.0018 \| `results_directions.csv` A… | `1.3` | `章节号(§引用)` | `` |
+| 229 | \| §1.3 贡献 5 \| AUC 0.1120 \| `results_directions.csv`… | `1.3` | `章节号(§引用)` | `` |
+| 230 | \| §2.1 选型表 \| 参数量约 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `2.1` | `章节号(§引用)` | `` |
+| 230 | \| §2.1 选型表 \| 参数量约 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `24` | `模型参数量` | `` |
+| 231 | \| §2.1 选型表 \| 权重 95.8 MB \| `metrics.json` → `embeddin… | `2.1` | `章节号(§引用)` | `` |
+| 232 | \| §2.1 选型表 \| 512 维 \| `metrics.json` → `embedding.dim… | `2.1` | `章节号(§引用)` | `` |
+| 233 | \| §2.2 基线偏高 \| min 0.5629 / mean 0.6891 / max 0.8294… | `2.2` | `章节号(§引用)` | `` |
+| 234 | \| §2.3 不用 KMeans \| 实测 95 个簇（mcs=5） \| `metrics.json`… | `2.3` | `章节号(§引用)` | `` |
+| 235 | \| §2.3 不用 KMeans \| 30 个意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `2.3` | `章节号(§引用)` | `` |
+| 236 | \| §2.3 不用 KMeans \| mcs=10 噪声 9 条 \| `metrics.json` →… | `2.3` | `章节号(§引用)` | `` |
+| 237 | \| §3.1 技术可行性 \| 生成数据约 1 秒 \| 受审集合内无生成耗时字段 \| — \| 【无出处】… | `3.1` | `章节号(§引用)` | `` |
+| 238 | \| §3.1 技术可行性 \| 4152 条文本 \| `embedding.n_docs+n_ticket… | `3.1` | `章节号(§引用)` | `` |
+| 239 | \| §3.1 技术可行性 \| 向量化 14.61 秒 \| `metrics.json` → `embed… | `3.1` | `章节号(§引用)` | `` |
+| 240 | \| §3.1 技术可行性 \| 三模块 3.09 秒 \| `metrics.json` → `total_… | `3.1` | `章节号(§引用)` | `` |
+| 241 | \| §3.1 技术可行性 \| 全程 CPU，无 GPU 训练 \| `metrics.json` → `e… | `3.1` | `章节号(§引用)` | `` |
+| 242 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项… | `3.1` | `章节号(§引用)` | `` |
+| 242 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_… | `2000 (×2)` | `年份/日期` | `` |
+| 243 | \| §3.5 非功能需求 \| 检测环节 3.09 秒 \| `metrics.json` → `total… | `3.5` | `章节号(§引用)` | `` |
+| 244 | \| §3.5 非功能需求 \| 向量化 14.61 秒 \| `metrics.json` → `embed… | `3.5` | `章节号(§引用)` | `` |
+| 245 | \| §5.1 段落切分动机 \| 300 篇平均 140 字 \| 受审集合内无正文字数字段 \| — \| 【… | `5.1` | `章节号(§引用)` | `` |
+| 246 | \| §5.1 段落切分动机 \| 约 6.2 句/篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `5.1` | `章节号(§引用)` | `` |
+| 247 | \| §5.1 段落切分动机 \| 整篇级 AUC 0.8880（工单级 0.8307） \| `granul… | `5.1` | `章节号(§引用)` | `` |
+| 248 | \| §5.1 段落切分动机 \| 1852 个段落 \| `metrics.json` → `embeddi… | `5.1` | `章节号(§引用)` | `` |
+| 249 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1… | `5.1` | `章节号(§引用)` | `` |
+| 250 | \| §5.1 段落切分动机 \| 段落级 AUC 0.968 \| `results_auc.csv` `a… | `5.1` | `章节号(§引用)` | `` |
+| 251 | \| §5.1.3 对照表 \| 段落级 0.968 \| 同上 \| 0.968 \| 一致 \| | `5.1` | `章节号(§引用)` | `` |
+| 252 | \| §5.1.3 对照表 \| 整篇级 0.8880 \| `granularity.csv` `doc_l… | `5.1` | `章节号(§引用)` | `` |
+| 253 | \| §5.1.3 对照表 \| margin 0.9200 / 0.8320 \| `granularity… | `5.1` | `章节号(§引用)` | `` |
+| 254 | \| §5.1.3 对照表 \| max÷std 0.7040 / 0.4960 \| `granularit… | `5.1` | `章节号(§引用)` | `` |
+| 255 | \| §5.1.3 对照表 \| max÷top5 0.8880 / 0.7760 \| `granulari… | `5.1` | `章节号(§引用)` | `` |
+| 256 | \| §5.1.3 对照表 \| max-min 0.8800 / 0.9280 \| `granularit… | `5.1` | `章节号(§引用)` | `` |
+| 257 | \| §5.2.1 表 \| mcs=5 簇数 95 \| `metrics.json` → `gap.clu… | `5.2` | `章节号(§引用)` | `` |
+| 258 | \| §5.2.1 表 \| mcs=5 噪声 0 \| `metrics.json` → `gap.clus… | `5.2` | `章节号(§引用)` | `` |
+| 259 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类… | `5.2` | `章节号(§引用)` | `` |
+| 260 | \| §5.2.1 表 \| mcs=5 最优 F1 0.800 \| `metrics.json` → `g… | `5.2` | `章节号(§引用)` | `` |
+| 261 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 /… | `5.2` | `章节号(§引用)` | `` |
+| 262 | \| §5.2.1 表 \| mcs=10 最优 F1 0.800 \| `gap_threshold.csv… | `5.2` | `章节号(§引用)` | `` |
+| 263 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 /… | `5.2` | `章节号(§引用)` | `` |
+| 264 | \| §5.2.6 复杂度表 \| 簇数 C = 95 \| `metrics.json` → `gap.cl… | `5.2` | `章节号(§引用)` | `` |
+| 265 | \| §5.2.7 局限 \| 95 簇 > 30 意图 \| 簇数：`metrics.json` → `ga… | `5.2` | `章节号(§引用)` | `` |
+| 266 | \| §5.2.7 局限 \| Top15「社保转移办理」出现 3 次 \| `poc/kbgovernanc… | `5.2` | `章节号(§引用)` | `` |
+| 267 | \| §5.2.7 局限 \| 按意图去重后 F1 = 0.800 \| `metrics.json` → `… | `5.2` | `章节号(§引用)` | `` |
+| 268 | \| §5.3 引言块 \| S3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4… | `5.3` | `章节号(§引用)` | `` |
+| 269 | \| §5.3.2 表 · ABS \| 0.9680 / 0.9538 / 0.7925 \| `resul… | `5.3` | `章节号(§引用)` | `` |
+| 270 | \| §5.3.2 表 · S3 \| 1.0000 / 0.4344 / 0.4946 \| 三文件 `S3… | `5.3` | `章节号(§引用)` | `` |
+| 271 | \| §5.3.2 表 · S3b \| 英文 0.4860 / 中文 0.4962 \| `results_… | `5.3` | `章节号(§引用)` | `` |
+| 272 | \| §5.3.2 表 · S4 \| 0.9840 / 0.5538 / 0.5441 \| 三文件 `S4… | `5.3` | `章节号(§引用)` | `` |
+| 273 | \| §5.3.2 表 · S5 \| 1.0000 / 0.7516 / 0.6387 \| 三文件 `S5… | `5.3` | `章节号(§引用)` | `` |
+| 273 | …1.0000 / 0.7516 / 0.6387 \| 三文件 `S5 双参考系均值` \| 1.0 / 0.7516 / 0.6387 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
+| 274 | \| §5.3.2 表 · S1 / S2 \| 0.9680 / 0.9538 / 0.7925 \| 三文… | `5.3` | `章节号(§引用)` | `` |
+| 275 | \| §5.3.2 差值 \| S3 在 α 领先基线 0.0320 \| 1.0 - 0.968 \| 0.0… | `5.3` | `章节号(§引用)` | `` |
+| 276 | \| §5.3.2 差值 \| 英文落后 0.5194 \| 0.9538 - 0.4344 \| 0.5194… | `5.3` | `章节号(§引用)` | `` |
+| 277 | \| §5.3.2 差值 \| 中文落后 0.2979 \| 0.7925 - 0.4946 \| 0.2979… | `5.3` | `章节号(§引用)` | `` |
+| 278 | \| §5.3.2 机理 \| α 的 5 个缺口意图分属人事行政/信息技术/财务管理/信息安全 \| 受审集… | `5.3` | `章节号(§引用)` | `` |
+| 279 | \| §5.3.2 机理 \| banking77 按 15 个整意图成片缺失 \| `standardize… | `5.3` | `章节号(§引用)` | `` |
+| 280 | \| §5.3.2 补充证据 \| ablation.csv S4b α AUC 0.752 / F1 0.… | `5.3` | `章节号(§引用)` | `` |
+| 281 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.689… | `5.3` | `章节号(§引用)` | `` |
+| 282 | \| §5.3.3 边界一 \| 极差 0.0264 \| 同上 5 值 max-min \| 0.0264 \|… | `5.3` | `章节号(§引用)` | `` |
+| 283 | \| §5.3.3 边界一 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.… | `5.3` | `章节号(§引用)` | `` |
+| 284 | \| §5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6… | `5.3` | `章节号(§引用)` | `` |
+| 285 | \| §5.3.3 边界一 \| 「0.6463 与该窄带不是同一个口径，不能合成同一条区间」 \| 0.64… | `5.3` | `章节号(§引用)` | `` |
+| 286 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F… | `5.3` | `章节号(§引用)` | `` |
+| 286 | …F1 0.0000 \| `results_xfer_banking77_en.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0… | `1` | `外部文件行号引用` | `` |
+| 287 | \| §5.3.3 边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、… | `5.3` | `章节号(§引用)` | `` |
+| 287 | …、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1… | `2` | `外部文件行号引用` | `` |
+| 288 | \| §5.3.3 边界二 表 · 中文（正向） \| 0 / 77、P 0.0000、R 0.0000、F… | `5.3` | `章节号(§引用)` | `` |
+| 288 | …F1 0.0000 \| `results_xfer_banking77_zh.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0… | `1` | `外部文件行号引用` | `` |
+| 289 | \| §5.3.3 边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、… | `5.3` | `章节号(§引用)` | `` |
+| 289 | …、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1… | `2` | `外部文件行号引用` | `` |
+| 290 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-e… | `5.3` | `章节号(§引用)` | `` |
+| 291 | \| §5.3.3 边界三 \| 两个 banking77 均值比中文合成高 0.1495–0.1906 \|… | `5.3` | `章节号(§引用)` | `` |
+| 292 | \| §5.3.3 边界三 \| banking77（bge-small-en-v1.5）最优阈值 cove… | `5.3` | `章节号(§引用)` | `` |
+| 293 | \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.646… | `5.3` | `章节号(§引用)` | `` |
+| 294 | \| §5.3.3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向… | `5.3` | `章节号(§引用)` | `` |
+| 295 | \| §5.3.3 使用边界表 \| banking77 全量 → KB 减半 S1/S2 迁移后 F1 0… | `5.3` | `章节号(§引用)` | `` |
+| 296 | \| §5.3.3 使用边界表 \| bge-en 与 bge-zh 均值相差 0.0411 \| `bank… | `5.3` | `章节号(§引用)` | `` |
+| 297 | \| §5.3.3 使用边界表 \| 跨语言迁移正向判定 F1 掉至 0 \| `results_xfer_b… | `5.3` | `章节号(§引用)` | `` |
+| 297 | …定 F1 掉至 0 \| `results_xfer_banking77_en.csv` 第 1 数据行 `F1` \| 0.0 \| 一致 \| | `1` | `外部文件行号引用` | `` |
+| 298 | \| §5.3.4 表 \| ABS / A1 / A2 / A3 / A4 / B 六行四场景 AUC \|… | `5.3` | `章节号(§引用)` | `` |
+| 299 | \| §5.3.4 论断 \| A2 极差 0.0018 / AUC 0.1120 \| `results_d… | `5.3` | `章节号(§引用)` | `` |
+| 300 | \| §5.3.4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 /… | `5.3` | `章节号(§引用)` | `` |
+| 301 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115… | `5.3` | `章节号(§引用)` | `` |
+| 302 | \| §5.3.5 方向 C 表 \| ABS 标准差 0.1452 / 平均 F1 0.8289 \| `r… | `5.3` | `章节号(§引用)` | `` |
+| 303 | \| §5.3.5 方向 C 表 \| 固定 25% 标准差 0.0873 / 平均 F1 0.5522 \|… | `5.3` | `章节号(§引用)` | `` |
+| 304 | \| §5.3.5 诚实提示 \| 30% 标准差 0.0883 \| `results_directionC… | `5.3` | `章节号(§引用)` | `` |
+| 305 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同… | `5.3` | `章节号(§引用)` | `` |
+| 306 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8… | `5.3` | `章节号(§引用)` | `` |
+| 307 | \| §5.4 规则表 \| R1 权重 3 / 命中 32 \| `metrics.json` → `cor… | `5.4` | `章节号(§引用)` | `` |
+| 308 | \| §5.4 规则表 \| R2 权重 2 / 命中 38 \| 同上 `R2_更新时间超18个月` \| 2… | `5.4` | `章节号(§引用)` | `` |
+| 309 | \| §5.4 规则表 \| R3 权重 2 / 命中 32 \| 同上 `R3_正文含绝对过期年份` \| 2… | `5.4` | `章节号(§引用)` | `` |
+| 310 | \| §5.4 规则表 \| R4 权重 1 / 命中 88 \| 同上 `R4_同类存在更新文档` \| 1… | `5.4` | `章节号(§引用)` | `` |
+| 311 | \| §5.4 判定式 \| riskScore ≥ 3 \| `metrics.json` → `corru… | `5.4` | `章节号(§引用)` | `` |
+| 312 | \| §5.4 规则工程细节 \| 原始 R4 会让 275/300 篇全部命中 \| 受审集合内无该消融记录… | `5.4` | `章节号(§引用)` | `` |
+| 313 | \| §5.4 规则工程细节 \| 领先 ≥ 365 天；标题 bigram 包含度 ≥ 0.50 \| 受审… | `5.4` | `章节号(§引用)` | `` |
+| 314 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metri… | `5.4` | `章节号(§引用)` | `` |
+| 315 | \| §5.4 实测结果 \| 0.8986 / 1.0 / 0.9466 \| `metrics.json`… | `5.4` | `章节号(§引用)` | `` |
+| 315 | \| §5.4 实测结果 \| 0.8986 / 1.0 / 0.9466 \| `metrics.json` → `corrupt.precisio… | `1.0` | `章节号(枚举)` | `` |
+| 316 | \| §5.4 实测结果 \| 耗时 0.4 秒 \| `metrics.json` → `corrupt.s… | `5.4` | `章节号(§引用)` | `` |
+| 317 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈… | `5.4` | `章节号(§引用)` | `` |
+| 318 | \| §5.4.1 规则消融整表 \| 9 行的 P/R/F1/检出/TP/FP/FN/命中文档数/平均风险… | `5.4` | `章节号(§引用)` | `` |
+| 319 | \| §5.4.1 论断 \| drop_R3 的 ΔF1 = 0.0（P/R/F1 与 all 逐位相同）… | `5.4` | `章节号(§引用)` | `` |
+| 320 | \| §5.4.1 论断 \| only_R1 与 drop_R2 / drop_R4 逐位相同（0.680… | `5.4` | `章节号(§引用)` | `` |
+| 321 | \| §5.4.1 论断 \| 69 = 32（R1 单独）+ 37（R2∧R4） \| `corrupt_r… | `5.4` | `章节号(§引用)` | `` |
+| 322 | \| §5.5.1 \| 300×300 余弦矩阵 < 0.01 秒 \| `metrics.json` →… | `5.5` | `章节号(§引用)` | `` |
+| 323 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1… | `5.5` | `章节号(§引用)` | `` |
+| 324 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.70… | `5.5` | `章节号(§引用)` | `` |
+| 325 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0… | `5.5` | `章节号(§引用)` | `` |
+| 325 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0 \| `dup_thre… | `0.95 (×2)` | `章节号(枚举)` | `` |
+| 325 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0 \| `dup_threshold.csv` `thre… | `1.0 (×4)` | `章节号(枚举)` | `` |
+| 326 | \| §5.5.3 诚实标注 \| 组内余弦 0.9545–0.9845 \| `granularity_du… | `5.5` | `章节号(§引用)` | `` |
+| 326 | …_sim` / `max_max_sim`；与 `dup_groups_best.csv` 22 行 `max_sim` 同源 \| 0.9545 / 0.9845 \| 一致 \| | `22` | `外部文件行号引用` | `` |
+| 327 | \| §5.5.3 段落级组内余弦 \| 0.5671–1.0000（mean 0.9803） \| `gra… | `5.5` | `章节号(§引用)` | `` |
+| 327 | …` `granularity=passage_level` 行同三列 \| 0.5671 / 1.0 / 0.9803 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
+| 328 | \| §5.5.3 诚实标注 \| 0.85 下 223 篇被误判 \| `dup_threshold.csv… | `5.5` | `章节号(§引用)` | `` |
+| 329 | \| §5.5.3 诚实标注 \| 0.90 组级 F1 ≈ 0.70 \| 同上 0.7037 \| 0.70… | `5.5` | `章节号(§引用)` | `` |
+| 330 | \| §6.1 规模参数 \| 300 篇 \| `metrics.json` → `embedding.n_… | `6.1` | `章节号(§引用)` | `` |
+| 331 | \| §6.1 规模参数 \| 8 个业务域 \| 受审集合内无记录 \| — \| 【无出处】 \| | `6.1` | `章节号(§引用)` | `` |
+| 332 | \| §6.1 规模参数 \| 25 个已覆盖意图、每意图 12 篇 \| 受审集合内无记录 \| — \| 【无… | `6.1` | `章节号(§引用)` | `` |
+| 333 | \| §6.1 规模参数 \| 2000 条工单 \| `metrics.json` → `embedding… | `6.1` | `章节号(§引用)` | `` |
+| 333 | \| §6.1 规模参数 \| 2000 条工单 \| `metrics.json` → `embedding.n_tickets`… | `2000 (×2)` | `年份/日期` | `` |
+| 334 | \| §6.1 规模参数 \| 30 个意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `6.1` | `章节号(§引用)` | `` |
+| 335 | \| §6.1 规模参数 \| 每篇 111–191 字、均值 140 \| 受审集合内无记录 \| — \| 【… | `6.1` | `章节号(§引用)` | `` |
+| 336 | \| §6.1 规模参数 \| 缺口工单占比 18.6% \| `ground_truth.json` → `… | `6.1` | `章节号(§引用)` | `` |
+| 337 | \| §6.1 埋设表 \| 5 意图 / 371 工单 \| `ground_truth.json` → `… | `6.1` | `章节号(§引用)` | `` |
+| 338 | \| §6.1 埋设表 \| 重复 22 组 / 49 篇 \| `poc/kbgovernance/dup_… | `6.1` | `章节号(§引用)` | `` |
+| 339 | \| §6.1 埋设表 \| 腐化 62 篇 \| `metrics.json` → `corrupt.emb… | `6.1` | `章节号(§引用)` | `` |
+| 340 | \| §6.1 埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–… | `6.1` | `章节号(§引用)` | `` |
+| 340 | …§6.1 埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–2023 \| 受审集合内无拆分计数 \| — \| 【无出处】 \| | `2022` | `年份/日期` | `` |
+| 340 | …埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–2023 \| 受审集合内无拆分计数 \| — \| 【无出处】 \| | `2023` | `年份/日期` | `` |
+| 341 | \| §6.1 防作弊 \| 4% 自然陈旧文档 \| 命中篇数：`metrics.json` → `corr… | `6.1` | `章节号(§引用)` | `` |
+| 342 | \| §6.1 人工校验 \| 抽 10% / 20 条 / Kappa ≥ 0.8 \| 计划性承诺，受审集… | `6.1` | `章节号(§引用)` | `` |
+| 343 | \| §6.1 可复现性 \| seed=42、两次运行 13 个产物一致 \| 一致性：`repro_che… | `6.1` | `章节号(§引用)` | `` |
+| 343 | \| §6.1 可复现性 \| seed=42、两次运行 13 个产物一致 \| 一致性：`repro_check.json` → `two… | `42 (×2)` | `随机种子` | `` |
+| 344 | \| §6.2 双轨表 \| 300 文档 / 2000 工单 \| `embedding.n_docs` /… | `6.2` | `章节号(§引用)` | `` |
+| 344 | \| §6.2 双轨表 \| 300 文档 / 2000 工单 \| `embedding.n_docs` / `n_tickets` \| 同值 \|… | `2000` | `年份/日期` | `` |
+| 345 | \| §6.2 双轨表 \| banking77 13,083 条 \| `standardize/data/… | `6.2` | `章节号(§引用)` | `` |
+| 345 | ….csv`（10003 条）+ `banking77_test.csv`（3080 条）= 13083（旁注，受审集合外） \| 13083 \| 【无出处】 \| | `13083 (×2)` | `端口号` | `` |
+| 346 | \| §6.3 E9 对照 \| ABS 0.968 \| `results_auc.csv` `alpha/… | `6.3` | `章节号(§引用)` | `` |
+| 347 | \| §6.3 E11 对照 \| ABS 0.9538 / 0.7925 \| `results_banki… | `6.3` | `章节号(§引用)` | `` |
+| 348 | \| §6.3 E12 对照 \| 域内 0.968 / 0.4344 \| 前者为 ABS 基线 α、后者为… | `6.3` | `章节号(§引用)` | `` |
+| 349 | \| §6.3 E13 对照 \| ABS (0.0264, 0.968) \| `results_auc.c… | `6.3` | `章节号(§引用)` | `` |
+| 350 | \| §6.3 E14 对照 \| 0.1452 / 0.8289 \| 同 §5.3.5 \| 0.1452… | `6.3` | `章节号(§引用)` | `` |
+| 350 | \| §6.3 E14 对照 \| 0.1452 / 0.8289 \| 同 §5.3.5 \| 0.1452 / 0.8289 \| 一致 \| | `5.3` | `章节号(§引用)` | `` |
+| 351 | \| §6.4 图3-1 \| 可用窗口仅 0.60–0.64 \| `gap_threshold.csv`… | `6.4` | `章节号(§引用)` | `` |
+| 351 | ….64 \| `gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰为 0.6 / 0.62 / 0.64 三档 \| 0.60–0.64 \| 一致（推算） \| | `0.6` | `章节号(枚举)` | `` |
+| 351 | …`gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰为 0.6 / 0.62 / 0.64 三档 \| 0.60–0.64 \| 一致（推算） \| | `0.62` | `章节号(枚举)` | `` |
+| 352 | \| §6.4 图3-2 \| 0.968 > 0.8880 \| `results_auc.csv` `al… | `6.4` | `章节号(§引用)` | `` |
+| 353 | \| §6.4 图3-6 \| A2 0.0018 / 0.1120 \| `results_directio… | `6.4` | `章节号(§引用)` | `` |
+| 354 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*… | `6.4` | `章节号(§引用)` | `` |
+| 355 | \| §6.4 表4-5 \| 0.4344 / 0.4946 \| `results_banking77_{… | `6.4` | `章节号(§引用)` | `` |
+| 356 | \| §6.4 表4-6 \| 分组标准化消融 14 变体 \| `standardize/ablation.… | `6.4` | `章节号(§引用)` | `` |
+| 357 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granulari… | `7.4` | `章节号(§引用)` | `` |
+| 357 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granularity.csv` / `results_auc.csv`） \| 0.88… | `5.1` | `章节号(§引用)` | `` |
+| 358 | \| §7.4 问答 3 \| 参数 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `7.4` | `章节号(§引用)` | `` |
+| 358 | \| §7.4 问答 3 \| 参数 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `24` | `模型参数量` | `` |
+| 359 | \| §7.4 问答 4 \| 实际分出 95 个簇 \| `metrics.json` → `gap.clu… | `7.4` | `章节号(§引用)` | `` |
+| 360 | \| §7.4 问答 6 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.… | `7.4` | `章节号(§引用)` | `` |
+| 361 | \| §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.c… | `7.4` | `章节号(§引用)` | `` |
+| 362 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6… | `7.4` | `章节号(§引用)` | `` |
+| 363 | \| §7.4 问答 8 \| 「ground truth 从 15 个缺口意图变成 46 个」 \| 46… | `7.4` | `章节号(§引用)` | `` |
+| 363 | …_gap_intents` \| 46；15 \| 46 `一致`；15 `【无出处】`（同 §5.3.2 机理行） \| | `5.3` | `章节号(§引用)` | `` |
+| 364 | \| §7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5… | `7.4` | `章节号(§引用)` | `` |
+| 365 | \| §7.4 问答 8 \| 中文阈值 → banking77（bge-small-en-v1.5）：正向… | `7.4` | `章节号(§引用)` | `` |
+| 366 | \| §7.4 问答 8b \| 极差 0.0018 / AUC 0.1120 \| `results_dir… | `7.4` | `章节号(§引用)` | `` |
+| 378 | \| 2 \| 附录 D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.11… | `5.3` | `章节号(§引用)` | `` |
+| 379 | \| 3 \| 附录 D · Spearman 与 §1.3 贡献 3、§5.3 引言 \| -1.000000 \| `mechanism.csv` `s… | `1.3` | `章节号(§引用)` | `` |
+| 379 | \| 3 \| 附录 D · Spearman 与 §1.3 贡献 3、§5.3 引言 \| -1.000000 \| `mechanism.csv` `spearman_与c… | `5.3` | `章节号(§引用)` | `` |
+| 380 | \| 4 \| 附录 D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍… | `6.2 (×2)` | `章节号(文档位置列)` | `` |
+| 380 | \| 4 \| 附录 D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027… | `5.1` | `章节号(§引用)` | `` |
+| 382 | \| 6 \| 附录 D · 迁移表 与 §5.3.3「banking77（bge-small-en-v1.5）最优阈值 cover ≤ 0.… | `5.3` | `章节号(§引用)` | `` |
+| 383 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6463 \| `… | `1.3` | `章节号(§引用)` | `` |
+| 383 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6463 \| `ablation.csv… | `5.3` | `章节号(§引用)` | `` |
+| 384 | \| 8 \| §5.5.1「300×300 余弦矩阵实测耗时 < 0.01 秒」 \| < 0.01 秒 \| `me… | `5.5` | `章节号(§引用)` | `` |
+| 384 | \| 8 \| §5.5.1「300×300 余弦矩阵实测耗时 < 0.01 秒」 \| < 0.01 秒 \| `metrics.json` → `dup.rows[*]… | `0.01 (×2)` | `章节号(文档位置列)` | `` |
+| 385 | \| 9 \| 附录 D · 腐化 P/R/F1 与 §5.4 \| recall 1.0000 / F1 1.0 \| `corrupt.recall` =… | `5.4` | `章节号(§引用)` | `` |
+| 386 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_th… | `5.5` | `章节号(§引用)` | `` |
+| 386 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.c… | `7.4` | `章节号(§引用)` | `` |
+| 387 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.8495 - 0.6… | `5.3` | `章节号(§引用)` | `` |
+| 388 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2… | `5.3` | `章节号(§引用)` | `` |
+| 389 | \| 13 \| §5.3.3 / 附录 D \| bge-en 与 bge-zh 均值相差 0.0411 \| 0.87… | `5.3` | `章节号(§引用)` | `` |
+| 390 | \| 14 \| §5.2.1 / §5.2.7 / §6.4 \| P/R/F1 写 0.800 \| `metrics… | `5.2 (×2)` | `章节号(§引用)` | `` |
+| 390 | \| 14 \| §5.2.1 / §5.2.7 / §6.4 \| P/R/F1 写 0.800 \| `metrics.json` → `gap.best… | `6.4` | `章节号(§引用)` | `` |
+| 398 | ### 4.1 整文件未被引用的数值 | `4.1` | `章节号` | `` |
+| 402 | …nsfer.csv` \| **全部 32 行、10 列**均未在文档中出现。文档 E10（§6.3）只引用了文件名。表内含各打分 × 4 目标场景的 `迁移后F1`、`迁移后P`、`迁移后R… | `6.3` | `章节号(§引用)` | `` |
+| 402 | …标场景的 `迁移后F1`、`迁移后P`、`迁移后R`、`检出意图数`、`AUC衰减`，是 §5.3.3 边界一唯一未被利用的数据源。 \| | `5.3` | `章节号(§引用)` | `` |
+| 406 | ### 4.2 部分行/列未被引用 | `4.2` | `章节号` | `` |
+| 410 | …lts_xfer_banking77_en.csv` 的 `该场景最优F1` 列间接进入 §5.3.3 边界一与使用边界表；`子场景=KB仅20意图` 的 8 行仍完全未被引用，含列 `知识… | `5.3` | `章节号(§引用)` | `` |
+| 413 | …in_cluster_size=10` 的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68… | `0.62 (×2)` | `章节号(枚举)` | `` |
+| 413 | …10` 的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `m… | `0.3` | `章节号(枚举)` | `` |
+| 413 | …的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_c… | `0.4` | `章节号(枚举)` | `` |
+| 413 | …行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_clust… | `0.5` | `章节号(枚举)` | `` |
+| 413 | …文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_s… | `0.6` | `章节号(枚举)` | `` |
+| 413 | …用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=… | `0.7` | `章节号(枚举)` | `` |
+| 413 | …threshold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的… | `0.64` | `章节号(枚举)` | `` |
+| 413 | …hold=0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62… | `0.66` | `章节号(枚举)` | `` |
+| 413 | …0.62` 一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62 之外的 1… | `0.68` | `章节号(枚举)` | `` |
+| 413 | …一行的 F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62 之外的 10 行均未… | `0.72` | `章节号(枚举)` | `` |
+| 413 | …F1。其余（0.3/0.4/0.5/0.6/0.7/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62 之外的 10 行均未引用。文档… | `0.74` | `章节号(枚举)` | `` |
+| 416 | …（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `5.4` | `章节号(§引用)` | `` |
+| 427 | …分布、5 场景文档规模、banking77 缺口意图数** 三组关键数据。附录 D 与 §5.3.3 边界三的整张 cover 分布表全部依赖这四个 JSON，而它们不在受审集合内 ——… | `5.3` | `章节号(§引用)` | `` |
+| 429 | ### 5.1 整篇级 AUC 与失败归一化三组 AUC（已补齐，本次复核改判） | `5.1` | `章节号` | `` |
+| 439 | …论**：这组 AUC 原先只以 `poc/kbgovernance/RESULT.md` §2.3 的散文表格存在，机读产物已由 `granularity.csv` 补齐，本次复核据此改判为… | `2.3` | `章节号(§引用)` | `` |
+| 441 | ### 5.2 HDBSCAN 簇数、噪声数与聚类耗时 | `5.2` | `章节号` | `` |
+| 445 | …ters.5.n_noise` = 0。耗时仍不可核验：`run_all.log` 记 **1.18s**、`run_all_repro.log` 记 **1.07s**，文档只报量级（约 1… | `1.18` | `章节号` | `` |
+| 445 | …_all.log` 记 **1.18s**、`run_all_repro.log` 记 **1.07s**，文档只报量级（约 1 秒级）；日志不在受审集合，耗时部分判定仍为 `【无出处】`。… | `1.07` | `章节号` | `` |
+| 446 | …ers.10.n_noise` = 9。耗时仍不可核验：`run_all.log` 记 **1.03s**、`run_all_repro.log` 记 **1.28s**（两次运行之间有 ±2… | `1.03` | `章节号` | `` |
+| 446 | …_all.log` 记 **1.03s**、`run_all_repro.log` 记 **1.28s**（两次运行之间有 ±25% 波动，不构成不一致）；文档只报量级，日志不在受审集合，耗时… | `1.28` | `章节号` | `` |
+| 451 | ### 5.3 时间与体积 | `5.3` | `章节号` | `` |
+| 455 | \| bge-small-zh-v1.5 **参数量约 24M** \| 无产物；bge-base 102M / bge-large 326M 同样无据… | `24` | `模型参数量` | `` |
+| 455 | …bge-small-zh-v1.5 **参数量约 24M** \| 无产物；bge-base 102M / bge-large 326M 同样无据 \| | `102` | `模型参数量` | `` |
+| 455 | …**参数量约 24M** \| 无产物；bge-base 102M / bge-large 326M 同样无据 \| | `326` | `模型参数量` | `` |
+| 458 | \| R4 原始表述会让 **275/300 篇**全部命中 \| `RESULT.md` 360 行；无 CSV 记录该消融 \| | `360` | `外部文件行号引用` | `` |
+| 461 | ### 5.4 数据构造与人工校验承诺 | `5.4` | `章节号` | `` |
+| 467 | \| 缺口工单占比 **18.6%（371/2000）** \| `ground_truth.json` → `gap_tic… | `18.6 (×2)` | `章节号` | `` |
+| 467 | \| 缺口工单占比 **18.6%（371/2000）** \| `ground_truth.json` → `gap_ticket_ratio`… | `2000` | `年份/日期` | `` |
+| 468 | …分：**32 篇**追加过期表述 + **30 篇** `last_modified` 置 2022–2023 \| 合计 62 可核验（`metrics.json` → `corrupt.em… | `2022` | `年份/日期` | `` |
+| 468 | …2 篇**追加过期表述 + **30 篇** `last_modified` 置 2022–2023 \| 合计 62 可核验（`metrics.json` → `corrupt.embedde… | `2023` | `年份/日期` | `` |
+| 471 | \| `random.seed(42)` + `np.random.seed(42)`；连续两次运行 **13 个全链路产物全部… | `42 (×3)` | `随机种子` | `` |
 
 ### 3.5 EXTERNAL —— 引用他人文献或外部标准的数字
 
@@ -2641,53 +2663,48 @@
 
 | 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
 |---|---|---|---|---|
-| 16 | …值，§6.3 / §6.4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步… | `90` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 16 | …3 / §6.4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步两处：附录… | `104` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 16 | …4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步两处：附录 D 在技术方案… | `150` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 32 | **附录 D 与实测产物的一致率为 100 / 111（90.1%）。** 分母 111 条原子声明 = 附录 D 主表 42 条 +… | `100 (×2)` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 32 | **附录 D 与实测产物的一致率为 100 / 111（90.1%）。** 分母 111 条原子声明 = 附录 D 主表 42 条 + 附录 D「标准化实验… | `90.1` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 38 | 无出处的断言集中在：业务域数 8、意图数 30、计算设备「CPU」、「实测落盘 92MB」、向量化上界 33.7 秒、全链路耗时「约 60–110 秒」、HDBSCAN 聚类耗… | `92` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 38 | …集中在：业务域数 8、意图数 30、计算设备「CPU」、「实测落盘 92MB」、向量化上界 33.7 秒、全链路耗时「约 60–110 秒」、HDBSCAN 聚类耗时（两次运行 1.18/1.… | `33.7` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 38 | …计算设备「CPU」、「实测落盘 92MB」、向量化上界 33.7 秒、全链路耗时「约 60–110 秒」、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，… | `110` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 38 | …上界 33.7 秒、全链路耗时「约 60–110 秒」、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.… | `1.18` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 38 | ….7 秒、全链路耗时「约 60–110 秒」、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边… | `1.07` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 38 | …路耗时「约 60–110 秒」、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边界三 cove… | `1.03` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 38 | …60–110 秒」、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边界三 cover 分布表… | `1.28` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 40 | 原先判为无出处的整篇级 AUC 0.936、失败归一化 0.512 / 0.448 / 0.384、方向 C 的 σ 0.1452 与… | `0.936` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 40 | 原先判为无出处的整篇级 AUC 0.936、失败归一化 0.512 / 0.448 / 0.384、方向 C 的 σ 0.1452 与组内余弦区间 0.954… | `0.512` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 40 | 原先判为无出处的整篇级 AUC 0.936、失败归一化 0.512 / 0.448 / 0.384、方向 C 的 σ 0.1452 与组内余弦区间 0.9545–0.9845… | `0.448` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 40 | 原先判为无出处的整篇级 AUC 0.936、失败归一化 0.512 / 0.448 / 0.384、方向 C 的 σ 0.1452 与组内余弦区间 0.9545–0.9845，本次已分别由… | `0.384` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 42 | 正文各节的原子声明另计 **154 条**：`一致` 114 条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **… | `154` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 42 | …比例显著高于附录 D，原因集中在：HDBSCAN 簇数与耗时（95 / 88 / 两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen's Kappa、md5… | `1.18` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 42 | …于附录 D，原因集中在：HDBSCAN 簇数与耗时（95 / 88 / 两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen's Kappa、md5 一致性）… | `1.07` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 42 | …因集中在：HDBSCAN 簇数与耗时（95 / 88 / 两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen's Kappa、md5 一致性）、bankin… | `1.03` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 42 | …HDBSCAN 簇数与耗时（95 / 88 / 两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen's Kappa、md5 一致性）、banking77 语… | `1.28` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
-| 89 | \| 附录D 主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（… | `1.18` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 89 | \| 附录D 主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（仅 `run_… | `1.07` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 89 | …主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（仅 `run_all.log` / `ru… | `1.03` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 89 | …CAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（仅 `run_all.log` / `run_all_r… | `1.28` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 255 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类耗时字段（`run_all*.log` 不计入受审集合… | `1.18` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 255 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类耗时字段（`run_all*.log` 不计入受审集合） \| — \|… | `1.07` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 257 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 受审集合内无对应列 \| — \| 【无出处】 \| | `1.2` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 257 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 受审集合内无对应列 \| — \| 【无出处】 \| | `1.03` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 257 | ….1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 受审集合内无对应列 \| — \| 【无出处】 \| | `1.28` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 259 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字段 \| — \|… | `1.18` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 259 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字段 \| — \| 【无出处】 \| | `1.07` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 259 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字段 \| — \| 【无出处】 \| | `1.03` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 259 | ….6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字段 \| — \| 【无出处】 \| | `1.28` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 308 | \| §5.4 规则工程细节 \| 原始 R4 会让 275/300 篇全部命中 \| 受审集合内无该消融记录 \| — \| 【无出处】 \| | `275` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 309 | \| §5.4 规则工程细节 \| 领先 ≥ 365 天；标题 bigram 包含度 ≥ 0.50 \| 受审集合内无规则参数记录 \| — \| 【… | `365` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 332 | \| §6.1 规模参数 \| 缺口工单占比 18.6% \| `ground_truth.json` → `gap_ticket_ratio`=0… | `18.6` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 341 | \| §6.2 双轨表 \| banking77 13,083 条 \| `standardize/data/banking77_train.csv`（10… | `13,083` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
-| 341 | …83 条 \| `standardize/data/banking77_train.csv`（10003 条）+ `banking77_test.csv`（3080 条）= 13083（旁注，受审… | `10003` | `表格引用列「实测产物出处」：转述并判定他处数值，非本报告实测断言` | `` |
-| 376 | …；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027） \| | `0.027` | `表格引用列「偏差性质」：转述并判定他处数值，非本报告实测断言` | `` |
-| 410 | \| `poc/kbgovernance/corrupt_docs.csv` \| 302 行逐篇明细（`doc_id`/`title`/`category`/`last_modif… | `302` | `表格引用列「未被引用的内容」：转述并判定他处数值，非本报告实测断言` | `` |
-| 442 | \| mcs=10 分出 **88 个簇**、噪声 **9 条**、耗时 **≈1.2 秒** \| `run_all.log` 记 88 簇 / 9 噪声 / **1.03s**… | `1.2` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
-| 454 | \| R4 原始表述会让 **275/300 篇**全部命中 \| `RESULT.md` 360 行；无 CSV 记录该消融 \| | `275` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
-| 455 | \| R4 修正后的两个参数：**领先 ≥ 365 天**、**标题 bigram 包含度 ≥ 0.50** \| 无产物；`metrics.j… | `365` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
-| 466 | \| 防作弊：**4% 自然陈旧但不算缺陷**文档（600–900 天未更新） \| 无产物字段 \| | `900` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
-| 469 | \| banking77 语料 **13,083 条**真实客服意图 \| `standardize/data/banking77_train… | `13,083` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
-| 469 | …客服意图 \| `standardize/data/banking77_train.csv`（10003 条）+ `banking77_test.csv`（3080 条）；受审集合只含 `stan… | `10003` | `表格引用列「出处（旁注）」：转述并判定他处数值，非本报告实测断言` | `` |
+| 18 | …值，§6.3 / §6.4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步… | `90` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 18 | …3 / §6.4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步两处：附录… | `104` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 18 | …4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步两处：附录 D 在技术方案… | `150` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 34 | **附录 D 与实测产物的一致率为 102 / 112（91.1%）。** 分母 112 条原子声明 = 附录 D 主表 43 条 +… | `102 (×2)` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 34 | **附录 D 与实测产物的一致率为 102 / 112（91.1%）。** 分母 112 条原子声明 = 附录 D 主表 43 条 + 附录 D「… | `112 (×2)` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 34 | **附录 D 与实测产物的一致率为 102 / 112（91.1%）。** 分母 112 条原子声明 = 附录 D 主表 43 条 + 附录 D「标准化实验… | `91.1` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 40 | 无出处的断言集中在：业务域数 8、意图数 30、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.… | `1.18` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 40 | …出处的断言集中在：业务域数 8、意图数 30、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边… | `1.07` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 40 | …在：业务域数 8、意图数 30、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边界三 cove… | `1.03` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 40 | …数 8、意图数 30、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于 `run_all*.log`）、以及 §5.3.3 边界三 cover 分布表… | `1.28` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 44 | 正文各节的原子声明另计 **155 条**：`一致` 122 条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **… | `155` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 44 | 正文各节的原子声明另计 **155 条**：`一致` 122 条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】`… | `122` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 44 | …高于附录 D，原因集中在：业务域数 8 与意图数 30、HDBSCAN 聚类耗时（两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen's Kappa 与抽检… | `1.18` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 44 | …D，原因集中在：业务域数 8 与意图数 30、HDBSCAN 聚类耗时（两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen's Kappa 与抽检比例）、b… | `1.07` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 44 | …：业务域数 8 与意图数 30、HDBSCAN 聚类耗时（两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen's Kappa 与抽检比例）、banking7… | `1.03` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 44 | …8 与意图数 30、HDBSCAN 聚类耗时（两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen's Kappa 与抽检比例）、banking77 语料规… | `1.28` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 91 | \| 附录D 主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（… | `1.18` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 91 | \| 附录D 主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（仅 `run_… | `1.07` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 91 | …主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（仅 `run_all.log` / `ru… | `1.03` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 91 | …CAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（仅 `run_all.log` / `run_all_r… | `1.28` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 259 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类耗时字段（`run_all*.log` 不计入受审集合… | `1.18` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 259 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类耗时字段（`run_all*.log` 不计入受审集合） \| — \|… | `1.07` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 261 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 簇数与噪声：`metrics.json` → `gap.… | `1.2` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 261 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 簇数与噪声：`metrics.json` → `gap.cluster… | `1.03` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 261 | ….1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 簇数与噪声：`metrics.json` → `gap.clusters.10.n_… | `1.28` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 263 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字段 \| — \|… | `1.18` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 263 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字段 \| — \| 【无出处】 \| | `1.07` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 263 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字段 \| — \| 【无出处】 \| | `1.03` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 263 | ….6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字段 \| — \| 【无出处】 \| | `1.28` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 312 | \| §5.4 规则工程细节 \| 原始 R4 会让 275/300 篇全部命中 \| 受审集合内无该消融记录 \| — \| 【无出处】 \| | `275` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 313 | \| §5.4 规则工程细节 \| 领先 ≥ 365 天；标题 bigram 包含度 ≥ 0.50 \| 受审集合内无规则参数记录 \| — \| 【… | `365` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 336 | \| §6.1 规模参数 \| 缺口工单占比 18.6% \| `ground_truth.json` → `gap_ticket_ratio`=0… | `18.6` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 345 | \| §6.2 双轨表 \| banking77 13,083 条 \| `standardize/data/banking77_train.csv`（10… | `13,083` | `表格引用列「文档写的数字」：转述并判定他处数值，非本报告实测断言` | `` |
+| 345 | …83 条 \| `standardize/data/banking77_train.csv`（10003 条）+ `banking77_test.csv`（3080 条）= 13083（旁注，受审… | `10003` | `表格引用列「实测产物出处」：转述并判定他处数值，非本报告实测断言` | `` |
+| 380 | …；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027） \| | `0.027` | `表格引用列「偏差性质」：转述并判定他处数值，非本报告实测断言` | `` |
+| 414 | \| `poc/kbgovernance/corrupt_docs.csv` \| 302 行逐篇明细（`doc_id`/`title`/`category`/`last_modif… | `302` | `表格引用列「未被引用的内容」：转述并判定他处数值，非本报告实测断言` | `` |
+| 446 | \| mcs=10 分出 **88 个簇**、噪声 **9 条**、耗时 **≈1.2 秒** \| 簇数与噪声可核验：`metrics.json` → `gap.clusters… | `1.2` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
+| 458 | \| R4 原始表述会让 **275/300 篇**全部命中 \| `RESULT.md` 360 行；无 CSV 记录该消融 \| | `275` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
+| 459 | \| R4 修正后的两个参数：**领先 ≥ 365 天**、**标题 bigram 包含度 ≥ 0.50** \| 无产物；`metrics.j… | `365` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
+| 469 | \| 防作弊：**4% 自然陈旧但不算缺陷**文档（600–900 天未更新） \| 命中篇数 10 可核：`metrics.json` → `corrupt.… | `900` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
+| 472 | \| banking77 语料 **13,083 条**真实客服意图 \| `standardize/data/banking77_train… | `13,083` | `表格引用列「断言」：转述并判定他处数值，非本报告实测断言` | `` |
+| 472 | …客服意图 \| `standardize/data/banking77_train.csv`（10003 条）+ `banking77_test.csv`（3080 条）；受审集合只含 `stan… | `10003` | `表格引用列「出处（旁注）」：转述并判定他处数值，非本报告实测断言` | `` |
 
 ### 3.7 ALLOWED —— 已在 ALLOWED_UNSOURCED 登记的例外
 
@@ -2700,934 +2717,1463 @@
 | 10 | …kbgovernance/granularity.csv`（检索粒度 × 打分方案 AUC，10 行）、`poc/kbgovernance/granularity_dup.csv`（两种粒… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
 | 10 | …kbgovernance/granularity_dup.csv`（两种粒度下的组内相似度，2 行）、`poc/kbgovernance/corrupt_rule_ablation.cs… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
 | 10 | …bgovernance/corrupt_rule_ablation.csv`（腐化规则消融，9 行）。这三份产物此前不存在，文档中的整篇级 AUC、三种失败归一化 AUC、组内余弦区间因… | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 14 | …新为当前 `metrics.json`（`embedding.encode_seconds=15.43`、`total_seconds=2.85`、`corrupt.seconds=0.42`）… | `15.43` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 14 | …mbedding.encode_seconds=15.43`、`total_seconds=2.85`、`corrupt.seconds=0.42`），本报告的判定行随之同步；技术方案中已删除… | `2.85` | `metrics.json:total_seconds` | `2.85` |
-| 14 | …=15.43`、`total_seconds=2.85`、`corrupt.seconds=0.42`），本报告的判定行随之同步；技术方案中已删除的旧断言在本报告中一并删除，不并列已作废的旧条… | `0.42` | `metrics.json:corrupt.seconds` | `0.42` |
-| 16 | …——§1.2「商业对标」整节删除并重编号、E7/E8 由「不进论文」降级为正文两小节（各 ≤1 页）、§6.4 图表清单随之调整。**这三处均未改变原子声明集合**：删除的 §1.2 商… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 16 | …ptEdge / Ravenna 两条定性描述），新增内容（§5.3 定位框、图表清单中的表4-7、页数归属说明）不含任何可核验的实测数值，§6.3 / §6.4 的表号调整不改变数值本… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 16 | …因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步两处：附录 D 在技术方案中的位置（以小节名「附录… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 18 | …ng77.py` 的跨语料迁移段原先对负向分数（`-cover` 的意图级中位数，取值域 [-1, 0]）用 `v <= 0.6463` 判为缺口，条件对整个取值域恒真，导致无论阈值取多少… | `-1` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 18 | ….py` 的跨语料迁移段原先对负向分数（`-cover` 的意图级中位数，取值域 [-1, 0]）用 `v <= 0.6463` 判为缺口，条件对整个取值域恒真，导致无论阈值取多少都把全… | `0 (×5)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 18 | …段原先对负向分数（`-cover` 的意图级中位数，取值域 [-1, 0]）用 `v <= 0.6463` 判为缺口，条件对整个取值域恒真，导致无论阈值取多少都把全部 77 个意图报成缺口。**这… | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 18 | …用 `v <= 0.6463` 判为缺口，条件对整个取值域恒真，导致无论阈值取多少都把全部 77 个意图报成缺口。**这不是阈值效应，是判定式的符号缺陷**；同时循环体未按 `src_na… | `77 (×4)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 18 | …src_name` 区分判定方向，使「正向 / 反向」两行输出完全相同。修正为 `v >= -0.6463`（正向）与 `v <= -0.6463`（反向）后重跑 en / zh 两组实验，结论方向… | `-0.6463 (×2)` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
-| 18 | …出 0 / 77，P=0，R=0，F1=0），反向判定才得到 77/77 全判为缺口（F1 0.3261）。本报告 §2 的相关判定行已按新产物重核（正向取第 1 数据行、反向取第 2 数据行），… | `0.3261` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 18 | …R=0，F1=0），反向判定才得到 77/77 全判为缺口（F1 0.3261）。本报告 §2 的相关判定行已按新产物重核（正向取第 1 数据行、反向取第 2 数据行），§1 的原子声明… | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 20 | …v` 还携带已被推翻的旧判定结果，留着会与新产物矛盾）。受审集合的 CSV 文件数相应减少 2 个，§4「未被引用的产物」清单中对应条目同步移除。`standardize/banking… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 20 | …带已被推翻的旧判定结果，留着会与新产物矛盾）。受审集合的 CSV 文件数相应减少 2 个，§4「未被引用的产物」清单中对应条目同步移除。`standardize/banking77_me… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 20 | …与 `banking77_meta_en.json` 内容相同，但审计报告 §2.3 与 §5 的旁注位置直接引用了前者，故保留不动。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 24 | …zh.csv`（用 `BAAI/bge-small-zh-v1.5` 跑出、最优 F1 为 0.6207）自曝为英文语料，与同表数值自相矛盾。已改为随嵌入模型输出 `banking77（bge-s… | `0.6207` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
-| 25 | 2. **§5.3.3 边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cove… | `0.6657` | `derived_metrics.csv:threshold.abs_alpha_recall_all_cover_scale` | `0.6657` |
-| 25 | …边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 25 | …全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `de… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 25 | …」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `derived_metrics.csv` 的 `thres… | `0.6633` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
-| 25 | …63 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `derived_metrics.csv` 的 `threshold.abs_… | `0.6897` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
-| 26 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.94… | `8 (×5)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 26 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 26 | …补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 26 | …*：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8 问答 N」的答辩问… | `0.5846` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
-| 26 | …问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8 问答 N」的答辩问答行订正为「§7.… | `0.9474` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
-| 26 | …的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8 问答 N」的答辩问答行订正为「§7.4 问答 N」（答辩章自… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 30 | ## 1. 结论 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 32 | **附录 D 与实测产物的一致率为 100 / 111（90.1%）。** 分母 111 条原子声明 = 附录 D 主表 42 条 + 附录 D「… | `111 (×2)` | `derived_metrics.csv:docs.min_chars_per_doc` | `111` |
-| 32 | …率为 100 / 111（90.1%）。** 分母 111 条原子声明 = 附录 D 主表 42 条 + 附录 D「标准化实验实测」小节 69 条（按表内实际行数计）。分子 100 条判定… | `42` | `ground_truth.json:seed` | `42` |
-| 32 | …分母 111 条原子声明 = 附录 D 主表 42 条 + 附录 D「标准化实验实测」小节 69 条（按表内实际行数计）。分子 100 条判定为 `一致` 或 `已被实测修正`。**不一致… | `69` | `metrics.json:corrupt.detected` | `69` |
-| 32 | …条（按表内实际行数计）。分子 100 条判定为 `一致` 或 `已被实测修正`。**不一致 0 条**，**无出处 11 条**。 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 32 | …分子 100 条判定为 `一致` 或 `已被实测修正`。**不一致 0 条**，**无出处 11 条**。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 34 | （本次复核新增 10 条声明：附录 D 新增的两张整表各计 1 条，工单级 AUC、max-min 反例、腐化规… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 34 | （本次复核新增 10 条声明：附录 D 新增的两张整表各计 1 条，工单级 AUC、max-min 反例、腐化规则消融、组内余弦两种粒度、HDBSCAN… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 34 | …AUC、max-min 反例、腐化规则消融、组内余弦两种粒度、HDBSCAN 聚类耗时共 6 条，原「整篇级 AUC」与三条失败归一化 AUC 拆为按粒度分列的 6 条。） | `6 (×2)` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 36 | 本次复核后附录 D 已无 `不一致` 条目：原 4 条不一致（极差区间漏掉 β 场景端点、中文 α → banking77 的两处 P 与一处… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 38 | 无出处的断言集中在：业务域数 8、意图数 30、计算设备「CPU」、「实测落盘 92MB」、向量化上界 33.7 秒、全链路… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 38 | 无出处的断言集中在：业务域数 8、意图数 30、计算设备「CPU」、「实测落盘 92MB」、向量化上界 33.7 秒、全链路耗时「约 60… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 38 | …30、计算设备「CPU」、「实测落盘 92MB」、向量化上界 33.7 秒、全链路耗时「约 60–110 秒」、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.2… | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
-| 40 | …0.512 / 0.448 / 0.384、方向 C 的 σ 0.1452 与组内余弦区间 0.9545–0.9845，本次已分别由 `granularity.csv`、`results_auc.… | `0.9545` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
-| 40 | …0.448 / 0.384、方向 C 的 σ 0.1452 与组内余弦区间 0.9545–0.9845，本次已分别由 `granularity.csv`、`results_auc.csv`、`g… | `0.9845` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
-| 42 | 正文各节的原子声明另计 **154 条**：`一致` 114 条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】`… | `114` | `corrupt_rule_ablation.csv:docs_with_hit[row=1][0]` | `114` |
-| 42 | …原子声明另计 **154 条**：`一致` 114 条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】` 36 条，另有 3 条「一表两判」的混合行… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 42 | …条**：`一致` 114 条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】` 36 条，另有 3 条「一表两判」的混合行（同一行内既有可核验值又… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 42 | …条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】` 36 条，另有 3 条「一表两判」的混合行（同一行内既有可核验值又有无出处值，如「前两项 `一致… | `36` | `corrupt_rule_ablation.csv:tp[row=2][0]` | `36` |
-| 42 | …正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】` 36 条，另有 3 条「一表两判」的混合行（同一行内既有可核验值又有无出处值，如「前两项 `一致`，后两项 `… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 42 | …`」），单列计数。正文的无出处比例显著高于附录 D，原因集中在：HDBSCAN 簇数与耗时（95 / 88 / 两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（… | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 42 | …列计数。正文的无出处比例显著高于附录 D，原因集中在：HDBSCAN 簇数与耗时（95 / 88 / 两次运行 1.18·1.07 与 1.03·1.28 秒）、人工标注类承诺（Cohen… | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
-| 44 | > **计数口径（第五轮起明确）**：以上三处「条」一律指 §2 各表的**判定行数**（一行一个原子声明），不再用其它口径混算。第五轮之前 §1 的统计与… | `2 (×3)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 44 | …一律指 §2 各表的**判定行数**（一行一个原子声明），不再用其它口径混算。第五轮之前 §1 的统计与 §2 表格已存在偏差（各节标题标的条数与表内实际行数对不上），本轮一并按判定行数… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 46 | …已无 `不一致` 条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出处是 `derived_metrics.csv` 的 `thre… | `0.6633` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
-| 46 | …条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出处是 `derived_metrics.csv` 的 `threshold.abs… | `0.6897` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
-| 46 | …over_band_lo/hi`（由 `results_auc.csv` 的「召回全部门槛」5 行取负换算，5 个场景的门槛带一律出自这一口径）。同段出现的 0.6463 属**另一口径… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 46 | …sv` 的「召回全部门槛」5 行取负换算，5 个场景的门槛带一律出自这一口径）。同段出现的 0.6463 属**另一口径**：`ablation.csv` 的 `最优阈值` 列字面值为 -0.64… | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 46 | ….6463 属**另一口径**：`ablation.csv` 的 `最优阈值` 列字面值为 -0.6463，取负后才是 cover 刻度（`derived_metrics.csv:threshold… | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
-| 50 | ## 2. 核心溯源表 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 54 | ### 2.1 附录 D 主表（42 条） | `42` | `ground_truth.json:seed` | `42` |
-| 58 | \| 附录D 主表「文档数 / 工单数」 \| 300 \| `poc/kbgovernance/metrics.json` → `embeddin… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
-| 60 | \| 附录D 主表「业务域数 / 意图数」 \| 8 \| 受审集合内无对应键 \| — \| 【无出处】 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 61 | \| 附录D 主表「业务域数 / 意图数」 \| 30 \| 受审集合内无对应键 \| — \| 【无出处】 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 62 | \| 附录D 主表「文档段落数」 \| 1852 \| `metrics.json` → `embedding.n_passages` \| 1… | `1852 (×2)` | `metrics.json:embedding.n_passages` | `1852` |
-| 63 | …dding.n_passages` ÷ `embedding.n_docs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 63 | …cs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 66 | \| 附录D 主表「embedding 方案」 \| 512 维 \| `metrics.json` → `embedding.dim` \| 512 \|… | `512 (×2)` | `metrics.json:embedding.dim` | `512` |
-| 68 | \| 附录D 主表「模型权重体积」 \| 95.8 MB \| `metrics.json` → `embedding.model_downlo… | `95.8 (×2)` | `metrics.json:embedding.model_download_mb` | `95.8` |
-| 69 | \| 附录D 主表「向量化吞吐」 \| 4152 条文本 \| 由 `embedding.n_docs` + `n_tickets` + `n… | `4152 (×2)` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
-| 69 | …edding.n_docs` + `n_tickets` + `n_passages` = 300+2000+1852 \| 4152 \| 一致（推算） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 69 | …docs` + `n_tickets` + `n_passages` = 300+2000+1852 \| 4152 \| 一致（推算） \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
-| 70 | \| 附录D 主表「向量化吞吐」 \| 15.43 秒 \| `metrics.json` → `embedding.encode_second… | `15.43 (×2)` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 71 | \| 附录D 主表「工单被覆盖度分布」 \| min = 0.5629 \| `standardize/scenario_meta.json` → `cover_s… | `0.5629 (×2)` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
-| 71 | …pha.min`（旁注，受审集合内无同名 CSV） \| 0.5629 \| 【无出处】（见 §5 注） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 72 | \| 附录D 主表「工单被覆盖度分布」 \| mean = 0.6891 \| `standardize/scenario_meta.json` → `cover_s… | `0.6891 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
-| 73 | \| 附录D 主表「工单被覆盖度分布」 \| max = 0.8294 \| `standardize/scenario_meta.json` → `cover_s… | `0.8294 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
-| 74 | \| 附录D 主表「知识缺口最优参数」 \| min_cluster_size = 5 \| `metrics.json` → `gap.best.min_cluster_size… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 75 | \| 附录D 主表「知识缺口最优参数」 \| threshold = 0.62 \| `metrics.json` → `gap.best.threshold` \| 0.6… | `0.62 (×2)` | `metrics.json:gap.best.threshold` | `0.62` |
-| 76 | \| 附录D 主表「知识缺口 P/R/F1」 \| 0.800 / 0.800 / 0.800 \| `metrics.json` → `gap.best.… | `0.800 (×3)` | `metrics.json:gap.best.precision` | `0.8` |
-| 77 | \| 附录D 主表「段落级 vs 整篇级 AUC」 \| 0.968 \| `standardize/scenario_meta.json` → `baselin… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 78 | \| 附录D 主表「段落级 vs 整篇级 AUC（意图级）」 \| 0.8880（整篇级） \| `granularity.csv` `granularity=doc_lev… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 78 | …_scheme=max-cosine` 行 `列=auc_intent_median` \| 0.888 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 79 | \| 附录D 主表「段落级 vs 整篇级 AUC」（工单级） \| 0.8659 / 0.8307 \| `granularity.csv` `max-cosine` 两行的… | `0.8659 (×2)` | `granularity.csv:auc[row=6][0]` | `0.8659` |
-| 79 | \| 附录D 主表「段落级 vs 整篇级 AUC」（工单级） \| 0.8659 / 0.8307 \| `granularity.csv` `max-cosine` 两行的 `列=auc`（… | `0.8307 (×2)` | `granularity.csv:auc[row=1][0]` | `0.8307` |
-| 80 | \| 附录D 主表「失败归一化 AUC」 \| margin 0.9200 / 0.8320 \| `granularity.csv` `score_scheme=ma… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 80 | \| 附录D 主表「失败归一化 AUC」 \| margin 0.9200 / 0.8320 \| `granularity.csv` `score_scheme=max-top5mea… | `0.8320` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
-| 80 | …p5mean` 两行 `列=auc_intent_median`（段落级 / 整篇级） \| 0.92 / 0.832 \| 一致 \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 80 | …两行 `列=auc_intent_median`（段落级 / 整篇级） \| 0.92 / 0.832 \| 一致 \| | `0.832` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
-| 81 | \| 附录D 主表「失败归一化 AUC」 \| max÷std 0.7040 / 0.4960 \| `granularity.csv` `score_scheme=ma… | `0.7040` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
-| 81 | \| 附录D 主表「失败归一化 AUC」 \| max÷std 0.7040 / 0.4960 \| `granularity.csv` `score_scheme=max/std` 两行… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 81 | …re_scheme=max/std` 两行 `列=auc_intent_median` \| 0.704 / 0.496 \| 一致 \| | `0.704` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
-| 81 | …e=max/std` 两行 `列=auc_intent_median` \| 0.704 / 0.496 \| 一致 \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 82 | \| 附录D 主表「失败归一化 AUC」 \| max÷top5 0.8880 / 0.7760 \| `granularity.csv` `score_scheme=ma… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 82 | \| 附录D 主表「失败归一化 AUC」 \| max÷top5 0.8880 / 0.7760 \| `granularity.csv` `score_scheme=max/top5mea… | `0.7760` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
-| 82 | …heme=max/top5mean` 两行 `列=auc_intent_median` \| 0.888 / 0.776 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 82 | …/top5mean` 两行 `列=auc_intent_median` \| 0.888 / 0.776 \| 一致 \| | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
-| 83 | \| 附录D 主表「失败归一化 AUC」 \| max-min 0.8800 / 0.9280 \| `granularity.csv` `score_scheme=ma… | `0.8800` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
-| 83 | \| 附录D 主表「失败归一化 AUC」 \| max-min 0.8800 / 0.9280 \| `granularity.csv` `score_scheme=max-min` 两行… | `0.9280` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
-| 83 | …re_scheme=max-min` 两行 `列=auc_intent_median` \| 0.88 / 0.928 \| 一致 \| | `0.88` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
-| 83 | …me=max-min` 两行 `列=auc_intent_median` \| 0.88 / 0.928 \| 一致 \| | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
-| 84 | \| 附录D 主表「内容腐化 P/R/F1」 \| 0.8986 / 1.0000 / 0.9466 \| `metrics.json` → `corrupt… | `0.8986 (×2)` | `metrics.json:corrupt.precision` | `0.8986` |
-| 84 | \| 附录D 主表「内容腐化 P/R/F1」 \| 0.8986 / 1.0000 / 0.9466 \| `metrics.json` → `corrupt.precisio… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 84 | \| 附录D 主表「内容腐化 P/R/F1」 \| 0.8986 / 1.0000 / 0.9466 \| `metrics.json` → `corrupt.precision` / `cor… | `0.9466 (×2)` | `metrics.json:corrupt.f1` | `0.9466` |
-| 85 | \| 附录D 主表「内容腐化 P/R/F1」 \| 埋 62 \| `metrics.json` → `corrupt.embedded` \| 62 \|… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
-| 86 | \| 附录D 主表「腐化规则消融」 \| drop_R1 0.6857 / drop_R2 0.6809 / drop_R3 0.9466 / drop_R4 0… | `0.6857` | `corrupt_rule_ablation.csv:f1[row=2][0]` | `0.6857` |
-| 86 | \| 附录D 主表「腐化规则消融」 \| drop_R1 0.6857 / drop_R2 0.6809 / drop_R3 0.9466 / drop_R4 0.6809；only_R1 0.6… | `0.6809 (×3)` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
-| 86 | …」 \| drop_R1 0.6857 / drop_R2 0.6809 / drop_R3 0.9466 / drop_R4 0.6809；only_R1 0.6809 / only_R2–R4… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 86 | …/ drop_R4 0.6809；only_R1 0.6809 / only_R2–R4 0.0 \| `corrupt_rule_ablation.csv` 8 行 `列=f1` \| 同值… | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 87 | \| 附录D 主表「重复组组内余弦（整篇级）」 \| 0.9545–0.9845（mean 0.9796） \| `granularity_dup.csv` `… | `0.9545 (×2)` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
-| 87 | \| 附录D 主表「重复组组内余弦（整篇级）」 \| 0.9545–0.9845（mean 0.9796） \| `granularity_dup.csv` `granula… | `0.9845 (×2)` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
-| 87 | \| 附录D 主表「重复组组内余弦（整篇级）」 \| 0.9545–0.9845（mean 0.9796） \| `granularity_dup.csv` `granularity=doc_lev… | `0.9796 (×2)` | `granularity_dup.csv:mean_max_sim[row=1][0]` | `0.9796` |
-| 88 | \| 附录D 主表「重复组组内余弦（段落级）」 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `… | `0.5671 (×2)` | `granularity_dup.csv:min_max_sim[row=2][0]` | `0.5671` |
-| 88 | \| 附录D 主表「重复组组内余弦（段落级）」 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `granula… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 88 | \| 附录D 主表「重复组组内余弦（段落级）」 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `granularity=passage… | `0.9803 (×2)` | `granularity_dup.csv:mean_max_sim[row=2][0]` | `0.9803` |
-| 89 | \| 附录D 主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 89 | …录D 主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（仅 `run_all.log`… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 90 | \| 附录D 「检索粒度 × 打分方案对照」整表 \| 10 行的意图级与工单级 AUC \| `granularity.csv` 10 行 × `列=a… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 91 | \| 附录D 「内容腐化规则消融」整表 \| 9 行的 P/R/F1/检出/TP/FP/FN/命中文档数/平均风险分/ΔF1 \| `corr… | `9 (×3)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 92 | \| 附录D 主表「内容腐化 P/R/F1」 \| 检出 69 \| `metrics.json` → `corrupt.detected` \| 69 \|… | `69 (×2)` | `metrics.json:corrupt.detected` | `69` |
-| 93 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
-| 93 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `corru… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 93 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `corrupt.fp… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 94 | \| 附录D 主表「腐化耗时」 \| 0.42 秒 \| `metrics.json` → `corrupt.seconds` \| 0.42… | `0.42 (×2)` | `metrics.json:corrupt.seconds` | `0.42` |
-| 95 | \| 附录D 主表「重复冗余（0.90 阈值）组级 F1」 \| 0.7037 \| `poc/kbgovernance/dup_threshold.csv` 第 3 数据… | `0.7037 (×2)` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 95 | …ernance/dup_threshold.csv` 第 3 数据行（`threshold=0.9`）列 `group_f1`；`metrics.json` → `dup.rows[1].g… | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 95 | …=0.9`）列 `group_f1`；`metrics.json` → `dup.rows[1].group_f1` \| 0.7037 \| 一致 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 96 | \| 附录D 主表「重复冗余（0.90 阈值）」 \| 32 组 / 77 篇 \| `dup_threshold.csv` `threshold=0.9… | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 96 | \| 附录D 主表「重复冗余（0.90 阈值）」 \| 32 组 / 77 篇 \| `dup_threshold.csv` `threshold=0.9` 行的 `d… | `77 (×2)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 96 | …32 组 / 77 篇 \| `dup_threshold.csv` `threshold=0.9` 行的 `dup_groups` / `detected_docs` \| 32 / 77… | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 97 | \| 附录D 主表「重复冗余（0.95 阈值）组级 F1」 \| 1.0 \| `dup_threshold.csv` `threshold=0.95` 行列 `gr… | `1.0 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 98 | \| 附录D 主表「重复冗余（0.95 阈值）」 \| 22 组 / 49 篇 \| `dup_threshold.csv` `threshold=0.9… | `22 (×2)` | `metrics.json:dup.embedded_groups` | `22` |
-| 98 | \| 附录D 主表「重复冗余（0.95 阈值）」 \| 22 组 / 49 篇 \| `dup_threshold.csv` `threshold=0.95` 行 `d… | `49 (×2)` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
-| 99 | \| 附录D 主表「三模块检测总耗时」 \| 2.85 秒 \| `metrics.json` → `total_seconds` \| 2.85 \|… | `2.85 (×2)` | `metrics.json:total_seconds` | `2.85` |
-| 101 | ### 2.2 附录 D · 标准化实验实测小节（69 条） | `69` | `metrics.json:corrupt.detected` | `69` |
-| 107 | \| 附录D AUC 表 · ABS α \| 0.968 \| `standardize/results_auc.csv` `场景=alpha, 方法… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 108 | \| 附录D AUC 表 · ABS 英文 \| 0.9538 \| `standardize/results_banking77_en.csv` 第 2… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 109 | \| 附录D AUC 表 · ABS 中文 \| 0.7925 \| `standardize/results_banking77_zh.csv` 第 2… | `0.7925 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 110 | \| 附录D AUC 表 · S1 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S1 分位数排名` \| 0.9… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 110 | \| 附录D AUC 表 · S1 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S1 分位数排名` \| 0.968 / 0.95… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 110 | …附录D AUC 表 · S1 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S1 分位数排名` \| 0.968 / 0.9538 / 0.79… | `0.7925 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 111 | \| 附录D AUC 表 · S2 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S2 全局z-score` \|… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 111 | \| 附录D AUC 表 · S2 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S2 全局z-score` \| 0.968 /… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 111 | …附录D AUC 表 · S2 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S2 全局z-score` \| 0.968 / 0.9538 /… | `0.7925 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 112 | \| 附录D AUC 表 · S3 α \| 1.0 \| `results_auc.csv` `场景=alpha, 方法=S3 领域内z, 列=… | `1.0 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 113 | \| 附录D AUC 表 · S3 英文 \| 0.4344 \| `results_banking77_en.csv` `方法=S3 领域内z, 列=A… | `0.4344 (×2)` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 114 | \| 附录D AUC 表 · S3 中文 \| 0.4946 \| `results_banking77_zh.csv` `方法=S3 领域内z, 列=A… | `0.4946 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 115 | \| 附录D AUC 表 · S3b 英文 \| 0.4860 \| `results_banking77_en.csv` `方法=S3b 域内分位数, 列… | `0.4860` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
-| 115 | …lts_banking77_en.csv` `方法=S3b 域内分位数, 列=AUC` \| 0.486 \| 一致（四舍五入，见 §3） \| | `0.486` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
-| 115 | …v` `方法=S3b 域内分位数, 列=AUC` \| 0.486 \| 一致（四舍五入，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 116 | \| 附录D AUC 表 · S3b 中文 \| 0.4962 \| `results_banking77_zh.csv` `方法=S3b 域内分位数, 列… | `0.4962 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=5][0]` | `0.4962` |
-| 117 | \| 附录D AUC 表 · S4 α \| 0.984 \| `results_auc.csv` `方法=S4 双参考系(域), 场景=alpha,… | `0.984 (×2)` | `dup_groups_best.csv:max_sim[row=5][0]` | `0.984` |
-| 118 | \| 附录D AUC 表 · S4 英文 \| 0.5538 \| `results_banking77_en.csv` `方法=S4 双参考系(域),… | `0.5538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=6][0]` | `0.5538` |
-| 119 | \| 附录D AUC 表 · S4 中文 \| 0.5441 \| `results_banking77_zh.csv` `方法=S4 双参考系(域),… | `0.5441 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=6][0]` | `0.5441` |
-| 120 | \| 附录D AUC 表 · S4min 英文 \| 0.8849 \| `results_banking77_en.csv` `方法=S4min 双参考系mi… | `0.8849 (×2)` | `standardize/results_banking77_en.csv:AUC[row=7][0]` | `0.8849` |
-| 121 | \| 附录D AUC 表 · S4min 中文 \| 0.7409 \| `results_banking77_zh.csv` `方法=S4min 双参考系mi… | `0.7409 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=7][0]` | `0.7409` |
-| 122 | \| 附录D AUC 表 · S5 α \| 1.0 \| `results_auc.csv` `方法=S5 双参考系均值, 场景=alpha,… | `1.0 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 123 | \| 附录D AUC 表 · S5 英文 \| 0.7516 \| `results_banking77_en.csv` `方法=S5 双参考系均值, 列… | `0.7516 (×2)` | `standardize/results_banking77_en.csv:AUC[row=8][0]` | `0.7516` |
-| 124 | \| 附录D AUC 表 · S5 中文 \| 0.6387 \| `results_banking77_zh.csv` `方法=S5 双参考系均值, 列… | `0.6387 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=8][0]` | `0.6387` |
-| 125 | \| 附录D AUC 表 · S6 α \| 0.968 \| `results_auc.csv` `方法=S6 去极值z, 场景=alpha, 列=… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 126 | \| 附录D AUC 表 · S4b α \| 0.752 \| `results_auc.csv` `方法=S4b 双参考系(意图), 场景=alph… | `0.752 (×2)` | `standardize/ablation.csv:alpha_AUC[row=8][0]` | `0.752` |
-| 134 | \| 附录D Spearman · ABS \| -1.000000 \| `standardize/mechanism.csv` 第 2 数据行列 `spear… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 134 | …e/mechanism.csv` 第 2 数据行列 `spearman_与cover` \| -1.0 \| 一致（精度，见 §3） \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 134 | …第 2 数据行列 `spearman_与cover` \| -1.0 \| 一致（精度，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 135 | \| 附录D Spearman · S1 \| -1.000000 \| `mechanism.csv` `方法=S1 分位数排名` \| -1.0 \| 一致（精… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 135 | …\| -1.000000 \| `mechanism.csv` `方法=S1 分位数排名` \| -1.0 \| 一致（精度） \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 136 | \| 附录D Spearman · S2 \| -1.000000 \| `mechanism.csv` `方法=S2 全局z-score` \| -1.0 \|… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 136 | ….000000 \| `mechanism.csv` `方法=S2 全局z-score` \| -1.0 \| 一致（精度） \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 137 | \| 附录D Spearman · S6 \| -0.999817 \| `mechanism.csv` `方法=S6 去极值z` \| -0.999817 \|… | `-0.999817 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=7][0]` | `-0.999817` |
-| 138 | \| 附录D Spearman · S5 \| -0.971441 \| `mechanism.csv` `方法=S5 双参考系均值` \| -0.971441… | `-0.971441 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=6][0]` | `-0.971441` |
-| 139 | \| 附录D Spearman · S4 \| -0.972351 \| `mechanism.csv` `方法=S4 双参考系(域)` \| -0.972351… | `-0.972351 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=5][0]` | `-0.972351` |
-| 140 | \| 附录D Spearman · S3 \| -0.893715 \| `mechanism.csv` `方法=S3 领域内z` \| -0.893715 \|… | `-0.893715 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=4][0]` | `-0.893715` |
-| 141 | \| 附录D Spearman · S4b \| -0.814022 \| `mechanism.csv` `方法=S4b 双参考系(意图)` \| -0.8140… | `-0.814022 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=8][0]` | `-0.814022` |
-| 147 | \| 附录D 迁移表 · ABS 跨 5 场景阈值极差 \| 0.0264 \| `results_auc.csv` `方法=ABS(绝… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 147 | \| 附录D 迁移表 · ABS 跨 5 场景阈值极差 \| 0.0264 \| `results_auc.csv` `方法=ABS(绝对阈值)` 的 5 行 `召回全… | `0.0264 (×3)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 147 | …s_auc.csv` `方法=ABS(绝对阈值)` 的 5 行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，max-m… | `-0.6657 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
-| 147 | …`方法=ABS(绝对阈值)` 的 5 行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，max-min = 0.026… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
-| 147 | …对阈值)` 的 5 行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，max-min = 0.0264 \| 0.0264… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
-| 147 | …行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，max-min = 0.0264 \| 0.0264 \| 一致 \| | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
-| 148 | \| 附录D 迁移表 · 极差区间 \| -0.6633 ~ -0.6897 \| 同上 5 值的实际最小/最大 \| -0.6897 ~ -0.663… | `-0.6633 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
-| 148 | \| 附录D 迁移表 · 极差区间 \| -0.6633 ~ -0.6897 \| 同上 5 值的实际最小/最大 \| -0.6897 ~ -0.6633 \| 一致 \| | `-0.6897 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
-| 148 | \| 附录D 迁移表 · 极差区间 \| -0.6633 ~ -0.6897 \| 同上 5 值的实际最小/最大 \| -0.6897 ~ -0.6633 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 149 | \| 附录D 迁移表 · 中文 α → 英文 检出意图数（正向） \| 0 / 77 \| `standardize/results_xfer_banking77_en… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 149 | \| 附录D 迁移表 · 中文 α → 英文 检出意图数（正向） \| 0 / 77 \| `standardize/results_xfer_banking77_en.csv`… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 149 | …s_xfer_banking77_en.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`）列 `检出意图数` \| 0 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 150 | \| 附录D 迁移表 · 中文 α → 英文 P（正向） \| 0.0000 \| 同上列 `P` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 150 | …录D 迁移表 · 中文 α → 英文 P（正向） \| 0.0000 \| 同上列 `P` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 151 | \| 附录D 迁移表 · 中文 α → 英文 R（正向） \| 0.0000 \| 同上列 `R` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 151 | …录D 迁移表 · 中文 α → 英文 R（正向） \| 0.0000 \| 同上列 `R` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 152 | \| 附录D 迁移表 · 中文 α → 英文 F1（正向） \| 0.0000 \| 同上列 `F1` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 152 | …迁移表 · 中文 α → 英文 F1（正向） \| 0.0000 \| 同上列 `F1` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 153 | \| 附录D 迁移表 · 中文 α → 英文 检出意图数（反向） \| 77 / 77 全判为缺口 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 153 | …反向） \| 77 / 77 全判为缺口 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）列 `检出意图数` \| 77 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 154 | \| 附录D 迁移表 · 中文 α → 英文 P（反向） \| 0.1948 \| 同上列 `P` \| 0.1948 \| 一致 \| | `0.1948 (×2)` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
-| 155 | \| 附录D 迁移表 · 中文 α → 英文 R（反向） \| 1.0000 \| 同上列 `R` \| 1.0 \| 一致 \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 155 | …录D 迁移表 · 中文 α → 英文 R（反向） \| 1.0000 \| 同上列 `R` \| 1.0 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 156 | \| 附录D 迁移表 · 中文 α → 英文 F1（反向） \| 0.3261 \| 同上列 `F1` \| 0.3261 \| 一致 \| | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 157 | \| 附录D 迁移表 · 中文 α → 英文 该场景最优 F1 \| 0.8148 \| 同上列 `该场景最优F1` \| 0.8148 \| 一致 \| | `0.8148 (×2)` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
-| 158 | \| 附录D 迁移表 · 中文 α → 中文 检出意图数（正向） \| 0 / 77 \| `standardize/results_xfer_banking77_zh… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 158 | \| 附录D 迁移表 · 中文 α → 中文 检出意图数（正向） \| 0 / 77 \| `standardize/results_xfer_banking77_zh.csv`… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 158 | …s_xfer_banking77_zh.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`）`检出意图数` \| 0 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 159 | \| 附录D 迁移表 · 中文 α → 中文 P（正向） \| 0.0000 \| 同上列 `P` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 159 | …录D 迁移表 · 中文 α → 中文 P（正向） \| 0.0000 \| 同上列 `P` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 160 | \| 附录D 迁移表 · 中文 α → 中文 R（正向） \| 0.0000 \| 同上列 `R` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 160 | …录D 迁移表 · 中文 α → 中文 R（正向） \| 0.0000 \| 同上列 `R` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 161 | \| 附录D 迁移表 · 中文 α → 中文 F1（正向） \| 0.0000 \| 同上列 `F1` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 161 | …迁移表 · 中文 α → 中文 F1（正向） \| 0.0000 \| 同上列 `F1` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 162 | \| 附录D 迁移表 · 中文 α → 中文 检出意图数（反向） \| 77 / 77 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 162 | …检出意图数（反向） \| 77 / 77 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）`检出意图数` \| 77 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 163 | \| 附录D 迁移表 · 中文 α → 中文 P（反向） \| 0.1948 \| 同上列 `P` \| 0.1948 \| 一致 \| | `0.1948 (×2)` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
-| 164 | \| 附录D 迁移表 · 中文 α → 中文 R（反向） \| 1.0000 \| 同上列 `R` \| 1.0 \| 一致 \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 164 | …录D 迁移表 · 中文 α → 中文 R（反向） \| 1.0000 \| 同上列 `R` \| 1.0 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 165 | \| 附录D 迁移表 · 中文 α → 中文 F1（反向） \| 0.3261 \| 同上列 `F1` \| 0.3261 \| 一致 \| | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 166 | \| 附录D 迁移表 · 中文 α → 中文 该场景最优 F1 \| 0.6207 \| 同上列 `该场景最优F1` \| 0.6207 \| 一致 \| | `0.6207 (×2)` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
-| 167 | …· banking77（bge-small-en-v1.5）最优阈值 \| cover ≤ 0.8495 \| `results_banking77_en.csv` `方法=ABS(绝对阈值), 列… | `0.8495 (×2)` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
-| 167 | …ts_banking77_en.csv` `方法=ABS(绝对阈值), 列=最优阈值` = -0.8495（余弦取负号后换算） \| -0.8495 → cover ≤ 0.8495 \| 一致（符号换… | `-0.8495 (×2)` | `derived_metrics.csv:banking77_en.abs_best_threshold_raw` | `-0.8495` |
-| 167 | …号后换算） \| -0.8495 → cover ≤ 0.8495 \| 一致（符号换算，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 168 | \| 附录D 迁移表 · 全量 → KB 减半 S1/S2（en） \| 检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.947… | `19 (×2)` | `dup_groups_best.csv:group[row=19][0]` | `19` |
-| 168 | \| 附录D 迁移表 · 全量 → KB 减半 S1/S2（en） \| 检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.9474 \| `resu… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 168 | …迁移表 · 全量 → KB 减半 S1/S2（en） \| 检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.9474 \| `results_xfer_… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 168 | …KB 减半 S1/S2（en） \| 检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.9474 \| `results_xfer_banking77_… | `0.5846 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
-| 168 | …检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.9474 \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `… | `0.9474 (×2)` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
-| 168 | …F1 0.9474 \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `检出意图数`/`P`/`R`/`F1` 与 `该场景最优F1` \| 19、1… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 168 | …0.9474 \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `检出意图数`/`P`/`R`/`F1` 与 `该场景最优F1` \| 19、1.0… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 168 | …3、4 数据行 `检出意图数`/`P`/`R`/`F1` 与 `该场景最优F1` \| 19、1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 168 | …数据行 `检出意图数`/`P`/`R`/`F1` 与 `该场景最优F1` \| 19、1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `0.413` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 169 | \| 附录D 迁移表 · 全量 → KB 减半 S1（zh） \| F1 0.4918（目标场景自身最优 F1 0.8293） \| `results_xfer_banking77… | `0.4918 (×2)` | `standardize/results_xfer_banking77_zh.csv:F1[row=3][0]` | `0.4918` |
-| 169 | …表 · 全量 → KB 减半 S1（zh） \| F1 0.4918（目标场景自身最优 F1 0.8293） \| `results_xfer_banking77_zh.csv` 第 3 数据行 `F… | `0.8293 (×2)` | `standardize/results_banking77_zh.csv:F1[row=9][0]` | `0.8293` |
-| 170 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standar… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 170 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
-| 170 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario_meta… | `75 (×2)` | `standardize/scenario_meta.json:n_docs.beta` | `75` |
-| 170 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario_meta.json`… | `180 (×2)` | `standardize/scenario_meta.json:n_docs.gamma` | `180` |
-| 170 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario_meta.json` → `n… | `48 (×2)` | `standardize/scenario_meta.json:n_docs.gamma-X` | `48` |
-| 170 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario_meta.json` → `n_docs`… | `600 (×2)` | `standardize/scenario_meta.json:n_docs.delta` | `600` |
-| 176 | \| 附录D cover 分布 · 中文合成 α \| min 0.5629 / mean 0.6891 / max 0.8294 / sd 0.0529 \| `sta… | `0.5629 (×2)` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
-| 176 | \| 附录D cover 分布 · 中文合成 α \| min 0.5629 / mean 0.6891 / max 0.8294 / sd 0.0529 \| `standardize/scena… | `0.6891 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
-| 176 | …分布 · 中文合成 α \| min 0.5629 / mean 0.6891 / max 0.8294 / sd 0.0529 \| `standardize/scenario_meta.json… | `0.8294 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
-| 176 | …\| min 0.5629 / mean 0.6891 / max 0.8294 / sd 0.0529 \| `standardize/scenario_meta.json` → `cover_s… | `0.0529 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.sd` | `0.0529` |
-| 177 | \| 附录D cover 分布 · banking77 bge-en \| 0.6547 / 0.8797 / 0.9973 / 0.0578 \| `standardize/ban… | `0.6547 (×2)` | `standardize/banking77_meta.json:cover.min` | `0.6547` |
-| 177 | \| 附录D cover 分布 · banking77 bge-en \| 0.6547 / 0.8797 / 0.9973 / 0.0578 \| `standardize/banking77_me… | `0.8797 (×2)` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
-| 177 | …ver 分布 · banking77 bge-en \| 0.6547 / 0.8797 / 0.9973 / 0.0578 \| `standardize/banking77_meta_en.jso… | `0.9973 (×2)` | `standardize/banking77_meta.json:cover.max` | `0.9973` |
-| 177 | …banking77 bge-en \| 0.6547 / 0.8797 / 0.9973 / 0.0578 \| `standardize/banking77_meta_en.json` → `cov… | `0.0578 (×2)` | `standardize/banking77_meta.json:cover.sd` | `0.0578` |
-| 178 | \| 附录D cover 分布 · banking77 bge-zh \| 0.6014 / 0.8386 / 0.9874 / 0.0544 \| `standardize/ban… | `0.6014 (×2)` | `standardize/banking77_meta_zh.json:cover.min` | `0.6014` |
-| 178 | \| 附录D cover 分布 · banking77 bge-zh \| 0.6014 / 0.8386 / 0.9874 / 0.0544 \| `standardize/banking77_me… | `0.8386 (×2)` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
-| 178 | …ver 分布 · banking77 bge-zh \| 0.6014 / 0.8386 / 0.9874 / 0.0544 \| `standardize/banking77_meta_zh.jso… | `0.9874 (×2)` | `standardize/banking77_meta_zh.json:cover.max` | `0.9874` |
-| 178 | …banking77 bge-zh \| 0.6014 / 0.8386 / 0.9874 / 0.0544 \| `standardize/banking77_meta_zh.json` → `cov… | `0.0544 (×2)` | `standardize/banking77_meta_zh.json:cover.sd` | `0.0544` |
-| 184 | \| 附录D 负结果 · ABS -max α/β/γ/γ-X \| 0.9680 / 0.8075 / 0.9022 / 0.9135 \| `standardize/res… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 184 | \| 附录D 负结果 · ABS -max α/β/γ/γ-X \| 0.9680 / 0.8075 / 0.9022 / 0.9135 \| `standardize/results_dire… | `0.8075 (×2)` | `standardize/ablation.csv:alpha_AUC[row=17][0]` | `0.8075` |
-| 184 | …负结果 · ABS -max α/β/γ/γ-X \| 0.9680 / 0.8075 / 0.9022 / 0.9135 \| `standardize/results_directions.cs… | `0.9022 (×2)` | `standardize/ablation.csv:alpha_AUC[row=18][0]` | `0.9022` |
-| 184 | …S -max α/β/γ/γ-X \| 0.9680 / 0.8075 / 0.9022 / 0.9135 \| `standardize/results_directions.csv` `方向=AB… | `0.9135 (×2)` | `standardize/ablation.csv:alpha_AUC[row=19][0]` | `0.9135` |
-| 184 | …tions.csv` `方向=ABS -max (基线)` 四个场景的 `AUC` 列 \| 0.968 / 0.8075 / 0.9022 / 0.9135 \| 一致（四舍五入，见 §3） \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 184 | …0.968 / 0.8075 / 0.9022 / 0.9135 \| 一致（四舍五入，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 185 | \| 附录D 负结果 · ABS 跨场景阈值极差 \| 0.0264 \| `results_auc.csv` ABS 5 场景 `召回全部门槛的阈值` 极差（与… | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 185 | …ABS 跨场景阈值极差 \| 0.0264 \| `results_auc.csv` ABS 5 场景 `召回全部门槛的阈值` 极差（与上同源） \| 0.0264 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 186 | \| 附录D 负结果 · A1 四场景 AUC \| 0.0960 / 0.1615 / 0.1400 / 0.3173 \| `results_directi… | `0.0960` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
-| 186 | \| 附录D 负结果 · A1 四场景 AUC \| 0.0960 / 0.1615 / 0.1400 / 0.3173 \| `results_directions.csv`… | `0.1615 (×2)` | `standardize/results_directions.csv:AUC[row=9][0]` | `0.1615` |
-| 186 | \| 附录D 负结果 · A1 四场景 AUC \| 0.0960 / 0.1615 / 0.1400 / 0.3173 \| `results_directions.csv` `方向=A1 (t… | `0.1400` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
-| 186 | …负结果 · A1 四场景 AUC \| 0.0960 / 0.1615 / 0.1400 / 0.3173 \| `results_directions.csv` `方向=A1 (top5-mean)… | `0.3173 (×2)` | `standardize/results_directions.csv:AUC[row=23][0]` | `0.3173` |
-| 186 | …rections.csv` `方向=A1 (top5-mean)/(max-min)` \| 0.096 / 0.1615 / 0.14 / 0.3173 \| 一致（四舍五入） \| | `0.096` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
-| 186 | …=A1 (top5-mean)/(max-min)` \| 0.096 / 0.1615 / 0.14 / 0.3173 \| 一致（四舍五入） \| | `0.14` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
-| 187 | \| 附录D 负结果 · A2 四场景 AUC \| 0.1120 / 0.1491 / 0.1444 / 0.2788 \| `results_directi… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 187 | \| 附录D 负结果 · A2 四场景 AUC \| 0.1120 / 0.1491 / 0.1444 / 0.2788 \| `results_directions.csv`… | `0.1491 (×2)` | `standardize/results_directions.csv:AUC[row=10][0]` | `0.1491` |
-| 187 | \| 附录D 负结果 · A2 四场景 AUC \| 0.1120 / 0.1491 / 0.1444 / 0.2788 \| `results_directions.csv` `方向=A2 (m… | `0.1444 (×2)` | `standardize/results_directions.csv:AUC[row=17][0]` | `0.1444` |
-| 187 | …负结果 · A2 四场景 AUC \| 0.1120 / 0.1491 / 0.1444 / 0.2788 \| `results_directions.csv` `方向=A2 (max-top5)/… | `0.2788 (×2)` | `standardize/results_directions.csv:AUC[row=24][0]` | `0.2788` |
-| 187 | …ults_directions.csv` `方向=A2 (max-top5)/max` \| 0.112 / 0.1491 / 0.1444 / 0.2788 \| 一致（四舍五入） \| | `0.112` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 188 | \| 附录D 负结果 · A2 跨场景阈值极差 \| 0.0018 \| `results_directions.csv` `方向=A2 (max-top5)/… | `0.0018 (×4)` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
-| 188 | …ons.csv` `方向=A2 (max-top5)/max` 四行 `召回全部阈值` = 0.0001 / 0.0 / 0.0 / 0.0018，极差 0.0018 \| 0.0018 \| 一致… | `0.0001` | `standardize/results_directions.csv:召回全部阈值[row=3][0]` | `0.0001` |
-| 189 | \| 附录D 负结果 · A4 四场景 AUC \| 0.9200 / 0.8509 / 0.8644 / 0.7981 \| `results_directi… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 189 | \| 附录D 负结果 · A4 四场景 AUC \| 0.9200 / 0.8509 / 0.8644 / 0.7981 \| `results_directions.csv`… | `0.8509 (×2)` | `standardize/results_directions.csv:AUC[row=12][0]` | `0.8509` |
-| 189 | \| 附录D 负结果 · A4 四场景 AUC \| 0.9200 / 0.8509 / 0.8644 / 0.7981 \| `results_directions.csv` `方向=A4 st… | `0.8644 (×2)` | `standardize/results_directions.csv:AUC[row=19][0]` | `0.8644` |
-| 189 | …负结果 · A4 四场景 AUC \| 0.9200 / 0.8509 / 0.8644 / 0.7981 \| `results_directions.csv` `方向=A4 stop5-max`… | `0.7981 (×2)` | `standardize/results_directions.csv:AUC[row=26][0]` | `0.7981` |
-| 189 | …`results_directions.csv` `方向=A4 stop5-max` \| 0.92 / 0.8509 / 0.8644 / 0.7981 \| 一致（四舍五入） \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 190 | \| 附录D 负结果 · B 四场景 AUC \| 0.8160 / 0.6273 / 0.6422 / 0.7500 \| `results_directi… | `0.8160` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
-| 190 | \| 附录D 负结果 · B 四场景 AUC \| 0.8160 / 0.6273 / 0.6422 / 0.7500 \| `results_directions.csv`… | `0.6273 (×2)` | `standardize/results_directions.csv:AUC[row=13][0]` | `0.6273` |
-| 190 | \| 附录D 负结果 · B 四场景 AUC \| 0.8160 / 0.6273 / 0.6422 / 0.7500 \| `results_directions.csv` `方向=B 双向中… | `0.6422 (×2)` | `standardize/results_directions.csv:AUC[row=20][0]` | `0.6422` |
-| 190 | …负结果 · B 四场景 AUC \| 0.8160 / 0.6273 / 0.6422 / 0.7500 \| `results_directions.csv` `方向=B 双向中心化 max-pr… | `0.7500` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
-| 190 | …ults_directions.csv` `方向=B 双向中心化 max-prior` \| 0.816 / 0.6273 / 0.6422 / 0.75 \| 一致（四舍五入） \| | `0.816` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
-| 190 | …双向中心化 max-prior` \| 0.816 / 0.6273 / 0.6422 / 0.75 \| 一致（四舍五入） \| | `0.75` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
-| 191 | \| 附录D 负结果 · B+ 四场景 AUC \| 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directi… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 191 | \| 附录D 负结果 · B+ 四场景 AUC \| 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv`… | `0.5031 (×2)` | `standardize/results_directions.csv:AUC[row=14][0]` | `0.5031` |
-| 191 | \| 附录D 负结果 · B+ 四场景 AUC \| 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv` `方向=B+ to… | `0.3378 (×2)` | `standardize/results_directions.csv:AUC[row=21][0]` | `0.3378` |
-| 191 | …负结果 · B+ 四场景 AUC \| 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv` `方向=B+ top5 双向中心化`… | `0.7115 (×2)` | `standardize/results_directions.csv:AUC[row=28][0]` | `0.7115` |
-| 191 | …`results_directions.csv` `方向=B+ top5 双向中心化` \| 0.496 / 0.5031 / 0.3378 / 0.7115 \| 一致（四舍五入） \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 199 | …amma / gamma-X 四场景 `方法=ABS(绝对阈值)` 的 `best_F1`（0.8889 / 0.625 / 0.8387 / 0.963）样本标准差（n-1），场景集合与 `re… | `0.8889` | `standardize/ablation.csv:alpha_F1[row=1][0]` | `0.8889` |
-| 199 | …mma-X 四场景 `方法=ABS(绝对阈值)` 的 `best_F1`（0.8889 / 0.625 / 0.8387 / 0.963）样本标准差（n-1），场景集合与 `results_di… | `0.625` | `standardize/ablation.csv:alpha_F1[row=17][0]` | `0.625` |
-| 199 | …景 `方法=ABS(绝对阈值)` 的 `best_F1`（0.8889 / 0.625 / 0.8387 / 0.963）样本标准差（n-1），场景集合与 `results_directionC.… | `0.8387` | `standardize/ablation.csv:alpha_F1[row=18][0]` | `0.8387` |
-| 199 | …(绝对阈值)` 的 `best_F1`（0.8889 / 0.625 / 0.8387 / 0.963）样本标准差（n-1），场景集合与 `results_directionC.csv` 的 4… | `0.963` | `standardize/ablation.csv:alpha_F1[row=19][0]` | `0.963` |
-| 199 | …3）样本标准差（n-1），场景集合与 `results_directionC.csv` 的 4 行一致 \| 0.1452 \| 一致（推算，口径已在文档中声明） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 200 | \| 附录D 方向 C · ABS 平均 F1 \| 0.8289 \| `results_auc.csv` `方法=ABS(绝对阈值)` 四场景 `best_… | `0.8289 (×3)` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
-| 200 | …results_auc.csv` `方法=ABS(绝对阈值)` 四场景 `best_F1`（0.8889/0.625/0.8387/0.963）均值 = 0.8289 \| 0.8289 \| 一致… | `0.8889` | `standardize/ablation.csv:alpha_F1[row=1][0]` | `0.8889` |
-| 200 | …_auc.csv` `方法=ABS(绝对阈值)` 四场景 `best_F1`（0.8889/0.625/0.8387/0.963）均值 = 0.8289 \| 0.8289 \| 一致 \| | `0.625` | `standardize/ablation.csv:alpha_F1[row=17][0]` | `0.625` |
-| 200 | …sv` `方法=ABS(绝对阈值)` 四场景 `best_F1`（0.8889/0.625/0.8387/0.963）均值 = 0.8289 \| 0.8289 \| 一致 \| | `0.8387` | `standardize/ablation.csv:alpha_F1[row=18][0]` | `0.8387` |
-| 200 | …=ABS(绝对阈值)` 四场景 `best_F1`（0.8889/0.625/0.8387/0.963）均值 = 0.8289 \| 0.8289 \| 一致 \| | `0.963` | `standardize/ablation.csv:alpha_F1[row=19][0]` | `0.963` |
-| 201 | \| 附录D 方向 C · 固定 25% 检出比例标准差 \| 0.0873 \| `results_directionC.csv`… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 201 | …esults_directionC.csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.0873 \| 0.0873 \| 一… | `0.6667` | `metrics.json:gap.cluster_rows[6].f1` | `0.6667` |
-| 201 | …ctionC.csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.0873 \| 0.0873 \| 一致 \| | `0.5714` | `metrics.json:gap.cluster_rows[3].f1` | `0.5714` |
-| 201 | …csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.0873 \| 0.0873 \| 一致 \| | `0.4706` | `standardize/results_directionC.csv:F1[row=19][0]` | `0.4706` |
-| 202 | \| 附录D 方向 C · 固定 25% 平均 F1 \| 0.5522 \| 同上四值均值 = 0.552175 \| 0.5522… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 202 | \| 附录D 方向 C · 固定 25% 平均 F1 \| 0.5522 \| 同上四值均值 = 0.552175 \| 0.5522 \| 一致（四舍五入） \| | `0.552175` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
-| 203 | \| 附录D 方向 C · 稳 40% \| 40% \| 由 (0.1452 - 0.0873) / 0.1452 = 39.9%… | `40 (×2)` | `gap_threshold.csv:recall[row=15][0]` | `0.4` |
-| 203 | …稳 40% \| 40% \| 由 (0.1452 - 0.0873) / 0.1452 = 39.9% 推得 \| 39.9% \| 一致（推算） \| | `39.9 (×2)` | `derived_metrics.csv:directionC.sd_reduction_ratio_fixed25` | `0.398805` |
-| 204 | \| 附录D 方向 C · 牺牲 33% \| 33% \| 由 (0.8289 - 0.5522) / 0.8289 = 33.4%… | `33 (×2)` | `standardize/results_xfer_banking77_zh.csv:检出意图数[row=5][0]` | `33` |
-| 204 | \| 附录D 方向 C · 牺牲 33% \| 33% \| 由 (0.8289 - 0.5522) / 0.8289 = 33.4% 推得 \| 33.4% \| 一致（推算… | `0.8289 (×2)` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
-| 204 | …牺牲 33% \| 33% \| 由 (0.8289 - 0.5522) / 0.8289 = 33.4% 推得 \| 33.4% \| 一致（推算） \| | `33.4 (×2)` | `derived_metrics.csv:directionC.mean_f1_sacrifice_ratio_fixed25` | `0.333846` |
-| 210 | \| §1.3 贡献 1 \| 整篇级 AUC 0.8880 \| `granularity.csv` `doc_lev… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 210 | \| §1.3 贡献 1 \| 整篇级 AUC 0.8880 \| `granularity.csv` `doc_level, max-cosine` 行… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 210 | …oc_level, max-cosine` 行 `auc_intent_median` \| 0.888 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 211 | \| §1.3 贡献 1 \| 段落级 AUC 0.968 \| `results_auc.csv` `alpha/AB… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 211 | \| §1.3 贡献 1 \| 段落级 AUC 0.968 \| `results_auc.csv` `alpha/ABS` `AUC`；`granul… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 212 | \| §1.3 贡献 1 \| 工单级 AUC 0.8307 → 0.8659 \| `granularity.csv`… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 212 | \| §1.3 贡献 1 \| 工单级 AUC 0.8307 → 0.8659 \| `granularity.csv` `max-cosine` 两行… | `0.8307 (×2)` | `granularity.csv:auc[row=1][0]` | `0.8307` |
-| 212 | \| §1.3 贡献 1 \| 工单级 AUC 0.8307 → 0.8659 \| `granularity.csv` `max-cosine` 两行 `列=auc` \|… | `0.8659 (×2)` | `granularity.csv:auc[row=6][0]` | `0.8659` |
-| 213 | \| §1.3 贡献 1 \| 失败归一化 AUC 0.496–0.920 \| `granularity.csv` 三… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 213 | \| §1.3 贡献 1 \| 失败归一化 AUC 0.496–0.920 \| `granularity.csv` 三种变换在两种粒度下的 `auc_in… | `0.496 (×2)` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 213 | \| §1.3 贡献 1 \| 失败归一化 AUC 0.496–0.920 \| `granularity.csv` 三种变换在两种粒度下的 `auc_intent_m… | `0.920` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 213 | …sv` 三种变换在两种粒度下的 `auc_intent_median` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.704` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
-| 213 | …在两种粒度下的 `auc_intent_median` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
-| 213 | …`auc_intent_median` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.832` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
-| 213 | …ent_median` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 213 | …an` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 214 | \| §1.3 贡献 2 \| 缺口 F1 = 0.800 \| `metrics.json` → `gap.best.… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 214 | \| §1.3 贡献 2 \| 缺口 F1 = 0.800 \| `metrics.json` → `gap.best.f1` \| 0.8 \| 一致 \| | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
-| 214 | …F1 = 0.800 \| `metrics.json` → `gap.best.f1` \| 0.8 \| 一致 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 215 | \| §1.3 贡献 2 \| 腐化 F1 = 0.9466 \| `metrics.json` → `corrupt.… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 215 | \| §1.3 贡献 2 \| 腐化 F1 = 0.9466 \| `metrics.json` → `corrupt.f1` \| 0.9466 \| 一致… | `0.9466 (×2)` | `metrics.json:corrupt.f1` | `0.9466` |
-| 216 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshold.csv… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 216 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshold.csv` `thresho… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 216 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshold.csv` `threshold=0.9, group_f… | `0.7037 (×2)` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 216 | …F1 = 0.7037 \| `dup_threshold.csv` `threshold=0.9, group_f1` \| 0.7037 \| 一致 \| | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 217 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshold.csv… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 217 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshold.csv` `thresho… | `0.95 (×2)` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 217 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshold.csv` `threshold=0.95, group_… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 217 | …p_threshold.csv` `threshold=0.95, group_f1` \| 1.0 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 218 | \| §1.3 贡献 2 \| 三模块合计 2.85 秒 \| `metrics.json` → `total_seco… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 218 | \| §1.3 贡献 2 \| 三模块合计 2.85 秒 \| `metrics.json` → `total_seconds` \| 2.85 \|… | `2.85 (×2)` | `metrics.json:total_seconds` | `2.85` |
-| 219 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.csv` `s… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 219 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.csv` `spearman_与cover`（ABS/S1/S2… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 219 | …hanism.csv` `spearman_与cover`（ABS/S1/S2 三行） \| -1.0 \| 一致（精度） \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 220 | \| §1.3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5 场景阈值… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 220 | \| §1.3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5 场景阈值极差 \| 0.0264 \| 一… | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 220 | …3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5 场景阈值极差 \| 0.0264 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 221 | \| §1.3 贡献 4 \| 中文 0.6463 \| `standardize/ablation.csv` 第 2… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 221 | \| §1.3 贡献 4 \| 中文 0.6463 \| `standardize/ablation.csv` 第 2 数据行 `变体=ABS… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 221 | …/ablation.csv` 第 2 数据行 `变体=ABS 绝对余弦,-cover（基线 0.968）, 列=最优阈值` = -0.6463（符号换算） \| cover ≤ 0.6463 \|… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 221 | …数据行 `变体=ABS 绝对余弦,-cover（基线 0.968）, 列=最优阈值` = -0.6463（符号换算） \| cover ≤ 0.6463 \| 一致（符号换算） \| | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
-| 222 | \| §1.3 贡献 4 \| 正向判定 F1 = 0 \| `results_xfer_banking77_en.cs… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 222 | \| §1.3 贡献 4 \| 正向判定 F1 = 0 \| `results_xfer_banking77_en.csv` 第 1 数据行列 `F… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 222 | …esults_xfer_banking77_en.csv` 第 1 数据行列 `F1` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 223 | \| §1.3 贡献 4 \| 反向判定 77/77 全判为缺口 \| 同文件第 2 数据行 `检出意图数` \| 77… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 223 | \| §1.3 贡献 4 \| 反向判定 77/77 全判为缺口 \| 同文件第 2 数据行 `检出意图数` \| 77 \| 一致 \| | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 224 | \| §1.3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2 数据行列… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 224 | \| §1.3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2 数据行列 `F1` / `该场景最优F1`… | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 224 | \| §1.3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2 数据行列 `F1` / `该场景最优F1` \| 0.3261 / 0.… | `0.8148 (×2)` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
-| 225 | \| §1.3 贡献 5 \| 极差 0.0018 \| `results_directions.csv` A2 四场景… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 225 | \| §1.3 贡献 5 \| 极差 0.0018 \| `results_directions.csv` A2 四场景 `召回全部阈值` 极差… | `0.0018 (×2)` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
-| 226 | \| §1.3 贡献 5 \| AUC 0.1120 \| `results_directions.csv` `方向=A… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 226 | \| §1.3 贡献 5 \| AUC 0.1120 \| `results_directions.csv` `方向=A2 (max-top5)/… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 226 | ….csv` `方向=A2 (max-top5)/max, 场景=alpha, AUC` \| 0.112 \| 一致 \| | `0.112` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 228 | \| §2.1 选型表 \| 权重 95.8 MB \| `metrics.json` → `embedding.model_downlo… | `95.8 (×2)` | `metrics.json:embedding.model_download_mb` | `95.8` |
-| 229 | \| §2.1 选型表 \| 512 维 \| `metrics.json` → `embedding.dim` \| 512 \|… | `512 (×2)` | `metrics.json:embedding.dim` | `512` |
-| 230 | \| §2.2 基线偏高 \| min 0.5629 / mean 0.6891 / max 0.8294 \| `scenario_meta.j… | `0.5629` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
-| 230 | \| §2.2 基线偏高 \| min 0.5629 / mean 0.6891 / max 0.8294 \| `scenario_meta.json` → `cover_… | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
-| 230 | \| §2.2 基线偏高 \| min 0.5629 / mean 0.6891 / max 0.8294 \| `scenario_meta.json` → `cover_stats.alpha`（… | `0.8294` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
-| 231 | \| §2.3 不用 KMeans \| 实测 95 个簇（mcs=5） \| 受审集合内 `gap_threshold.csv` 只有阈值扫参，… | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 231 | \| §2.3 不用 KMeans \| 实测 95 个簇（mcs=5） \| 受审集合内 `gap_threshold.csv` 只有阈值扫参，无总簇数列 \| —… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 232 | \| §2.3 不用 KMeans \| 30 个意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 233 | \| §2.3 不用 KMeans \| mcs=10 噪声 9 条 \| 受审集合内无噪声数列 \| — \| 【无出处】 \| | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 233 | \| §2.3 不用 KMeans \| mcs=10 噪声 9 条 \| 受审集合内无噪声数列 \| — \| 【无出处】 \| | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 234 | \| §3.1 技术可行性 \| 生成数据约 1 秒 \| 受审集合内无生成耗时字段 \| — \| 【无出处】 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 235 | \| §3.1 技术可行性 \| 4152 条文本 \| `embedding.n_docs+n_tickets+n_passages`… | `4152 (×2)` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
-| 236 | \| §3.1 技术可行性 \| 向量化 15.43 秒 \| `metrics.json` → `embedding.encode_second… | `15.43 (×2)` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 237 | \| §3.1 技术可行性 \| 三模块 2.85 秒 \| `metrics.json` → `total_seconds` \| 2.85 \|… | `2.85 (×2)` | `metrics.json:total_seconds` | `2.85` |
-| 238 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
-| 238 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_tickets… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 238 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_tickets` 一致；后两… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 239 | \| §3.5 非功能需求 \| 检测环节 2.85 秒 \| `metrics.json` → `total_seconds` \| 2.85 \|… | `2.85 (×2)` | `metrics.json:total_seconds` | `2.85` |
-| 240 | \| §3.5 非功能需求 \| 向量化 15.43 秒 \| `metrics.json` → `embedding.encode_second… | `15.43 (×2)` | `metrics.json:embedding.encode_seconds` | `15.43` |
-| 241 | \| §5.1 段落切分动机 \| 300 篇平均 140 字 \| 受审集合内无正文字数字段 \| — \| 【无出处】 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 243 | \| §5.1 段落切分动机 \| 整篇级 AUC 0.8880（工单级 0.8307） \| `granularity.csv` `doc_level, m… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 243 | \| §5.1 段落切分动机 \| 整篇级 AUC 0.8880（工单级 0.8307） \| `granularity.csv` `doc_level, max-cosine`… | `0.8307 (×2)` | `granularity.csv:auc[row=1][0]` | `0.8307` |
-| 243 | …, max-cosine` 行 `auc_intent_median` / `auc` \| 0.888 / 0.8307 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 244 | \| §5.1 段落切分动机 \| 1852 个段落 \| `metrics.json` → `embedding.n_passages`… | `1852 (×2)` | `metrics.json:embedding.n_passages` | `1852` |
-| 245 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入） \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
-| 245 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 246 | \| §5.1 段落切分动机 \| 段落级 AUC 0.968 \| `results_auc.csv` `alpha/ABS` `AUC` \| 0.968… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 247 | \| §5.1.3 对照表 \| 段落级 0.968 \| 同上 \| 0.968 \| 一致 \| | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 248 | \| §5.1.3 对照表 \| 整篇级 0.8880 \| `granularity.csv` `doc_level, max-cosine` 行… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 248 | …oc_level, max-cosine` 行 `auc_intent_median` \| 0.888 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 249 | \| §5.1.3 对照表 \| margin 0.9200 / 0.8320 \| `granularity.csv` `max-top5mean` 两… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 249 | \| §5.1.3 对照表 \| margin 0.9200 / 0.8320 \| `granularity.csv` `max-top5mean` 两行 `auc_in… | `0.8320` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
-| 249 | ….csv` `max-top5mean` 两行 `auc_intent_median` \| 0.92 / 0.832 \| 一致 \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 249 | …max-top5mean` 两行 `auc_intent_median` \| 0.92 / 0.832 \| 一致 \| | `0.832` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
-| 250 | \| §5.1.3 对照表 \| max÷std 0.7040 / 0.4960 \| `granularity.csv` `max/std` 两行 `au… | `0.7040` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
-| 250 | \| §5.1.3 对照表 \| max÷std 0.7040 / 0.4960 \| `granularity.csv` `max/std` 两行 `auc_intent_… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 250 | …arity.csv` `max/std` 两行 `auc_intent_median` \| 0.704 / 0.496 \| 一致 \| | `0.704` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
-| 250 | …v` `max/std` 两行 `auc_intent_median` \| 0.704 / 0.496 \| 一致 \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 251 | \| §5.1.3 对照表 \| max÷top5 0.8880 / 0.7760 \| `granularity.csv` `max/top5mean` 两… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 251 | \| §5.1.3 对照表 \| max÷top5 0.8880 / 0.7760 \| `granularity.csv` `max/top5mean` 两行 `auc_in… | `0.7760` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
-| 251 | ….csv` `max/top5mean` 两行 `auc_intent_median` \| 0.888 / 0.776 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 251 | …ax/top5mean` 两行 `auc_intent_median` \| 0.888 / 0.776 \| 一致 \| | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
-| 252 | \| §5.1.3 对照表 \| max-min 0.8800 / 0.9280 \| `granularity.csv` `max-min` 两行 `au… | `0.8800` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
-| 252 | \| §5.1.3 对照表 \| max-min 0.8800 / 0.9280 \| `granularity.csv` `max-min` 两行 `auc_intent_… | `0.9280` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
-| 252 | …arity.csv` `max-min` 两行 `auc_intent_median` \| 0.88 / 0.928 \| 一致 \| | `0.88` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
-| 252 | …sv` `max-min` 两行 `auc_intent_median` \| 0.88 / 0.928 \| 一致 \| | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
-| 253 | \| §5.2.1 表 \| mcs=5 簇数 95 \| 受审集合内无总簇数列 \| — \| 【无出处】 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 253 | \| §5.2.1 表 \| mcs=5 簇数 95 \| 受审集合内无总簇数列 \| — \| 【无出处】 \| | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 254 | \| §5.2.1 表 \| mcs=5 噪声 0 \| 受审集合内无噪声数列 \| — \| 【无出处】 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 254 | \| §5.2.1 表 \| mcs=5 噪声 0 \| 受审集合内无噪声数列 \| — \| 【无出处】 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 255 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类耗时字段（`run_al… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 256 | \| §5.2.1 表 \| mcs=5 最优 F1 0.800 \| `metrics.json` → `gap.best.f1`；… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 256 | \| §5.2.1 表 \| mcs=5 最优 F1 0.800 \| `metrics.json` → `gap.best.f1`；`gap_thresho… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
-| 256 | …est.f1`；`gap_threshold.csv` `mcs=5, threshold=0.62` 行 `f1` \| 0.8 \| 一致 \| | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 256 | …reshold.csv` `mcs=5, threshold=0.62` 行 `f1` \| 0.8 \| 一致 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 257 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 受审集合内… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 257 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 受审集合内无对应列 \|… | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
-| 257 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 受审集合内无对应列 \| — \| 【无… | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 258 | \| §5.2.1 表 \| mcs=10 最优 F1 0.800 \| `gap_threshold.csv` `mcs=10, th… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 258 | \| §5.2.1 表 \| mcs=10 最优 F1 0.800 \| `gap_threshold.csv` `mcs=10, threshold=0.62… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
-| 258 | ….800 \| `gap_threshold.csv` `mcs=10, threshold=0.62` 行 `f1` \| 0.8 \| 一致 \| | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 258 | …eshold.csv` `mcs=10, threshold=0.62` 行 `f1` \| 0.8 \| 一致 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 259 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 260 | \| §5.2.6 复杂度表 \| 簇数 C = 95 \| 受审集合内无总簇数列 \| — \| 【无出处】 \| | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 261 | \| §5.2.7 局限 \| 95 簇 > 30 意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 261 | \| §5.2.7 局限 \| 95 簇 > 30 意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 262 | \| §5.2.7 局限 \| Top15「社保转移办理」出现 3 次 \| `poc/kbgovernance/top15_gaps.csv` `rank`… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 262 | …次 \| `poc/kbgovernance/top15_gaps.csv` `rank` 5 / 6 / 9 三行 `intent=社保转移办理` \| 3 次 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 262 | …`poc/kbgovernance/top15_gaps.csv` `rank` 5 / 6 / 9 三行 `intent=社保转移办理` \| 3 次 \| 一致 \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 262 | …c/kbgovernance/top15_gaps.csv` `rank` 5 / 6 / 9 三行 `intent=社保转移办理` \| 3 次 \| 一致 \| | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 263 | \| §5.2.7 局限 \| 按意图去重后 F1 = 0.800 \| `metrics.json` → `gap.best.f1` \| 0.8 \| 一致 \| | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
-| 263 | …F1 = 0.800 \| `metrics.json` → `gap.best.f1` \| 0.8 \| 一致 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 264 | \| §5.3 引言块 \| S3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 264 | \| §5.3 引言块 \| S3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 264 | …5.3 引言块 \| S3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.96… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 264 | …3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.9680 \| `resul… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 264 | …C 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.9680 \| `results_auc.cs… | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 264 | …英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.9680 \| `results_auc.csv`、`results_ba… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 264 | …4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.9680 \| `results_auc.csv`、`results_banking77_{en,zh… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 265 | \| §5.3.2 表 · ABS \| 0.9680 / 0.9538 / 0.7925 \| `results_auc.csv` α·ABS；`… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 265 | \| §5.3.2 表 · ABS \| 0.9680 / 0.9538 / 0.7925 \| `results_auc.csv` α·ABS；`results_b… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 265 | \| §5.3.2 表 · ABS \| 0.9680 / 0.9538 / 0.7925 \| `results_auc.csv` α·ABS；`results_banking77_… | `0.7925 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 265 | …`results_banking77_{en,zh}.csv` `ABS(绝对阈值)` \| 0.968 / 0.9538 / 0.7925 \| 一致 \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 266 | \| §5.3.2 表 · S3 \| 1.0000 / 0.4344 / 0.4946 \| 三文件 `S3 领域内z` \| 同值 \| 一致 \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 266 | \| §5.3.2 表 · S3 \| 1.0000 / 0.4344 / 0.4946 \| 三文件 `S3 领域内z` \| 同值 \| 一致 \| | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 266 | \| §5.3.2 表 · S3 \| 1.0000 / 0.4344 / 0.4946 \| 三文件 `S3 领域内z` \| 同值 \| 一致 \| | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 267 | \| §5.3.2 表 · S3b \| 英文 0.4860 / 中文 0.4962 \| `results_banking77_{en,zh}.csv`… | `0.4860` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
-| 267 | \| §5.3.2 表 · S3b \| 英文 0.4860 / 中文 0.4962 \| `results_banking77_{en,zh}.csv` `S3b 域内分位数`… | `0.4962 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=5][0]` | `0.4962` |
-| 267 | …`results_banking77_{en,zh}.csv` `S3b 域内分位数` \| 0.486 / 0.4962 \| 一致（四舍五入） \| | `0.486` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
-| 268 | \| §5.3.2 表 · S4 \| 0.9840 / 0.5538 / 0.5441 \| 三文件 `S4 双参考系(域)` \| 0.984… | `0.9840` | `dup_groups_best.csv:max_sim[row=5][0]` | `0.984` |
-| 268 | \| §5.3.2 表 · S4 \| 0.9840 / 0.5538 / 0.5441 \| 三文件 `S4 双参考系(域)` \| 0.984 / 0.5538… | `0.5538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=6][0]` | `0.5538` |
-| 268 | \| §5.3.2 表 · S4 \| 0.9840 / 0.5538 / 0.5441 \| 三文件 `S4 双参考系(域)` \| 0.984 / 0.5538 / 0.5441… | `0.5441 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=6][0]` | `0.5441` |
-| 268 | …0.9840 / 0.5538 / 0.5441 \| 三文件 `S4 双参考系(域)` \| 0.984 / 0.5538 / 0.5441 \| 一致 \| | `0.984` | `dup_groups_best.csv:max_sim[row=5][0]` | `0.984` |
-| 269 | \| §5.3.2 表 · S5 \| 1.0000 / 0.7516 / 0.6387 \| 三文件 `S5 双参考系均值` \| 1.0 / 0… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 269 | \| §5.3.2 表 · S5 \| 1.0000 / 0.7516 / 0.6387 \| 三文件 `S5 双参考系均值` \| 1.0 / 0.7516 / 0… | `0.7516 (×2)` | `standardize/results_banking77_en.csv:AUC[row=8][0]` | `0.7516` |
-| 269 | \| §5.3.2 表 · S5 \| 1.0000 / 0.7516 / 0.6387 \| 三文件 `S5 双参考系均值` \| 1.0 / 0.7516 / 0.6387 \| 一… | `0.6387 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=8][0]` | `0.6387` |
-| 270 | \| §5.3.2 表 · S1 / S2 \| 0.9680 / 0.9538 / 0.7925 \| 三文件 `S1 分位数排名`、`S2 全局z-sc… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 270 | \| §5.3.2 表 · S1 / S2 \| 0.9680 / 0.9538 / 0.7925 \| 三文件 `S1 分位数排名`、`S2 全局z-score` \| 同值… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 270 | \| §5.3.2 表 · S1 / S2 \| 0.9680 / 0.9538 / 0.7925 \| 三文件 `S1 分位数排名`、`S2 全局z-score` \| 同值 \| 一致 \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 271 | \| §5.3.2 差值 \| S3 在 α 领先基线 0.0320 \| 1.0 - 0.968 \| 0.0320 \| 一致（推算） \| | `0.0320 (×2)` | `derived_metrics.csv:auc.s3_alpha_lead_over_abs_baseline` | `0.032` |
-| 271 | \| §5.3.2 差值 \| S3 在 α 领先基线 0.0320 \| 1.0 - 0.968 \| 0.0320 \| 一致（推算） \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 271 | \| §5.3.2 差值 \| S3 在 α 领先基线 0.0320 \| 1.0 - 0.968 \| 0.0320 \| 一致（推算） \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 272 | \| §5.3.2 差值 \| 英文落后 0.5194 \| 0.9538 - 0.4344 \| 0.5194 \| 一致（推算） \| | `0.5194 (×2)` | `derived_metrics.csv:auc.s3_banking77_en_lag_over_abs_baseline` | `0.5194` |
-| 272 | \| §5.3.2 差值 \| 英文落后 0.5194 \| 0.9538 - 0.4344 \| 0.5194 \| 一致（推算） \| | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 272 | \| §5.3.2 差值 \| 英文落后 0.5194 \| 0.9538 - 0.4344 \| 0.5194 \| 一致（推算） \| | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 273 | \| §5.3.2 差值 \| 中文落后 0.2979 \| 0.7925 - 0.4946 \| 0.2979 \| 一致（推算） \| | `0.2979 (×2)` | `derived_metrics.csv:auc.s3_banking77_zh_lag_over_abs_baseline` | `0.2979` |
-| 273 | \| §5.3.2 差值 \| 中文落后 0.2979 \| 0.7925 - 0.4946 \| 0.2979 \| 一致（推算） \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 273 | \| §5.3.2 差值 \| 中文落后 0.2979 \| 0.7925 - 0.4946 \| 0.2979 \| 一致（推算） \| | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 274 | \| §5.3.2 机理 \| α 的 5 个缺口意图分属人事行政/信息技术/财务管理/信息安全 \| 受审集合内无「意图→业务域」映射… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 275 | \| §5.3.2 机理 \| banking77 按 15 个整意图成片缺失 \| `standardize/banking77_meta.json`… | `15 (×2)` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
-| 276 | \| §5.3.2 补充证据 \| ablation.csv S4b α AUC 0.752 / F1 0.4762 \| `standardize/ablation.csv` `变体=… | `0.752 (×2)` | `standardize/ablation.csv:alpha_AUC[row=8][0]` | `0.752` |
-| 276 | ….3.2 补充证据 \| ablation.csv S4b α AUC 0.752 / F1 0.4762 \| `standardize/ablation.csv` `变体=S4 换成意图片` 的… | `0.4762 (×2)` | `metrics.json:gap.cluster_rows[7].f1` | `0.4762` |
-| 277 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.679… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 277 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 \| `re… | `-0.6657 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
-| 277 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 \| `results_auc.… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
-| 277 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 \| `results_auc.csv` `方法=A… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
-| 277 | …界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 \| `results_auc.csv` `方法=ABS(绝对阈值)`… | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
-| 278 | \| §5.3.3 边界一 \| 极差 0.0264 \| 同上 5 值 max-min \| 0.0264 \| 一致 \| | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 278 | \| §5.3.3 边界一 \| 极差 0.0264 \| 同上 5 值 max-min \| 0.0264 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 279 | \| §5.3.3 边界一 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `resul… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 279 | \| §5.3.3 边界一 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_ba… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 279 | ….3.3 边界一 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_banking77_en… | `0.5846 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
-| 279 | …KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行… | `0.9474 (×2)` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
-| 279 | …优 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 279 | …0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.58… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 279 | …_en.csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 279 | …csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `0.413` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 280 | \| §5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \|… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 280 | …5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \| `derived_metrics.csv` 键 `t… | `0.6633 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
-| 280 | …\| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \| `derived_metrics.csv` 键 `threshold.… | `0.6897 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
-| 280 | …ults_auc.csv` `方法=ABS(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算）… | `-0.6657 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
-| 280 | …sv` `方法=ABS(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
-| 280 | …S(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633 / 0.6897 \|… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
-| 280 | …行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633 / 0.6897 \| 一致 \| | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
-| 281 | \| §5.3.3 边界一 \| 「0.6463 与该窄带不是同一个口径，不能合成同一条区间」 \| 0.6463 出自 `ablation.… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 281 | …」 \| 0.6463 出自 `ablation.csv` ABS 行 `最优阈值`（字面值 -0.6463，cover 刻度换算见 `derived_metrics.csv:threshold.ab… | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
-| 282 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_x… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 282 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_b… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 282 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_banking77_… | `0.0000 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 282 | …s_xfer_banking77_en.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0.0 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 282 | ….csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0.0 \| 一致 \| | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 283 | \| §5.3.3 边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \|… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 283 | \| §5.3.3 边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定… | `0.1948 (×2)` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
-| 283 | \| §5.3.3 边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >=… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 283 | …边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >= 0.6463 ->… | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 283 | …（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77… | `0.8148 (×2)` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
-| 283 | …F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1.0、0.3261、0.8148 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 283 | …2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1.0、0.3261、0.8148 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 284 | \| §5.3.3 边界二 表 · 中文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_x… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 284 | \| §5.3.3 边界二 表 · 中文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_b… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 284 | \| §5.3.3 边界二 表 · 中文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_banking77_… | `0.0000 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 284 | …s_xfer_banking77_zh.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0.0 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 284 | ….csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0.0 \| 一致 \| | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 285 | \| §5.3.3 边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \|… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 285 | \| §5.3.3 边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定… | `0.1948 (×2)` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
-| 285 | \| §5.3.3 边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >=… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 285 | …边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >= 0.6463 ->… | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 285 | …（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77… | `0.6207 (×2)` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
-| 285 | …F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1.0、0.3261、0.6207 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 285 | …2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1.0、0.3261、0.6207 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 286 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9… | `0.5629` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
-| 286 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0… | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
-| 286 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge… | `0.8294` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
-| 286 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6… | `0.0529` | `standardize/scenario_meta.json:cover_stats.alpha.sd` | `0.0529` |
-| 286 | …边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9… | `0.6547` | `standardize/banking77_meta.json:cover.min` | `0.6547` |
-| 286 | …\| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0… | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
-| 286 | …629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `… | `0.9973` | `standardize/banking77_meta.json:cover.max` | `0.9973` |
-| 286 | …891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenari… | `0.0578` | `standardize/banking77_meta.json:cover.sd` | `0.0578` |
-| 286 | …529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenario_meta.json` →… | `0.6014` | `standardize/banking77_meta_zh.json:cover.min` | `0.6014` |
-| 286 | …-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenario_meta.json` → `cover… | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
-| 286 | …547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenario_meta.json` → `cover_stats.… | `0.9874` | `standardize/banking77_meta_zh.json:cover.max` | `0.9874` |
-| 286 | …797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenario_meta.json` → `cover_stats.alpha`；… | `0.0544` | `standardize/banking77_meta_zh.json:cover.sd` | `0.0544` |
-| 287 | \| §5.3.3 边界三 \| 两个 banking77 均值比中文合成高 0.1495–0.1906 \| `scenario_meta.json` → `cover_stats.… | `0.1495 (×2)` | `derived_metrics.csv:cover.banking77_zh_mean_minus_alpha_mean` | `0.1495` |
-| 287 | \| §5.3.3 边界三 \| 两个 banking77 均值比中文合成高 0.1495–0.1906 \| `scenario_meta.json` → `cover_stats.alpha.m… | `0.1906 (×2)` | `derived_metrics.csv:cover.banking77_en_mean_minus_alpha_mean` | `0.1906` |
-| 287 | …_meta_{en,zh}.json` → `cover.mean`（旁注 JSON） \| 0.8797 - 0.6891 = 0.1906；0.8386 - 0.6891 = 0.1495 \|… | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
-| 287 | …,zh}.json` → `cover.mean`（旁注 JSON） \| 0.8797 - 0.6891 = 0.1906；0.8386 - 0.6891 = 0.1495 \| 【无出处】（数值正… | `0.6891 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
-| 287 | …ver.mean`（旁注 JSON） \| 0.8797 - 0.6891 = 0.1906；0.8386 - 0.6891 = 0.1495 \| 【无出处】（数值正确，旁注 JSON 不在受审集合… | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
-| 288 | …界三 \| banking77（bge-small-en-v1.5）最优阈值 cover ≤ 0.8495 \| `results_banking77_en.csv` `ABS(绝对阈值), 列=最优… | `0.8495` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
-| 288 | …sults_banking77_en.csv` `ABS(绝对阈值), 列=最优阈值` = -0.8495 \| -0.8495 \| 一致（符号换算） \| | `-0.8495 (×2)` | `derived_metrics.csv:banking77_en.abs_best_threshold_raw` | `-0.8495` |
-| 289 | \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.6463 = 0.2032 \| 0.2032 \|… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 289 | \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.6463 = 0.2032 \| 0.2032 \| 一致（四舍五入） \| | `0.8495` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
-| 289 | …界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.6463 = 0.2032 \| 0.2032 \| 一致（四舍五入） \| | `0.2032 (×2)` | `derived_metrics.csv:banking77_en.cover_scale_gap_vs_zh_alpha` | `0.2032` |
-| 290 | \| §5.3.3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 290 | \| §5.3.3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见… | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 290 | \| §5.3.3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见 `results_a… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 290 | …3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见 `results_auc.csv`、… | `77 (×2)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 290 | …极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见 `results_auc.csv`、`ablation.cs… | `0.8148` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
-| 290 | …4 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见 `results_auc.csv`、`ablation.csv`、`resul… | `0.3261` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 291 | …3.3 使用边界表 \| banking77 全量 → KB 减半 S1/S2 迁移后 F1 0.5846（精确率 1.0000、召回 0.4130；目标场景自身最优 F1 0.9474） \| `r… | `0.5846 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
-| 291 | …banking77 全量 → KB 减半 S1/S2 迁移后 F1 0.5846（精确率 1.0000、召回 0.4130；目标场景自身最优 F1 0.9474） \| `results_xfer… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 291 | …全量 → KB 减半 S1/S2 迁移后 F1 0.5846（精确率 1.0000、召回 0.4130；目标场景自身最优 F1 0.9474） \| `results_xfer_banking77… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 291 | …移后 F1 0.5846（精确率 1.0000、召回 0.4130；目标场景自身最优 F1 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行… | `0.9474 (×2)` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
-| 291 | …1 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `F1` / `该场景最优F1` \| 0.5846 / 0.9474 \| 一致… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 291 | …0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `F1` / `该场景最优F1` \| 0.5846 / 0.9474 \| 一致 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 292 | \| §5.3.3 使用边界表 \| bge-en 与 bge-zh 均值相差 0.0411 \| `banking77_meta_{en,zh}.json` `cover.mean`（… | `0.0411 (×2)` | `derived_metrics.csv:cover.banking77_en_minus_zh_mean` | `0.0411` |
-| 292 | …nking77_meta_{en,zh}.json` `cover.mean`（旁注） \| 0.8797 - 0.8386 = 0.0411 \| 【无出处】 \| | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
-| 292 | …eta_{en,zh}.json` `cover.mean`（旁注） \| 0.8797 - 0.8386 = 0.0411 \| 【无出处】 \| | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
-| 293 | \| §5.3.3 使用边界表 \| 跨语言迁移正向判定 F1 掉至 0 \| `results_xfer_banking77_en.csv` 第 1 数据行 `F1… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 293 | …results_xfer_banking77_en.csv` 第 1 数据行 `F1` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 294 | …UC \| `results_directions.csv` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.096 (×2)` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
-| 294 | …results_directions.csv` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.14` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
-| 294 | …ections.csv` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 294 | …ns.csv` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.816` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
-| 294 | …` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 295 | \| §5.3.4 论断 \| A2 极差 0.0018 / AUC 0.1120 \| `results_directions.csv` A2 四行… | `0.0018 (×2)` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
-| 295 | \| §5.3.4 论断 \| A2 极差 0.0018 / AUC 0.1120 \| `results_directions.csv` A2 四行 \| 0.0018 / 0… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 295 | …0 \| `results_directions.csv` A2 四行 \| 0.0018 / 0.112 \| 一致 \| | `0.112` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 296 | \| §5.3.4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 / 0.1635 \| 由 `results_direc… | `0.1520` | `derived_metrics.csv:directionB.alpha_lag_over_abs_baseline` | `0.152` |
-| 296 | \| §5.3.4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 / 0.1635 \| 由 `results_directions.csv… | `0.1802 (×2)` | `derived_metrics.csv:directionB.beta_lag_over_abs_baseline` | `0.1802` |
-| 296 | \| §5.3.4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 / 0.1635 \| 由 `results_directions.csv` B 行与 AB… | `0.2600` | `derived_metrics.csv:directionB.gamma_lag_over_abs_baseline` | `0.26` |
-| 296 | ….4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 / 0.1635 \| 由 `results_directions.csv` B 行与 ABS 行相减 \| 0… | `0.1635 (×2)` | `derived_metrics.csv:directionB.gamma-X_lag_over_abs_baseline` | `0.1635` |
-| 296 | …5 \| 由 `results_directions.csv` B 行与 ABS 行相减 \| 0.152 / 0.1802 / 0.26 / 0.1635 \| 一致（推算） \| | `0.152` | `derived_metrics.csv:directionB.alpha_lag_over_abs_baseline` | `0.152` |
-| 296 | …rections.csv` B 行与 ABS 行相减 \| 0.152 / 0.1802 / 0.26 / 0.1635 \| 一致（推算） \| | `0.26` | `derived_metrics.csv:directionB.gamma_lag_over_abs_baseline` | `0.26` |
-| 297 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directi… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 297 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv`… | `0.5031` | `standardize/results_directions.csv:AUC[row=14][0]` | `0.5031` |
-| 297 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv` `方向=B+ to… | `0.3378` | `standardize/results_directions.csv:AUC[row=21][0]` | `0.3378` |
-| 297 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv` `方向=B+ top5 双向中心化`… | `0.7115` | `standardize/results_directions.csv:AUC[row=28][0]` | `0.7115` |
-| 298 | \| §5.3.5 方向 C 表 \| ABS 标准差 0.1452 / 平均 F1 0.8289 \| `results_auc.csv` 四场景（alpha / beta / gamma… | `0.8289 (×2)` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
-| 298 | …本标准差（n-1）与均值，场景集合与 `results_directionC.csv` 的 4 行一致 \| 0.1452 / 0.8289 \| 一致 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 299 | \| §5.3.5 方向 C 表 \| 固定 25% 标准差 0.0873 / 平均 F1 0.5522 \| `results_directi… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 299 | …F1 0.5522 \| `results_directionC.csv` `固定检出比例=0.25` 四场景 `F1` \| 0.0873 / 0.5522 \| 一致（四舍五入） \| | `0.25` | `standardize/results_directionC.csv:固定检出比例[row=4][0]` | `0.25` |
-| 300 | \| §5.3.5 诚实提示 \| 30% 标准差 0.0883 \| `results_directionC.csv` `固定检出比… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 300 | …标准差 0.0883 \| `results_directionC.csv` `固定检出比例=0.3` 四场景 `F1` 样本标准差 \| 0.0883 \| 一致 \| | `0.3` | `metrics.json:gap.cluster_rows[0].threshold` | `0.3` |
-| 301 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1`… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 301 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差… | `15` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
-| 301 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744… | `18.55` | `derived_metrics.csv:ground_truth.gap_ticket_ratio` | `0.1855` |
-| 301 | …准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023 / 0.2647 \| 一致（四舍五入为区间） \| | `0.2023` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
-| 302 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得… | `40` | `gap_threshold.csv:recall[row=15][0]` | `0.4` |
-| 302 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% /… | `33` | `standardize/results_xfer_banking77_zh.csv:检出意图数[row=5][0]` | `33` |
-| 302 | …5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `0.8289` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
-| 302 | …/ 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `39.9` | `derived_metrics.csv:directionC.sd_reduction_ratio_fixed25` | `0.398805` |
-| 302 | …\| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `33.4` | `derived_metrics.csv:directionC.mean_f1_sacrifice_ratio_fixed25` | `0.333846` |
-| 303 | \| §5.4 规则表 \| R1 权重 3 / 命中 32 \| `metrics.json` → `corrupt.rule_weig… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 303 | \| §5.4 规则表 \| R1 权重 3 / 命中 32 \| `metrics.json` → `corrupt.rule_weight.R1_正文… | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 304 | \| §5.4 规则表 \| R2 权重 2 / 命中 38 \| 同上 `R2_更新时间超18个月` \| 2 / 38 \| 一致 \| | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 304 | \| §5.4 规则表 \| R2 权重 2 / 命中 38 \| 同上 `R2_更新时间超18个月` \| 2 / 38 \| 一致 \| | `38 (×2)` | `metrics.json:corrupt.rule_hit_counts.R2_更新时间超18个月` | `38` |
-| 304 | \| §5.4 规则表 \| R2 权重 2 / 命中 38 \| 同上 `R2_更新时间超18个月` \| 2 / 38 \| 一致 \| | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
-| 305 | \| §5.4 规则表 \| R3 权重 2 / 命中 32 \| 同上 `R3_正文含绝对过期年份` \| 2 / 32 \| 一致 \| | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 305 | \| §5.4 规则表 \| R3 权重 2 / 命中 32 \| 同上 `R3_正文含绝对过期年份` \| 2 / 32 \| 一致 \| | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 306 | \| §5.4 规则表 \| R4 权重 1 / 命中 88 \| 同上 `R4_同类存在更新文档` \| 1 / 88 \| 一致 \| | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 306 | \| §5.4 规则表 \| R4 权重 1 / 命中 88 \| 同上 `R4_同类存在更新文档` \| 1 / 88 \| 一致 \| | `88 (×2)` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
-| 307 | \| §5.4 判定式 \| riskScore ≥ 3 \| `metrics.json` → `corrupt.score_threshold`… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 308 | \| §5.4 规则工程细节 \| 原始 R4 会让 275/300 篇全部命中 \| 受审集合内无该消融记录 \| — \| 【无出处】 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 309 | \| §5.4 规则工程细节 \| 领先 ≥ 365 天；标题 bigram 包含度 ≥ 0.50 \| 受审集合内无规则参数记录 \| — \| 【无出处】 \| | `0.50` | `metrics.json:gap.cluster_rows[2].threshold` | `0.5` |
-| 310 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metrics.json` →… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
-| 310 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metrics.json` → `cor… | `69` | `metrics.json:corrupt.detected` | `69` |
-| 310 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metrics.json` → `corrupt.embedded`… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 310 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metrics.json` → `corrupt.embedded` / `dete… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 311 | \| §5.4 实测结果 \| 0.8986 / 1.0 / 0.9466 \| `metrics.json` → `corrupt.pr… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
-| 311 | \| §5.4 实测结果 \| 0.8986 / 1.0 / 0.9466 \| `metrics.json` → `corrupt.precision` / `rec… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 312 | \| §5.4 实测结果 \| 耗时 0.42 秒 \| `metrics.json` → `corrupt.seconds` \| 0.42… | `0.42 (×2)` | `metrics.json:corrupt.seconds` | `0.42` |
-| 313 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈旧 `last_m… | `7 (×3)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 313 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈旧 `last_modified… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 314 | \| §5.4.1 规则消融整表 \| 9 行的 P/R/F1/检出/TP/FP/FN/命中文档数/平均风险分/ΔF1 \| `corr… | `9 (×3)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 315 | \| §5.4.1 论断 \| drop_R3 的 ΔF1 = 0.0（P/R/F1 与 all 逐位相同） \| `corrupt_rule_ablation.c… | `0.0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 316 | …§5.4.1 论断 \| only_R1 与 drop_R2 / drop_R4 逐位相同（0.6809 / 32 / 32 / 0 / 30） \| `corrupt_rule_ablation.… | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
-| 316 | …断 \| only_R1 与 drop_R2 / drop_R4 逐位相同（0.6809 / 32 / 32 / 0 / 30） \| `corrupt_rule_ablation.csv`… | `32 (×3)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 316 | …1 与 drop_R2 / drop_R4 逐位相同（0.6809 / 32 / 32 / 0 / 30） \| `corrupt_rule_ablation.csv` 三行；成因可由 `… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 316 | …drop_R2 / drop_R4 逐位相同（0.6809 / 32 / 32 / 0 / 30） \| `corrupt_rule_ablation.csv` 三行；成因可由 `corru… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 316 | …cs.csv` 的 `rule_hits` 组合计数复核（R2 仅以 R2+R4 形式出现 37 篇 + 1 篇四规则齐中；R3 的 32 次命中全部含 R1） \| 同值 \| 一致 \| | `37` | `metrics.json:corrupt.score_hist.3` | `37` |
-| 316 | …的 `rule_hits` 组合计数复核（R2 仅以 R2+R4 形式出现 37 篇 + 1 篇四规则齐中；R3 的 32 次命中全部含 R1） \| 同值 \| 一致 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 317 | \| §5.4.1 论断 \| 69 = 32（R1 单独）+ 37（R2∧R4） \| `corrupt_rule_ablati… | `69 (×2)` | `metrics.json:corrupt.detected` | `69` |
-| 317 | \| §5.4.1 论断 \| 69 = 32（R1 单独）+ 37（R2∧R4） \| `corrupt_rule_ablation.cs… | `32 (×3)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 317 | \| §5.4.1 论断 \| 69 = 32（R1 单独）+ 37（R2∧R4） \| `corrupt_rule_ablation.csv` `only_R1… | `37 (×3)` | `metrics.json:corrupt.score_hist.3` | `37` |
-| 317 | …_ablation.csv` `only_R1`（检出 32）与 `drop_R1`（检出 43 = 37 + 6）配合 `corrupt_docs.csv` 的组合计数 \| 32 + 3… | `43` | `corrupt_rule_ablation.csv:detected[row=2][0]` | `43` |
-| 317 | …csv` `only_R1`（检出 32）与 `drop_R1`（检出 43 = 37 + 6）配合 `corrupt_docs.csv` 的组合计数 \| 32 + 37 = 69 \|… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 318 | \| §5.5.1 \| 300×300 余弦矩阵 < 0.01 秒 \| `metrics.json` → `dup.row… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
-| 318 | …秒 \| `metrics.json` → `dup.rows[*].seconds` = 0.0 \| 0.0 \| 一致（进位，见 §3） \| | `0.0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 318 | …`dup.rows[*].seconds` = 0.0 \| 0.0 \| 一致（进位，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 319 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.360… | `0.85 (×2)` | `metrics.json:dup.rows[0].threshold` | `0.85` |
-| 319 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
-| 319 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_th… | `223` | `metrics.json:dup.rows[0].detected_docs` | `223` |
-| 319 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_threshold.c… | `0.1739` | `metrics.json:dup.rows[0].group_precision` | `0.1739` |
-| 319 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_threshold.csv` `thre… | `0.1818` | `metrics.json:dup.rows[0].group_recall` | `0.1818` |
-| 319 | …5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_threshold.csv` `threshold=0.8… | `0.1778` | `metrics.json:dup.rows[0].group_f1` | `0.1778` |
-| 319 | …0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_threshold.csv` `threshold=0.85` 行 \| 同值… | `0.3603` | `metrics.json:dup.rows[0].doc_f1` | `0.3603` |
-| 320 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 320 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `d… | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 320 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_th… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 320 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_threshold.c… | `0.5938` | `metrics.json:dup.rows[1].group_precision` | `0.5938` |
-| 320 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_threshold.csv` `thre… | `0.8636` | `metrics.json:dup.rows[1].group_recall` | `0.8636` |
-| 320 | …§5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_threshold.csv` `threshold=0.9… | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 320 | …\| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_threshold.csv` `threshold=0.9` 行 \| 同值… | `0.7778` | `metrics.json:dup.rows[1].doc_f1` | `0.7778` |
-| 320 | …037 / 0.7778 \| `dup_threshold.csv` `threshold=0.9` 行 \| 同值 \| 一致 \| | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 321 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0 \| `dup_threshold… | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 321 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0 \| `dup_threshold.csv`… | `49` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
-| 322 | \| §5.5.3 诚实标注 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv` `granularity=d… | `0.9545 (×2)` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
-| 322 | \| §5.5.3 诚实标注 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv` `granularity=doc_leve… | `0.9845 (×2)` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
-| 323 | \| §5.5.3 段落级组内余弦 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `… | `0.5671 (×2)` | `granularity_dup.csv:min_max_sim[row=2][0]` | `0.5671` |
-| 323 | \| §5.5.3 段落级组内余弦 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `granula… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 323 | \| §5.5.3 段落级组内余弦 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `granularity=passage… | `0.9803 (×2)` | `granularity_dup.csv:mean_max_sim[row=2][0]` | `0.9803` |
-| 324 | \| §5.5.3 诚实标注 \| 0.85 下 223 篇被误判 \| `dup_threshold.csv` `threshold=0… | `0.85 (×2)` | `metrics.json:dup.rows[0].threshold` | `0.85` |
-| 324 | \| §5.5.3 诚实标注 \| 0.85 下 223 篇被误判 \| `dup_threshold.csv` `threshold=0.85, d… | `223 (×2)` | `metrics.json:dup.rows[0].detected_docs` | `223` |
-| 325 | \| §5.5.3 诚实标注 \| 0.90 组级 F1 ≈ 0.70 \| 同上 0.7037 \| 0.7037 \| 一致（四舍五入）… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 325 | \| §5.5.3 诚实标注 \| 0.90 组级 F1 ≈ 0.70 \| 同上 0.7037 \| 0.7037 \| 一致（四舍五入） \| | `0.70` | `metrics.json:gap.cluster_rows[4].threshold` | `0.7` |
-| 325 | \| §5.5.3 诚实标注 \| 0.90 组级 F1 ≈ 0.70 \| 同上 0.7037 \| 0.7037 \| 一致（四舍五入） \| | `0.7037 (×2)` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 326 | \| §6.1 规模参数 \| 300 篇 \| `metrics.json` → `embedding.n_docs` \| 300… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
-| 327 | \| §6.1 规模参数 \| 8 个业务域 \| 受审集合内无记录 \| — \| 【无出处】 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 328 | \| §6.1 规模参数 \| 25 个已覆盖意图、每意图 12 篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 328 | \| §6.1 规模参数 \| 25 个已覆盖意图、每意图 12 篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 330 | \| §6.1 规模参数 \| 30 个意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 331 | \| §6.1 规模参数 \| 每篇 111–191 字、均值 140 \| 受审集合内无记录 \| — \| 【无出处】 \| | `111` | `derived_metrics.csv:docs.min_chars_per_doc` | `111` |
-| 331 | \| §6.1 规模参数 \| 每篇 111–191 字、均值 140 \| 受审集合内无记录 \| — \| 【无出处】 \| | `191` | `derived_metrics.csv:docs.max_chars_per_doc` | `191` |
-| 332 | …6% \| `ground_truth.json` → `gap_ticket_ratio`=0.1855（旁注，受审集合外） \| 0.1855 \| 【无出处】 \| | `0.1855 (×2)` | `ground_truth.json:gap_ticket_ratio` | `0.1855` |
-| 333 | \| §6.1 埋设表 \| 5 意图 / 371 工单 \| `ground_truth.json` → `gap_tick… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 333 | \| §6.1 埋设表 \| 5 意图 / 371 工单 \| `ground_truth.json` → `gap_ticket_count`… | `371 (×3)` | `ground_truth.json:gap_ticket_count` | `371` |
-| 334 | \| §6.1 埋设表 \| 重复 22 组 / 49 篇 \| `poc/kbgovernance/dup_groups_best.… | `22 (×3)` | `metrics.json:dup.embedded_groups` | `22` |
-| 334 | \| §6.1 埋设表 \| 重复 22 组 / 49 篇 \| `poc/kbgovernance/dup_groups_best.csv` 22… | `49 (×2)` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
-| 334 | …dup_groups_best.csv` 22 行 `group`，`size` 求和 = 5×3 + 17×2 \| 22 组 / 49 篇 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 334 | …p_groups_best.csv` 22 行 `group`，`size` 求和 = 5×3 + 17×2 \| 22 组 / 49 篇 \| 一致 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 334 | …oups_best.csv` 22 行 `group`，`size` 求和 = 5×3 + 17×2 \| 22 组 / 49 篇 \| 一致 \| | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
-| 334 | …s_best.csv` 22 行 `group`，`size` 求和 = 5×3 + 17×2 \| 22 组 / 49 篇 \| 一致 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 335 | \| §6.1 埋设表 \| 腐化 62 篇 \| `metrics.json` → `corrupt.embedded` \| 62… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
-| 336 | \| §6.1 埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–2023 \| 受审… | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 336 | \| §6.1 埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–2023 \| 受审集合内无拆分计数 \| —… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 337 | \| §6.1 防作弊 \| 4% 自然陈旧文档 \| 受审集合内无该字段 \| — \| 【无出处】 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 338 | \| §6.1 人工校验 \| 抽 10% / 20 条 / Kappa ≥ 0.8 \| 计划性承诺，受审集合内无标注记录 \| —… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 338 | \| §6.1 人工校验 \| 抽 10% / 20 条 / Kappa ≥ 0.8 \| 计划性承诺，受审集合内无标注记录 \| — \| 【无出处… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 338 | \| §6.1 人工校验 \| 抽 10% / 20 条 / Kappa ≥ 0.8 \| 计划性承诺，受审集合内无标注记录 \| — \| 【无出处】 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 340 | \| §6.2 双轨表 \| 300 文档 / 2000 工单 \| `embedding.n_docs` / `n_ticket… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 341 | …g77_train.csv`（10003 条）+ `banking77_test.csv`（3080 条）= 13083（旁注，受审集合外） \| 13083 \| 【无出处】 \| | `3080` | `standardize/banking77_meta.json:n_tk` | `3080` |
-| 342 | \| §6.3 E9 对照 \| ABS 0.968 \| `results_auc.csv` `alpha/ABS` \| 0.968 \| 一致… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 343 | \| §6.3 E11 对照 \| ABS 0.9538 / 0.7925 \| `results_banking77_{en,zh}.csv` \|… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
-| 343 | \| §6.3 E11 对照 \| ABS 0.9538 / 0.7925 \| `results_banking77_{en,zh}.csv` \| 同值 \| 一致 \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
-| 344 | \| §6.3 E12 对照 \| 域内 0.968 / 0.4344 \| 前者为 ABS 基线 α、后者为 S3 英文 \| 同值（口径标注不当… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 344 | \| §6.3 E12 对照 \| 域内 0.968 / 0.4344 \| 前者为 ABS 基线 α、后者为 S3 英文 \| 同值（口径标注不当） \| 一致 \| | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 345 | \| §6.3 E13 对照 \| ABS (0.0264, 0.968) \| `results_auc.csv` \| 同值 \| 一致 \| | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 345 | \| §6.3 E13 对照 \| ABS (0.0264, 0.968) \| `results_auc.csv` \| 同值 \| 一致 \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 346 | \| §6.3 E14 对照 \| 0.1452 / 0.8289 \| 同 §5.3.5 \| 0.1452 / 0.8289 \| 一致 \| | `0.8289 (×2)` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
-| 347 | \| §6.4 图3-1 \| 可用窗口仅 0.60–0.64 \| `gap_threshold.csv` 中 F… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 347 | \| §6.4 图3-1 \| 可用窗口仅 0.60–0.64 \| `gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰… | `0.60 (×2)` | `metrics.json:gap.cluster_rows[3].threshold` | `0.6` |
-| 347 | \| §6.4 图3-1 \| 可用窗口仅 0.60–0.64 \| `gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰为 0.6… | `0.64 (×3)` | `metrics.json:gap.cluster_rows[6].threshold` | `0.64` |
-| 347 | …可用窗口仅 0.60–0.64 \| `gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰为 0.6 / 0.62 / 0.64 三档 \| 0.60–0.64 \| 一致（推… | `0.5714` | `metrics.json:gap.cluster_rows[3].f1` | `0.5714` |
-| 348 | \| §6.4 图3-2 \| 0.968 > 0.8880 \| `results_auc.csv` `alpha… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 348 | \| §6.4 图3-2 \| 0.968 > 0.8880 \| `results_auc.csv` `alpha/ABS` `AUC… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 348 | \| §6.4 图3-2 \| 0.968 > 0.8880 \| `results_auc.csv` `alpha/ABS` `AUC`；`granul… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 348 | …, max-cosine` 行 `auc_intent_median` \| 0.968 / 0.888 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 349 | \| §6.4 图3-6 \| A2 0.0018 / 0.1120 \| `results_directions.… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 349 | \| §6.4 图3-6 \| A2 0.0018 / 0.1120 \| `results_directions.csv` \| 同值 \| 一致… | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
-| 349 | \| §6.4 图3-6 \| A2 0.0018 / 0.1120 \| `results_directions.csv` \| 同值 \| 一致 \| | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 350 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*.js… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 350 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*.json`（旁注） \| 同… | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
-| 350 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*.json`（旁注） \| 同值 \| 【无出处】… | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
-| 350 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*.json`（旁注） \| 同值 \| 【无出处】 \| | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
-| 351 | \| §6.4 表4-5 \| 0.4344 / 0.4946 \| `results_banking77_{en,… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 351 | \| §6.4 表4-5 \| 0.4344 / 0.4946 \| `results_banking77_{en,zh}.csv` `S… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
-| 351 | \| §6.4 表4-5 \| 0.4344 / 0.4946 \| `results_banking77_{en,zh}.csv` `S3 领域内z` \|… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
-| 352 | \| §6.4 表4-6 \| 分组标准化消融 14 变体 \| `standardize/ablation.csv… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 352 | \| §6.4 表4-6 \| 分组标准化消融 14 变体 \| `standardize/ablation.csv` 前段 `变体` 行数 =… | `14 (×3)` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
-| 353 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granularity.cs… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 353 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granularity.csv` / `results… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 353 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granularity.csv` / `results_auc.csv… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 353 | …§5.1（`granularity.csv` / `results_auc.csv`） \| 0.888 / 0.968 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 354 | \| §7.4 问答 3 \| 参数 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 355 | \| §7.4 问答 4 \| 实际分出 95 个簇 \| 受审集合内无总簇数列 \| — \| 【无出处】 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 355 | \| §7.4 问答 4 \| 实际分出 95 个簇 \| 受审集合内无总簇数列 \| — \| 【无出处】 \| | `95` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 356 | \| §7.4 问答 6 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv`… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 356 | \| §7.4 问答 6 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv` `doc_level` 行… | `0.9545 (×2)` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
-| 356 | \| §7.4 问答 6 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv` `doc_level` 行 `min_ma… | `0.9845 (×2)` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
-| 357 | \| §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` `… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 357 | \| §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` `thresho… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 357 | \| §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` `threshold=0.9, group_f… | `0.70` | `metrics.json:gap.cluster_rows[4].threshold` | `0.7` |
-| 357 | …组级 F1 ≈ 0.70 \| `dup_threshold.csv` `threshold=0.9, group_f1` \| 0.7037 \| 一致 \| | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 357 | …up_threshold.csv` `threshold=0.9, group_f1` \| 0.7037 \| 一致 \| | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 358 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897）… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 358 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897） \| `d… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 358 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897） \| `derived_metrics.csv` →… | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
-| 358 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897） \| `derived_metrics.csv` → `thresho… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
-| 358 | …§7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897） \| `derived_metrics.csv` → `threshold.abs_5sc… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
-| 359 | \| §7.4 问答 8 \| 「ground truth 从 15 个缺口意图变成 46 个」 \| 46 见 `re… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 359 | \| §7.4 问答 8 \| 「ground truth 从 15 个缺口意图变成 46 个」 \| 46 见 `results_banking77_en.cs… | `15 (×4)` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
-| 359 | \| §7.4 问答 8 \| 「ground truth 从 15 个缺口意图变成 46 个」 \| 46 见 `results_banking77_en.csv` `子场景=KB减… | `46 (×4)` | `standardize/results_banking77_en.csv:ground_truth缺口意图[row=9][0]` | `46` |
-| 360 | \| §7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 360 | \| §7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `resul… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 360 | \| §7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_ba… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 360 | …7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_banking77_en… | `0.5846 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
-| 360 | …KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行… | `0.9474 (×2)` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
-| 360 | …优 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `P` / `R` / `F1` / `该场景最优F1` \| 1.0、0.41… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 360 | …0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `P` / `R` / `F1` / `该场景最优F1` \| 1.0、0.413、… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 360 | …csv` 第 3、4 数据行 `P` / `R` / `F1` / `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 360 | …第 3、4 数据行 `P` / `R` / `F1` / `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `0.413` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
-| 361 | \| §7.4 问答 8 \| 中文阈值 → banking77（bge-small-en-v1.5）：正向检出 0… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 361 | …8 \| 中文阈值 → banking77（bge-small-en-v1.5）：正向检出 0 / 77、F1 0（该场景自身最优 0.8148）；反向 77 / 77 全误报、F1 0… | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 361 | …中文阈值 → banking77（bge-small-en-v1.5）：正向检出 0 / 77、F1 0（该场景自身最优 0.8148）；反向 77 / 77 全误报、F1 0.3261… | `77 (×4)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 361 | …7（bge-small-en-v1.5）：正向检出 0 / 77、F1 0（该场景自身最优 0.8148）；反向 77 / 77 全误报、F1 0.3261 \| `results_xfer_ban… | `0.8148 (×2)` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
-| 361 | …0 / 77、F1 0（该场景自身最优 0.8148）；反向 77 / 77 全误报、F1 0.3261 \| `results_xfer_banking77_en.csv` 第 1、2 数据行 `… | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
-| 361 | …F1 0.3261 \| `results_xfer_banking77_en.csv` 第 1、2 数据行 `检出意图数` / `F1` / `该场景最优F1` \| 0、0.0、0.81… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 361 | …0.3261 \| `results_xfer_banking77_en.csv` 第 1、2 数据行 `检出意图数` / `F1` / `该场景最优F1` \| 0、0.0、0.8148… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 361 | …csv` 第 1、2 数据行 `检出意图数` / `F1` / `该场景最优F1` \| 0、0.0、0.8148；77、0.3261 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 362 | \| §7.4 问答 8b \| 极差 0.0018 / AUC 0.1120 \| `results_directio… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 362 | \| §7.4 问答 8b \| 极差 0.0018 / AUC 0.1120 \| `results_directions.csv` \| 同值… | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
-| 362 | \| §7.4 问答 8b \| 极差 0.0018 / AUC 0.1120 \| `results_directions.csv` \| 同值 \| 一致 \| | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 363 | \| §10 附录 B 模型部署 \| 权重 95.8MB \| `metrics.json` → `emb… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 363 | \| §10 附录 B 模型部署 \| 权重 95.8MB \| `metrics.json` → `embedding.model_downloa… | `95.8 (×2)` | `metrics.json:embedding.model_download_mb` | `95.8` |
-| 367 | ## 3. 四舍五入与表述偏差 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 373 | \| 1 \| 附录 D · AUC 对照表 S3b 英文 \| 0.4860 \| `results_b… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 373 | \| 1 \| 附录 D · AUC 对照表 S3b 英文 \| 0.4860 \| `results_banking77_en.csv` `AUC` = `0.486`… | `0.4860` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
-| 373 | …0.4860 \| `results_banking77_en.csv` `AUC` = `0.486` \| 补零到 4 位小数 \| | `0.486` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
-| 373 | …sults_banking77_en.csv` `AUC` = `0.486` \| 补零到 4 位小数 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 374 | \| 2 \| 附录 D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 374 | \| 2 \| 附录 D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 /… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 374 | …2 \| 附录 D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7… | `0.0960` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
-| 374 | …D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B… | `0.1400 (×2)` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
-| 374 | …§5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 374 | …BS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `results_dire… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 374 | …A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `results_directions.csv`… | `0.8160` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
-| 374 | …960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `results_directions.csv` 对应 `AU… | `0.7500 (×2)` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
-| 374 | …A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `results_directions.csv` 对应 `AUC` 列 = `0.96… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 374 | …4960 \| `results_directions.csv` 对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
-| 374 | …results_directions.csv` 对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496`… | `0.096` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
-| 374 | …directions.csv` 对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零… | `0.14 (×2)` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
-| 374 | …ons.csv` 对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；… | `0.112` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
-| 374 | …对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.14… | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 374 | …C` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.1400 / 0.7… | `0.816` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
-| 374 | …0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.1400 / 0.7500 是去掉… | `0.75` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
-| 374 | …`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.1400 / 0.7500 是去掉尾零后补回，读者… | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 374 | …`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.1400 / 0.7500 是去掉尾零后补回，读者无法区分「实测 0.1… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 374 | …0.1400 / 0.7500 是去掉尾零后补回，读者无法区分「实测 0.14」与「实测 0.140000」 \| | `0.140000` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
-| 375 | \| 3 \| 附录 D · Spearman 与 §1.3 贡献 3、§5.3 引言 \| -1.00… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 375 | \| 3 \| 附录 D · Spearman 与 §1.3 贡献 3、§5.3 引言 \| -1.000000 \| `mechanism.csv` `spearman_与cover` = `-1.0`… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 375 | …000000 \| `mechanism.csv` `spearman_与cover` = `-1.0` \| 精度扩展 6 位小数；不改变数值，但 CSV 字面为 1 位 \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
-| 375 | …hanism.csv` `spearman_与cover` = `-1.0` \| 精度扩展 6 位小数；不改变数值，但 CSV 字面为 1 位 \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 375 | …与cover` = `-1.0` \| 精度扩展 6 位小数；不改变数值，但 CSV 字面为 1 位 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 376 | \| 4 \| 附录 D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 18… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 376 | …4 \| 附录 D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027） \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
-| 376 | …D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 377 | \| 5 \| 附录 D · 向量化吞吐「4152 条文本」 \| 4152 \| `n_docs+n_t… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 377 | \| 5 \| 附录 D · 向量化吞吐「4152 条文本」 \| 4152 \| `n_docs+n_tickets+n_passages` =… | `4152 (×3)` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
-| 378 | \| 6 \| 附录 D · 迁移表 与 §5.3.3「banking77（bge-small-en-… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 378 | ….3.3「banking77（bge-small-en-v1.5）最优阈值 cover ≤ 0.8495」 \| cover ≤ 0.8495 \| `results_banking77_en.csv… | `0.8495 (×2)` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
-| 378 | …0.8495 \| `results_banking77_en.csv` `最优阈值` = `-0.8495` \| 符号换算（余弦取负后转 cover 刻度），CSV 里没有 cover 形式 \| | `-0.8495` | `derived_metrics.csv:banking77_en.abs_best_threshold_raw` | `-0.8495` |
-| 379 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 379 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6463 \| `ablat… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 379 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6463 \| `ablation.csv` `变体=ABS 绝对… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 379 | …463 \| `ablation.csv` `变体=ABS 绝对余弦…` `最优阈值` = `-0.6463` \| 同上，符号换算 \| | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
-| 380 | \| 8 \| §5.5.1「300×300 余弦矩阵实测耗时 < 0.01 秒」 \| < 0.01… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 380 | \| 8 \| §5.5.1「300×300 余弦矩阵实测耗时 < 0.01 秒」 \| < 0.01 秒 \| `metrics.… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
-| 380 | …秒 \| `metrics.json` → `dup.rows[*].seconds` = `0.0` \| 产物为 0.0（进位到 1 位小数），文档改写为不等式；论文中无法直接引用产物值 \| | `0.0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 380 | …→ `dup.rows[*].seconds` = `0.0` \| 产物为 0.0（进位到 1 位小数），文档改写为不等式；论文中无法直接引用产物值 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 381 | \| 9 \| 附录 D · 腐化 P/R/F1 与 §5.4 \| recall 1.0000 / F… | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 381 | \| 9 \| 附录 D · 腐化 P/R/F1 与 §5.4 \| recall 1.0000 / F1 1.0 \| `corrupt.recall` = `1.0`、`corrupt.… | `1.0000 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 381 | …附录 D · 腐化 P/R/F1 与 §5.4 \| recall 1.0000 / F1 1.0 \| `corrupt.recall` = `1.0`、`corrupt.f1` = `0.… | `1.0 (×5)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 381 | ….0 \| `corrupt.recall` = `1.0`、`corrupt.f1` = `0.9466`；`dup_threshold.csv` `threshold=0.95` 的 `grou… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
-| 381 | …f1` = `0.9466`；`dup_threshold.csv` `threshold=0.95` 的 `group_f1` = `1.0` \| 同一文档内 1.0 有时写 1.0000、… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 382 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \|… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 382 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` =… | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 382 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` = `0.703… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 382 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` = `0.7037` \| 「≈ 0.70」的预… | `0.70 (×2)` | `metrics.json:gap.cluster_rows[4].threshold` | `0.7` |
-| 382 | …0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` = `0.7037` \| 「≈ 0.70」的预期值表述，非实测值直引 \| | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 383 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.849… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 383 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.8495 - 0.6463 = 0.2032 \| 精确 \| | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
-| 383 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.8495 - 0.6463 = 0.2032 \| 精确 \| | `0.2032 (×2)` | `derived_metrics.csv:banking77_en.cover_scale_gap_vs_zh_alpha` | `0.2032` |
-| 383 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.8495 - 0.6463 = 0.2032 \| 精确 \| | `0.8495` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
-| 384 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 384 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 384 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0… | `15` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
-| 384 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \|… | `18.55` | `derived_metrics.csv:ground_truth.gap_ticket_ratio` | `0.1855` |
-| 384 | …示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `0.2023` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
-| 384 | …标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
-| 384 | ….27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 385 | \| 13 \| §5.3.3 / 附录 D \| bge-en 与 bge-zh 均值相差 0.0411… | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
-| 385 | \| 13 \| §5.3.3 / 附录 D \| bge-en 与 bge-zh 均值相差 0.0411 \| 0.8797 - 0.8386 = 0.0411 \| 精确 \| | `0.0411 (×2)` | `derived_metrics.csv:cover.banking77_en_minus_zh_mean` | `0.0411` |
-| 385 | …§5.3.3 / 附录 D \| bge-en 与 bge-zh 均值相差 0.0411 \| 0.8797 - 0.8386 = 0.0411 \| 精确 \| | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
-| 385 | …附录 D \| bge-en 与 bge-zh 均值相差 0.0411 \| 0.8797 - 0.8386 = 0.0411 \| 精确 \| | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
-| 386 | \| 14 \| §5.2.1 / §5.2.7 / §6.4 \| P/R/F1 写 0.800 \| `… | `14` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
-| 386 | \| 14 \| §5.2.1 / §5.2.7 / §6.4 \| P/R/F1 写 0.800 \| `metrics.json` → `gap.best.precision` = `0.… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
-| 386 | …00 \| `metrics.json` → `gap.best.precision` = `0.8` \| 补零（其余模块已写 4 位，唯缺口模块写 3 位） \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 386 | …n` → `gap.best.precision` = `0.8` \| 补零（其余模块已写 4 位，唯缺口模块写 3 位） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 386 | …est.precision` = `0.8` \| 补零（其余模块已写 4 位，唯缺口模块写 3 位） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 390 | ## 4. 实测产物中尚未被任何文档引用 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 398 | \| `standardize/results_transfer.csv` \| **全部 32 行、10 列**均未在文档中出现。文档 E10（§6.3）只引用了文件名。表内含各打分 ×… | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 398 | …standardize/results_transfer.csv` \| **全部 32 行、10 列**均未在文档中出现。文档 E10（§6.3）只引用了文件名。表内含各打分 × 4 目标… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 398 | …行、10 列**均未在文档中出现。文档 E10（§6.3）只引用了文件名。表内含各打分 × 4 目标场景的 `迁移后F1`、`迁移后P`、`迁移后R`、`检出意图数`、`AUC衰减`，是… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 399 | …ts_directions.csv` \| `召回全部阈值` 列中 ABS -max 的四值（-0.6657 / -0.6633 / -0.6897 / -0.6792）未被附录 D 直接引用；文档只… | `-0.6657` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
-| 399 | …ons.csv` \| `召回全部阈值` 列中 ABS -max 的四值（-0.6657 / -0.6633 / -0.6897 / -0.6792）未被附录 D 直接引用；文档只给出了由 `resu… | `-0.6633 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
-| 399 | …`召回全部阈值` 列中 ABS -max 的四值（-0.6657 / -0.6633 / -0.6897 / -0.6792）未被附录 D 直接引用；文档只给出了由 `results_auc.cs… | `-0.6897 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
-| 399 | …列中 ABS -max 的四值（-0.6657 / -0.6633 / -0.6897 / -0.6792）未被附录 D 直接引用；文档只给出了由 `results_auc.csv` 五场景推出的极… | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
-| 400 | …results_directionC.csv` \| 列 `推出的绝对阈值`（如 alpha 0.25% → 0.6567）与列 `检出意图数`（如 alpha 0.25% → 7）全部未被引用… | `0.25 (×2)` | `standardize/results_directionC.csv:固定检出比例[row=4][0]` | `0.25` |
-| 400 | …directionC.csv` \| 列 `推出的绝对阈值`（如 alpha 0.25% → 0.6567）与列 `检出意图数`（如 alpha 0.25% → 7）全部未被引用；文档只引用了由 `… | `0.6567` | `standardize/results_directionC.csv:推出的绝对阈值[row=4][0]` | `0.6567` |
-| 400 | …pha 0.25% → 0.6567）与列 `检出意图数`（如 alpha 0.25% → 7）全部未被引用；文档只引用了由 `F1` 列汇总出的 σ 与均值。 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 406 | …ardize/results_banking77_en.csv` \| `子场景=KB减半`（8 行）与 `子场景=KB仅20意图`（8 行）的 `AUC` / `F1` / `最优阈值`… | `8 (×3)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 406 | …_banking77_en.csv` \| `子场景=KB减半`（8 行）与 `子场景=KB仅20意图`（8 行）的 `AUC` / `F1` / `最优阈值` / `AUC衰减` 各列未被… | `20 (×2)` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 406 | …/ `最优阈值` / `AUC衰减` 各列未被文档引用。`子场景=KB减半` 的最优 F1（0.9474）现经 `results_xfer_banking77_en.csv` 的 `该场景最优F1… | `0.9474` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
-| 406 | …一与使用边界表；`子场景=KB仅20意图` 的 8 行仍完全未被引用，含列 `知识库文档`（120）、`ground_truth缺口意图`（57）。 \| | `120` | `standardize/results_banking77_en.csv:知识库文档[row=17][0]` | `120` |
-| 406 | …8 行仍完全未被引用，含列 `知识库文档`（120）、`ground_truth缺口意图`（57）。 \| | `57` | `standardize/results_banking77_en.csv:ground_truth缺口意图[row=17][0]` | `57` |
-| 407 | …andardize/results_banking77_zh.csv` \| 同上两个子场景 16 行全部未引用。 \| | `16` | `metrics.json:gap.cluster_rows[7].detected_intents` | `16` |
-| 408 | \| `standardize/ablation.csv` \| 14 变体中，文档只引用了「S4 换成意图片」（0.752 / 0.4762）。其余未引用：`A… | `14` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
-| 408 | …rdize/ablation.csv` \| 14 变体中，文档只引用了「S4 换成意图片」（0.752 / 0.4762）。其余未引用：`ABS 绝对余弦`、`S1 分位数排名`、`S2 全局z… | `0.752` | `standardize/ablation.csv:alpha_AUC[row=8][0]` | `0.752` |
-| 408 | …lation.csv` \| 14 变体中，文档只引用了「S4 换成意图片」（0.752 / 0.4762）。其余未引用：`ABS 绝对余弦`、`S1 分位数排名`、`S2 全局z`、`S6 去极值… | `0.4762` | `metrics.json:gap.cluster_rows[7].f1` | `0.4762` |
-| 408 | …选出域内`、`消融: max 选出全局`，以及整段 `变体,场景,AUC,F1,最优阈值`（25 行，5 方法 × 5 场景）。 \| | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 408 | …、`消融: max 选出全局`，以及整段 `变体,场景,AUC,F1,最优阈值`（25 行，5 方法 × 5 场景）。 \| | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 409 | …rnance/gap_threshold.csv` \| `min_cluster_size=10` 的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 409 | …/gap_threshold.csv` \| `min_cluster_size=10` 的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 409 | …/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62 之外的 10 行均未引用。文档引用的 `metrics.json` → `… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 411 | \| `poc/kbgovernance/top15_gaps.csv` \| 15 行中的 `size`、`rep_cover`、`rep_ticket`、`rep_text… | `15` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
-| 411 | …ep_text`、`is_true_gap` 各列未被引用；文档只引用了「社保转移办理出现 3 次」这一计数。Top15 中的 5 个误报簇（`is_true_gap=0`：终端病毒处置… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 411 | …gap` 各列未被引用；文档只引用了「社保转移办理出现 3 次」这一计数。Top15 中的 5 个误报簇（`is_true_gap=0`：终端病毒处置、考勤异常处理、门禁权限申请、供应商… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 411 | …保转移办理出现 3 次」这一计数。Top15 中的 5 个误报簇（`is_true_gap=0`：终端病毒处置、考勤异常处理、门禁权限申请、供应商准入申请、采购比价流程）未被文档点名。… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 412 | …`metrics.json` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 412 | …metrics.json` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈… | `186` | `metrics.json:corrupt.score_hist.0` | `186` |
-| 412 | …ics.json` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 412 | …s.json` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。… | `45` | `metrics.json:gap.cluster_rows[8].gap_clusters` | `45` |
-| 412 | …son` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
-| 412 | …n` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `37` | `metrics.json:corrupt.score_hist.3` | `37` |
-| 412 | …→ `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 412 | …`corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `26` | `metrics.json:gap.cluster_rows[4].detected_intents` | `26` |
-| 412 | …rrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `6` | `dup_groups_best.csv:group[row=6][0]` | `6` |
-| 412 | …t.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 414 | \| `poc/kbgovernance/dup_groups_best.csv` \| 22 行的 `primary_doc`、`member_docs` 未被引用；`max_sim`… | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 414 | …c_level` 行同源，文档现已按 `granularity_dup.csv` 报告区间 0.9545–0.9845。 \| | `0.9545` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
-| 414 | …` 行同源，文档现已按 `granularity_dup.csv` 报告区间 0.9545–0.9845。 \| | `0.9845` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
-| 415 | …`dup.embedded_groups` / `dup.embedded_docs` \| 22 / 49 两个键未被引用（文档改引 `dup.best.*`，同值）。 \| | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 415 | …embedded_groups` / `dup.embedded_docs` \| 22 / 49 两个键未被引用（文档改引 `dup.best.*`，同值）。 \| | `49` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
-| 419 | ## 5. 无法从产物核验的断言 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 423 | …_meta_zh.json` 是与 CSV 平级的 JSON，承载了 **cover 分布、5 场景文档规模、banking77 缺口意图数** 三组关键数据。附录 D 与 §5.3.3… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 423 | …扩展为「`standardize/` 下全部 `.json` + `.csv`」，则该表的 12 条会由 `【无出处】` 变为 `一致`。此处只陈述事实，不做裁决。 | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 429 | \| 整篇级 max-cosine 意图级分离度 AUC = **0.8880** \| `granularity.csv` `granularity=doc_level,… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 429 | …cosine` 行 `列=auc_intent_median`（工单级 `列=auc` = 0.8307） \| | `0.8307` | `granularity.csv:auc[row=1][0]` | `0.8307` |
-| 430 | \| margin（max - mean(top5)）AUC = **0.9200 / 0.8320** \| `granularity.csv` `score_scheme=… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 430 | \| margin（max - mean(top5)）AUC = **0.9200 / 0.8320** \| `granularity.csv` `score_scheme=max-top5m… | `0.8320` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
-| 431 | \| max ÷ std AUC = **0.7040 / 0.4960** \| `granularity.csv` `score_scheme=… | `0.7040` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
-| 431 | \| max ÷ std AUC = **0.7040 / 0.4960** \| `granularity.csv` `score_scheme=max/std`… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
-| 432 | \| max ÷ top5 AUC = **0.8880 / 0.7760** \| `granularity.csv` `score_scheme=… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 432 | \| max ÷ top5 AUC = **0.8880 / 0.7760** \| `granularity.csv` `score_scheme=max/top5m… | `0.7760` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
-| 433 | \| max - min（极差）AUC = **0.8800 / 0.9280** \| `granularity.csv` `score_scheme=… | `0.8800` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
-| 433 | \| max - min（极差）AUC = **0.8800 / 0.9280** \| `granularity.csv` `score_scheme=max-min`… | `0.9280` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
-| 435 | …据下调了「改变粒度是唯一有效方向」这一断言的强度——新数据下整篇级 max-min（意图级 0.928）高于整篇级基准（0.8880），但工单级反而从 0.8307 掉到 0.7829。 | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
-| 435 | …方向」这一断言的强度——新数据下整篇级 max-min（意图级 0.928）高于整篇级基准（0.8880），但工单级反而从 0.8307 掉到 0.7829。 | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
-| 435 | …整篇级 max-min（意图级 0.928）高于整篇级基准（0.8880），但工单级反而从 0.8307 掉到 0.7829。 | `0.8307` | `granularity.csv:auc[row=1][0]` | `0.8307` |
-| 435 | …n（意图级 0.928）高于整篇级基准（0.8880），但工单级反而从 0.8307 掉到 0.7829。 | `0.7829` | `granularity.csv:auc[row=5][0]` | `0.7829` |
-| 441 | \| mcs=5 分出 **95 个簇**、噪声 **0 条**、耗时 **≈1.1 秒** \| `run_… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 441 | \| mcs=5 分出 **95 个簇**、噪声 **0 条**、耗时 **≈1.1 秒** \| `run_all.log`… | `95 (×3)` | `standardize/ablation.csv:说明[row=4][1]` | `95` |
-| 441 | \| mcs=5 分出 **95 个簇**、噪声 **0 条**、耗时 **≈1.1 秒** \| `run_all.log` 记为 95 簇 / 0… | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 442 | \| mcs=10 分出 **88 个簇**、噪声 **9 条**、耗时 **≈1.2 秒** \| `run_… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 442 | \| mcs=10 分出 **88 个簇**、噪声 **9 条**、耗时 **≈1.2 秒** \| `run_all.log`… | `88 (×3)` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
-| 442 | \| mcs=10 分出 **88 个簇**、噪声 **9 条**、耗时 **≈1.2 秒** \| `run_all.log` 记 88 簇 / 9… | `9 (×3)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
-| 442 | …接引用两次日志值并只报量级；因日志不在受审集合，判定仍为 `【无出处】`。两次运行之间有 ±25% 波动，不构成不一致。 \| | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 443 | \| 「F1 完全不变」（两档 mcs 的最优 F1 均为 0.800） \| 可核验：`gap_threshold.csv` `threshold=0.62` 行… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
-| 443 | …为 0.800） \| 可核验：`gap_threshold.csv` `threshold=0.62` 行在 mcs=5 与 mcs=10 下 `f1` 同为 0.8 \| | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 443 | …验：`gap_threshold.csv` `threshold=0.62` 行在 mcs=5 与 mcs=10 下 `f1` 同为 0.8 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 443 | …hreshold.csv` `threshold=0.62` 行在 mcs=5 与 mcs=10 下 `f1` 同为 0.8 \| | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 443 | …`threshold=0.62` 行在 mcs=5 与 mcs=10 下 `f1` 同为 0.8 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 444 | \| 簇覆盖度中位数「包含在上述约 1 秒级耗时内」 \| 无法核验（无分项耗时字段） \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 445 | \| α 的 5 个缺口意图分属**人事行政/信息技术/财务管理/信息安全** 4 个业务域 \| 受审集合内… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 445 | \| α 的 5 个缺口意图分属**人事行政/信息技术/财务管理/信息安全** 4 个业务域 \| 受审集合内无「意图→业务域」映射；`ground_truth.json` 只… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 452 | \| 标准化实验**总耗时 26.2 秒** \| 承载它的 `scenario_meta.json` → `total_seco… | `26.2 (×2)` | `standardize/scenario_meta.json:total_seconds` | `26.2` |
-| 453 | \| 「生成数据约 1 秒」 \| `run_all.log` `real 0m0.601s` / `run_all… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
-| 453 | \| 「生成数据约 1 秒」 \| `run_all.log` `real 0m0.601s` / `run_all_repro.log` `0m0.754s` \| | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
-| 454 | \| R4 原始表述会让 **275/300 篇**全部命中 \| `RESULT.md` 360 行；无 CSV 记录该消融 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 455 | …R4 修正后的两个参数：**领先 ≥ 365 天**、**标题 bigram 包含度 ≥ 0.50** \| 无产物；`metrics.json` 只记录最终命中数 88 \| | `0.50` | `metrics.json:gap.cluster_rows[2].threshold` | `0.5` |
-| 455 | …am 包含度 ≥ 0.50** \| 无产物；`metrics.json` 只记录最终命中数 88 \| | `88` | `metrics.json:corrupt.rule_hit_counts.R4_同类存在更新文档` | `88` |
-| 462 | \| **8 个业务域**、**30 个意图**、**25 个已覆盖意图**、每意图 12 篇 \| `r… | `8 (×2)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 462 | \| **8 个业务域**、**30 个意图**、**25 个已覆盖意图**、每意图 12 篇 \| `run_all.log`… | `30 (×2)` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 462 | \| **8 个业务域**、**30 个意图**、**25 个已覆盖意图**、每意图 12 篇 \| `run_all.log` `[gen_data]… | `25 (×2)` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 462 | \| **8 个业务域**、**30 个意图**、**25 个已覆盖意图**、每意图 12 篇 \| `run_all.log` `[gen_data]` 段（8 域、30 意图可核验… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 463 | \| 每篇文档正文 **111–191 字、均值 140 字、约 6.2 句** \| `run_all.log` `[ge… | `111 (×2)` | `derived_metrics.csv:docs.min_chars_per_doc` | `111` |
-| 463 | \| 每篇文档正文 **111–191 字、均值 140 字、约 6.2 句** \| `run_all.log` `[gen_da… | `191 (×2)` | `derived_metrics.csv:docs.max_chars_per_doc` | `191` |
-| 464 | \| 缺口工单占比 **18.6%（371/2000）** \| `ground_truth.json` → `gap_ticket_r… | `371` | `ground_truth.json:gap_ticket_count` | `371` |
-| 464 | …\| `ground_truth.json` → `gap_ticket_ratio` = 0.1855（文档按 18.6% 表述，四舍五入自洽） \| | `0.1855` | `ground_truth.json:gap_ticket_ratio` | `0.1855` |
-| 465 | \| 腐化埋设拆分：**32 篇**追加过期表述 + **30 篇** `last_modified` 置 2022–2… | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
-| 465 | \| 腐化埋设拆分：**32 篇**追加过期表述 + **30 篇** `last_modified` 置 2022–2023 \| 合计 62 可核验（`… | `30 (×2)` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
-| 465 | …述 + **30 篇** `last_modified` 置 2022–2023 \| 合计 62 可核验（`metrics.json` → `corrupt.embedded`）；32/3… | `62` | `metrics.json:corrupt.embedded` | `62` |
-| 466 | \| 防作弊：**4% 自然陈旧但不算缺陷**文档（600–900 天未更新） \| 无产物字段 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 466 | \| 防作弊：**4% 自然陈旧但不算缺陷**文档（600–900 天未更新） \| 无产物字段 \| | `600` | `standardize/scenario_meta.json:n_docs.delta` | `600` |
-| 467 | \| 人工复核 **10%**、三类缺陷各抽 **20 条**、**Cohen's Kappa ≥ 0.8** \|… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
-| 467 | \| 人工复核 **10%**、三类缺陷各抽 **20 条**、**Cohen's Kappa ≥ 0.8** \| 计划性承诺，无任何标注产物 \| | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 467 | …工复核 **10%**、三类缺陷各抽 **20 条**、**Cohen's Kappa ≥ 0.8** \| 计划性承诺，无任何标注产物 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 469 | …g77_train.csv`（10003 条）+ `banking77_test.csv`（3080 条）；受审集合只含 `standardize/*.csv`，不含 `data/` 子目录… | `3080` | `standardize/banking77_meta.json:n_tk` | `3080` |
-| 470 | \| banking77 **15 个整意图成片缺失** \| `standardize/banking77_meta.json… | `15 (×2)` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
-| 471 | \| 7 个误报**全部来自**刻意埋设的「4% 自然陈旧」文档 \| FP = 7 可核验（`met… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 471 | \| 7 个误报**全部来自**刻意埋设的「4% 自然陈旧」文档 \| FP = 7 可核验（`metrics.json` → `corru… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 472 | \| 段落切片规则：**丢弃长度 < 8 字的片段** \| `embed.py` 代码常量，受审集合内无参数字段 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
-| 473 | \| Table 4-6「分组标准化消融（**14 变体**）」 \| 可核验：`ablation.csv` 前段… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 473 | \| Table 4-6「分组标准化消融（**14 变体**）」 \| 可核验：`ablation.csv` 前段 `变体` 行数为 14 \| | `14 (×2)` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
+| 16 | …新为当前 `metrics.json`（`embedding.encode_seconds=14.61`、`total_seconds=3.09`、`corrupt.seconds=0.4`），… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 16 | …mbedding.encode_seconds=14.61`、`total_seconds=3.09`、`corrupt.seconds=0.4`），本报告的判定行随之同步；技术方案中已删除的… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 16 | …=14.61`、`total_seconds=3.09`、`corrupt.seconds=0.4`），本报告的判定行随之同步；技术方案中已删除的旧断言在本报告中一并删除，不并列已作废的旧条… | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
+| 18 | …——§1.2「商业对标」整节删除并重编号、E7/E8 由「不进论文」降级为正文两小节（各 ≤1 页）、§6.4 图表清单随之调整。**这三处均未改变原子声明集合**：删除的 §1.2 商… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 18 | …ptEdge / Ravenna 两条定性描述），新增内容（§5.3 定位框、图表清单中的表4-7、页数归属说明）不含任何可核验的实测数值，§6.3 / §6.4 的表号调整不改变数值本… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 18 | …因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步两处：附录 D 在技术方案中的位置（以小节名「附录… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 20 | …ng77.py` 的跨语料迁移段原先对负向分数（`-cover` 的意图级中位数，取值域 [-1, 0]）用 `v <= 0.6463` 判为缺口，条件对整个取值域恒真，导致无论阈值取多少… | `-1` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 20 | ….py` 的跨语料迁移段原先对负向分数（`-cover` 的意图级中位数，取值域 [-1, 0]）用 `v <= 0.6463` 判为缺口，条件对整个取值域恒真，导致无论阈值取多少都把全… | `0 (×5)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 20 | …段原先对负向分数（`-cover` 的意图级中位数，取值域 [-1, 0]）用 `v <= 0.6463` 判为缺口，条件对整个取值域恒真，导致无论阈值取多少都把全部 77 个意图报成缺口。**这… | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 20 | …用 `v <= 0.6463` 判为缺口，条件对整个取值域恒真，导致无论阈值取多少都把全部 77 个意图报成缺口。**这不是阈值效应，是判定式的符号缺陷**；同时循环体未按 `src_na… | `77 (×4)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 20 | …src_name` 区分判定方向，使「正向 / 反向」两行输出完全相同。修正为 `v >= -0.6463`（正向）与 `v <= -0.6463`（反向）后重跑 en / zh 两组实验，结论方向… | `-0.6463 (×2)` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
+| 20 | …出 0 / 77，P=0，R=0，F1=0），反向判定才得到 77/77 全判为缺口（F1 0.3261）。本报告 §2 的相关判定行已按新产物重核（正向取第 1 数据行、反向取第 2 数据行），… | `0.3261` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 20 | …R=0，F1=0），反向判定才得到 77/77 全判为缺口（F1 0.3261）。本报告 §2 的相关判定行已按新产物重核（正向取第 1 数据行、反向取第 2 数据行），§1 的原子声明… | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 22 | …v` 还携带已被推翻的旧判定结果，留着会与新产物矛盾）。受审集合的 CSV 文件数相应减少 2 个，§4「未被引用的产物」清单中对应条目同步移除。`standardize/banking… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 22 | …带已被推翻的旧判定结果，留着会与新产物矛盾）。受审集合的 CSV 文件数相应减少 2 个，§4「未被引用的产物」清单中对应条目同步移除。`standardize/banking77_me… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 22 | …与 `banking77_meta_en.json` 内容相同，但审计报告 §2.3 与 §5 的旁注位置直接引用了前者，故保留不动。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 26 | …zh.csv`（用 `BAAI/bge-small-zh-v1.5` 跑出、最优 F1 为 0.6207）自曝为英文语料，与同表数值自相矛盾。已改为随嵌入模型输出 `banking77（bge-s… | `0.6207` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
+| 27 | 2. **§5.3.3 边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cove… | `0.6657` | `derived_metrics.csv:threshold.abs_alpha_recall_all_cover_scale` | `0.6657` |
+| 27 | …边界一口径混用改判**：原文把「召回全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 27 | …全部门槛」口径的 0.6657 与「最优阈值」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `de… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 27 | …」口径的 0.6463 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `derived_metrics.csv` 的 `thres… | `0.6633` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
+| 27 | …63 合成同一条窄带。已改为：5 个场景的门槛带按 cover 刻度是 `0.6633 ~ 0.6897`（机读出处 `derived_metrics.csv` 的 `threshold.abs_… | `0.6897` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
+| 28 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.94… | `8 (×5)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 28 | 3. **判定行补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 28 | …补录与章节号订正**：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 28 | …*：§7.4 答辩问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8 问答 N」的答辩问… | `0.5846` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
+| 28 | …问答 8（阈值是否过拟合）本轮新增的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8 问答 N」的答辩问答行订正为「§7.… | `0.9474` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
+| 28 | …的 0.0264 / 0.4130 / 0.5846 / 0.9474 此前未落表，本次补 4 行判定；同时把原误标为「§8 问答 N」的答辩问答行订正为「§7.4 问答 N」（答辩章自… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 32 | ## 1. 结论 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 34 | …率为 102 / 112（91.1%）。** 分母 112 条原子声明 = 附录 D 主表 43 条 + 附录 D「标准化实验实测」小节 69 条（按表内实际行数计）。分子 102 条判定… | `43` | `corrupt_rule_ablation.csv:detected[row=2][0]` | `43` |
+| 34 | …分母 112 条原子声明 = 附录 D 主表 43 条 + 附录 D「标准化实验实测」小节 69 条（按表内实际行数计）。分子 102 条判定为 `一致` 或 `已被实测修正`。**不一致… | `69` | `metrics.json:corrupt.detected` | `69` |
+| 34 | …条（按表内实际行数计）。分子 102 条判定为 `一致` 或 `已被实测修正`。**不一致 0 条**，**无出处 10 条**。 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 34 | …分子 102 条判定为 `一致` 或 `已被实测修正`。**不一致 0 条**，**无出处 10 条**。 | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 36 | （本次复核新增 10 条声明：附录 D 新增的两张整表各计 1 条，工单级 AUC、max-min 反例、腐化规… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 36 | （本次复核新增 10 条声明：附录 D 新增的两张整表各计 1 条，工单级 AUC、max-min 反例、腐化规则消融、组内余弦两种粒度、HDBSCAN… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 36 | …AUC、max-min 反例、腐化规则消融、组内余弦两种粒度、HDBSCAN 聚类耗时共 6 条，原「整篇级 AUC」与三条失败归一化 AUC 拆为按粒度分列的 6 条。） | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 38 | 本次复核后附录 D 已无 `不一致` 条目：原 4 条不一致（极差区间漏掉 β 场景端点、中文 α → banking77 的两处 P 与一处… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 40 | 无出处的断言集中在：业务域数 8、意图数 30、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.2… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 40 | 无出处的断言集中在：业务域数 8、意图数 30、HDBSCAN 聚类耗时（两次运行 1.18/1.07 与 1.03/1.28 秒，仅见于… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 42 | …处的整篇级 AUC、三种失败归一化 AUC、方向 C 的 σ 0.1452 与组内余弦区间 0.9545–0.9845，本次已分别由 `granularity.csv`、`results_auc.… | `0.9545` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
+| 42 | …UC、三种失败归一化 AUC、方向 C 的 σ 0.1452 与组内余弦区间 0.9545–0.9845，本次已分别由 `granularity.csv`、`results_auc.csv`、`g… | `0.9845` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
+| 42 | …与 §5.1。**这组 AUC 现按粒度分列报告**：整篇级 max-cosine 意图级 0.8880、段落级 0.9680（工单级 0.8307 / 0.8659），失败归一化按段落级 / 整… | `0.8880 (×2)` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 42 | …AUC 现按粒度分列报告**：整篇级 max-cosine 意图级 0.8880、段落级 0.9680（工单级 0.8307 / 0.8659），失败归一化按段落级 / 整篇级分列（margin… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 42 | …报告**：整篇级 max-cosine 意图级 0.8880、段落级 0.9680（工单级 0.8307 / 0.8659），失败归一化按段落级 / 整篇级分列（margin 0.9200 / 0… | `0.8307` | `granularity.csv:auc[row=1][0]` | `0.8307` |
+| 42 | …max-cosine 意图级 0.8880、段落级 0.9680（工单级 0.8307 / 0.8659），失败归一化按段落级 / 整篇级分列（margin 0.9200 / 0.8320、max… | `0.8659` | `granularity.csv:auc[row=6][0]` | `0.8659` |
+| 42 | …工单级 0.8307 / 0.8659），失败归一化按段落级 / 整篇级分列（margin 0.9200 / 0.8320、max÷std 0.7040 / 0.4960、max÷top5 0.8… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 42 | …7 / 0.8659），失败归一化按段落级 / 整篇级分列（margin 0.9200 / 0.8320、max÷std 0.7040 / 0.4960、max÷top5 0.8880 / 0.7… | `0.8320` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
+| 42 | …一化按段落级 / 整篇级分列（margin 0.9200 / 0.8320、max÷std 0.7040 / 0.4960、max÷top5 0.8880 / 0.7760、max-min 0.8… | `0.7040` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
+| 42 | …整篇级分列（margin 0.9200 / 0.8320、max÷std 0.7040 / 0.4960、max÷top5 0.8880 / 0.7760、max-min 0.8800 / 0.9… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 42 | …320、max÷std 0.7040 / 0.4960、max÷top5 0.8880 / 0.7760、max-min 0.8800 / 0.9280）。 | `0.7760` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
+| 42 | …040 / 0.4960、max÷top5 0.8880 / 0.7760、max-min 0.8800 / 0.9280）。 | `0.8800` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
+| 42 | …960、max÷top5 0.8880 / 0.7760、max-min 0.8800 / 0.9280）。 | `0.9280` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
+| 44 | …原子声明另计 **155 条**：`一致` 122 条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】` 26 条，另有 6 条「一表两判」的混合行… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 44 | …条**：`一致` 122 条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】` 26 条，另有 6 条「一表两判」的混合行（同一行内既有可核验值又… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 44 | …条、`已被实测修正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】` 26 条，另有 6 条「一表两判」的混合行（同一行内既有可核验值又有无出处值，如「簇数与噪声 `… | `26` | `metrics.json:gap.cluster_rows[4].detected_intents` | `26` |
+| 44 | …正（文档已自行声明）` 1 条、`不一致` **0 条**、`【无出处】` 26 条，另有 6 条「一表两判」的混合行（同一行内既有可核验值又有无出处值，如「簇数与噪声 `一致`；耗时… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 44 | …耗时 `【无出处】`」），单列计数。正文的无出处比例显著高于附录 D，原因集中在：业务域数 8 与意图数 30、HDBSCAN 聚类耗时（两次运行 1.18·1.07 与 1.03·1.… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 44 | …处】`」），单列计数。正文的无出处比例显著高于附录 D，原因集中在：业务域数 8 与意图数 30、HDBSCAN 聚类耗时（两次运行 1.18·1.07 与 1.03·1.28 秒）、人工… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 46 | > **计数口径（第五轮起明确）**：以上三处「条」一律指 §2 各表的**判定行数**（一行一个原子声明），不再用其它口径混算。第五轮之前 §1 的统计与… | `2 (×3)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 46 | …一律指 §2 各表的**判定行数**（一行一个原子声明），不再用其它口径混算。第五轮之前 §1 的统计与 §2 表格已存在偏差（各节标题标的条数与表内实际行数对不上），本轮一并按判定行数… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 48 | …已无 `不一致` 条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出处是 `derived_metrics.csv` 的 `thre… | `0.6633` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
+| 48 | …条目。** `§5.3.3 边界一` 的门槛带按 cover 刻度写作 `0.6633 ~ 0.6897`，机读出处是 `derived_metrics.csv` 的 `threshold.abs… | `0.6897` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
+| 48 | …over_band_lo/hi`（由 `results_auc.csv` 的「召回全部门槛」5 行取负换算，5 个场景的门槛带一律出自这一口径）。同段出现的 0.6463 属**另一口径… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 48 | …sv` 的「召回全部门槛」5 行取负换算，5 个场景的门槛带一律出自这一口径）。同段出现的 0.6463 属**另一口径**：`ablation.csv` 的 `最优阈值` 列字面值为 -0.64… | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 48 | ….6463 属**另一口径**：`ablation.csv` 的 `最优阈值` 列字面值为 -0.6463，取负后才是 cover 刻度（`derived_metrics.csv:threshold… | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
+| 52 | ## 2. 核心溯源表 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 56 | ### 2.1 附录 D 主表（43 条） | `43` | `corrupt_rule_ablation.csv:detected[row=2][0]` | `43` |
+| 60 | \| 附录D 主表「文档数 / 工单数」 \| 300 \| `poc/kbgovernance/metrics.json` → `embeddin… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
+| 62 | \| 附录D 主表「业务域数 / 意图数」 \| 8 \| 受审集合内无对应键 \| — \| 【无出处】 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 63 | \| 附录D 主表「业务域数 / 意图数」 \| 30 \| 受审集合内无对应键 \| — \| 【无出处】 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 64 | \| 附录D 主表「文档段落数」 \| 1852 \| `metrics.json` → `embedding.n_passages` \| 1… | `1852 (×2)` | `metrics.json:embedding.n_passages` | `1852` |
+| 65 | …dding.n_passages` ÷ `embedding.n_docs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 65 | …cs` = 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 68 | \| 附录D 主表「embedding 方案」 \| 512 维 \| `metrics.json` → `embedding.dim` \| 512 \|… | `512 (×2)` | `metrics.json:embedding.dim` | `512` |
+| 70 | \| 附录D 主表「模型权重体积」 \| 95.8 MB \| `metrics.json` → `embedding.model_downlo… | `95.8 (×2)` | `metrics.json:embedding.model_download_mb` | `95.8` |
+| 71 | \| 附录D 主表「向量化吞吐」 \| 4152 条文本 \| 由 `embedding.n_docs` + `n_tickets` + `n… | `4152 (×2)` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
+| 71 | …edding.n_docs` + `n_tickets` + `n_passages` = 300+2000+1852 \| 4152 \| 一致（推算） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 71 | …docs` + `n_tickets` + `n_passages` = 300+2000+1852 \| 4152 \| 一致（推算） \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
+| 72 | \| 附录D 主表「向量化吞吐」 \| 14.61 秒 \| `metrics.json` → `embedding.encode_second… | `14.61 (×2)` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 73 | \| 附录D 主表「工单被覆盖度分布」 \| min = 0.5629 \| `standardize/scenario_meta.json` → `cover_s… | `0.5629 (×2)` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
+| 73 | …pha.min`（旁注，受审集合内无同名 CSV） \| 0.5629 \| 【无出处】（见 §5 注） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 74 | \| 附录D 主表「工单被覆盖度分布」 \| mean = 0.6891 \| `standardize/scenario_meta.json` → `cover_s… | `0.6891 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
+| 75 | \| 附录D 主表「工单被覆盖度分布」 \| max = 0.8294 \| `standardize/scenario_meta.json` → `cover_s… | `0.8294 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
+| 76 | \| 附录D 主表「知识缺口最优参数」 \| min_cluster_size = 5 \| `metrics.json` → `gap.best.min_cluster_size… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 77 | \| 附录D 主表「知识缺口最优参数」 \| threshold = 0.62 \| `metrics.json` → `gap.best.threshold` \| 0.6… | `0.62 (×2)` | `metrics.json:gap.best.threshold` | `0.62` |
+| 78 | \| 附录D 主表「知识缺口 P/R/F1」 \| 0.800 / 0.800 / 0.800 \| `metrics.json` → `gap.best.… | `0.800 (×3)` | `metrics.json:gap.best.precision` | `0.8` |
+| 79 | \| 附录D 主表「段落级 vs 整篇级 AUC」 \| 0.968 \| `standardize/scenario_meta.json` → `baselin… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 80 | \| 附录D 主表「段落级 vs 整篇级 AUC（意图级）」 \| 0.8880（整篇级） \| `granularity.csv` `granularity=doc_lev… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 80 | …_scheme=max-cosine` 行 `列=auc_intent_median` \| 0.888 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 81 | \| 附录D 主表「段落级 vs 整篇级 AUC」（工单级） \| 0.8659 / 0.8307 \| `granularity.csv` `max-cosine` 两行的… | `0.8659 (×2)` | `granularity.csv:auc[row=6][0]` | `0.8659` |
+| 81 | \| 附录D 主表「段落级 vs 整篇级 AUC」（工单级） \| 0.8659 / 0.8307 \| `granularity.csv` `max-cosine` 两行的 `列=auc`（… | `0.8307 (×2)` | `granularity.csv:auc[row=1][0]` | `0.8307` |
+| 82 | \| 附录D 主表「失败归一化 AUC」 \| margin 0.9200 / 0.8320 \| `granularity.csv` `score_scheme=ma… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 82 | \| 附录D 主表「失败归一化 AUC」 \| margin 0.9200 / 0.8320 \| `granularity.csv` `score_scheme=max-top5mea… | `0.8320` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
+| 82 | …p5mean` 两行 `列=auc_intent_median`（段落级 / 整篇级） \| 0.92 / 0.832 \| 一致 \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 82 | …两行 `列=auc_intent_median`（段落级 / 整篇级） \| 0.92 / 0.832 \| 一致 \| | `0.832` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
+| 83 | \| 附录D 主表「失败归一化 AUC」 \| max÷std 0.7040 / 0.4960 \| `granularity.csv` `score_scheme=ma… | `0.7040` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
+| 83 | \| 附录D 主表「失败归一化 AUC」 \| max÷std 0.7040 / 0.4960 \| `granularity.csv` `score_scheme=max/std` 两行… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 83 | …re_scheme=max/std` 两行 `列=auc_intent_median` \| 0.704 / 0.496 \| 一致 \| | `0.704` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
+| 83 | …e=max/std` 两行 `列=auc_intent_median` \| 0.704 / 0.496 \| 一致 \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 84 | \| 附录D 主表「失败归一化 AUC」 \| max÷top5 0.8880 / 0.7760 \| `granularity.csv` `score_scheme=ma… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 84 | \| 附录D 主表「失败归一化 AUC」 \| max÷top5 0.8880 / 0.7760 \| `granularity.csv` `score_scheme=max/top5mea… | `0.7760` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
+| 84 | …heme=max/top5mean` 两行 `列=auc_intent_median` \| 0.888 / 0.776 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 84 | …/top5mean` 两行 `列=auc_intent_median` \| 0.888 / 0.776 \| 一致 \| | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
+| 85 | \| 附录D 主表「失败归一化 AUC」 \| max-min 0.8800 / 0.9280 \| `granularity.csv` `score_scheme=ma… | `0.8800` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
+| 85 | \| 附录D 主表「失败归一化 AUC」 \| max-min 0.8800 / 0.9280 \| `granularity.csv` `score_scheme=max-min` 两行… | `0.9280` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
+| 85 | …re_scheme=max-min` 两行 `列=auc_intent_median` \| 0.88 / 0.928 \| 一致 \| | `0.88` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
+| 85 | …me=max-min` 两行 `列=auc_intent_median` \| 0.88 / 0.928 \| 一致 \| | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
+| 86 | \| 附录D 主表「内容腐化 P/R/F1」 \| 0.8986 / 1.0000 / 0.9466 \| `metrics.json` → `corrupt… | `0.8986 (×2)` | `metrics.json:corrupt.precision` | `0.8986` |
+| 86 | \| 附录D 主表「内容腐化 P/R/F1」 \| 0.8986 / 1.0000 / 0.9466 \| `metrics.json` → `corrupt.precisio… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 86 | \| 附录D 主表「内容腐化 P/R/F1」 \| 0.8986 / 1.0000 / 0.9466 \| `metrics.json` → `corrupt.precision` / `cor… | `0.9466 (×2)` | `metrics.json:corrupt.f1` | `0.9466` |
+| 87 | \| 附录D 主表「内容腐化 P/R/F1」 \| 埋 62 \| `metrics.json` → `corrupt.embedded` \| 62 \|… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
+| 88 | \| 附录D 主表「腐化规则消融」 \| drop_R1 0.6857 / drop_R2 0.6809 / drop_R3 0.9466 / drop_R4 0… | `0.6857` | `corrupt_rule_ablation.csv:f1[row=2][0]` | `0.6857` |
+| 88 | \| 附录D 主表「腐化规则消融」 \| drop_R1 0.6857 / drop_R2 0.6809 / drop_R3 0.9466 / drop_R4 0.6809；only_R1 0.6… | `0.6809 (×3)` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
+| 88 | …」 \| drop_R1 0.6857 / drop_R2 0.6809 / drop_R3 0.9466 / drop_R4 0.6809；only_R1 0.6809 / only_R2–R4… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 88 | …/ drop_R4 0.6809；only_R1 0.6809 / only_R2–R4 0.0 \| `corrupt_rule_ablation.csv` 8 行 `列=f1` \| 同值… | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 89 | \| 附录D 主表「重复组组内余弦（整篇级）」 \| 0.9545–0.9845（mean 0.9796） \| `granularity_dup.csv` `… | `0.9545 (×2)` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
+| 89 | \| 附录D 主表「重复组组内余弦（整篇级）」 \| 0.9545–0.9845（mean 0.9796） \| `granularity_dup.csv` `granula… | `0.9845 (×2)` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
+| 89 | \| 附录D 主表「重复组组内余弦（整篇级）」 \| 0.9545–0.9845（mean 0.9796） \| `granularity_dup.csv` `granularity=doc_lev… | `0.9796 (×2)` | `granularity_dup.csv:mean_max_sim[row=1][0]` | `0.9796` |
+| 90 | \| 附录D 主表「重复组组内余弦（段落级）」 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `… | `0.5671 (×2)` | `granularity_dup.csv:min_max_sim[row=2][0]` | `0.5671` |
+| 90 | \| 附录D 主表「重复组组内余弦（段落级）」 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `granula… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 90 | \| 附录D 主表「重复组组内余弦（段落级）」 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `granularity=passage… | `0.9803 (×2)` | `granularity_dup.csv:mean_max_sim[row=2][0]` | `0.9803` |
+| 91 | \| 附录D 主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 91 | …录D 主表「HDBSCAN 聚类耗时」 \| mcs=5 1.18 / 1.07 秒；mcs=10 1.03 / 1.28 秒 \| 受审集合内无聚类耗时字段（仅 `run_all.log`… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 92 | \| 附录D 主表「HDBSCAN 聚类数 / 噪声条数」 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声 \| `metrics… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 92 | \| 附录D 主表「HDBSCAN 聚类数 / 噪声条数」 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声 \| `metrics.json… | `95 (×2)` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 92 | \| 附录D 主表「HDBSCAN 聚类数 / 噪声条数」 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声 \| `metrics.json` → `g… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 92 | …HDBSCAN 聚类数 / 噪声条数」 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声 \| `metrics.json` → `gap.cluster… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 92 | …AN 聚类数 / 噪声条数」 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声 \| `metrics.json` → `gap.clusters.5.n… | `88 (×2)` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 92 | …/ 噪声条数」 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声 \| `metrics.json` → `gap.clusters.5.n_clust… | `9 (×2)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 93 | \| 附录D 「检索粒度 × 打分方案对照」整表 \| 10 行的意图级与工单级 AUC \| `granularity.csv` 10 行 × `列=a… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 94 | \| 附录D 「内容腐化规则消融」整表 \| 9 行的 P/R/F1/检出/TP/FP/FN/命中文档数/平均风险分/ΔF1 \| `corr… | `9 (×3)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 95 | \| 附录D 主表「内容腐化 P/R/F1」 \| 检出 69 \| `metrics.json` → `corrupt.detected` \| 69 \|… | `69 (×2)` | `metrics.json:corrupt.detected` | `69` |
+| 96 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
+| 96 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `corru… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 96 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `corrupt.fp… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 97 | \| 附录D 主表「腐化耗时」 \| 0.4 秒 \| `metrics.json` → `corrupt.seconds` \| 0.4… | `0.4 (×2)` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
+| 98 | \| 附录D 主表「重复冗余（0.90 阈值）组级 F1」 \| 0.7037 \| `poc/kbgovernance/dup_threshold.csv` 第 3 数据… | `0.7037 (×2)` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 98 | …ernance/dup_threshold.csv` 第 3 数据行（`threshold=0.9`）列 `group_f1`；`metrics.json` → `dup.rows[1].g… | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 98 | …=0.9`）列 `group_f1`；`metrics.json` → `dup.rows[1].group_f1` \| 0.7037 \| 一致 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 99 | \| 附录D 主表「重复冗余（0.90 阈值）」 \| 32 组 / 77 篇 \| `dup_threshold.csv` `threshold=0.9… | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 99 | \| 附录D 主表「重复冗余（0.90 阈值）」 \| 32 组 / 77 篇 \| `dup_threshold.csv` `threshold=0.9` 行的 `d… | `77 (×2)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 99 | …32 组 / 77 篇 \| `dup_threshold.csv` `threshold=0.9` 行的 `dup_groups` / `detected_docs` \| 32 / 77… | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 100 | \| 附录D 主表「重复冗余（0.95 阈值）组级 F1」 \| 1.0 \| `dup_threshold.csv` `threshold=0.95` 行列 `gr… | `1.0 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 101 | \| 附录D 主表「重复冗余（0.95 阈值）」 \| 22 组 / 49 篇 \| `dup_threshold.csv` `threshold=0.9… | `22 (×2)` | `metrics.json:dup.embedded_groups` | `22` |
+| 101 | \| 附录D 主表「重复冗余（0.95 阈值）」 \| 22 组 / 49 篇 \| `dup_threshold.csv` `threshold=0.95` 行 `d… | `49 (×2)` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
+| 102 | \| 附录D 主表「三模块检测总耗时」 \| 3.09 秒 \| `metrics.json` → `total_seconds` \| 3.09 \|… | `3.09 (×2)` | `metrics.json:total_seconds` | `3.09` |
+| 104 | ### 2.2 附录 D · 标准化实验实测小节（69 条） | `69` | `metrics.json:corrupt.detected` | `69` |
+| 110 | \| 附录D AUC 表 · ABS α \| 0.968 \| `standardize/results_auc.csv` `场景=alpha, 方法… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 111 | \| 附录D AUC 表 · ABS 英文 \| 0.9538 \| `standardize/results_banking77_en.csv` 第 2… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 112 | \| 附录D AUC 表 · ABS 中文 \| 0.7925 \| `standardize/results_banking77_zh.csv` 第 2… | `0.7925 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 113 | \| 附录D AUC 表 · S1 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S1 分位数排名` \| 0.9… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 113 | \| 附录D AUC 表 · S1 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S1 分位数排名` \| 0.968 / 0.95… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 113 | …附录D AUC 表 · S1 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S1 分位数排名` \| 0.968 / 0.9538 / 0.79… | `0.7925 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 114 | \| 附录D AUC 表 · S2 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S2 全局z-score` \|… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 114 | \| 附录D AUC 表 · S2 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S2 全局z-score` \| 0.968 /… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 114 | …附录D AUC 表 · S2 α / 英文 / 中文 \| 0.968 / 0.9538 / 0.7925 \| 同上三文件 `方法=S2 全局z-score` \| 0.968 / 0.9538 /… | `0.7925 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 115 | \| 附录D AUC 表 · S3 α \| 1.0 \| `results_auc.csv` `场景=alpha, 方法=S3 领域内z, 列=… | `1.0 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 116 | \| 附录D AUC 表 · S3 英文 \| 0.4344 \| `results_banking77_en.csv` `方法=S3 领域内z, 列=A… | `0.4344 (×2)` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 117 | \| 附录D AUC 表 · S3 中文 \| 0.4946 \| `results_banking77_zh.csv` `方法=S3 领域内z, 列=A… | `0.4946 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 118 | \| 附录D AUC 表 · S3b 英文 \| 0.4860 \| `results_banking77_en.csv` `方法=S3b 域内分位数, 列… | `0.4860` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
+| 118 | …lts_banking77_en.csv` `方法=S3b 域内分位数, 列=AUC` \| 0.486 \| 一致（四舍五入，见 §3） \| | `0.486` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
+| 118 | …v` `方法=S3b 域内分位数, 列=AUC` \| 0.486 \| 一致（四舍五入，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 119 | \| 附录D AUC 表 · S3b 中文 \| 0.4962 \| `results_banking77_zh.csv` `方法=S3b 域内分位数, 列… | `0.4962 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=5][0]` | `0.4962` |
+| 120 | \| 附录D AUC 表 · S4 α \| 0.984 \| `results_auc.csv` `方法=S4 双参考系(域), 场景=alpha,… | `0.984 (×2)` | `dup_groups_best.csv:max_sim[row=5][0]` | `0.984` |
+| 121 | \| 附录D AUC 表 · S4 英文 \| 0.5538 \| `results_banking77_en.csv` `方法=S4 双参考系(域),… | `0.5538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=6][0]` | `0.5538` |
+| 122 | \| 附录D AUC 表 · S4 中文 \| 0.5441 \| `results_banking77_zh.csv` `方法=S4 双参考系(域),… | `0.5441 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=6][0]` | `0.5441` |
+| 123 | \| 附录D AUC 表 · S4min 英文 \| 0.8849 \| `results_banking77_en.csv` `方法=S4min 双参考系mi… | `0.8849 (×2)` | `standardize/results_banking77_en.csv:AUC[row=7][0]` | `0.8849` |
+| 124 | \| 附录D AUC 表 · S4min 中文 \| 0.7409 \| `results_banking77_zh.csv` `方法=S4min 双参考系mi… | `0.7409 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=7][0]` | `0.7409` |
+| 125 | \| 附录D AUC 表 · S5 α \| 1.0 \| `results_auc.csv` `方法=S5 双参考系均值, 场景=alpha,… | `1.0 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 126 | \| 附录D AUC 表 · S5 英文 \| 0.7516 \| `results_banking77_en.csv` `方法=S5 双参考系均值, 列… | `0.7516 (×2)` | `standardize/results_banking77_en.csv:AUC[row=8][0]` | `0.7516` |
+| 127 | \| 附录D AUC 表 · S5 中文 \| 0.6387 \| `results_banking77_zh.csv` `方法=S5 双参考系均值, 列… | `0.6387 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=8][0]` | `0.6387` |
+| 128 | \| 附录D AUC 表 · S6 α \| 0.968 \| `results_auc.csv` `方法=S6 去极值z, 场景=alpha, 列=… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 129 | \| 附录D AUC 表 · S4b α \| 0.752 \| `results_auc.csv` `方法=S4b 双参考系(意图), 场景=alph… | `0.752 (×2)` | `standardize/ablation.csv:alpha_AUC[row=8][0]` | `0.752` |
+| 137 | \| 附录D Spearman · ABS \| -1.000000 \| `standardize/mechanism.csv` 第 2 数据行列 `spear… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 137 | …e/mechanism.csv` 第 2 数据行列 `spearman_与cover` \| -1.0 \| 一致（精度，见 §3） \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 137 | …第 2 数据行列 `spearman_与cover` \| -1.0 \| 一致（精度，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 138 | \| 附录D Spearman · S1 \| -1.000000 \| `mechanism.csv` `方法=S1 分位数排名` \| -1.0 \| 一致（精… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 138 | …\| -1.000000 \| `mechanism.csv` `方法=S1 分位数排名` \| -1.0 \| 一致（精度） \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 139 | \| 附录D Spearman · S2 \| -1.000000 \| `mechanism.csv` `方法=S2 全局z-score` \| -1.0 \|… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 139 | ….000000 \| `mechanism.csv` `方法=S2 全局z-score` \| -1.0 \| 一致（精度） \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 140 | \| 附录D Spearman · S6 \| -0.999817 \| `mechanism.csv` `方法=S6 去极值z` \| -0.999817 \|… | `-0.999817 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=7][0]` | `-0.999817` |
+| 141 | \| 附录D Spearman · S5 \| -0.971441 \| `mechanism.csv` `方法=S5 双参考系均值` \| -0.971441… | `-0.971441 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=6][0]` | `-0.971441` |
+| 142 | \| 附录D Spearman · S4 \| -0.972351 \| `mechanism.csv` `方法=S4 双参考系(域)` \| -0.972351… | `-0.972351 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=5][0]` | `-0.972351` |
+| 143 | \| 附录D Spearman · S3 \| -0.893715 \| `mechanism.csv` `方法=S3 领域内z` \| -0.893715 \|… | `-0.893715 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=4][0]` | `-0.893715` |
+| 144 | \| 附录D Spearman · S4b \| -0.814022 \| `mechanism.csv` `方法=S4b 双参考系(意图)` \| -0.8140… | `-0.814022 (×2)` | `standardize/mechanism.csv:spearman_与cover[row=8][0]` | `-0.814022` |
+| 150 | \| 附录D 迁移表 · ABS 跨 5 场景阈值极差 \| 0.0264 \| `results_auc.csv` `方法=ABS(绝… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 150 | \| 附录D 迁移表 · ABS 跨 5 场景阈值极差 \| 0.0264 \| `results_auc.csv` `方法=ABS(绝对阈值)` 的 5 行 `召回全… | `0.0264 (×3)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 150 | …s_auc.csv` `方法=ABS(绝对阈值)` 的 5 行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，max-m… | `-0.6657 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
+| 150 | …`方法=ABS(绝对阈值)` 的 5 行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，max-min = 0.026… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
+| 150 | …对阈值)` 的 5 行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，max-min = 0.0264 \| 0.0264… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
+| 150 | …行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657，max-min = 0.0264 \| 0.0264 \| 一致 \| | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
+| 151 | \| 附录D 迁移表 · 极差区间 \| -0.6633 ~ -0.6897 \| 同上 5 值的实际最小/最大 \| -0.6897 ~ -0.663… | `-0.6633 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
+| 151 | \| 附录D 迁移表 · 极差区间 \| -0.6633 ~ -0.6897 \| 同上 5 值的实际最小/最大 \| -0.6897 ~ -0.6633 \| 一致 \| | `-0.6897 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
+| 151 | \| 附录D 迁移表 · 极差区间 \| -0.6633 ~ -0.6897 \| 同上 5 值的实际最小/最大 \| -0.6897 ~ -0.6633 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 152 | \| 附录D 迁移表 · 中文 α → 英文 检出意图数（正向） \| 0 / 77 \| `standardize/results_xfer_banking77_en… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 152 | \| 附录D 迁移表 · 中文 α → 英文 检出意图数（正向） \| 0 / 77 \| `standardize/results_xfer_banking77_en.csv`… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 152 | …s_xfer_banking77_en.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`）列 `检出意图数` \| 0 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 153 | \| 附录D 迁移表 · 中文 α → 英文 P（正向） \| 0.0000 \| 同上列 `P` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 153 | …录D 迁移表 · 中文 α → 英文 P（正向） \| 0.0000 \| 同上列 `P` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 154 | \| 附录D 迁移表 · 中文 α → 英文 R（正向） \| 0.0000 \| 同上列 `R` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 154 | …录D 迁移表 · 中文 α → 英文 R（正向） \| 0.0000 \| 同上列 `R` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 155 | \| 附录D 迁移表 · 中文 α → 英文 F1（正向） \| 0.0000 \| 同上列 `F1` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 155 | …迁移表 · 中文 α → 英文 F1（正向） \| 0.0000 \| 同上列 `F1` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 156 | \| 附录D 迁移表 · 中文 α → 英文 检出意图数（反向） \| 77 / 77 全判为缺口 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 156 | …反向） \| 77 / 77 全判为缺口 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）列 `检出意图数` \| 77 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 157 | \| 附录D 迁移表 · 中文 α → 英文 P（反向） \| 0.1948 \| 同上列 `P` \| 0.1948 \| 一致 \| | `0.1948 (×2)` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
+| 158 | \| 附录D 迁移表 · 中文 α → 英文 R（反向） \| 1.0000 \| 同上列 `R` \| 1.0 \| 一致 \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 158 | …录D 迁移表 · 中文 α → 英文 R（反向） \| 1.0000 \| 同上列 `R` \| 1.0 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 159 | \| 附录D 迁移表 · 中文 α → 英文 F1（反向） \| 0.3261 \| 同上列 `F1` \| 0.3261 \| 一致 \| | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 160 | \| 附录D 迁移表 · 中文 α → 英文 该场景最优 F1 \| 0.8148 \| 同上列 `该场景最优F1` \| 0.8148 \| 一致 \| | `0.8148 (×2)` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
+| 161 | \| 附录D 迁移表 · 中文 α → 中文 检出意图数（正向） \| 0 / 77 \| `standardize/results_xfer_banking77_zh… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 161 | \| 附录D 迁移表 · 中文 α → 中文 检出意图数（正向） \| 0 / 77 \| `standardize/results_xfer_banking77_zh.csv`… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 161 | …s_xfer_banking77_zh.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`）`检出意图数` \| 0 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 162 | \| 附录D 迁移表 · 中文 α → 中文 P（正向） \| 0.0000 \| 同上列 `P` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 162 | …录D 迁移表 · 中文 α → 中文 P（正向） \| 0.0000 \| 同上列 `P` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 163 | \| 附录D 迁移表 · 中文 α → 中文 R（正向） \| 0.0000 \| 同上列 `R` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 163 | …录D 迁移表 · 中文 α → 中文 R（正向） \| 0.0000 \| 同上列 `R` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 164 | \| 附录D 迁移表 · 中文 α → 中文 F1（正向） \| 0.0000 \| 同上列 `F1` \| 0.0 \| 一致 \| | `0.0000` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 164 | …迁移表 · 中文 α → 中文 F1（正向） \| 0.0000 \| 同上列 `F1` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 165 | \| 附录D 迁移表 · 中文 α → 中文 检出意图数（反向） \| 77 / 77 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 165 | …检出意图数（反向） \| 77 / 77 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`）`检出意图数` \| 77 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 166 | \| 附录D 迁移表 · 中文 α → 中文 P（反向） \| 0.1948 \| 同上列 `P` \| 0.1948 \| 一致 \| | `0.1948 (×2)` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
+| 167 | \| 附录D 迁移表 · 中文 α → 中文 R（反向） \| 1.0000 \| 同上列 `R` \| 1.0 \| 一致 \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 167 | …录D 迁移表 · 中文 α → 中文 R（反向） \| 1.0000 \| 同上列 `R` \| 1.0 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 168 | \| 附录D 迁移表 · 中文 α → 中文 F1（反向） \| 0.3261 \| 同上列 `F1` \| 0.3261 \| 一致 \| | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 169 | \| 附录D 迁移表 · 中文 α → 中文 该场景最优 F1 \| 0.6207 \| 同上列 `该场景最优F1` \| 0.6207 \| 一致 \| | `0.6207 (×2)` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
+| 170 | …· banking77（bge-small-en-v1.5）最优阈值 \| cover ≤ 0.8495 \| `results_banking77_en.csv` `方法=ABS(绝对阈值), 列… | `0.8495 (×2)` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
+| 170 | …ts_banking77_en.csv` `方法=ABS(绝对阈值), 列=最优阈值` = -0.8495（余弦取负号后换算） \| -0.8495 → cover ≤ 0.8495 \| 一致（符号换… | `-0.8495 (×2)` | `derived_metrics.csv:banking77_en.abs_best_threshold_raw` | `-0.8495` |
+| 170 | …号后换算） \| -0.8495 → cover ≤ 0.8495 \| 一致（符号换算，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 171 | \| 附录D 迁移表 · 全量 → KB 减半 S1/S2（en） \| 检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.947… | `19 (×2)` | `dup_groups_best.csv:group[row=19][0]` | `19` |
+| 171 | \| 附录D 迁移表 · 全量 → KB 减半 S1/S2（en） \| 检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.9474 \| `resu… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 171 | …迁移表 · 全量 → KB 减半 S1/S2（en） \| 检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.9474 \| `results_xfer_… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 171 | …KB 减半 S1/S2（en） \| 检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.9474 \| `results_xfer_banking77_… | `0.5846 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
+| 171 | …检出 19、P 1.0000、R 0.4130、F1 0.5846；目标场景自身最优 F1 0.9474 \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `… | `0.9474 (×2)` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
+| 171 | …F1 0.9474 \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `检出意图数`/`P`/`R`/`F1` 与 `该场景最优F1` \| 19、1… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 171 | …0.9474 \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `检出意图数`/`P`/`R`/`F1` 与 `该场景最优F1` \| 19、1.0… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 171 | …3、4 数据行 `检出意图数`/`P`/`R`/`F1` 与 `该场景最优F1` \| 19、1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 171 | …数据行 `检出意图数`/`P`/`R`/`F1` 与 `该场景最优F1` \| 19、1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `0.413` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 172 | \| 附录D 迁移表 · 全量 → KB 减半 S1（zh） \| F1 0.4918（目标场景自身最优 F1 0.8293） \| `results_xfer_banking77… | `0.4918 (×2)` | `standardize/results_xfer_banking77_zh.csv:F1[row=3][0]` | `0.4918` |
+| 172 | …表 · 全量 → KB 减半 S1（zh） \| F1 0.4918（目标场景自身最优 F1 0.8293） \| `results_xfer_banking77_zh.csv` 第 3 数据行 `F… | `0.8293 (×2)` | `standardize/results_banking77_zh.csv:F1[row=9][0]` | `0.8293` |
+| 173 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standar… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 173 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
+| 173 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario_meta… | `75 (×2)` | `standardize/scenario_meta.json:n_docs.beta` | `75` |
+| 173 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario_meta.json`… | `180 (×2)` | `standardize/scenario_meta.json:n_docs.gamma` | `180` |
+| 173 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario_meta.json` → `n… | `48 (×2)` | `standardize/scenario_meta.json:n_docs.gamma-X` | `48` |
+| 173 | \| 附录D 迁移表 · 5 场景文档规模 \| 300 / 75 / 180 / 48 / 600 \| `standardize/scenario_meta.json` → `n_docs`… | `600 (×2)` | `standardize/scenario_meta.json:n_docs.delta` | `600` |
+| 179 | \| 附录D cover 分布 · 中文合成 α \| min 0.5629 / mean 0.6891 / max 0.8294 / sd 0.0529 \| `sta… | `0.5629 (×2)` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
+| 179 | \| 附录D cover 分布 · 中文合成 α \| min 0.5629 / mean 0.6891 / max 0.8294 / sd 0.0529 \| `standardize/scena… | `0.6891 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
+| 179 | …分布 · 中文合成 α \| min 0.5629 / mean 0.6891 / max 0.8294 / sd 0.0529 \| `standardize/scenario_meta.json… | `0.8294 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
+| 179 | …\| min 0.5629 / mean 0.6891 / max 0.8294 / sd 0.0529 \| `standardize/scenario_meta.json` → `cover_s… | `0.0529 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.sd` | `0.0529` |
+| 180 | \| 附录D cover 分布 · banking77 bge-en \| 0.6547 / 0.8797 / 0.9973 / 0.0578 \| `standardize/ban… | `0.6547 (×2)` | `standardize/banking77_meta.json:cover.min` | `0.6547` |
+| 180 | \| 附录D cover 分布 · banking77 bge-en \| 0.6547 / 0.8797 / 0.9973 / 0.0578 \| `standardize/banking77_me… | `0.8797 (×2)` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
+| 180 | …ver 分布 · banking77 bge-en \| 0.6547 / 0.8797 / 0.9973 / 0.0578 \| `standardize/banking77_meta_en.jso… | `0.9973 (×2)` | `standardize/banking77_meta.json:cover.max` | `0.9973` |
+| 180 | …banking77 bge-en \| 0.6547 / 0.8797 / 0.9973 / 0.0578 \| `standardize/banking77_meta_en.json` → `cov… | `0.0578 (×2)` | `standardize/banking77_meta.json:cover.sd` | `0.0578` |
+| 181 | \| 附录D cover 分布 · banking77 bge-zh \| 0.6014 / 0.8386 / 0.9874 / 0.0544 \| `standardize/ban… | `0.6014 (×2)` | `standardize/banking77_meta_zh.json:cover.min` | `0.6014` |
+| 181 | \| 附录D cover 分布 · banking77 bge-zh \| 0.6014 / 0.8386 / 0.9874 / 0.0544 \| `standardize/banking77_me… | `0.8386 (×2)` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
+| 181 | …ver 分布 · banking77 bge-zh \| 0.6014 / 0.8386 / 0.9874 / 0.0544 \| `standardize/banking77_meta_zh.jso… | `0.9874 (×2)` | `standardize/banking77_meta_zh.json:cover.max` | `0.9874` |
+| 181 | …banking77 bge-zh \| 0.6014 / 0.8386 / 0.9874 / 0.0544 \| `standardize/banking77_meta_zh.json` → `cov… | `0.0544 (×2)` | `standardize/banking77_meta_zh.json:cover.sd` | `0.0544` |
+| 187 | \| 附录D 负结果 · ABS -max α/β/γ/γ-X \| 0.9680 / 0.8075 / 0.9022 / 0.9135 \| `standardize/res… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 187 | \| 附录D 负结果 · ABS -max α/β/γ/γ-X \| 0.9680 / 0.8075 / 0.9022 / 0.9135 \| `standardize/results_dire… | `0.8075 (×2)` | `standardize/ablation.csv:alpha_AUC[row=17][0]` | `0.8075` |
+| 187 | …负结果 · ABS -max α/β/γ/γ-X \| 0.9680 / 0.8075 / 0.9022 / 0.9135 \| `standardize/results_directions.cs… | `0.9022 (×2)` | `standardize/ablation.csv:alpha_AUC[row=18][0]` | `0.9022` |
+| 187 | …S -max α/β/γ/γ-X \| 0.9680 / 0.8075 / 0.9022 / 0.9135 \| `standardize/results_directions.csv` `方向=AB… | `0.9135 (×2)` | `standardize/ablation.csv:alpha_AUC[row=19][0]` | `0.9135` |
+| 187 | …tions.csv` `方向=ABS -max (基线)` 四个场景的 `AUC` 列 \| 0.968 / 0.8075 / 0.9022 / 0.9135 \| 一致（四舍五入，见 §3） \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 187 | …0.968 / 0.8075 / 0.9022 / 0.9135 \| 一致（四舍五入，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 188 | \| 附录D 负结果 · ABS 跨场景阈值极差 \| 0.0264 \| `results_auc.csv` ABS 5 场景 `召回全部门槛的阈值` 极差（与… | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 188 | …ABS 跨场景阈值极差 \| 0.0264 \| `results_auc.csv` ABS 5 场景 `召回全部门槛的阈值` 极差（与上同源） \| 0.0264 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 189 | \| 附录D 负结果 · A1 四场景 AUC \| 0.0960 / 0.1615 / 0.1400 / 0.3173 \| `results_directi… | `0.0960` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
+| 189 | \| 附录D 负结果 · A1 四场景 AUC \| 0.0960 / 0.1615 / 0.1400 / 0.3173 \| `results_directions.csv`… | `0.1615 (×2)` | `standardize/results_directions.csv:AUC[row=9][0]` | `0.1615` |
+| 189 | \| 附录D 负结果 · A1 四场景 AUC \| 0.0960 / 0.1615 / 0.1400 / 0.3173 \| `results_directions.csv` `方向=A1 (t… | `0.1400` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
+| 189 | …负结果 · A1 四场景 AUC \| 0.0960 / 0.1615 / 0.1400 / 0.3173 \| `results_directions.csv` `方向=A1 (top5-mean)… | `0.3173 (×2)` | `standardize/results_directions.csv:AUC[row=23][0]` | `0.3173` |
+| 189 | …rections.csv` `方向=A1 (top5-mean)/(max-min)` \| 0.096 / 0.1615 / 0.14 / 0.3173 \| 一致（四舍五入） \| | `0.096` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
+| 189 | …=A1 (top5-mean)/(max-min)` \| 0.096 / 0.1615 / 0.14 / 0.3173 \| 一致（四舍五入） \| | `0.14` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
+| 190 | \| 附录D 负结果 · A2 四场景 AUC \| 0.1120 / 0.1491 / 0.1444 / 0.2788 \| `results_directi… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 190 | \| 附录D 负结果 · A2 四场景 AUC \| 0.1120 / 0.1491 / 0.1444 / 0.2788 \| `results_directions.csv`… | `0.1491 (×2)` | `standardize/results_directions.csv:AUC[row=10][0]` | `0.1491` |
+| 190 | \| 附录D 负结果 · A2 四场景 AUC \| 0.1120 / 0.1491 / 0.1444 / 0.2788 \| `results_directions.csv` `方向=A2 (m… | `0.1444 (×2)` | `standardize/results_directions.csv:AUC[row=17][0]` | `0.1444` |
+| 190 | …负结果 · A2 四场景 AUC \| 0.1120 / 0.1491 / 0.1444 / 0.2788 \| `results_directions.csv` `方向=A2 (max-top5)/… | `0.2788 (×2)` | `standardize/results_directions.csv:AUC[row=24][0]` | `0.2788` |
+| 190 | …ults_directions.csv` `方向=A2 (max-top5)/max` \| 0.112 / 0.1491 / 0.1444 / 0.2788 \| 一致（四舍五入） \| | `0.112` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 191 | \| 附录D 负结果 · A2 跨场景阈值极差 \| 0.0018 \| `results_directions.csv` `方向=A2 (max-top5)/… | `0.0018 (×4)` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
+| 191 | …ons.csv` `方向=A2 (max-top5)/max` 四行 `召回全部阈值` = 0.0001 / 0.0 / 0.0 / 0.0018，极差 0.0018 \| 0.0018 \| 一致… | `0.0001` | `standardize/results_directions.csv:召回全部阈值[row=3][0]` | `0.0001` |
+| 192 | \| 附录D 负结果 · A4 四场景 AUC \| 0.9200 / 0.8509 / 0.8644 / 0.7981 \| `results_directi… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 192 | \| 附录D 负结果 · A4 四场景 AUC \| 0.9200 / 0.8509 / 0.8644 / 0.7981 \| `results_directions.csv`… | `0.8509 (×2)` | `standardize/results_directions.csv:AUC[row=12][0]` | `0.8509` |
+| 192 | \| 附录D 负结果 · A4 四场景 AUC \| 0.9200 / 0.8509 / 0.8644 / 0.7981 \| `results_directions.csv` `方向=A4 st… | `0.8644 (×2)` | `standardize/results_directions.csv:AUC[row=19][0]` | `0.8644` |
+| 192 | …负结果 · A4 四场景 AUC \| 0.9200 / 0.8509 / 0.8644 / 0.7981 \| `results_directions.csv` `方向=A4 stop5-max`… | `0.7981 (×2)` | `standardize/results_directions.csv:AUC[row=26][0]` | `0.7981` |
+| 192 | …`results_directions.csv` `方向=A4 stop5-max` \| 0.92 / 0.8509 / 0.8644 / 0.7981 \| 一致（四舍五入） \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 193 | \| 附录D 负结果 · B 四场景 AUC \| 0.8160 / 0.6273 / 0.6422 / 0.7500 \| `results_directi… | `0.8160` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
+| 193 | \| 附录D 负结果 · B 四场景 AUC \| 0.8160 / 0.6273 / 0.6422 / 0.7500 \| `results_directions.csv`… | `0.6273 (×2)` | `standardize/results_directions.csv:AUC[row=13][0]` | `0.6273` |
+| 193 | \| 附录D 负结果 · B 四场景 AUC \| 0.8160 / 0.6273 / 0.6422 / 0.7500 \| `results_directions.csv` `方向=B 双向中… | `0.6422 (×2)` | `standardize/results_directions.csv:AUC[row=20][0]` | `0.6422` |
+| 193 | …负结果 · B 四场景 AUC \| 0.8160 / 0.6273 / 0.6422 / 0.7500 \| `results_directions.csv` `方向=B 双向中心化 max-pr… | `0.7500` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
+| 193 | …ults_directions.csv` `方向=B 双向中心化 max-prior` \| 0.816 / 0.6273 / 0.6422 / 0.75 \| 一致（四舍五入） \| | `0.816` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
+| 193 | …双向中心化 max-prior` \| 0.816 / 0.6273 / 0.6422 / 0.75 \| 一致（四舍五入） \| | `0.75` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
+| 194 | \| 附录D 负结果 · B+ 四场景 AUC \| 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directi… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 194 | \| 附录D 负结果 · B+ 四场景 AUC \| 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv`… | `0.5031 (×2)` | `standardize/results_directions.csv:AUC[row=14][0]` | `0.5031` |
+| 194 | \| 附录D 负结果 · B+ 四场景 AUC \| 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv` `方向=B+ to… | `0.3378 (×2)` | `standardize/results_directions.csv:AUC[row=21][0]` | `0.3378` |
+| 194 | …负结果 · B+ 四场景 AUC \| 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv` `方向=B+ top5 双向中心化`… | `0.7115 (×2)` | `standardize/results_directions.csv:AUC[row=28][0]` | `0.7115` |
+| 194 | …`results_directions.csv` `方向=B+ top5 双向中心化` \| 0.496 / 0.5031 / 0.3378 / 0.7115 \| 一致（四舍五入） \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 202 | …amma / gamma-X 四场景 `方法=ABS(绝对阈值)` 的 `best_F1`（0.8889 / 0.625 / 0.8387 / 0.963）样本标准差（n-1），场景集合与 `re… | `0.8889` | `standardize/ablation.csv:alpha_F1[row=1][0]` | `0.8889` |
+| 202 | …mma-X 四场景 `方法=ABS(绝对阈值)` 的 `best_F1`（0.8889 / 0.625 / 0.8387 / 0.963）样本标准差（n-1），场景集合与 `results_di… | `0.625` | `standardize/ablation.csv:alpha_F1[row=17][0]` | `0.625` |
+| 202 | …景 `方法=ABS(绝对阈值)` 的 `best_F1`（0.8889 / 0.625 / 0.8387 / 0.963）样本标准差（n-1），场景集合与 `results_directionC.… | `0.8387` | `standardize/ablation.csv:alpha_F1[row=18][0]` | `0.8387` |
+| 202 | …(绝对阈值)` 的 `best_F1`（0.8889 / 0.625 / 0.8387 / 0.963）样本标准差（n-1），场景集合与 `results_directionC.csv` 的 4… | `0.963` | `standardize/ablation.csv:alpha_F1[row=19][0]` | `0.963` |
+| 202 | …3）样本标准差（n-1），场景集合与 `results_directionC.csv` 的 4 行一致 \| 0.1452 \| 一致（推算，口径已在文档中声明） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 203 | \| 附录D 方向 C · ABS 平均 F1 \| 0.8289 \| `results_auc.csv` `方法=ABS(绝对阈值)` 四场景 `best_… | `0.8289 (×3)` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
+| 203 | …results_auc.csv` `方法=ABS(绝对阈值)` 四场景 `best_F1`（0.8889/0.625/0.8387/0.963）均值 = 0.8289 \| 0.8289 \| 一致… | `0.8889` | `standardize/ablation.csv:alpha_F1[row=1][0]` | `0.8889` |
+| 203 | …_auc.csv` `方法=ABS(绝对阈值)` 四场景 `best_F1`（0.8889/0.625/0.8387/0.963）均值 = 0.8289 \| 0.8289 \| 一致 \| | `0.625` | `standardize/ablation.csv:alpha_F1[row=17][0]` | `0.625` |
+| 203 | …sv` `方法=ABS(绝对阈值)` 四场景 `best_F1`（0.8889/0.625/0.8387/0.963）均值 = 0.8289 \| 0.8289 \| 一致 \| | `0.8387` | `standardize/ablation.csv:alpha_F1[row=18][0]` | `0.8387` |
+| 203 | …=ABS(绝对阈值)` 四场景 `best_F1`（0.8889/0.625/0.8387/0.963）均值 = 0.8289 \| 0.8289 \| 一致 \| | `0.963` | `standardize/ablation.csv:alpha_F1[row=19][0]` | `0.963` |
+| 204 | \| 附录D 方向 C · 固定 25% 检出比例标准差 \| 0.0873 \| `results_directionC.csv`… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 204 | …esults_directionC.csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.0873 \| 0.0873 \| 一… | `0.6667` | `metrics.json:gap.cluster_rows[6].f1` | `0.6667` |
+| 204 | …ctionC.csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.0873 \| 0.0873 \| 一致 \| | `0.5714` | `metrics.json:gap.cluster_rows[3].f1` | `0.5714` |
+| 204 | …csv` `固定检出比例=0.25` 四场景 `F1`（0.6667/0.5/0.5714/0.4706）样本标准差 = 0.0873 \| 0.0873 \| 一致 \| | `0.4706` | `standardize/results_directionC.csv:F1[row=19][0]` | `0.4706` |
+| 205 | \| 附录D 方向 C · 固定 25% 平均 F1 \| 0.5522 \| 同上四值均值 = 0.552175 \| 0.5522… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 205 | \| 附录D 方向 C · 固定 25% 平均 F1 \| 0.5522 \| 同上四值均值 = 0.552175 \| 0.5522 \| 一致（四舍五入） \| | `0.552175` | `derived_metrics.csv:directionC.fixed25_mean_f1_4scenario` | `0.552175` |
+| 206 | \| 附录D 方向 C · 稳 40% \| 40% \| 由 (0.1452 - 0.0873) / 0.1452 = 39.9%… | `40 (×2)` | `gap_threshold.csv:recall[row=15][0]` | `0.4` |
+| 206 | …稳 40% \| 40% \| 由 (0.1452 - 0.0873) / 0.1452 = 39.9% 推得 \| 39.9% \| 一致（推算） \| | `39.9 (×2)` | `derived_metrics.csv:directionC.sd_reduction_ratio_fixed25` | `0.398805` |
+| 207 | \| 附录D 方向 C · 牺牲 33% \| 33% \| 由 (0.8289 - 0.5522) / 0.8289 = 33.4%… | `33 (×2)` | `standardize/results_xfer_banking77_zh.csv:检出意图数[row=5][0]` | `33` |
+| 207 | \| 附录D 方向 C · 牺牲 33% \| 33% \| 由 (0.8289 - 0.5522) / 0.8289 = 33.4% 推得 \| 33.4% \| 一致（推算… | `0.8289 (×2)` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
+| 207 | …牺牲 33% \| 33% \| 由 (0.8289 - 0.5522) / 0.8289 = 33.4% 推得 \| 33.4% \| 一致（推算） \| | `33.4 (×2)` | `derived_metrics.csv:directionC.mean_f1_sacrifice_ratio_fixed25` | `0.333846` |
+| 213 | \| §1.3 贡献 1 \| 整篇级 AUC 0.8880 \| `granularity.csv` `doc_lev… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 213 | \| §1.3 贡献 1 \| 整篇级 AUC 0.8880 \| `granularity.csv` `doc_level, max-cosine` 行… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 213 | …oc_level, max-cosine` 行 `auc_intent_median` \| 0.888 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 214 | \| §1.3 贡献 1 \| 段落级 AUC 0.968 \| `results_auc.csv` `alpha/AB… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 214 | \| §1.3 贡献 1 \| 段落级 AUC 0.968 \| `results_auc.csv` `alpha/ABS` `AUC`；`granul… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 215 | \| §1.3 贡献 1 \| 工单级 AUC 0.8307 → 0.8659 \| `granularity.csv`… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 215 | \| §1.3 贡献 1 \| 工单级 AUC 0.8307 → 0.8659 \| `granularity.csv` `max-cosine` 两行… | `0.8307 (×2)` | `granularity.csv:auc[row=1][0]` | `0.8307` |
+| 215 | \| §1.3 贡献 1 \| 工单级 AUC 0.8307 → 0.8659 \| `granularity.csv` `max-cosine` 两行 `列=auc` \|… | `0.8659 (×2)` | `granularity.csv:auc[row=6][0]` | `0.8659` |
+| 216 | \| §1.3 贡献 1 \| 失败归一化 AUC 0.496–0.920 \| `granularity.csv` 三… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 216 | \| §1.3 贡献 1 \| 失败归一化 AUC 0.496–0.920 \| `granularity.csv` 三种变换在两种粒度下的 `auc_in… | `0.496 (×2)` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 216 | \| §1.3 贡献 1 \| 失败归一化 AUC 0.496–0.920 \| `granularity.csv` 三种变换在两种粒度下的 `auc_intent_m… | `0.920` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 216 | …sv` 三种变换在两种粒度下的 `auc_intent_median` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.704` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
+| 216 | …在两种粒度下的 `auc_intent_median` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
+| 216 | …`auc_intent_median` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.832` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
+| 216 | …ent_median` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 216 | …an` \| 0.496 / 0.704 / 0.776 / 0.832 / 0.888 / 0.92 \| 一致 \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 217 | \| §1.3 贡献 2 \| 缺口 F1 = 0.800 \| `metrics.json` → `gap.best.… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 217 | \| §1.3 贡献 2 \| 缺口 F1 = 0.800 \| `metrics.json` → `gap.best.f1` \| 0.8 \| 一致 \| | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
+| 217 | …F1 = 0.800 \| `metrics.json` → `gap.best.f1` \| 0.8 \| 一致 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 218 | \| §1.3 贡献 2 \| 腐化 F1 = 0.9466 \| `metrics.json` → `corrupt.… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 218 | \| §1.3 贡献 2 \| 腐化 F1 = 0.9466 \| `metrics.json` → `corrupt.f1` \| 0.9466 \| 一致… | `0.9466 (×2)` | `metrics.json:corrupt.f1` | `0.9466` |
+| 219 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshold.csv… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 219 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshold.csv` `thresho… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 219 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshold.csv` `threshold=0.9, group_f… | `0.7037 (×2)` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 219 | …F1 = 0.7037 \| `dup_threshold.csv` `threshold=0.9, group_f1` \| 0.7037 \| 一致 \| | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 220 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshold.csv… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 220 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshold.csv` `thresho… | `0.95 (×2)` | `metrics.json:dup.rows[2].threshold` | `0.95` |
+| 220 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshold.csv` `threshold=0.95, group_… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 220 | …p_threshold.csv` `threshold=0.95, group_f1` \| 1.0 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 221 | \| §1.3 贡献 2 \| 三模块合计 3.09 秒 \| `metrics.json` → `total_seco… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 221 | \| §1.3 贡献 2 \| 三模块合计 3.09 秒 \| `metrics.json` → `total_seconds` \| 3.09 \|… | `3.09 (×2)` | `metrics.json:total_seconds` | `3.09` |
+| 222 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.csv` `s… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 222 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.csv` `spearman_与cover`（ABS/S1/S2… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 222 | …hanism.csv` `spearman_与cover`（ABS/S1/S2 三行） \| -1.0 \| 一致（精度） \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 223 | \| §1.3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5 场景阈值… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 223 | \| §1.3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5 场景阈值极差 \| 0.0264 \| 一… | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 223 | …3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5 场景阈值极差 \| 0.0264 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 224 | \| §1.3 贡献 4 \| 中文 0.6463 \| `standardize/ablation.csv` 第 2… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 224 | \| §1.3 贡献 4 \| 中文 0.6463 \| `standardize/ablation.csv` 第 2 数据行 `变体=ABS… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 224 | …/ablation.csv` 第 2 数据行 `变体=ABS 绝对余弦,-cover（基线 0.968）, 列=最优阈值` = -0.6463（符号换算） \| cover ≤ 0.6463 \|… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 224 | …数据行 `变体=ABS 绝对余弦,-cover（基线 0.968）, 列=最优阈值` = -0.6463（符号换算） \| cover ≤ 0.6463 \| 一致（符号换算） \| | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
+| 225 | \| §1.3 贡献 4 \| 正向判定 F1 = 0 \| `results_xfer_banking77_en.cs… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 225 | \| §1.3 贡献 4 \| 正向判定 F1 = 0 \| `results_xfer_banking77_en.csv` 第 1 数据行列 `F… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 225 | …esults_xfer_banking77_en.csv` 第 1 数据行列 `F1` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 226 | \| §1.3 贡献 4 \| 反向判定 77/77 全判为缺口 \| 同文件第 2 数据行 `检出意图数` \| 77… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 226 | \| §1.3 贡献 4 \| 反向判定 77/77 全判为缺口 \| 同文件第 2 数据行 `检出意图数` \| 77 \| 一致 \| | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 227 | \| §1.3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2 数据行列… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 227 | \| §1.3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2 数据行列 `F1` / `该场景最优F1`… | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 227 | \| §1.3 贡献 4 \| 反向判定 F1 0.3261（该场景最优 0.8148） \| 同文件第 2 数据行列 `F1` / `该场景最优F1` \| 0.3261 / 0.… | `0.8148 (×2)` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
+| 228 | \| §1.3 贡献 5 \| 极差 0.0018 \| `results_directions.csv` A2 四场景… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 228 | \| §1.3 贡献 5 \| 极差 0.0018 \| `results_directions.csv` A2 四场景 `召回全部阈值` 极差… | `0.0018 (×2)` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
+| 229 | \| §1.3 贡献 5 \| AUC 0.1120 \| `results_directions.csv` `方向=A… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 229 | \| §1.3 贡献 5 \| AUC 0.1120 \| `results_directions.csv` `方向=A2 (max-top5)/… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 229 | ….csv` `方向=A2 (max-top5)/max, 场景=alpha, AUC` \| 0.112 \| 一致 \| | `0.112` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 231 | \| §2.1 选型表 \| 权重 95.8 MB \| `metrics.json` → `embedding.model_downlo… | `95.8 (×2)` | `metrics.json:embedding.model_download_mb` | `95.8` |
+| 232 | \| §2.1 选型表 \| 512 维 \| `metrics.json` → `embedding.dim` \| 512 \|… | `512 (×2)` | `metrics.json:embedding.dim` | `512` |
+| 233 | \| §2.2 基线偏高 \| min 0.5629 / mean 0.6891 / max 0.8294 \| `scenario_meta.j… | `0.5629` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
+| 233 | \| §2.2 基线偏高 \| min 0.5629 / mean 0.6891 / max 0.8294 \| `scenario_meta.json` → `cover_… | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
+| 233 | \| §2.2 基线偏高 \| min 0.5629 / mean 0.6891 / max 0.8294 \| `scenario_meta.json` → `cover_stats.alpha`（… | `0.8294` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
+| 234 | \| §2.3 不用 KMeans \| 实测 95 个簇（mcs=5） \| `metrics.json` → `gap.clusters.5.… | `95 (×2)` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 234 | \| §2.3 不用 KMeans \| 实测 95 个簇（mcs=5） \| `metrics.json` → `gap.clusters.5.n_cluster… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 235 | \| §2.3 不用 KMeans \| 30 个意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 236 | \| §2.3 不用 KMeans \| mcs=10 噪声 9 条 \| `metrics.json` → `gap.clusters.10.n_… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 236 | \| §2.3 不用 KMeans \| mcs=10 噪声 9 条 \| `metrics.json` → `gap.clusters.10.n_noise… | `9 (×2)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 237 | \| §3.1 技术可行性 \| 生成数据约 1 秒 \| 受审集合内无生成耗时字段 \| — \| 【无出处】 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 238 | \| §3.1 技术可行性 \| 4152 条文本 \| `embedding.n_docs+n_tickets+n_passages`… | `4152 (×2)` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
+| 239 | \| §3.1 技术可行性 \| 向量化 14.61 秒 \| `metrics.json` → `embedding.encode_second… | `14.61 (×2)` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 240 | \| §3.1 技术可行性 \| 三模块 3.09 秒 \| `metrics.json` → `total_seconds` \| 3.09 \|… | `3.09 (×2)` | `metrics.json:total_seconds` | `3.09` |
+| 242 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
+| 242 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_tickets… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 242 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_tickets` 一致；后两… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 243 | \| §3.5 非功能需求 \| 检测环节 3.09 秒 \| `metrics.json` → `total_seconds` \| 3.09 \|… | `3.09 (×2)` | `metrics.json:total_seconds` | `3.09` |
+| 244 | \| §3.5 非功能需求 \| 向量化 14.61 秒 \| `metrics.json` → `embedding.encode_second… | `14.61 (×2)` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 245 | \| §5.1 段落切分动机 \| 300 篇平均 140 字 \| 受审集合内无正文字数字段 \| — \| 【无出处】 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 247 | \| §5.1 段落切分动机 \| 整篇级 AUC 0.8880（工单级 0.8307） \| `granularity.csv` `doc_level, m… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 247 | \| §5.1 段落切分动机 \| 整篇级 AUC 0.8880（工单级 0.8307） \| `granularity.csv` `doc_level, max-cosine`… | `0.8307 (×2)` | `granularity.csv:auc[row=1][0]` | `0.8307` |
+| 247 | …, max-cosine` 行 `auc_intent_median` / `auc` \| 0.888 / 0.8307 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 248 | \| §5.1 段落切分动机 \| 1852 个段落 \| `metrics.json` → `embedding.n_passages`… | `1852 (×2)` | `metrics.json:embedding.n_passages` | `1852` |
+| 249 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入） \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
+| 249 | \| §5.1 段落切分动机 \| 平均每篇 6.2 段 \| 1852/300 = 6.1733 \| 6.1733 \| 一致（四舍五入） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 250 | \| §5.1 段落切分动机 \| 段落级 AUC 0.968 \| `results_auc.csv` `alpha/ABS` `AUC` \| 0.968… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 251 | \| §5.1.3 对照表 \| 段落级 0.968 \| 同上 \| 0.968 \| 一致 \| | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 252 | \| §5.1.3 对照表 \| 整篇级 0.8880 \| `granularity.csv` `doc_level, max-cosine` 行… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 252 | …oc_level, max-cosine` 行 `auc_intent_median` \| 0.888 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 253 | \| §5.1.3 对照表 \| margin 0.9200 / 0.8320 \| `granularity.csv` `max-top5mean` 两… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 253 | \| §5.1.3 对照表 \| margin 0.9200 / 0.8320 \| `granularity.csv` `max-top5mean` 两行 `auc_in… | `0.8320` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
+| 253 | ….csv` `max-top5mean` 两行 `auc_intent_median` \| 0.92 / 0.832 \| 一致 \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 253 | …max-top5mean` 两行 `auc_intent_median` \| 0.92 / 0.832 \| 一致 \| | `0.832` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
+| 254 | \| §5.1.3 对照表 \| max÷std 0.7040 / 0.4960 \| `granularity.csv` `max/std` 两行 `au… | `0.7040` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
+| 254 | \| §5.1.3 对照表 \| max÷std 0.7040 / 0.4960 \| `granularity.csv` `max/std` 两行 `auc_intent_… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 254 | …arity.csv` `max/std` 两行 `auc_intent_median` \| 0.704 / 0.496 \| 一致 \| | `0.704` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
+| 254 | …v` `max/std` 两行 `auc_intent_median` \| 0.704 / 0.496 \| 一致 \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 255 | \| §5.1.3 对照表 \| max÷top5 0.8880 / 0.7760 \| `granularity.csv` `max/top5mean` 两… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 255 | \| §5.1.3 对照表 \| max÷top5 0.8880 / 0.7760 \| `granularity.csv` `max/top5mean` 两行 `auc_in… | `0.7760` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
+| 255 | ….csv` `max/top5mean` 两行 `auc_intent_median` \| 0.888 / 0.776 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 255 | …ax/top5mean` 两行 `auc_intent_median` \| 0.888 / 0.776 \| 一致 \| | `0.776` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
+| 256 | \| §5.1.3 对照表 \| max-min 0.8800 / 0.9280 \| `granularity.csv` `max-min` 两行 `au… | `0.8800` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
+| 256 | \| §5.1.3 对照表 \| max-min 0.8800 / 0.9280 \| `granularity.csv` `max-min` 两行 `auc_intent_… | `0.9280` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
+| 256 | …arity.csv` `max-min` 两行 `auc_intent_median` \| 0.88 / 0.928 \| 一致 \| | `0.88` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
+| 256 | …sv` `max-min` 两行 `auc_intent_median` \| 0.88 / 0.928 \| 一致 \| | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
+| 257 | \| §5.2.1 表 \| mcs=5 簇数 95 \| `metrics.json` → `gap.clusters.5.n_cl… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 257 | \| §5.2.1 表 \| mcs=5 簇数 95 \| `metrics.json` → `gap.clusters.5.n_clusters… | `95 (×2)` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 258 | \| §5.2.1 表 \| mcs=5 噪声 0 \| `metrics.json` → `gap.clusters.5.n_noi… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 258 | \| §5.2.1 表 \| mcs=5 噪声 0 \| `metrics.json` → `gap.clusters.5.n_noise` \|… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 259 | \| §5.2.1 表 \| mcs=5 耗时 ≈1.1 秒（1.18 / 1.07） \| 受审集合内无聚类耗时字段（`run_al… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 260 | \| §5.2.1 表 \| mcs=5 最优 F1 0.800 \| `metrics.json` → `gap.best.f1`；… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 260 | \| §5.2.1 表 \| mcs=5 最优 F1 0.800 \| `metrics.json` → `gap.best.f1`；`gap_thresho… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
+| 260 | …est.f1`；`gap_threshold.csv` `mcs=5, threshold=0.62` 行 `f1` \| 0.8 \| 一致 \| | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 260 | …reshold.csv` `mcs=5, threshold=0.62` 行 `f1` \| 0.8 \| 一致 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 261 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 簇数与噪声… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 261 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 簇数与噪声：`metr… | `88 (×2)` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 261 | \| §5.2.1 表 \| mcs=10 簇数 88 / 噪声 9 / 耗时 ≈1.2 秒（1.03 / 1.28） \| 簇数与噪声：`metrics.jso… | `9 (×2)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 262 | \| §5.2.1 表 \| mcs=10 最优 F1 0.800 \| `gap_threshold.csv` `mcs=10, th… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 262 | \| §5.2.1 表 \| mcs=10 最优 F1 0.800 \| `gap_threshold.csv` `mcs=10, threshold=0.62… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
+| 262 | ….800 \| `gap_threshold.csv` `mcs=10, threshold=0.62` 行 `f1` \| 0.8 \| 一致 \| | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 262 | …eshold.csv` `mcs=10, threshold=0.62` 行 `f1` \| 0.8 \| 一致 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 263 | \| §5.2.6 复杂度表 \| HDBSCAN 约 1 秒级（1.18 / 1.07 / 1.03 / 1.28 秒） \| 受审集合内无聚类耗时字… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 264 | \| §5.2.6 复杂度表 \| 簇数 C = 95 \| `metrics.json` → `gap.clusters.5.n_clusters… | `95 (×2)` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 265 | \| §5.2.7 局限 \| 95 簇 > 30 意图 \| 簇数：`metrics.json` → `gap.clusters… | `95 (×3)` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 265 | \| §5.2.7 局限 \| 95 簇 > 30 意图 \| 簇数：`metrics.json` → `gap.clusters.5.n_cl… | `30 (×2)` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 266 | \| §5.2.7 局限 \| Top15「社保转移办理」出现 3 次 \| `poc/kbgovernance/top15_gaps.csv` `rank`… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 266 | …次 \| `poc/kbgovernance/top15_gaps.csv` `rank` 5 / 6 / 9 三行 `intent=社保转移办理` \| 3 次 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 266 | …`poc/kbgovernance/top15_gaps.csv` `rank` 5 / 6 / 9 三行 `intent=社保转移办理` \| 3 次 \| 一致 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 266 | …c/kbgovernance/top15_gaps.csv` `rank` 5 / 6 / 9 三行 `intent=社保转移办理` \| 3 次 \| 一致 \| | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 267 | \| §5.2.7 局限 \| 按意图去重后 F1 = 0.800 \| `metrics.json` → `gap.best.f1` \| 0.8 \| 一致 \| | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
+| 267 | …F1 = 0.800 \| `metrics.json` → `gap.best.f1` \| 0.8 \| 一致 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 268 | \| §5.3 引言块 \| S3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 268 | \| §5.3 引言块 \| S3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 268 | …5.3 引言块 \| S3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.96… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 268 | …3 合成语料 AUC 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.9680 \| `resul… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 268 | …C 1.0000 / 英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.9680 \| `results_auc.cs… | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 268 | …英文 0.4344 / 中文 0.4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.9680 \| `results_auc.csv`、`results_ba… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 268 | …4946；ABS 0.9538 / 0.7925；ρ = -1.000000；AUC 恒等 0.9680 \| `results_auc.csv`、`results_banking77_{en,zh… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 269 | \| §5.3.2 表 · ABS \| 0.9680 / 0.9538 / 0.7925 \| `results_auc.csv` α·ABS；`… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 269 | \| §5.3.2 表 · ABS \| 0.9680 / 0.9538 / 0.7925 \| `results_auc.csv` α·ABS；`results_b… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 269 | \| §5.3.2 表 · ABS \| 0.9680 / 0.9538 / 0.7925 \| `results_auc.csv` α·ABS；`results_banking77_… | `0.7925 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 269 | …`results_banking77_{en,zh}.csv` `ABS(绝对阈值)` \| 0.968 / 0.9538 / 0.7925 \| 一致 \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 270 | \| §5.3.2 表 · S3 \| 1.0000 / 0.4344 / 0.4946 \| 三文件 `S3 领域内z` \| 同值 \| 一致 \| | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 270 | \| §5.3.2 表 · S3 \| 1.0000 / 0.4344 / 0.4946 \| 三文件 `S3 领域内z` \| 同值 \| 一致 \| | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 270 | \| §5.3.2 表 · S3 \| 1.0000 / 0.4344 / 0.4946 \| 三文件 `S3 领域内z` \| 同值 \| 一致 \| | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 271 | \| §5.3.2 表 · S3b \| 英文 0.4860 / 中文 0.4962 \| `results_banking77_{en,zh}.csv`… | `0.4860` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
+| 271 | \| §5.3.2 表 · S3b \| 英文 0.4860 / 中文 0.4962 \| `results_banking77_{en,zh}.csv` `S3b 域内分位数`… | `0.4962 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=5][0]` | `0.4962` |
+| 271 | …`results_banking77_{en,zh}.csv` `S3b 域内分位数` \| 0.486 / 0.4962 \| 一致（四舍五入） \| | `0.486` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
+| 272 | \| §5.3.2 表 · S4 \| 0.9840 / 0.5538 / 0.5441 \| 三文件 `S4 双参考系(域)` \| 0.984… | `0.9840` | `dup_groups_best.csv:max_sim[row=5][0]` | `0.984` |
+| 272 | \| §5.3.2 表 · S4 \| 0.9840 / 0.5538 / 0.5441 \| 三文件 `S4 双参考系(域)` \| 0.984 / 0.5538… | `0.5538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=6][0]` | `0.5538` |
+| 272 | \| §5.3.2 表 · S4 \| 0.9840 / 0.5538 / 0.5441 \| 三文件 `S4 双参考系(域)` \| 0.984 / 0.5538 / 0.5441… | `0.5441 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=6][0]` | `0.5441` |
+| 272 | …0.9840 / 0.5538 / 0.5441 \| 三文件 `S4 双参考系(域)` \| 0.984 / 0.5538 / 0.5441 \| 一致 \| | `0.984` | `dup_groups_best.csv:max_sim[row=5][0]` | `0.984` |
+| 273 | \| §5.3.2 表 · S5 \| 1.0000 / 0.7516 / 0.6387 \| 三文件 `S5 双参考系均值` \| 1.0 / 0… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 273 | \| §5.3.2 表 · S5 \| 1.0000 / 0.7516 / 0.6387 \| 三文件 `S5 双参考系均值` \| 1.0 / 0.7516 / 0… | `0.7516 (×2)` | `standardize/results_banking77_en.csv:AUC[row=8][0]` | `0.7516` |
+| 273 | \| §5.3.2 表 · S5 \| 1.0000 / 0.7516 / 0.6387 \| 三文件 `S5 双参考系均值` \| 1.0 / 0.7516 / 0.6387 \| 一… | `0.6387 (×2)` | `standardize/results_banking77_zh.csv:AUC[row=8][0]` | `0.6387` |
+| 274 | \| §5.3.2 表 · S1 / S2 \| 0.9680 / 0.9538 / 0.7925 \| 三文件 `S1 分位数排名`、`S2 全局z-sc… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 274 | \| §5.3.2 表 · S1 / S2 \| 0.9680 / 0.9538 / 0.7925 \| 三文件 `S1 分位数排名`、`S2 全局z-score` \| 同值… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 274 | \| §5.3.2 表 · S1 / S2 \| 0.9680 / 0.9538 / 0.7925 \| 三文件 `S1 分位数排名`、`S2 全局z-score` \| 同值 \| 一致 \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 275 | \| §5.3.2 差值 \| S3 在 α 领先基线 0.0320 \| 1.0 - 0.968 \| 0.0320 \| 一致（推算） \| | `0.0320 (×2)` | `derived_metrics.csv:auc.s3_alpha_lead_over_abs_baseline` | `0.032` |
+| 275 | \| §5.3.2 差值 \| S3 在 α 领先基线 0.0320 \| 1.0 - 0.968 \| 0.0320 \| 一致（推算） \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 275 | \| §5.3.2 差值 \| S3 在 α 领先基线 0.0320 \| 1.0 - 0.968 \| 0.0320 \| 一致（推算） \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 276 | \| §5.3.2 差值 \| 英文落后 0.5194 \| 0.9538 - 0.4344 \| 0.5194 \| 一致（推算） \| | `0.5194 (×2)` | `derived_metrics.csv:auc.s3_banking77_en_lag_over_abs_baseline` | `0.5194` |
+| 276 | \| §5.3.2 差值 \| 英文落后 0.5194 \| 0.9538 - 0.4344 \| 0.5194 \| 一致（推算） \| | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 276 | \| §5.3.2 差值 \| 英文落后 0.5194 \| 0.9538 - 0.4344 \| 0.5194 \| 一致（推算） \| | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 277 | \| §5.3.2 差值 \| 中文落后 0.2979 \| 0.7925 - 0.4946 \| 0.2979 \| 一致（推算） \| | `0.2979 (×2)` | `derived_metrics.csv:auc.s3_banking77_zh_lag_over_abs_baseline` | `0.2979` |
+| 277 | \| §5.3.2 差值 \| 中文落后 0.2979 \| 0.7925 - 0.4946 \| 0.2979 \| 一致（推算） \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 277 | \| §5.3.2 差值 \| 中文落后 0.2979 \| 0.7925 - 0.4946 \| 0.2979 \| 一致（推算） \| | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 278 | \| §5.3.2 机理 \| α 的 5 个缺口意图分属人事行政/信息技术/财务管理/信息安全 \| 受审集合内无「意图→业务域」映射… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 279 | \| §5.3.2 机理 \| banking77 按 15 个整意图成片缺失 \| `standardize/banking77_meta.json`… | `15 (×2)` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
+| 280 | \| §5.3.2 补充证据 \| ablation.csv S4b α AUC 0.752 / F1 0.4762 \| `standardize/ablation.csv` `变体=… | `0.752 (×2)` | `standardize/ablation.csv:alpha_AUC[row=8][0]` | `0.752` |
+| 280 | ….3.2 补充证据 \| ablation.csv S4b α AUC 0.752 / F1 0.4762 \| `standardize/ablation.csv` `变体=S4 换成意图片` 的… | `0.4762 (×2)` | `metrics.json:gap.cluster_rows[7].f1` | `0.4762` |
+| 281 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.679… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 281 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 \| `re… | `-0.6657 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
+| 281 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 \| `results_auc.… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
+| 281 | \| §5.3.3 边界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 \| `results_auc.csv` `方法=A… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
+| 281 | …界一 \| 5 场景召回全部门槛 -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 \| `results_auc.csv` `方法=ABS(绝对阈值)`… | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
+| 282 | \| §5.3.3 边界一 \| 极差 0.0264 \| 同上 5 值 max-min \| 0.0264 \| 一致 \| | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 282 | \| §5.3.3 边界一 \| 极差 0.0264 \| 同上 5 值 max-min \| 0.0264 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 283 | \| §5.3.3 边界一 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `resul… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 283 | \| §5.3.3 边界一 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_ba… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 283 | ….3.3 边界一 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_banking77_en… | `0.5846 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
+| 283 | …KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行… | `0.9474 (×2)` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
+| 283 | …优 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 283 | …0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.58… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 283 | …_en.csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 283 | …csv` 第 3、4 数据行 `P`/`R`/`F1` 与 `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `0.413` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 284 | \| §5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \|… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 284 | …5.3.3 边界一 \| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \| `derived_metrics.csv` 键 `t… | `0.6633 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_lo` | `0.6633` |
+| 284 | …\| 「按 cover 刻度看，5 个场景的门槛都落在 `cover ≤ 0.6633 ~ 0.6897` 这条窄带里」 \| `derived_metrics.csv` 键 `threshold.… | `0.6897 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_recall_all_cover_band_hi` | `0.6897` |
+| 284 | …ults_auc.csv` `方法=ABS(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算）… | `-0.6657 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
+| 284 | …sv` `方法=ABS(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
+| 284 | …S(绝对阈值)` 五行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633 / 0.6897 \|… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
+| 284 | …行 `召回全部门槛的阈值` = -0.6657 / -0.6633 / -0.6897 / -0.6792 / -0.6657 取负换算） \| 0.6633 / 0.6897 \| 一致 \| | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
+| 285 | \| §5.3.3 边界一 \| 「0.6463 与该窄带不是同一个口径，不能合成同一条区间」 \| 0.6463 出自 `ablation.… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 285 | …」 \| 0.6463 出自 `ablation.csv` ABS 行 `最优阈值`（字面值 -0.6463，cover 刻度换算见 `derived_metrics.csv:threshold.ab… | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
+| 286 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_x… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 286 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_b… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 286 | \| §5.3.3 边界二 表 · 英文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_banking77_… | `0.0000 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 286 | …s_xfer_banking77_en.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0.0 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 286 | ….csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0.0 \| 一致 \| | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 287 | \| §5.3.3 边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \|… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 287 | \| §5.3.3 边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定… | `0.1948 (×2)` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
+| 287 | \| §5.3.3 边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >=… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 287 | …边界二 表 · 英文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >= 0.6463 ->… | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 287 | …（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77… | `0.8148 (×2)` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
+| 287 | …F1 0.3261、最优 0.8148 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1.0、0.3261、0.8148 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 287 | …2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1.0、0.3261、0.8148 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 288 | \| §5.3.3 边界二 表 · 中文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_x… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 288 | \| §5.3.3 边界二 表 · 中文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_b… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 288 | \| §5.3.3 边界二 表 · 中文（正向） \| 0 / 77、P 0.0000、R 0.0000、F1 0.0000 \| `results_xfer_banking77_… | `0.0000 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 288 | …s_xfer_banking77_zh.csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0.0 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 288 | ….csv` 第 1 数据行（`判定=cover <= 0.6463 -> 缺口`） \| 0、0.0、0.0、0.0 \| 一致 \| | `0.0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 289 | \| §5.3.3 边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \|… | `77 (×3)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 289 | \| §5.3.3 边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定… | `0.1948 (×2)` | `standardize/results_banking77_en.csv:P[row=4][0]` | `0.1948` |
+| 289 | \| §5.3.3 边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >=… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 289 | …边界二 表 · 中文（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >= 0.6463 ->… | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 289 | …（反向） \| 77 / 77、P 0.1948、R 1.0000、F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77… | `0.6207 (×2)` | `standardize/results_xfer_banking77_zh.csv:该场景最优F1[row=1][0]` | `0.6207` |
+| 289 | …F1 0.3261、最优 0.6207 \| 同文件第 2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1.0、0.3261、0.6207 \| 一致 \| | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 289 | …2 数据行（`判定=cover >= 0.6463 -> 缺口`） \| 77、0.1948、1.0、0.3261、0.6207 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 290 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9… | `0.5629` | `top15_gaps.csv:cover_median[row=1][0]` | `0.5629` |
+| 290 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0… | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
+| 290 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge… | `0.8294` | `standardize/scenario_meta.json:cover_stats.alpha.max` | `0.8294` |
+| 290 | \| §5.3.3 边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6… | `0.0529` | `standardize/scenario_meta.json:cover_stats.alpha.sd` | `0.0529` |
+| 290 | …边界三 表 \| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9… | `0.6547` | `standardize/banking77_meta.json:cover.min` | `0.6547` |
+| 290 | …\| α 0.5629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0… | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
+| 290 | …629/0.6891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `… | `0.9973` | `standardize/banking77_meta.json:cover.max` | `0.9973` |
+| 290 | …891/0.8294/0.0529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenari… | `0.0578` | `standardize/banking77_meta.json:cover.sd` | `0.0578` |
+| 290 | …529；bge-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenario_meta.json` →… | `0.6014` | `standardize/banking77_meta_zh.json:cover.min` | `0.6014` |
+| 290 | …-en 0.6547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenario_meta.json` → `cover… | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
+| 290 | …547/0.8797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenario_meta.json` → `cover_stats.… | `0.9874` | `standardize/banking77_meta_zh.json:cover.max` | `0.9874` |
+| 290 | …797/0.9973/0.0578；bge-zh 0.6014/0.8386/0.9874/0.0544 \| `scenario_meta.json` → `cover_stats.alpha`；… | `0.0544` | `standardize/banking77_meta_zh.json:cover.sd` | `0.0544` |
+| 291 | \| §5.3.3 边界三 \| 两个 banking77 均值比中文合成高 0.1495–0.1906 \| `scenario_meta.json` → `cover_stats.… | `0.1495 (×2)` | `derived_metrics.csv:cover.banking77_zh_mean_minus_alpha_mean` | `0.1495` |
+| 291 | \| §5.3.3 边界三 \| 两个 banking77 均值比中文合成高 0.1495–0.1906 \| `scenario_meta.json` → `cover_stats.alpha.m… | `0.1906 (×2)` | `derived_metrics.csv:cover.banking77_en_mean_minus_alpha_mean` | `0.1906` |
+| 291 | …_meta_{en,zh}.json` → `cover.mean`（旁注 JSON） \| 0.8797 - 0.6891 = 0.1906；0.8386 - 0.6891 = 0.1495 \|… | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
+| 291 | …,zh}.json` → `cover.mean`（旁注 JSON） \| 0.8797 - 0.6891 = 0.1906；0.8386 - 0.6891 = 0.1495 \| 【无出处】（数值正… | `0.6891 (×2)` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
+| 291 | …ver.mean`（旁注 JSON） \| 0.8797 - 0.6891 = 0.1906；0.8386 - 0.6891 = 0.1495 \| 【无出处】（数值正确，旁注 JSON 不在受审集合… | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
+| 292 | …界三 \| banking77（bge-small-en-v1.5）最优阈值 cover ≤ 0.8495 \| `results_banking77_en.csv` `ABS(绝对阈值), 列=最优… | `0.8495` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
+| 292 | …sults_banking77_en.csv` `ABS(绝对阈值), 列=最优阈值` = -0.8495 \| -0.8495 \| 一致（符号换算） \| | `-0.8495 (×2)` | `derived_metrics.csv:banking77_en.abs_best_threshold_raw` | `-0.8495` |
+| 293 | \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.6463 = 0.2032 \| 0.2032 \|… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 293 | \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.6463 = 0.2032 \| 0.2032 \| 一致（四舍五入） \| | `0.8495` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
+| 293 | …界三 \| 与中文语料 0.6463 相差 0.20 \| 0.8495 - 0.6463 = 0.2032 \| 0.2032 \| 一致（四舍五入） \| | `0.2032 (×2)` | `derived_metrics.csv:banking77_en.cover_scale_gap_vs_zh_alpha` | `0.2032` |
+| 294 | \| §5.3.3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 294 | \| §5.3.3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见… | `0.6463` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 294 | \| §5.3.3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见 `results_a… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 294 | …3 修正论断 \| 极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见 `results_auc.csv`、… | `77 (×2)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 294 | …极差 0.0264 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见 `results_auc.csv`、`ablation.cs… | `0.8148` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
+| 294 | …4 / 中文 0.6463 / 正向 F1 0 / 反向 77/77 / 0.8148 → 0.3261 \| 分别见 `results_auc.csv`、`ablation.csv`、`resul… | `0.3261` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 295 | …3.3 使用边界表 \| banking77 全量 → KB 减半 S1/S2 迁移后 F1 0.5846（精确率 1.0000、召回 0.4130；目标场景自身最优 F1 0.9474） \| `r… | `0.5846 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
+| 295 | …banking77 全量 → KB 减半 S1/S2 迁移后 F1 0.5846（精确率 1.0000、召回 0.4130；目标场景自身最优 F1 0.9474） \| `results_xfer… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 295 | …全量 → KB 减半 S1/S2 迁移后 F1 0.5846（精确率 1.0000、召回 0.4130；目标场景自身最优 F1 0.9474） \| `results_xfer_banking77… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 295 | …移后 F1 0.5846（精确率 1.0000、召回 0.4130；目标场景自身最优 F1 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行… | `0.9474 (×2)` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
+| 295 | …1 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `F1` / `该场景最优F1` \| 0.5846 / 0.9474 \| 一致… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 295 | …0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `F1` / `该场景最优F1` \| 0.5846 / 0.9474 \| 一致 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 296 | \| §5.3.3 使用边界表 \| bge-en 与 bge-zh 均值相差 0.0411 \| `banking77_meta_{en,zh}.json` `cover.mean`（… | `0.0411 (×2)` | `derived_metrics.csv:cover.banking77_en_minus_zh_mean` | `0.0411` |
+| 296 | …nking77_meta_{en,zh}.json` `cover.mean`（旁注） \| 0.8797 - 0.8386 = 0.0411 \| 【无出处】 \| | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
+| 296 | …eta_{en,zh}.json` `cover.mean`（旁注） \| 0.8797 - 0.8386 = 0.0411 \| 【无出处】 \| | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
+| 297 | \| §5.3.3 使用边界表 \| 跨语言迁移正向判定 F1 掉至 0 \| `results_xfer_banking77_en.csv` 第 1 数据行 `F1… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 297 | …results_xfer_banking77_en.csv` 第 1 数据行 `F1` \| 0.0 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 298 | …UC \| `results_directions.csv` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.096 (×2)` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
+| 298 | …results_directions.csv` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.14` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
+| 298 | …ections.csv` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 298 | …ns.csv` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.816` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
+| 298 | …` 对应 `方向` 四行 \| 同值（0.096/0.14/0.096/0.92/0.816/0.496 需补零） \| 一致（四舍五入） \| | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 299 | \| §5.3.4 论断 \| A2 极差 0.0018 / AUC 0.1120 \| `results_directions.csv` A2 四行… | `0.0018 (×2)` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
+| 299 | \| §5.3.4 论断 \| A2 极差 0.0018 / AUC 0.1120 \| `results_directions.csv` A2 四行 \| 0.0018 / 0… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 299 | …0 \| `results_directions.csv` A2 四行 \| 0.0018 / 0.112 \| 一致 \| | `0.112` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 300 | \| §5.3.4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 / 0.1635 \| 由 `results_direc… | `0.1520` | `derived_metrics.csv:directionB.alpha_lag_over_abs_baseline` | `0.152` |
+| 300 | \| §5.3.4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 / 0.1635 \| 由 `results_directions.csv… | `0.1802 (×2)` | `derived_metrics.csv:directionB.beta_lag_over_abs_baseline` | `0.1802` |
+| 300 | \| §5.3.4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 / 0.1635 \| 由 `results_directions.csv` B 行与 AB… | `0.2600` | `derived_metrics.csv:directionB.gamma_lag_over_abs_baseline` | `0.26` |
+| 300 | ….4 负结果 \| B 四场景落后基线 0.1520 / 0.1802 / 0.2600 / 0.1635 \| 由 `results_directions.csv` B 行与 ABS 行相减 \| 0… | `0.1635 (×2)` | `derived_metrics.csv:directionB.gamma-X_lag_over_abs_baseline` | `0.1635` |
+| 300 | …5 \| 由 `results_directions.csv` B 行与 ABS 行相减 \| 0.152 / 0.1802 / 0.26 / 0.1635 \| 一致（推算） \| | `0.152` | `derived_metrics.csv:directionB.alpha_lag_over_abs_baseline` | `0.152` |
+| 300 | …rections.csv` B 行与 ABS 行相减 \| 0.152 / 0.1802 / 0.26 / 0.1635 \| 一致（推算） \| | `0.26` | `derived_metrics.csv:directionB.gamma_lag_over_abs_baseline` | `0.26` |
+| 301 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directi… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 301 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv`… | `0.5031` | `standardize/results_directions.csv:AUC[row=14][0]` | `0.5031` |
+| 301 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv` `方向=B+ to… | `0.3378` | `standardize/results_directions.csv:AUC[row=21][0]` | `0.3378` |
+| 301 | \| §5.3.4 负结果 \| B+ 0.4960 / 0.5031 / 0.3378 / 0.7115 \| `results_directions.csv` `方向=B+ top5 双向中心化`… | `0.7115` | `standardize/results_directions.csv:AUC[row=28][0]` | `0.7115` |
+| 302 | \| §5.3.5 方向 C 表 \| ABS 标准差 0.1452 / 平均 F1 0.8289 \| `results_auc.csv` 四场景（alpha / beta / gamma… | `0.8289 (×2)` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
+| 302 | …本标准差（n-1）与均值，场景集合与 `results_directionC.csv` 的 4 行一致 \| 0.1452 / 0.8289 \| 一致 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 303 | \| §5.3.5 方向 C 表 \| 固定 25% 标准差 0.0873 / 平均 F1 0.5522 \| `results_directi… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 303 | …F1 0.5522 \| `results_directionC.csv` `固定检出比例=0.25` 四场景 `F1` \| 0.0873 / 0.5522 \| 一致（四舍五入） \| | `0.25` | `standardize/results_directionC.csv:固定检出比例[row=4][0]` | `0.25` |
+| 304 | \| §5.3.5 诚实提示 \| 30% 标准差 0.0883 \| `results_directionC.csv` `固定检出比… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 304 | …标准差 0.0883 \| `results_directionC.csv` `固定检出比例=0.3` 四场景 `F1` 样本标准差 \| 0.0883 \| 一致 \| | `0.3` | `metrics.json:gap.cluster_rows[0].threshold` | `0.3` |
+| 305 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1`… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 305 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差… | `15` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
+| 305 | \| §5.3.5 诚实提示 \| 10% / 15% / 18.55% 标准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744… | `18.55` | `derived_metrics.csv:ground_truth.gap_ticket_ratio` | `0.1855` |
+| 305 | …准差 0.20–0.27 \| 同文件三档四场景 `F1` 样本标准差 \| 0.2744 / 0.2023 / 0.2647 \| 一致（四舍五入为区间） \| | `0.2023` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
+| 306 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得… | `40` | `gap_threshold.csv:recall[row=15][0]` | `0.4` |
+| 306 | \| §5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% /… | `33` | `standardize/results_xfer_banking77_zh.csv:检出意图数[row=5][0]` | `33` |
+| 306 | …5.3.5 诚实提示 \| 稳 40% / 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `0.8289` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
+| 306 | …/ 牺牲 33% \| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `39.9` | `derived_metrics.csv:directionC.sd_reduction_ratio_fixed25` | `0.398805` |
+| 306 | …\| 由 0.1452→0.0873、0.8289→0.5522 推得 \| 39.9% / 33.4% \| 一致（推算） \| | `33.4` | `derived_metrics.csv:directionC.mean_f1_sacrifice_ratio_fixed25` | `0.333846` |
+| 307 | \| §5.4 规则表 \| R1 权重 3 / 命中 32 \| `metrics.json` → `corrupt.rule_weig… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 307 | \| §5.4 规则表 \| R1 权重 3 / 命中 32 \| `metrics.json` → `corrupt.rule_weight.R1_正文… | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 308 | \| §5.4 规则表 \| R2 权重 2 / 命中 38 \| 同上 `R2_更新时间超18个月` \| 2 / 38 \| 一致 \| | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 308 | \| §5.4 规则表 \| R2 权重 2 / 命中 38 \| 同上 `R2_更新时间超18个月` \| 2 / 38 \| 一致 \| | `38 (×2)` | `metrics.json:corrupt.rule_hit_counts.R2_更新时间超18个月` | `38` |
+| 308 | \| §5.4 规则表 \| R2 权重 2 / 命中 38 \| 同上 `R2_更新时间超18个月` \| 2 / 38 \| 一致 \| | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
+| 309 | \| §5.4 规则表 \| R3 权重 2 / 命中 32 \| 同上 `R3_正文含绝对过期年份` \| 2 / 32 \| 一致 \| | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 309 | \| §5.4 规则表 \| R3 权重 2 / 命中 32 \| 同上 `R3_正文含绝对过期年份` \| 2 / 32 \| 一致 \| | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 310 | \| §5.4 规则表 \| R4 权重 1 / 命中 88 \| 同上 `R4_同类存在更新文档` \| 1 / 88 \| 一致 \| | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 310 | \| §5.4 规则表 \| R4 权重 1 / 命中 88 \| 同上 `R4_同类存在更新文档` \| 1 / 88 \| 一致 \| | `88 (×2)` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 311 | \| §5.4 判定式 \| riskScore ≥ 3 \| `metrics.json` → `corrupt.score_threshold`… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 312 | \| §5.4 规则工程细节 \| 原始 R4 会让 275/300 篇全部命中 \| 受审集合内无该消融记录 \| — \| 【无出处】 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 313 | \| §5.4 规则工程细节 \| 领先 ≥ 365 天；标题 bigram 包含度 ≥ 0.50 \| 受审集合内无规则参数记录 \| — \| 【无出处】 \| | `0.50` | `metrics.json:gap.cluster_rows[2].threshold` | `0.5` |
+| 314 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metrics.json` →… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
+| 314 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metrics.json` → `cor… | `69` | `metrics.json:corrupt.detected` | `69` |
+| 314 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metrics.json` → `corrupt.embedded`… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 314 | \| §5.4 实测结果 \| 62 / 69 / TP 62 / FP 7 / FN 0 \| `metrics.json` → `corrupt.embedded` / `dete… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 315 | \| §5.4 实测结果 \| 0.8986 / 1.0 / 0.9466 \| `metrics.json` → `corrupt.pr… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
+| 315 | \| §5.4 实测结果 \| 0.8986 / 1.0 / 0.9466 \| `metrics.json` → `corrupt.precision` / `rec… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 316 | \| §5.4 实测结果 \| 耗时 0.4 秒 \| `metrics.json` → `corrupt.seconds` \| 0.4… | `0.4 (×2)` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
+| 317 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈旧 `last_m… | `7 (×4)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 317 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈旧 `last_modified… | `6 (×3)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 317 | …cs.csv` → `fp_reason` 列（6 行 `control_stale` + 1 行 `dup_inherited_stale`），计数见 `metrics.json` →… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 318 | \| §5.4.1 规则消融整表 \| 9 行的 P/R/F1/检出/TP/FP/FN/命中文档数/平均风险分/ΔF1 \| `corr… | `9 (×3)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 319 | \| §5.4.1 论断 \| drop_R3 的 ΔF1 = 0.0（P/R/F1 与 all 逐位相同） \| `corrupt_rule_ablation.c… | `0.0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 320 | …§5.4.1 论断 \| only_R1 与 drop_R2 / drop_R4 逐位相同（0.6809 / 32 / 32 / 0 / 30） \| `corrupt_rule_ablation.… | `0.6809` | `corrupt_rule_ablation.csv:f1[row=3][0]` | `0.6809` |
+| 320 | …断 \| only_R1 与 drop_R2 / drop_R4 逐位相同（0.6809 / 32 / 32 / 0 / 30） \| `corrupt_rule_ablation.csv`… | `32 (×3)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 320 | …1 与 drop_R2 / drop_R4 逐位相同（0.6809 / 32 / 32 / 0 / 30） \| `corrupt_rule_ablation.csv` 三行；成因可由 `… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 320 | …drop_R2 / drop_R4 逐位相同（0.6809 / 32 / 32 / 0 / 30） \| `corrupt_rule_ablation.csv` 三行；成因可由 `corru… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 320 | …cs.csv` 的 `rule_hits` 组合计数复核（R2 仅以 R2+R4 形式出现 37 篇 + 1 篇四规则齐中；R3 的 32 次命中全部含 R1） \| 同值 \| 一致 \| | `37` | `metrics.json:corrupt.score_hist.3` | `37` |
+| 320 | …的 `rule_hits` 组合计数复核（R2 仅以 R2+R4 形式出现 37 篇 + 1 篇四规则齐中；R3 的 32 次命中全部含 R1） \| 同值 \| 一致 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 321 | \| §5.4.1 论断 \| 69 = 32（R1 单独）+ 37（R2∧R4） \| `corrupt_rule_ablati… | `69 (×2)` | `metrics.json:corrupt.detected` | `69` |
+| 321 | \| §5.4.1 论断 \| 69 = 32（R1 单独）+ 37（R2∧R4） \| `corrupt_rule_ablation.cs… | `32 (×3)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 321 | \| §5.4.1 论断 \| 69 = 32（R1 单独）+ 37（R2∧R4） \| `corrupt_rule_ablation.csv` `only_R1… | `37 (×3)` | `metrics.json:corrupt.score_hist.3` | `37` |
+| 321 | …_ablation.csv` `only_R1`（检出 32）与 `drop_R1`（检出 43 = 37 + 6）配合 `corrupt_docs.csv` 的组合计数 \| 32 + 3… | `43` | `corrupt_rule_ablation.csv:detected[row=2][0]` | `43` |
+| 321 | …csv` `only_R1`（检出 32）与 `drop_R1`（检出 43 = 37 + 6）配合 `corrupt_docs.csv` 的组合计数 \| 32 + 37 = 69 \|… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 322 | \| §5.5.1 \| 300×300 余弦矩阵 < 0.01 秒 \| `metrics.json` → `dup.row… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
+| 322 | …秒 \| `metrics.json` → `dup.rows[*].seconds` = 0.0 \| 0.0 \| 一致（进位，见 §3） \| | `0.0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 322 | …`dup.rows[*].seconds` = 0.0 \| 0.0 \| 一致（进位，见 §3） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 323 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.360… | `0.85 (×2)` | `metrics.json:dup.rows[0].threshold` | `0.85` |
+| 323 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
+| 323 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_th… | `223` | `metrics.json:dup.rows[0].detected_docs` | `223` |
+| 323 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_threshold.c… | `0.1739` | `metrics.json:dup.rows[0].group_precision` | `0.1739` |
+| 323 | \| §5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_threshold.csv` `thre… | `0.1818` | `metrics.json:dup.rows[0].group_recall` | `0.1818` |
+| 323 | …5.5.3 表 \| 0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_threshold.csv` `threshold=0.8… | `0.1778` | `metrics.json:dup.rows[0].group_f1` | `0.1778` |
+| 323 | …0.85 行：23 / 223 / 0.1739 / 0.1818 / 0.1778 / 0.3603 \| `dup_threshold.csv` `threshold=0.85` 行 \| 同值… | `0.3603` | `metrics.json:dup.rows[0].doc_f1` | `0.3603` |
+| 324 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 324 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `d… | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 324 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_th… | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 324 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_threshold.c… | `0.5938` | `metrics.json:dup.rows[1].group_precision` | `0.5938` |
+| 324 | \| §5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_threshold.csv` `thre… | `0.8636` | `metrics.json:dup.rows[1].group_recall` | `0.8636` |
+| 324 | …§5.5.3 表 \| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_threshold.csv` `threshold=0.9… | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 324 | …\| 0.90 行：32 / 77 / 0.5938 / 0.8636 / 0.7037 / 0.7778 \| `dup_threshold.csv` `threshold=0.9` 行 \| 同值… | `0.7778` | `metrics.json:dup.rows[1].doc_f1` | `0.7778` |
+| 324 | …037 / 0.7778 \| `dup_threshold.csv` `threshold=0.9` 行 \| 同值 \| 一致 \| | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 325 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0 \| `dup_threshold… | `22` | `metrics.json:dup.embedded_groups` | `22` |
+| 325 | \| §5.5.3 表 \| 0.95 行：22 / 49 / 1.0 / 1.0 / 1.0 / 1.0 \| `dup_threshold.csv`… | `49` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
+| 326 | \| §5.5.3 诚实标注 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv` `granularity=d… | `0.9545 (×2)` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
+| 326 | \| §5.5.3 诚实标注 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv` `granularity=doc_leve… | `0.9845 (×2)` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
+| 327 | \| §5.5.3 段落级组内余弦 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `… | `0.5671 (×2)` | `granularity_dup.csv:min_max_sim[row=2][0]` | `0.5671` |
+| 327 | \| §5.5.3 段落级组内余弦 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `granula… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 327 | \| §5.5.3 段落级组内余弦 \| 0.5671–1.0000（mean 0.9803） \| `granularity_dup.csv` `granularity=passage… | `0.9803 (×2)` | `granularity_dup.csv:mean_max_sim[row=2][0]` | `0.9803` |
+| 328 | \| §5.5.3 诚实标注 \| 0.85 下 223 篇被误判 \| `dup_threshold.csv` `threshold=0… | `0.85 (×2)` | `metrics.json:dup.rows[0].threshold` | `0.85` |
+| 328 | \| §5.5.3 诚实标注 \| 0.85 下 223 篇被误判 \| `dup_threshold.csv` `threshold=0.85, d… | `223 (×2)` | `metrics.json:dup.rows[0].detected_docs` | `223` |
+| 329 | \| §5.5.3 诚实标注 \| 0.90 组级 F1 ≈ 0.70 \| 同上 0.7037 \| 0.7037 \| 一致（四舍五入）… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 329 | \| §5.5.3 诚实标注 \| 0.90 组级 F1 ≈ 0.70 \| 同上 0.7037 \| 0.7037 \| 一致（四舍五入） \| | `0.70` | `metrics.json:gap.cluster_rows[4].threshold` | `0.7` |
+| 329 | \| §5.5.3 诚实标注 \| 0.90 组级 F1 ≈ 0.70 \| 同上 0.7037 \| 0.7037 \| 一致（四舍五入） \| | `0.7037 (×2)` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 330 | \| §6.1 规模参数 \| 300 篇 \| `metrics.json` → `embedding.n_docs` \| 300… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
+| 331 | \| §6.1 规模参数 \| 8 个业务域 \| 受审集合内无记录 \| — \| 【无出处】 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 332 | \| §6.1 规模参数 \| 25 个已覆盖意图、每意图 12 篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 332 | \| §6.1 规模参数 \| 25 个已覆盖意图、每意图 12 篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 334 | \| §6.1 规模参数 \| 30 个意图 \| 受审集合内无记录 \| — \| 【无出处】 \| | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 335 | \| §6.1 规模参数 \| 每篇 111–191 字、均值 140 \| 受审集合内无记录 \| — \| 【无出处】 \| | `111` | `derived_metrics.csv:docs.min_chars_per_doc` | `111` |
+| 335 | \| §6.1 规模参数 \| 每篇 111–191 字、均值 140 \| 受审集合内无记录 \| — \| 【无出处】 \| | `191` | `derived_metrics.csv:docs.max_chars_per_doc` | `191` |
+| 336 | …6% \| `ground_truth.json` → `gap_ticket_ratio`=0.1855（旁注，受审集合外） \| 0.1855 \| 【无出处】 \| | `0.1855 (×2)` | `ground_truth.json:gap_ticket_ratio` | `0.1855` |
+| 337 | \| §6.1 埋设表 \| 5 意图 / 371 工单 \| `ground_truth.json` → `gap_tick… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 337 | \| §6.1 埋设表 \| 5 意图 / 371 工单 \| `ground_truth.json` → `gap_ticket_count`… | `371 (×3)` | `ground_truth.json:gap_ticket_count` | `371` |
+| 338 | \| §6.1 埋设表 \| 重复 22 组 / 49 篇 \| `poc/kbgovernance/dup_groups_best.… | `22 (×3)` | `metrics.json:dup.embedded_groups` | `22` |
+| 338 | \| §6.1 埋设表 \| 重复 22 组 / 49 篇 \| `poc/kbgovernance/dup_groups_best.csv` 22… | `49 (×2)` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
+| 338 | …dup_groups_best.csv` 22 行 `group`，`size` 求和 = 5×3 + 17×2 \| 22 组 / 49 篇 \| 一致 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 338 | …p_groups_best.csv` 22 行 `group`，`size` 求和 = 5×3 + 17×2 \| 22 组 / 49 篇 \| 一致 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 338 | …oups_best.csv` 22 行 `group`，`size` 求和 = 5×3 + 17×2 \| 22 组 / 49 篇 \| 一致 \| | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
+| 338 | …s_best.csv` 22 行 `group`，`size` 求和 = 5×3 + 17×2 \| 22 组 / 49 篇 \| 一致 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 339 | \| §6.1 埋设表 \| 腐化 62 篇 \| `metrics.json` → `corrupt.embedded` \| 62… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
+| 340 | \| §6.1 埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–2023 \| 受审… | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 340 | \| §6.1 埋设表 \| 32 篇追加过期表述 / 30 篇 last_modified 置 2022–2023 \| 受审集合内无拆分计数 \| —… | `30` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 341 | \| §6.1 防作弊 \| 4% 自然陈旧文档 \| 命中篇数：`metrics.json` → `corrupt.cont… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 341 | …：`metrics.json` → `corrupt.control_sampled` = 10，`corrupt_docs.csv` → `in_control_sample` 列 =… | `10 (×3)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 341 | …，`corrupt_docs.csv` → `in_control_sample` 列 = 1 共 10 行；4% 抽样率为 `gen_data.py` 代码常量，受审集合内无记录 \|… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 342 | \| §6.1 人工校验 \| 抽 10% / 20 条 / Kappa ≥ 0.8 \| 计划性承诺，受审集合内无标注记录 \| —… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 342 | \| §6.1 人工校验 \| 抽 10% / 20 条 / Kappa ≥ 0.8 \| 计划性承诺，受审集合内无标注记录 \| — \| 【无出处… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 342 | \| §6.1 人工校验 \| 抽 10% / 20 条 / Kappa ≥ 0.8 \| 计划性承诺，受审集合内无标注记录 \| — \| 【无出处】 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 343 | \| §6.1 可复现性 \| seed=42、两次运行 13 个产物一致 \| 一致性：`repro_check.json` → `two_run_ver… | `13 (×5)` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 344 | \| §6.2 双轨表 \| 300 文档 / 2000 工单 \| `embedding.n_docs` / `n_ticket… | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 345 | …g77_train.csv`（10003 条）+ `banking77_test.csv`（3080 条）= 13083（旁注，受审集合外） \| 13083 \| 【无出处】 \| | `3080` | `standardize/banking77_meta.json:n_tk` | `3080` |
+| 346 | \| §6.3 E9 对照 \| ABS 0.968 \| `results_auc.csv` `alpha/ABS` \| 0.968 \| 一致… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 347 | \| §6.3 E11 对照 \| ABS 0.9538 / 0.7925 \| `results_banking77_{en,zh}.csv` \|… | `0.9538` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
+| 347 | \| §6.3 E11 对照 \| ABS 0.9538 / 0.7925 \| `results_banking77_{en,zh}.csv` \| 同值 \| 一致 \| | `0.7925` | `standardize/results_banking77_zh.csv:AUC[row=1][0]` | `0.7925` |
+| 348 | \| §6.3 E12 对照 \| 域内 0.968 / 0.4344 \| 前者为 ABS 基线 α、后者为 S3 英文 \| 同值（口径标注不当… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 348 | \| §6.3 E12 对照 \| 域内 0.968 / 0.4344 \| 前者为 ABS 基线 α、后者为 S3 英文 \| 同值（口径标注不当） \| 一致 \| | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 349 | \| §6.3 E13 对照 \| ABS (0.0264, 0.968) \| `results_auc.csv` \| 同值 \| 一致 \| | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 349 | \| §6.3 E13 对照 \| ABS (0.0264, 0.968) \| `results_auc.csv` \| 同值 \| 一致 \| | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 350 | \| §6.3 E14 对照 \| 0.1452 / 0.8289 \| 同 §5.3.5 \| 0.1452 / 0.8289 \| 一致 \| | `0.8289 (×2)` | `derived_metrics.csv:directionC.abs_mean_f1_4scenario` | `0.8289` |
+| 351 | \| §6.4 图3-1 \| 可用窗口仅 0.60–0.64 \| `gap_threshold.csv` 中 F… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 351 | \| §6.4 图3-1 \| 可用窗口仅 0.60–0.64 \| `gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰… | `0.60 (×2)` | `metrics.json:gap.cluster_rows[3].threshold` | `0.6` |
+| 351 | \| §6.4 图3-1 \| 可用窗口仅 0.60–0.64 \| `gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰为 0.6… | `0.64 (×3)` | `metrics.json:gap.cluster_rows[6].threshold` | `0.64` |
+| 351 | …可用窗口仅 0.60–0.64 \| `gap_threshold.csv` 中 F1 ≥ 0.5714 的阈值恰为 0.6 / 0.62 / 0.64 三档 \| 0.60–0.64 \| 一致（推… | `0.5714` | `metrics.json:gap.cluster_rows[3].f1` | `0.5714` |
+| 352 | \| §6.4 图3-2 \| 0.968 > 0.8880 \| `results_auc.csv` `alpha… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 352 | \| §6.4 图3-2 \| 0.968 > 0.8880 \| `results_auc.csv` `alpha/ABS` `AUC… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 352 | \| §6.4 图3-2 \| 0.968 > 0.8880 \| `results_auc.csv` `alpha/ABS` `AUC`；`granul… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 352 | …, max-cosine` 行 `auc_intent_median` \| 0.968 / 0.888 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 353 | \| §6.4 图3-6 \| A2 0.0018 / 0.1120 \| `results_directions.… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 353 | \| §6.4 图3-6 \| A2 0.0018 / 0.1120 \| `results_directions.csv` \| 同值 \| 一致… | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
+| 353 | \| §6.4 图3-6 \| A2 0.0018 / 0.1120 \| `results_directions.csv` \| 同值 \| 一致 \| | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 354 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*.js… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 354 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*.json`（旁注） \| 同… | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
+| 354 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*.json`（旁注） \| 同值 \| 【无出处】… | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
+| 354 | \| §6.4 图3-7 \| 0.8797 / 0.8386 / 0.6891 \| 三个 `*_meta*.json`（旁注） \| 同值 \| 【无出处】 \| | `0.6891` | `standardize/scenario_meta.json:cover_stats.alpha.mean` | `0.6891` |
+| 355 | \| §6.4 表4-5 \| 0.4344 / 0.4946 \| `results_banking77_{en,… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 355 | \| §6.4 表4-5 \| 0.4344 / 0.4946 \| `results_banking77_{en,zh}.csv` `S… | `0.4344` | `standardize/results_banking77_en.csv:AUC[row=4][0]` | `0.4344` |
+| 355 | \| §6.4 表4-5 \| 0.4344 / 0.4946 \| `results_banking77_{en,zh}.csv` `S3 领域内z` \|… | `0.4946` | `standardize/results_banking77_zh.csv:AUC[row=4][0]` | `0.4946` |
+| 356 | \| §6.4 表4-6 \| 分组标准化消融 14 变体 \| `standardize/ablation.csv… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 356 | \| §6.4 表4-6 \| 分组标准化消融 14 变体 \| `standardize/ablation.csv` 前段 `变体` 行数 =… | `14 (×3)` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
+| 357 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granularity.cs… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 357 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granularity.csv` / `results… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 357 | \| §7.4 问答 2 \| AUC 0.8880 → 0.968 \| 同 §5.1（`granularity.csv` / `results_auc.csv… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 357 | …§5.1（`granularity.csv` / `results_auc.csv`） \| 0.888 / 0.968 \| 一致 \| | `0.888` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 358 | \| §7.4 问答 3 \| 参数 24M \| 受审集合内无记录 \| — \| 【无出处】 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 359 | \| §7.4 问答 4 \| 实际分出 95 个簇 \| `metrics.json` → `gap.clusters… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 359 | \| §7.4 问答 4 \| 实际分出 95 个簇 \| `metrics.json` → `gap.clusters.5.n_clust… | `95 (×2)` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 360 | \| §7.4 问答 6 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv`… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 360 | \| §7.4 问答 6 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv` `doc_level` 行… | `0.9545 (×2)` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
+| 360 | \| §7.4 问答 6 \| 组内余弦 0.9545–0.9845 \| `granularity_dup.csv` `doc_level` 行 `min_ma… | `0.9845 (×2)` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
+| 361 | \| §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` `… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 361 | \| §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` `thresho… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 361 | \| §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` `threshold=0.9, group_f… | `0.70` | `metrics.json:gap.cluster_rows[4].threshold` | `0.7` |
+| 361 | …组级 F1 ≈ 0.70 \| `dup_threshold.csv` `threshold=0.9, group_f1` \| 0.7037 \| 一致 \| | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 361 | …up_threshold.csv` `threshold=0.9, group_f1` \| 0.7037 \| 一致 \| | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 362 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897）… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 362 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897） \| `d… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 362 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897） \| `derived_metrics.csv` →… | `0.0264 (×2)` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
+| 362 | \| §7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897） \| `derived_metrics.csv` → `thresho… | `-0.6633` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
+| 362 | …§7.4 问答 8 \| 5 个场景迁移实验所需阈值的极差 0.0264（-0.6633 ~ -0.6897） \| `derived_metrics.csv` → `threshold.abs_5sc… | `-0.6897` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
+| 363 | \| §7.4 问答 8 \| 「ground truth 从 15 个缺口意图变成 46 个」 \| 46 见 `re… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 363 | \| §7.4 问答 8 \| 「ground truth 从 15 个缺口意图变成 46 个」 \| 46 见 `results_banking77_en.cs… | `15 (×4)` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
+| 363 | \| §7.4 问答 8 \| 「ground truth 从 15 个缺口意图变成 46 个」 \| 46 见 `results_banking77_en.csv` `子场景=KB减… | `46 (×4)` | `standardize/results_banking77_en.csv:ground_truth缺口意图[row=9][0]` | `46` |
+| 364 | \| §7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 364 | \| §7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `resul… | `1.0000` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 364 | \| §7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_ba… | `0.4130` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 364 | …7.4 问答 8 \| 全量 → KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_banking77_en… | `0.5846 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=3][0]` | `0.5846` |
+| 364 | …KB 减半：精确率 1.0000、召回 0.4130、F1 0.5846（目标场景自身最优 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行… | `0.9474 (×2)` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
+| 364 | …优 0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `P` / `R` / `F1` / `该场景最优F1` \| 1.0、0.41… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 364 | …0.9474） \| `results_xfer_banking77_en.csv` 第 3、4 数据行 `P` / `R` / `F1` / `该场景最优F1` \| 1.0、0.413、… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 364 | …csv` 第 3、4 数据行 `P` / `R` / `F1` / `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 364 | …第 3、4 数据行 `P` / `R` / `F1` / `该场景最优F1` \| 1.0、0.413、0.5846 / 0.9474 \| 一致 \| | `0.413` | `standardize/results_xfer_banking77_en.csv:R[row=3][0]` | `0.413` |
+| 365 | \| §7.4 问答 8 \| 中文阈值 → banking77（bge-small-en-v1.5）：正向检出 0… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 365 | …8 \| 中文阈值 → banking77（bge-small-en-v1.5）：正向检出 0 / 77、F1 0（该场景自身最优 0.8148）；反向 77 / 77 全误报、F1 0… | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 365 | …中文阈值 → banking77（bge-small-en-v1.5）：正向检出 0 / 77、F1 0（该场景自身最优 0.8148）；反向 77 / 77 全误报、F1 0.3261… | `77 (×4)` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 365 | …7（bge-small-en-v1.5）：正向检出 0 / 77、F1 0（该场景自身最优 0.8148）；反向 77 / 77 全误报、F1 0.3261 \| `results_xfer_ban… | `0.8148 (×2)` | `standardize/results_xfer_banking77_en.csv:该场景最优F1[row=1][0]` | `0.8148` |
+| 365 | …0 / 77、F1 0（该场景自身最优 0.8148）；反向 77 / 77 全误报、F1 0.3261 \| `results_xfer_banking77_en.csv` 第 1、2 数据行 `… | `0.3261 (×2)` | `standardize/results_xfer_banking77_en.csv:F1[row=2][0]` | `0.3261` |
+| 365 | …F1 0.3261 \| `results_xfer_banking77_en.csv` 第 1、2 数据行 `检出意图数` / `F1` / `该场景最优F1` \| 0、0.0、0.81… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 365 | …0.3261 \| `results_xfer_banking77_en.csv` 第 1、2 数据行 `检出意图数` / `F1` / `该场景最优F1` \| 0、0.0、0.8148… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 365 | …csv` 第 1、2 数据行 `检出意图数` / `F1` / `该场景最优F1` \| 0、0.0、0.8148；77、0.3261 \| 一致 \| | `0.0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 366 | \| §7.4 问答 8b \| 极差 0.0018 / AUC 0.1120 \| `results_directio… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 366 | \| §7.4 问答 8b \| 极差 0.0018 / AUC 0.1120 \| `results_directions.csv` \| 同值… | `0.0018` | `derived_metrics.csv:directionA2.4scenario_threshold_range` | `0.0018` |
+| 366 | \| §7.4 问答 8b \| 极差 0.0018 / AUC 0.1120 \| `results_directions.csv` \| 同值 \| 一致 \| | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 367 | \| §10 附录 B 模型部署 \| 权重 95.8MB \| `metrics.json` → `emb… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 367 | \| §10 附录 B 模型部署 \| 权重 95.8MB \| `metrics.json` → `embedding.model_downloa… | `95.8 (×2)` | `metrics.json:embedding.model_download_mb` | `95.8` |
+| 371 | ## 3. 四舍五入与表述偏差 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 377 | \| 1 \| 附录 D · AUC 对照表 S3b 英文 \| 0.4860 \| `results_b… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 377 | \| 1 \| 附录 D · AUC 对照表 S3b 英文 \| 0.4860 \| `results_banking77_en.csv` `AUC` = `0.486`… | `0.4860` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
+| 377 | …0.4860 \| `results_banking77_en.csv` `AUC` = `0.486` \| 补零到 4 位小数 \| | `0.486` | `standardize/results_banking77_en.csv:AUC[row=5][0]` | `0.486` |
+| 377 | …sults_banking77_en.csv` `AUC` = `0.486` \| 补零到 4 位小数 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 378 | \| 2 \| 附录 D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 378 | \| 2 \| 附录 D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 /… | `0.9680` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 378 | …2 \| 附录 D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7… | `0.0960` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
+| 378 | …D · 负结果表 与 §5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B… | `0.1400 (×2)` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
+| 378 | …§5.3.4 表 \| ABS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `… | `0.1120` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 378 | …BS 0.9680 / A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `results_dire… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 378 | …A1 0.0960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `results_directions.csv`… | `0.8160` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
+| 378 | …960、0.1400 / A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `results_directions.csv` 对应 `AU… | `0.7500 (×2)` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
+| 378 | …A2 0.1120 / A4 0.9200 / B 0.8160、0.7500 / B+ 0.4960 \| `results_directions.csv` 对应 `AUC` 列 = `0.96… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 378 | …4960 \| `results_directions.csv` 对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`… | `0.968` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
+| 378 | …results_directions.csv` 对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496`… | `0.096` | `standardize/results_directions.csv:AUC[row=2][0]` | `0.096` |
+| 378 | …directions.csv` 对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零… | `0.14 (×2)` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
+| 378 | …ons.csv` 对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；… | `0.112` | `derived_metrics.csv:directionA2.alpha_auc` | `0.112` |
+| 378 | …对应 `AUC` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.14… | `0.92` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 378 | …C` 列 = `0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.1400 / 0.7… | `0.816` | `standardize/results_directions.csv:AUC[row=6][0]` | `0.816` |
+| 378 | …0.968`、`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.1400 / 0.7500 是去掉… | `0.75` | `standardize/ablation.csv:alpha_F1[row=33][0]` | `0.75` |
+| 378 | …`0.096`、`0.14`、`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.1400 / 0.7500 是去掉尾零后补回，读者… | `0.496` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 378 | …`0.112`、`0.92`、`0.816`、`0.75`、`0.496` \| 统一补零到 4 位小数；其中 0.1400 / 0.7500 是去掉尾零后补回，读者无法区分「实测 0.1… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 378 | …0.1400 / 0.7500 是去掉尾零后补回，读者无法区分「实测 0.14」与「实测 0.140000」 \| | `0.140000` | `standardize/results_directions.csv:AUC[row=16][0]` | `0.14` |
+| 379 | \| 3 \| 附录 D · Spearman 与 §1.3 贡献 3、§5.3 引言 \| -1.00… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 379 | \| 3 \| 附录 D · Spearman 与 §1.3 贡献 3、§5.3 引言 \| -1.000000 \| `mechanism.csv` `spearman_与cover` = `-1.0`… | `-1.000000` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 379 | …000000 \| `mechanism.csv` `spearman_与cover` = `-1.0` \| 精度扩展 6 位小数；不改变数值，但 CSV 字面为 1 位 \| | `-1.0` | `standardize/mechanism.csv:spearman_与cover[row=1][0]` | `-1` |
+| 379 | …hanism.csv` `spearman_与cover` = `-1.0` \| 精度扩展 6 位小数；不改变数值，但 CSV 字面为 1 位 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 379 | …与cover` = `-1.0` \| 精度扩展 6 位小数；不改变数值，但 CSV 字面为 1 位 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 380 | \| 4 \| 附录 D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 18… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 380 | …4 \| 附录 D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027） \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
+| 380 | …D · 文档段落数「平均 6.2 段/篇」；§5.1 同处 \| 6.2 \| 1852 ÷ 300 = 6.1733 \| 四舍五入（差 0.027） \| | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 381 | \| 5 \| 附录 D · 向量化吞吐「4152 条文本」 \| 4152 \| `n_docs+n_t… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 381 | \| 5 \| 附录 D · 向量化吞吐「4152 条文本」 \| 4152 \| `n_docs+n_tickets+n_passages` =… | `4152 (×3)` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
+| 382 | \| 6 \| 附录 D · 迁移表 与 §5.3.3「banking77（bge-small-en-… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 382 | ….3.3「banking77（bge-small-en-v1.5）最优阈值 cover ≤ 0.8495」 \| cover ≤ 0.8495 \| `results_banking77_en.csv… | `0.8495 (×2)` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
+| 382 | …0.8495 \| `results_banking77_en.csv` `最优阈值` = `-0.8495` \| 符号换算（余弦取负后转 cover 刻度），CSV 里没有 cover 形式 \| | `-0.8495` | `derived_metrics.csv:banking77_en.abs_best_threshold_raw` | `-0.8495` |
+| 383 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 383 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6463 \| `ablat… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 383 | \| 7 \| §1.3 贡献 4 / §5.3.3「中文 0.6463」 \| cover ≤ 0.6463 \| `ablation.csv` `变体=ABS 绝对… | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 383 | …463 \| `ablation.csv` `变体=ABS 绝对余弦…` `最优阈值` = `-0.6463` \| 同上，符号换算 \| | `-0.6463` | `standardize/ablation.csv:最优阈值[row=1][0]` | `-0.6463` |
+| 384 | \| 8 \| §5.5.1「300×300 余弦矩阵实测耗时 < 0.01 秒」 \| < 0.01… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 384 | \| 8 \| §5.5.1「300×300 余弦矩阵实测耗时 < 0.01 秒」 \| < 0.01 秒 \| `metrics.… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
+| 384 | …秒 \| `metrics.json` → `dup.rows[*].seconds` = `0.0` \| 产物为 0.0（进位到 1 位小数），文档改写为不等式；论文中无法直接引用产物值 \| | `0.0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 384 | …→ `dup.rows[*].seconds` = `0.0` \| 产物为 0.0（进位到 1 位小数），文档改写为不等式；论文中无法直接引用产物值 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 385 | \| 9 \| 附录 D · 腐化 P/R/F1 与 §5.4 \| recall 1.0000 / F… | `9` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 385 | \| 9 \| 附录 D · 腐化 P/R/F1 与 §5.4 \| recall 1.0000 / F1 1.0 \| `corrupt.recall` = `1.0`、`corrupt.… | `1.0000 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 385 | …附录 D · 腐化 P/R/F1 与 §5.4 \| recall 1.0000 / F1 1.0 \| `corrupt.recall` = `1.0`、`corrupt.f1` = `0.… | `1.0 (×5)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 385 | ….0 \| `corrupt.recall` = `1.0`、`corrupt.f1` = `0.9466`；`dup_threshold.csv` `threshold=0.95` 的 `grou… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 385 | …f1` = `0.9466`；`dup_threshold.csv` `threshold=0.95` 的 `group_f1` = `1.0` \| 同一文档内 1.0 有时写 1.0000、… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
+| 386 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \|… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 386 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` =… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 386 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` = `0.703… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 386 | \| 10 \| §5.5.3 与 §7.4 问答 6 \| 0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` = `0.7037` \| 「≈ 0.70」的预… | `0.70 (×2)` | `metrics.json:gap.cluster_rows[4].threshold` | `0.7` |
+| 386 | …0.90 阈值组级 F1 ≈ 0.70 \| `dup_threshold.csv` = `0.7037` \| 「≈ 0.70」的预期值表述，非实测值直引 \| | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 387 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.849… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 387 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.8495 - 0.6463 = 0.2032 \| 精确 \| | `0.6463 (×2)` | `derived_metrics.csv:threshold.abs_alpha_best_cover_scale` | `0.6463` |
+| 387 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.8495 - 0.6463 = 0.2032 \| 精确 \| | `0.2032 (×2)` | `derived_metrics.csv:banking77_en.cover_scale_gap_vs_zh_alpha` | `0.2032` |
+| 387 | \| 11 \| §5.3.3 边界三 \| 与中文语料 0.6463 相差 0.2032 \| 0.8495 - 0.6463 = 0.2032 \| 精确 \| | `0.8495` | `derived_metrics.csv:banking77_en.abs_best_cover_scale` | `0.8495` |
+| 388 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 388 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 388 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0… | `15` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
+| 388 | \| 12 \| §5.3.5 诚实提示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \|… | `18.55` | `derived_metrics.csv:ground_truth.gap_ticket_ratio` | `0.1855` |
+| 388 | …示 \| 10%/15%/18.55% 的标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `0.2023` | `derived_metrics.csv:directionC.fixed15_sd_f1_4scenario` | `0.2023` |
+| 388 | …标准差「0.20–0.27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 388 | ….27」 \| 0.2744 / 0.2023 / 0.2647 \| 用 2 位小数区间概括 4 位小数分布 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 389 | \| 13 \| §5.3.3 / 附录 D \| bge-en 与 bge-zh 均值相差 0.0411… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 389 | \| 13 \| §5.3.3 / 附录 D \| bge-en 与 bge-zh 均值相差 0.0411 \| 0.8797 - 0.8386 = 0.0411 \| 精确 \| | `0.0411 (×2)` | `derived_metrics.csv:cover.banking77_en_minus_zh_mean` | `0.0411` |
+| 389 | …§5.3.3 / 附录 D \| bge-en 与 bge-zh 均值相差 0.0411 \| 0.8797 - 0.8386 = 0.0411 \| 精确 \| | `0.8797` | `standardize/banking77_meta.json:cover.mean` | `0.8797` |
+| 389 | …附录 D \| bge-en 与 bge-zh 均值相差 0.0411 \| 0.8797 - 0.8386 = 0.0411 \| 精确 \| | `0.8386` | `standardize/banking77_meta_zh.json:cover.mean` | `0.8386` |
+| 390 | \| 14 \| §5.2.1 / §5.2.7 / §6.4 \| P/R/F1 写 0.800 \| `… | `14` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
+| 390 | \| 14 \| §5.2.1 / §5.2.7 / §6.4 \| P/R/F1 写 0.800 \| `metrics.json` → `gap.best.precision` = `0.… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
+| 390 | …00 \| `metrics.json` → `gap.best.precision` = `0.8` \| 补零（其余模块已写 4 位，唯缺口模块写 3 位） \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 390 | …n` → `gap.best.precision` = `0.8` \| 补零（其余模块已写 4 位，唯缺口模块写 3 位） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 390 | …est.precision` = `0.8` \| 补零（其余模块已写 4 位，唯缺口模块写 3 位） \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 394 | ## 4. 实测产物中尚未被任何文档引用 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 402 | \| `standardize/results_transfer.csv` \| **全部 32 行、10 列**均未在文档中出现。文档 E10（§6.3）只引用了文件名。表内含各打分 ×… | `32` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 402 | …standardize/results_transfer.csv` \| **全部 32 行、10 列**均未在文档中出现。文档 E10（§6.3）只引用了文件名。表内含各打分 × 4 目标… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 402 | …行、10 列**均未在文档中出现。文档 E10（§6.3）只引用了文件名。表内含各打分 × 4 目标场景的 `迁移后F1`、`迁移后P`、`迁移后R`、`检出意图数`、`AUC衰减`，是… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 403 | …ts_directions.csv` \| `召回全部阈值` 列中 ABS -max 的四值（-0.6657 / -0.6633 / -0.6897 / -0.6792）未被附录 D 直接引用；文档只… | `-0.6657` | `standardize/results_auc.csv:召回全部门槛的阈值[row=1][0]` | `-0.6657` |
+| 403 | …ons.csv` \| `召回全部阈值` 列中 ABS -max 的四值（-0.6657 / -0.6633 / -0.6897 / -0.6792）未被附录 D 直接引用；文档只给出了由 `resu… | `-0.6633 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=9][0]` | `-0.6633` |
+| 403 | …`召回全部阈值` 列中 ABS -max 的四值（-0.6657 / -0.6633 / -0.6897 / -0.6792）未被附录 D 直接引用；文档只给出了由 `results_auc.cs… | `-0.6897 (×2)` | `standardize/results_auc.csv:召回全部门槛的阈值[row=17][0]` | `-0.6897` |
+| 403 | …列中 ABS -max 的四值（-0.6657 / -0.6633 / -0.6897 / -0.6792）未被附录 D 直接引用；文档只给出了由 `results_auc.csv` 五场景推出的极… | `-0.6792` | `standardize/results_auc.csv:召回全部门槛的阈值[row=25][0]` | `-0.6792` |
+| 404 | …results_directionC.csv` \| 列 `推出的绝对阈值`（如 alpha 0.25% → 0.6567）与列 `检出意图数`（如 alpha 0.25% → 7）全部未被引用… | `0.25 (×2)` | `standardize/results_directionC.csv:固定检出比例[row=4][0]` | `0.25` |
+| 404 | …directionC.csv` \| 列 `推出的绝对阈值`（如 alpha 0.25% → 0.6567）与列 `检出意图数`（如 alpha 0.25% → 7）全部未被引用；文档只引用了由 `… | `0.6567` | `standardize/results_directionC.csv:推出的绝对阈值[row=4][0]` | `0.6567` |
+| 404 | …pha 0.25% → 0.6567）与列 `检出意图数`（如 alpha 0.25% → 7）全部未被引用；文档只引用了由 `F1` 列汇总出的 σ 与均值。 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 410 | …ardize/results_banking77_en.csv` \| `子场景=KB减半`（8 行）与 `子场景=KB仅20意图`（8 行）的 `AUC` / `F1` / `最优阈值`… | `8 (×3)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 410 | …_banking77_en.csv` \| `子场景=KB减半`（8 行）与 `子场景=KB仅20意图`（8 行）的 `AUC` / `F1` / `最优阈值` / `AUC衰减` 各列未被… | `20 (×2)` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 410 | …/ `最优阈值` / `AUC衰减` 各列未被文档引用。`子场景=KB减半` 的最优 F1（0.9474）现经 `results_xfer_banking77_en.csv` 的 `该场景最优F1… | `0.9474` | `standardize/results_banking77_en.csv:F1[row=9][0]` | `0.9474` |
+| 410 | …一与使用边界表；`子场景=KB仅20意图` 的 8 行仍完全未被引用，含列 `知识库文档`（120）、`ground_truth缺口意图`（57）。 \| | `120` | `standardize/results_banking77_en.csv:知识库文档[row=17][0]` | `120` |
+| 410 | …8 行仍完全未被引用，含列 `知识库文档`（120）、`ground_truth缺口意图`（57）。 \| | `57` | `standardize/results_banking77_en.csv:ground_truth缺口意图[row=17][0]` | `57` |
+| 411 | …andardize/results_banking77_zh.csv` \| 同上两个子场景 16 行全部未引用。 \| | `16` | `metrics.json:gap.cluster_rows[7].detected_intents` | `16` |
+| 412 | \| `standardize/ablation.csv` \| 14 变体中，文档只引用了「S4 换成意图片」（0.752 / 0.4762）。其余未引用：`A… | `14` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
+| 412 | …rdize/ablation.csv` \| 14 变体中，文档只引用了「S4 换成意图片」（0.752 / 0.4762）。其余未引用：`ABS 绝对余弦`、`S1 分位数排名`、`S2 全局z… | `0.752` | `standardize/ablation.csv:alpha_AUC[row=8][0]` | `0.752` |
+| 412 | …lation.csv` \| 14 变体中，文档只引用了「S4 换成意图片」（0.752 / 0.4762）。其余未引用：`ABS 绝对余弦`、`S1 分位数排名`、`S2 全局z`、`S6 去极值… | `0.4762` | `metrics.json:gap.cluster_rows[7].f1` | `0.4762` |
+| 412 | …选出域内`、`消融: max 选出全局`，以及整段 `变体,场景,AUC,F1,最优阈值`（25 行，5 方法 × 5 场景）。 \| | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 412 | …、`消融: max 选出全局`，以及整段 `变体,场景,AUC,F1,最优阈值`（25 行，5 方法 × 5 场景）。 \| | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 413 | …rnance/gap_threshold.csv` \| `min_cluster_size=10` 的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 413 | …/gap_threshold.csv` \| `min_cluster_size=10` 的 11 行中，文档只引用了 `threshold=0.62` 一行的 F1。其余（0.3/0.4/… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 413 | …/0.64/0.66/0.68/0.72/0.74）与 `min_cluster_size=5` 的 0.62 之外的 10 行均未引用。文档引用的 `metrics.json` → `… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 415 | \| `poc/kbgovernance/top15_gaps.csv` \| 15 行中的 `size`、`rep_cover`、`rep_ticket`、`rep_text… | `15` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
+| 415 | …ep_text`、`is_true_gap` 各列未被引用；文档只引用了「社保转移办理出现 3 次」这一计数。Top15 中的 5 个误报簇（`is_true_gap=0`：终端病毒处置… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 415 | …gap` 各列未被引用；文档只引用了「社保转移办理出现 3 次」这一计数。Top15 中的 5 个误报簇（`is_true_gap=0`：终端病毒处置、考勤异常处理、门禁权限申请、供应商… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 415 | …保转移办理出现 3 次」这一计数。Top15 中的 5 个误报簇（`is_true_gap=0`：终端病毒处置、考勤异常处理、门禁权限申请、供应商准入申请、采购比价流程）未被文档点名。… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 416 | …`metrics.json` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 416 | …metrics.json` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈… | `186` | `metrics.json:corrupt.score_hist.0` | `186` |
+| 416 | …ics.json` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论… | `1 (×2)` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 416 | …s.json` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。… | `45` | `metrics.json:gap.cluster_rows[8].gap_clusters` | `45` |
+| 416 | …son` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 416 | …n` → `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `37` | `metrics.json:corrupt.score_hist.3` | `37` |
+| 416 | …→ `corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 416 | …`corrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `26` | `metrics.json:gap.cluster_rows[4].detected_intents` | `26` |
+| 416 | …rrupt.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 416 | …t.score_hist` \| 六个分箱（0:186、1:45、3:37、5:26、6:5、8:1）全部未被引用。该列可直接支撑 §5.4 的阈值论证。 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 418 | \| `poc/kbgovernance/dup_groups_best.csv` \| 22 行的 `primary_doc`、`member_docs` 未被引用；`max_sim`… | `22` | `metrics.json:dup.embedded_groups` | `22` |
+| 418 | …c_level` 行同源，文档现已按 `granularity_dup.csv` 报告区间 0.9545–0.9845。 \| | `0.9545` | `granularity_dup.csv:min_max_sim[row=1][0]` | `0.9545` |
+| 418 | …` 行同源，文档现已按 `granularity_dup.csv` 报告区间 0.9545–0.9845。 \| | `0.9845` | `granularity_dup.csv:max_max_sim[row=1][0]` | `0.9845` |
+| 419 | …`dup.embedded_groups` / `dup.embedded_docs` \| 22 / 49 两个键未被引用（文档改引 `dup.best.*`，同值）。 \| | `22` | `metrics.json:dup.embedded_groups` | `22` |
+| 419 | …embedded_groups` / `dup.embedded_docs` \| 22 / 49 两个键未被引用（文档改引 `dup.best.*`，同值）。 \| | `49` | `metrics.json:gap.cluster_rows[15].gap_clusters` | `49` |
+| 423 | ## 5. 无法从产物核验的断言 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 427 | …_meta_zh.json` 是与 CSV 平级的 JSON，承载了 **cover 分布、5 场景文档规模、banking77 缺口意图数** 三组关键数据。附录 D 与 §5.3.3… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 427 | …扩展为「`standardize/` 下全部 `.json` + `.csv`」，则该表的 12 条会由 `【无出处】` 变为 `一致`。此处只陈述事实，不做裁决。 | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 433 | \| 整篇级 max-cosine 意图级分离度 AUC = **0.8880** \| `granularity.csv` `granularity=doc_level,… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 433 | …cosine` 行 `列=auc_intent_median`（工单级 `列=auc` = 0.8307） \| | `0.8307` | `granularity.csv:auc[row=1][0]` | `0.8307` |
+| 434 | \| margin（max - mean(top5)）AUC = **0.9200 / 0.8320** \| `granularity.csv` `score_scheme=… | `0.9200` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 434 | \| margin（max - mean(top5)）AUC = **0.9200 / 0.8320** \| `granularity.csv` `score_scheme=max-top5m… | `0.8320` | `granularity.csv:auc_intent_median[row=2][0]` | `0.832` |
+| 435 | \| max ÷ std AUC = **0.7040 / 0.4960** \| `granularity.csv` `score_scheme=… | `0.7040` | `granularity.csv:auc_intent_median[row=8][0]` | `0.704` |
+| 435 | \| max ÷ std AUC = **0.7040 / 0.4960** \| `granularity.csv` `score_scheme=max/std`… | `0.4960` | `granularity.csv:auc_intent_median[row=3][0]` | `0.496` |
+| 436 | \| max ÷ top5 AUC = **0.8880 / 0.7760** \| `granularity.csv` `score_scheme=… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 436 | \| max ÷ top5 AUC = **0.8880 / 0.7760** \| `granularity.csv` `score_scheme=max/top5m… | `0.7760` | `granularity.csv:auc_intent_median[row=4][0]` | `0.776` |
+| 437 | \| max - min（极差）AUC = **0.8800 / 0.9280** \| `granularity.csv` `score_scheme=… | `0.8800` | `granularity.csv:auc_intent_median[row=10][0]` | `0.88` |
+| 437 | \| max - min（极差）AUC = **0.8800 / 0.9280** \| `granularity.csv` `score_scheme=max-min`… | `0.9280` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
+| 439 | …据下调了「改变粒度是唯一有效方向」这一断言的强度——新数据下整篇级 max-min（意图级 0.928）高于整篇级基准（0.8880），但工单级反而从 0.8307 掉到 0.7829。 | `0.928` | `granularity.csv:auc_intent_median[row=5][0]` | `0.928` |
+| 439 | …方向」这一断言的强度——新数据下整篇级 max-min（意图级 0.928）高于整篇级基准（0.8880），但工单级反而从 0.8307 掉到 0.7829。 | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
+| 439 | …整篇级 max-min（意图级 0.928）高于整篇级基准（0.8880），但工单级反而从 0.8307 掉到 0.7829。 | `0.8307` | `granularity.csv:auc[row=1][0]` | `0.8307` |
+| 439 | …n（意图级 0.928）高于整篇级基准（0.8880），但工单级反而从 0.8307 掉到 0.7829。 | `0.7829` | `granularity.csv:auc[row=5][0]` | `0.7829` |
+| 445 | \| mcs=5 分出 **95 个簇**、噪声 **0 条**、耗时 **≈1.1 秒** \| 簇数与噪声… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 445 | \| mcs=5 分出 **95 个簇**、噪声 **0 条**、耗时 **≈1.1 秒** \| 簇数与噪声可核验：`met… | `95 (×2)` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 445 | \| mcs=5 分出 **95 个簇**、噪声 **0 条**、耗时 **≈1.1 秒** \| 簇数与噪声可核验：`metrics.json` →… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 445 | …8s**、`run_all_repro.log` 记 **1.07s**，文档只报量级（约 1 秒级）；日志不在受审集合，耗时部分判定仍为 `【无出处】`。 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 446 | \| mcs=10 分出 **88 个簇**、噪声 **9 条**、耗时 **≈1.2 秒** \| 簇数与噪声… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 446 | \| mcs=10 分出 **88 个簇**、噪声 **9 条**、耗时 **≈1.2 秒** \| 簇数与噪声可核验：`met… | `88 (×2)` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 446 | \| mcs=10 分出 **88 个簇**、噪声 **9 条**、耗时 **≈1.2 秒** \| 簇数与噪声可核验：`metrics.json` →… | `9 (×2)` | `metrics.json:gap.cluster_rows[17].detected_intents` | `9` |
+| 446 | …3s**、`run_all_repro.log` 记 **1.28s**（两次运行之间有 ±25% 波动，不构成不一致）；文档只报量级，日志不在受审集合，耗时部分判定仍为 `【无出处】`。… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 447 | \| 「F1 完全不变」（两档 mcs 的最优 F1 均为 0.800） \| 可核验：`gap_threshold.csv` `threshold=0.62` 行… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
+| 447 | …为 0.800） \| 可核验：`gap_threshold.csv` `threshold=0.62` 行在 mcs=5 与 mcs=10 下 `f1` 同为 0.8 \| | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 447 | …验：`gap_threshold.csv` `threshold=0.62` 行在 mcs=5 与 mcs=10 下 `f1` 同为 0.8 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 447 | …hreshold.csv` `threshold=0.62` 行在 mcs=5 与 mcs=10 下 `f1` 同为 0.8 \| | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 447 | …`threshold=0.62` 行在 mcs=5 与 mcs=10 下 `f1` 同为 0.8 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 448 | \| 簇覆盖度中位数「包含在上述约 1 秒级耗时内」 \| 无法核验（无分项耗时字段） \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 449 | \| α 的 5 个缺口意图分属**人事行政/信息技术/财务管理/信息安全** 4 个业务域 \| 受审集合内… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 449 | \| α 的 5 个缺口意图分属**人事行政/信息技术/财务管理/信息安全** 4 个业务域 \| 受审集合内无「意图→业务域」映射；`ground_truth.json` 只… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 456 | \| 标准化实验**总耗时 26.2 秒** \| 承载它的 `scenario_meta.json` → `total_seco… | `26.2 (×2)` | `standardize/scenario_meta.json:total_seconds` | `26.2` |
+| 457 | \| 「生成数据约 1 秒」 \| `run_all.log` `real 0m0.601s` / `run_all… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 457 | \| 「生成数据约 1 秒」 \| `run_all.log` `real 0m0.601s` / `run_all_repro.log` `0m0.754s` \| | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 458 | \| R4 原始表述会让 **275/300 篇**全部命中 \| `RESULT.md` 360 行；无 CSV 记录该消融 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 459 | …R4 修正后的两个参数：**领先 ≥ 365 天**、**标题 bigram 包含度 ≥ 0.50** \| 无产物；`metrics.json` 只记录最终命中数 88 \| | `0.50` | `metrics.json:gap.cluster_rows[2].threshold` | `0.5` |
+| 459 | …am 包含度 ≥ 0.50** \| 无产物；`metrics.json` 只记录最终命中数 88 \| | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 465 | \| **8 个业务域**、**30 个意图**、**25 个已覆盖意图**、每意图 12 篇 \| `r… | `8 (×2)` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 465 | \| **8 个业务域**、**30 个意图**、**25 个已覆盖意图**、每意图 12 篇 \| `run_all.log`… | `30 (×2)` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 465 | \| **8 个业务域**、**30 个意图**、**25 个已覆盖意图**、每意图 12 篇 \| `run_all.log` `[gen_data]… | `25 (×2)` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 465 | \| **8 个业务域**、**30 个意图**、**25 个已覆盖意图**、每意图 12 篇 \| `run_all.log` `[gen_data]` 段（8 域、30 意图可核验… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 466 | \| 每篇文档正文 **111–191 字、均值 140 字、约 6.2 句** \| `run_all.log` `[ge… | `111 (×2)` | `derived_metrics.csv:docs.min_chars_per_doc` | `111` |
+| 466 | \| 每篇文档正文 **111–191 字、均值 140 字、约 6.2 句** \| `run_all.log` `[gen_da… | `191 (×2)` | `derived_metrics.csv:docs.max_chars_per_doc` | `191` |
+| 467 | \| 缺口工单占比 **18.6%（371/2000）** \| `ground_truth.json` → `gap_ticket_r… | `371` | `ground_truth.json:gap_ticket_count` | `371` |
+| 467 | …\| `ground_truth.json` → `gap_ticket_ratio` = 0.1855（文档按 18.6% 表述，四舍五入自洽） \| | `0.1855` | `ground_truth.json:gap_ticket_ratio` | `0.1855` |
+| 468 | \| 腐化埋设拆分：**32 篇**追加过期表述 + **30 篇** `last_modified` 置 2022–2… | `32 (×2)` | `metrics.json:corrupt.rule_hit_counts.R1_正文过期日期` | `32` |
+| 468 | \| 腐化埋设拆分：**32 篇**追加过期表述 + **30 篇** `last_modified` 置 2022–2023 \| 合计 62 可核验（`… | `30 (×2)` | `metrics.json:gap.cluster_rows[9].detected_intents` | `30` |
+| 468 | …述 + **30 篇** `last_modified` 置 2022–2023 \| 合计 62 可核验（`metrics.json` → `corrupt.embedded`）；32/3… | `62` | `metrics.json:corrupt.embedded` | `62` |
+| 469 | \| 防作弊：**4% 自然陈旧但不算缺陷**文档（600–900 天未更新） \| 命中篇数 10 可核：`me… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 469 | \| 防作弊：**4% 自然陈旧但不算缺陷**文档（600–900 天未更新） \| 命中篇数 10 可核：`metrics.json` → `corr… | `600` | `standardize/scenario_meta.json:n_docs.delta` | `600` |
+| 469 | \| 防作弊：**4% 自然陈旧但不算缺陷**文档（600–900 天未更新） \| 命中篇数 10 可核：`metrics.json` → `corrupt.control_sampled`… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 470 | \| 人工复核 **10%**、三类缺陷各抽 **20 条**、**Cohen's Kappa ≥ 0.8** \|… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 470 | \| 人工复核 **10%**、三类缺陷各抽 **20 条**、**Cohen's Kappa ≥ 0.8** \| 计划性承诺，无任何标注产物 \| | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 470 | …工复核 **10%**、三类缺陷各抽 **20 条**、**Cohen's Kappa ≥ 0.8** \| 计划性承诺，无任何标注产物 \| | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 471 | …dom.seed(42)` + `np.random.seed(42)`；连续两次运行 **13 个全链路产物全部一致** \| `repro_check.json` → `two_run_… | `13 (×3)` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 472 | …g77_train.csv`（10003 条）+ `banking77_test.csv`（3080 条）；受审集合只含 `standardize/*.csv`，不含 `data/` 子目录… | `3080` | `standardize/banking77_meta.json:n_tk` | `3080` |
+| 473 | \| banking77 **15 个整意图成片缺失** \| `standardize/banking77_meta.json… | `15 (×2)` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
+| 474 | \| 7 个误报中 **6 篇来自刻意埋设的「4% 自然陈旧」文档**，第 7 篇为重复件继承主文档… | `7 (×3)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 474 | \| 7 个误报中 **6 篇来自刻意埋设的「4% 自然陈旧」文档**，第 7 篇为重复件继承主文档陈旧 `last_… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 474 | \| 7 个误报中 **6 篇来自刻意埋设的「4% 自然陈旧」文档**，第 7 篇为重复件继承主文档陈旧 `last_modified` \|… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 474 | …_control` = 6、`corrupt.fp_from_dup_inherit` = 1；逐篇见 `corrupt_docs.csv` → `fp_reason` 列 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 475 | \| 段落切片规则：**丢弃长度 < 8 字的片段** \| `embed.py` 代码常量，受审集合内无参数字段 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 476 | \| Table 4-6「分组标准化消融（**14 变体**）」 \| 可核验：`ablation.csv` 前段… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 476 | \| Table 4-6「分组标准化消融（**14 变体**）」 \| 可核验：`ablation.csv` 前段 `变体` 行数为 14 \| | `14 (×2)` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
+
+
+---
+
+## 文档 4 / 4：`开发前准备清单.md`
+
+- 完整路径：`D:\26code\毕设\docs\技术方案\开发前准备清单.md`
+- 抽到的数值断言：**458** 处
+- 判定统计：OK=**263**　ROUNDED=**0**　STRUCTURAL=**182**　EXTERNAL=**0**　CITED=**6**　ALLOWED=**0**　UNSOURCED=**7**
+- 指标类 UNSOURCED（致命）：**0** 条 —— 无
+
+### 4.1 指标类 UNSOURCED —— 致命项，必须为空或逐条补出处
+
+（无）
+
+### 4.2 非指标类 UNSOURCED —— 不致命，但同样没有产物出处
+
+| 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
+|---|---|---|---|---|
+| 3 | > **一句话结论**：本项目不缺「需求」，缺的是**已被确认的需求**——规格侧已有 64 条 User Stories、13 条接口契约、6 张表的 DDL、11 项图表规格，确认… | `64` | `` | `` |
+| 5 | > **重要限定（2026-10-23 用户反馈后补记）**：规格侧的 64 条 User Stories / 13 条接口 / 6 张表，全部来自 **Issue #… | `64` | `` | `` |
+| 15 | \| 规格存量 \| User Stories 64 条；接口 13 条；数据表 6 张；图表规格 11 项（8 图 3 表）——**均为草案，… | `64` | `` | `` |
+| 397 | …}`、清单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| 13 条全留还是砍？上传与导入是否合并为一个接口？错误码枚举要自… | `199` | `` | `` |
+| 397 | …单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| 13 条全留还是砍？上传与导入是否合并为一个接口？错误码枚举要自己定还是… | `201` | `` | `` |
+| 397 | …实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| 13 条全留还是砍？上传与导入是否合并为一个接口？错误码枚举要自己定还是沿用现草… | `203` | `` | `` |
+| 401 | …SV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| 上传要不要接真实文件（Issue #3 断言清单提到文件上传，但契约草案写的是… | `134` | `` | `` |
+
+### 4.3 ROUNDED —— 产物值四舍五入后等于文档写法（需人工确认语义一致）
+
+> 本节同时给出**文档上下文**与**产物值**：同值不同义的情况（例如文档说的是组内余弦相似度、产物那格却是 AUC）只能靠这一对信息人工看出来，脚本不做语义推断，也不靠放宽容差掩盖。
+
+（无）
+
+### 4.4 STRUCTURAL —— 结构性编号（章节号/外部文件行号/年份/序号/SQL 长度/模型维度参数量/版本号/端口号）
+
+| 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
+|---|---|---|---|---|
+| 5 | > **重要限定（2026-10-23 用户反馈后补记）**：规格侧的 64 条 User Stories / 13… | `2026` | `年份/日期` | `` |
+| 5 | …围、数据形态、产品形态（前后端是否分离）、UI 形态、功能范围、交互细节、视觉文案这七项（§4.11 的 P1–P7）**必须由需求方拍板**，评审方只能给建议。P1–P7 未拍板前，`sys… | `4.11` | `章节号(§引用)` | `` |
+| 9 | ## 1. 现状快照（2026-10-23，W2 第 3 天） | `2026` | `年份/日期` | `` |
+| 13 | …*G2：语料可复现** \| `docs/技术方案/本科版实施方案.md` §6 倒排表 第 200 行 \| 第 2.1 节的条目必须在本周内收口 \| | `200` | `外部文件行号引用` | `` |
+| 13 | …* \| `docs/技术方案/本科版实施方案.md` §6 倒排表 第 200 行 \| 第 2.1 节的条目必须在本周内收口 \| | `2.1` | `章节号` | `` |
+| 14 | …ssue 全部 OPEN、标签只剩 `needs-triage`，每票留 1 条「撤回说明（2026-10-23）」评论，票体未关闭未删除 \| `gh issue list --state a… | `2026` | `年份/日期` | `` |
+| 15 | …m/openapi.yaml`；`system/schema.sql`；实施方案 §5 第 187 行 \| 规格侧密度足够，但来源工单已撤回，等于「有草案无定稿」 \| | `187` | `外部文件行号引用` | `` |
+| 20 | …0 条、`【无出处】` 26 条 \| `docs/技术方案/数字溯源审计.md` §1 第 34 行 第 44 行 \| 剩余无出处项集中在耗时与人工标注类承诺 \| | `34` | `外部文件行号引用` | `` |
+| 20 | …出处】` 26 条 \| `docs/技术方案/数字溯源审计.md` §1 第 34 行 第 44 行 \| 剩余无出处项集中在耗时与人工标注类承诺 \| | `44` | `外部文件行号引用` | `` |
+| 21 | \| 耗时口径 \| 全仓耗时值按 §7.2 的 3b 条同步为当前复跑值；复跑后由 `poc/kbgovernance/sync_ti… | `7.2` | `章节号(§引用)` | `` |
+| 29 | ### 2.1 W2 关卡 G2 范围内（本周，10-27 前收口） | `2.1` | `章节号` | `` |
+| 34 | …样点只记录不新增随机调用）；`docs/技术方案/企业知识库质量治理系统技术方案.md` §6.1 第 816 行。 | `6.1` | `章节号(§引用)` | `` |
+| 34 | …新增随机调用）；`docs/技术方案/企业知识库质量治理系统技术方案.md` §6.1 第 816 行。 | `816` | `外部文件行号引用` | `` |
+| 42 | …e/detect.py`（写出 `corrupt_docs.csv`）；实施方案 §2 第 81 行（`metrics.json` 的 `corrupt` 段口径）。 | `81` | `外部文件行号引用` | `` |
+| 50 | - **依据**：实施方案 §6 第 200 行（G2 关卡）；`docs/技术方案/企业知识库质量治理系统技术方案.md` §6.1（… | `200` | `外部文件行号引用` | `` |
+| 50 | …200 行（G2 关卡）；`docs/技术方案/企业知识库质量治理系统技术方案.md` §6.1（可复现性口径）。 | `6.1` | `章节号(§引用)` | `` |
+| 58 | …判定取值口径）；`poc/kbgovernance/check_numbers.py` 第 75 行（来源集）。 | `75` | `外部文件行号引用` | `` |
+| 61 | - **证据**：`docs/技术方案/数字溯源审计.md` 第 5 行（受审集合）、第 12 行（第七轮复核：聚类簇数与噪声、误报归因、防作弊对照集、可复现性… | `5` | `外部文件行号引用` | `` |
+| 61 | - **证据**：`docs/技术方案/数字溯源审计.md` 第 5 行（受审集合）、第 12 行（第七轮复核：聚类簇数与噪声、误报归因、防作弊对照集、可复现性四项改判；聚类耗时仍为 `… | `12` | `外部文件行号引用` | `` |
+| 61 | …【无出处】`）；`poc/kbgovernance/check_numbers.py` 第 75 行 `SOURCES_JSON` 已含 `repro_check.json`。 | `75` | `外部文件行号引用` | `` |
+| 66 | - **依据**：实施方案 §7.2 第 272 行（耗时分项列、不写合计秒数）与 第 285 行（耗时值只认复跑值）。 | `7.2` | `章节号(§引用)` | `` |
+| 66 | - **依据**：实施方案 §7.2 第 272 行（耗时分项列、不写合计秒数）与 第 285 行（耗时值只认复跑值）。 | `272` | `外部文件行号引用` | `` |
+| 66 | - **依据**：实施方案 §7.2 第 272 行（耗时分项列、不写合计秒数）与 第 285 行（耗时值只认复跑值）。 | `285` | `外部文件行号引用` | `` |
+| 74 | - **依据**：实施方案 §6 第 200 行（W2 关卡 G2）、§6 硬关卡表；`AGENTS.md` 里程碑 tag 纪律（ta… | `200` | `外部文件行号引用` | `` |
+| 75 | - **验收信号**：第 5.1 节的 G2 通过条件逐条有判定结论；仓库存在对应关卡 tag；`git tag` 列表可查… | `5.1` | `章节号` | `` |
+| 79 | ### 2.2 G1 遗留（W1 签字未落，本周内必须补） | `2.2` | `章节号` | `` |
+| 84 | - **依据**：实施方案 §2 第 72 行（必做表）、§3 第 112 行（砍掉表）、§2.1 第 89 行（四项不可砍）、§6… | `72` | `外部文件行号引用` | `` |
+| 84 | - **依据**：实施方案 §2 第 72 行（必做表）、§3 第 112 行（砍掉表）、§2.1 第 89 行（四项不可砍）、§6 第 199 行（W1 关卡 G1… | `112` | `外部文件行号引用` | `` |
+| 84 | - **依据**：实施方案 §2 第 72 行（必做表）、§3 第 112 行（砍掉表）、§2.1 第 89 行（四项不可砍）、§6 第 199 行（W1 关卡 G1 要求逐项签字确认）；I… | `2.1` | `章节号(§引用)` | `` |
+| 84 | …**：实施方案 §2 第 72 行（必做表）、§3 第 112 行（砍掉表）、§2.1 第 89 行（四项不可砍）、§6 第 199 行（W1 关卡 G1 要求逐项签字确认）；Issue… | `89` | `外部文件行号引用` | `` |
+| 84 | …（必做表）、§3 第 112 行（砍掉表）、§2.1 第 89 行（四项不可砍）、§6 第 199 行（W1 关卡 G1 要求逐项签字确认）；Issue #4 正文 第 9 行。 | `199` | `外部文件行号引用` | `` |
+| 84 | …）、§6 第 199 行（W1 关卡 G1 要求逐项签字确认）；Issue #4 正文 第 9 行。 | `9` | `外部文件行号引用` | `` |
+| 92 | - **依据**：实施方案 §2 第 79 行（双人独立标注）、§7.3（标注预算）、§7.4 第 303 行（Kappa 计算）、§… | `79` | `外部文件行号引用` | `` |
+| 92 | - **依据**：实施方案 §2 第 79 行（双人独立标注）、§7.3（标注预算）、§7.4 第 303 行（Kappa 计算）、§6 第 201 行（W3 关卡… | `7.3` | `章节号(§引用)` | `` |
+| 92 | - **依据**：实施方案 §2 第 79 行（双人独立标注）、§7.3（标注预算）、§7.4 第 303 行（Kappa 计算）、§6 第 201 行（W3 关卡 G3）；Issue… | `7.4` | `章节号(§引用)` | `` |
+| 92 | …依据**：实施方案 §2 第 79 行（双人独立标注）、§7.3（标注预算）、§7.4 第 303 行（Kappa 计算）、§6 第 201 行（W3 关卡 G3）；Issue #4 正文… | `303` | `外部文件行号引用` | `` |
+| 92 | …人独立标注）、§7.3（标注预算）、§7.4 第 303 行（Kappa 计算）、§6 第 201 行（W3 关卡 G3）；Issue #4 正文 第 10 行、第 16 行；Issue #… | `201` | `外部文件行号引用` | `` |
+| 92 | …（Kappa 计算）、§6 第 201 行（W3 关卡 G3）；Issue #4 正文 第 10 行、第 16 行；Issue #5 正文 第 64 行（外部依赖为第二标注者）。 | `10` | `外部文件行号引用` | `` |
+| 92 | …计算）、§6 第 201 行（W3 关卡 G3）；Issue #4 正文 第 10 行、第 16 行；Issue #5 正文 第 64 行（外部依赖为第二标注者）。 | `16` | `外部文件行号引用` | `` |
+| 92 | …卡 G3）；Issue #4 正文 第 10 行、第 16 行；Issue #5 正文 第 64 行（外部依赖为第二标注者）。 | `64` | `外部文件行号引用` | `` |
+| 100 | - **依据**：`AGENTS.md` 里程碑 tag 纪律；实施方案 §6 第 199 行。 | `199` | `外部文件行号引用` | `` |
+| 105 | ### 2.3 契约与工程前置（W3–W6，W7 开工前必须就位） | `2.3` | `章节号` | `` |
+| 110 | - **依据**：Issue #3 正文 第 199 行（错误响应体结构统一）、第 201 行（清单接口最小排序参数、不分页）、第 203 行（… | `199` | `外部文件行号引用` | `` |
+| 110 | - **依据**：Issue #3 正文 第 199 行（错误响应体结构统一）、第 201 行（清单接口最小排序参数、不分页）、第 203 行（导入格式非法返回结构化错误）；实施方案… | `201` | `外部文件行号引用` | `` |
+| 110 | …第 199 行（错误响应体结构统一）、第 201 行（清单接口最小排序参数、不分页）、第 203 行（导入格式非法返回结构化错误）；实施方案 §2 第 86 行（三个功能面）。**注意：I… | `203` | `外部文件行号引用` | `` |
+| 110 | …口最小排序参数、不分页）、第 203 行（导入格式非法返回结构化错误）；实施方案 §2 第 86 行（三个功能面）。**注意：Issue #3 已撤回为 `needs-triage`，其正… | `86` | `外部文件行号引用` | `` |
+| 112 | - **负责人**：维护者（落草案）；**拍板人：需求方 + 导师（见 §4.11 P1–P6）**。 | `4.11` | `章节号(§引用)` | `` |
+| 114 | - **状态**：**未完成为契约**。落地为可实现契约的前置条件是 §4.11 的 P1–P5 拍板完成。 | `4.11` | `章节号(§引用)` | `` |
+| 119 | - **依据**：技术方案 §4.3 第 221 行（`document` / `ticket` / `cluster_resu… | `4.3` | `章节号(§引用)` | `` |
+| 119 | - **依据**：技术方案 §4.3 第 221 行（`document` / `ticket` / `cluster_result` /… | `221` | `外部文件行号引用` | `` |
+| 119 | …ocument` / `duplicate_group` 六张表关系）；实施方案 §6 第 205 行（W7：SQLite 建表 6 张）。 | `205` | `外部文件行号引用` | `` |
+| 121 | - **负责人**：维护者（落草案）；**拍板人：需求方 + 导师（见 §4.11 P1–P6）**。 | `4.11` | `章节号(§引用)` | `` |
+| 122 | …NOT EXISTS` 幂等，文件头已标「草案，未定稿」）；**已知偏离**：技术方案 §4.3 的主键写法为 `INTEGER PRIMARY KEY AUTOINCREMENT`，`s… | `4.3` | `章节号(§引用)` | `` |
+| 122 | …TEGER PRIMARY KEY`，理由写在 `system/schema.sql` 第 13 行至第 24 行（避免 `sqlite_sequence` 让「6 张表」变 7 项）——… | `13` | `外部文件行号引用` | `` |
+| 122 | …RIMARY KEY`，理由写在 `system/schema.sql` 第 13 行至第 24 行（避免 `sqlite_sequence` 让「6 张表」变 7 项）——偏离已记录，未… | `24` | `外部文件行号引用` | `` |
+| 128 | - **依据**：`poc/kbgovernance/embed.py` 第 28 行（`HERE`）、第 29 行（模型缓存默认路径）、第 31 行（模型名）；`poc/k… | `28 (×2)` | `外部文件行号引用` | `` |
+| 128 | …：`poc/kbgovernance/embed.py` 第 28 行（`HERE`）、第 29 行（模型缓存默认路径）、第 31 行（模型名）；`poc/kbgovernance/det… | `29` | `外部文件行号引用` | `` |
+| 128 | …e/embed.py` 第 28 行（`HERE`）、第 29 行（模型缓存默认路径）、第 31 行（模型名）；`poc/kbgovernance/detect.py` 第 28 行、第… | `31` | `外部文件行号引用` | `` |
+| 128 | …行（模型名）；`poc/kbgovernance/detect.py` 第 28 行、第 33 行（基准日期）、第 216 行（读 `ground_truth.json`）；Issue… | `33` | `外部文件行号引用` | `` |
+| 128 | …kbgovernance/detect.py` 第 28 行、第 33 行（基准日期）、第 216 行（读 `ground_truth.json`）；Issue #3 正文要求直接复用已验证… | `216` | `外部文件行号引用` | `` |
+| 136 | - **依据**：与 C3 同源；实施方案 §2.1 第 98 行（指标可复现是三个答辩风险的共同底牌）。 | `2.1` | `章节号(§引用)` | `` |
+| 136 | - **依据**：与 C3 同源；实施方案 §2.1 第 98 行（指标可复现是三个答辩风险的共同底牌）。 | `98` | `外部文件行号引用` | `` |
+| 144 | - **依据**：`poc/kbgovernance/detect.py` 第 216 行；技术方案 §4.4（SQLite 定位为设计值、尚未实测，说明系统要跑自己的语料）。 | `216` | `外部文件行号引用` | `` |
+| 144 | …**：`poc/kbgovernance/detect.py` 第 216 行；技术方案 §4.4（SQLite 定位为设计值、尚未实测，说明系统要跑自己的语料）。 | `4.4` | `章节号(§引用)` | `` |
+| 151 | - **依据**：实施方案 §2 第 80 行（`top15_gaps.csv` 输出、`metrics.json` 的 `gap.b… | `80` | `外部文件行号引用` | `` |
+| 165 | - **依据**：`poc/kbgovernance/detect.py` 第 134 行（`last_modified` 参与判定）；技术方案 §4.3 的 `document… | `134` | `外部文件行号引用` | `` |
+| 165 | …etect.py` 第 134 行（`last_modified` 参与判定）；技术方案 §4.3 的 `document` 表字段（`last_modified` 与 `effective… | `4.3` | `章节号(§引用)` | `` |
+| 172 | - **依据**：UX 评审必做项；Issue #3 正文 第 199 行（错误响应体结构统一）。 | `199` | `外部文件行号引用` | `` |
+| 179 | - **依据**：技术方案 §4.4 第 391 行（Vue3 + Element Plus 标注为「设计值，尚未实测」）、第… | `4.4` | `章节号(§引用)` | `` |
+| 179 | - **依据**：技术方案 §4.4 第 391 行（Vue3 + Element Plus 标注为「设计值，尚未实测」）、第 392 行（… | `391` | `外部文件行号引用` | `` |
+| 179 | …第 391 行（Vue3 + Element Plus 标注为「设计值，尚未实测」）、第 392 行（SQLite 同样未实测）。 | `392` | `外部文件行号引用` | `` |
+| 186 | - **依据**：实施方案 §6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3（报告生成已… | `205` | `外部文件行号引用` | `` |
+| 193 | - **依据**：技术方案 §4.4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 20… | `4.4` | `章节号(§引用)` | `` |
+| 193 | - **依据**：技术方案 §4.4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 205 行（W7… | `391` | `外部文件行号引用` | `` |
+| 193 | - **依据**：技术方案 §4.4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 205 行（W7 上传与扫描）。 | `392` | `外部文件行号引用` | `` |
+| 193 | ….4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 205 行（W7 上传与扫描）。 | `205` | `外部文件行号引用` | `` |
+| 197 | ### 2.4 数字治理 | `2.4` | `章节号` | `` |
+| 210 | …**依据**：`poc/kbgovernance/check_numbers.py` 第 63 行（受检文档根目录指向 `docs/技术方案`）、第 66 行（默认受检三份文档）；`do… | `63` | `外部文件行号引用` | `` |
+| 210 | …k_numbers.py` 第 63 行（受检文档根目录指向 `docs/技术方案`）、第 66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行… | `66` | `外部文件行号引用` | `` |
+| 210 | …方案`）、第 66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `5` | `外部文件行号引用` | `` |
+| 210 | …66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `6` | `外部文件行号引用` | `` |
+| 217 | …X 评审必做项；`poc/kbgovernance/check_numbers.py` 第 66 行（当前只覆盖 md 文档）。 | `66` | `外部文件行号引用` | `` |
+| 224 | - **依据**：`docs/技术方案/数字溯源审计.md` §5.2（聚类耗时判 `【无出处】`）；`poc/kbgovernance/metrics.json… | `5.2` | `章节号(§引用)` | `` |
+| 228 | ### 2.5 论文与答辩 | `2.5` | `章节号` | `` |
+| 233 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7… | `199` | `外部文件行号引用` | `` |
+| 233 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `200` | `外部文件行号引用` | `` |
+| 248 | - **依据**：Issue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险）；UX 评审必做… | `420` | `外部文件行号引用` | `` |
+| 252 | ### 2.6 图稿口径对齐 | `2.6` | `章节号` | `` |
+| 257 | - **依据**：实施方案 §5 第 168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/` 8 份图… | `168` | `外部文件行号引用` | `` |
+| 266 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图… | `170` | `外部文件行号引用` | `` |
+| 266 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11… | `171` | `外部文件行号引用` | `` |
+| 266 | …依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `187` | `外部文件行号引用` | `` |
+| 276 | \| CI 六 job 全量落地 \| 实施方案 §6 第 207 行（W9 复跑）；仓库当前无 CI 流水线，`AGENTS.md` 记 status ch… | `207` | `外部文件行号引用` | `` |
+| 277 | …单元测试层与前端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验） \| 不做 \| 人工核验清单覆盖全部交互路径 \|… | `357` | `外部文件行号引用` | `` |
+| 277 | …端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验） \| 不做 \| 人工核验清单覆盖全部交互路径 \| 回归靠人工，界面… | `391` | `外部文件行号引用` | `` |
+| 278 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7… | `203` | `外部文件行号引用` | `` |
+| 280 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单… | `106` | `外部文件行号引用` | `` |
+| 288 | ### 4.1 决策项总览 | `4.1` | `章节号` | `` |
+| 292 | \| D1 \| 清单页是否支持列排序 \| 导师（范围签字） \| 2026-10-27 前 \| 不分页、不做列排序 \| | `2026` | `年份/日期` | `` |
+| 293 | \| D2 \| 数字门禁受检范围 \| 导师 / 评审老师 \| 2026-10-27 前 \| 先按收缩范围止血，不改门禁逻辑 \| | `2026` | `年份/日期` | `` |
+| 296 | \| D5 \| 第二标注者未落实的判据时点 \| 导师 / TA \| 2026-10-27 前 \| 到期未落实即转单人标注 \| | `2026` | `年份/日期` | `` |
+| 306 | \| P2 \| 数据形态 \| 单库单表还是分表、字段是否够用 \| 按 §4.3 六表草案 \| | `4.3` | `章节号(§引用)` | `` |
+| 309 | …\| 上传 / 扫描 / 三类清单 / 下载 CSV 之外还要什么 \| 按实施方案 §2 第 86 行的三个功能面 \| | `86` | `外部文件行号引用` | `` |
+| 313 | ### 4.2 D1 清单页是否支持列排序 | `4.2` | `章节号` | `` |
+| 315 | - **冲突双方出处**：Issue #3 正文 第 201 行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度）且不实现分页，第… | `201` | `外部文件行号引用` | `` |
+| 315 | …行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「… | `66` | `外部文件行号引用` | `` |
+| 315 | …组内最大相似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路… | `2.2` | `章节号(§引用)` | `` |
+| 315 | …似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路由跳转）」，… | `104` | `外部文件行号引用` | `` |
+| 315 | …为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路由跳转）」，§3 砍掉表 第 120 行 同样把「列排序」列为砍掉项。 | `120` | `外部文件行号引用` | `` |
+| 321 | ### 4.3 D2 数字门禁受检范围 | `4.3` | `章节号` | `` |
+| 323 | …确门禁受检范围；`poc/kbgovernance/check_numbers.py` 第 66 行 的默认受检集合是 `docs/技术方案/` 下三份文档，而 `docs/技术方案/数字… | `66` | `外部文件行号引用` | `` |
+| 323 | …`docs/技术方案/` 下三份文档，而 `docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行 规定受审集合只含机读产物、叙述性文本不是数据源。 | `5` | `外部文件行号引用` | `` |
+| 323 | …/技术方案/` 下三份文档，而 `docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行 规定受审集合只含机读产物、叙述性文本不是数据源。 | `6` | `外部文件行号引用` | `` |
+| 329 | ### 4.4 D3 图稿旧口径如何处理 | `4.4` | `章节号` | `` |
+| 331 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合是 `poc… | `170` | `外部文件行号引用` | `` |
+| 331 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合是 `poc/kbgover… | `171` | `外部文件行号引用` | `` |
+| 337 | ### 4.5 D4 G1 签字记录的载体 | `4.5` | `章节号` | `` |
+| 339 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项… | `9` | `外部文件行号引用` | `` |
+| 339 | …#4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库当前没有任何签字载体文件。 | `199` | `外部文件行号引用` | `` |
+| 345 | ### 4.6 D5 第二标注者未落实的判据时点 | `4.6` | `章节号` | `` |
+| 347 | - **冲突双方出处**：实施方案 §6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关… | `223` | `外部文件行号引用` | `` |
+| 347 | …6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA… | `201` | `外部文件行号引用` | `` |
+| 347 | …触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二… | `10` | `外部文件行号引用` | `` |
+| 347 | …ssue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二标注者。三处之间缺一个「本周内」的判据。 | `64` | `外部文件行号引用` | `` |
+| 348 | …拖住，但放弃双人一致性证据；B 等到 W3 末——可能保住双人标注，风险是 G3 关卡与 §7.4 的 Kappa 目标一起落空。 | `7.4` | `章节号(§引用)` | `` |
+| 353 | ### 4.7 D6 三张界面截图的拍摄周次 | `4.7` | `章节号` | `` |
+| 355 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截… | `205` | `外部文件行号引用` | `` |
+| 355 | …：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Is… | `207` | `外部文件行号引用` | `` |
+| 355 | …截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求在答辩环境人… | `185` | `外部文件行号引用` | `` |
+| 355 | …放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求在答辩环境人工核验 3 个界面截图、第 435 行 已砍掉第 4 张与导出页截图。 | `420` | `外部文件行号引用` | `` |
+| 355 | …张截图；Issue #3 正文 第 420 行 要求在答辩环境人工核验 3 个界面截图、第 435 行 已砍掉第 4 张与导出页截图。 | `435` | `外部文件行号引用` | `` |
+| 356 | …*：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `205` | `外部文件行号引用` | `` |
+| 359 | - **未决默认口径**：按 B，截图拍摄随 §6 第 207 行 一起执行。 | `207` | `外部文件行号引用` | `` |
+| 361 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `4.8` | `章节号` | `` |
+| 363 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2… | `199` | `外部文件行号引用` | `` |
+| 363 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文列为验收项；PM 评审指出… | `200` | `外部文件行号引用` | `` |
+| 369 | ### 4.9 D8 是否补可用性证据 | `4.9` | `章节号` | `` |
+| 371 | …描 → 三类缺陷清单列表 + 展开详情），但仓库内没有任何一手用户材料；实施方案 §2 第 86 行 只写功能面，角色来源无处可查；UX 评审把「用户证据的诚实替代」列为必做。 | `86` | `外部文件行号引用` | `` |
+| 377 | ### 4.10 架构评审侧决策点（编号 A1–A9，与 PM 侧 D1–D8 不同源，勿混用） | `4.10` | `章节号` | `` |
+| 391 | ### 4.11 产品形态类决策（P1–P7，需求方拍板） | `4.11` | `章节号` | `` |
+| 398 | …e_group`，ISO-8601 存 TEXT，重复组成员存 JSON 数组（技术方案 §4.3 第 221 行；`system/schema.sql`） \| 字段够不够用？要不要加用户/… | `4.3` | `章节号(§引用)` | `` |
+| 398 | …p`，ISO-8601 存 TEXT，重复组成员存 JSON 数组（技术方案 §4.3 第 221 行；`system/schema.sql`） \| 字段够不够用？要不要加用户/审计表（§3… | `221` | `外部文件行号引用` | `` |
+| 398 | …MENT？ \| 沿用六表草案，主键偏离已记录在 `system/schema.sql` 第 13–24 行 \| | `13` | `外部文件行号引用` | `` |
+| 400 | …陷清单页；清单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3） \| 页面就是这三个还是更多？要不要组件库… | `86` | `外部文件行号引用` | `` |
+| 400 | …单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3） \| 页面就是这三个还是更多？要不要组件库？要不要封面/… | `2.2` | `章节号(§引用)` | `` |
+| 400 | …+ 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3） \| 页面就是这三个还是更多？要不要组件库？要不要封面/说明页？深浅… | `104` | `外部文件行号引用` | `` |
+| 401 | …展开详情 / 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| 上传要不要接真实文件（Issue #3 断言清单提… | `86` | `外部文件行号引用` | `` |
+| 401 | …现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| 上传要不要接真实文件（Issue #3 断言清单提到文件上传，但契约草案… | `117` | `外部文件行号引用` | `` |
+| 411 | ### 5.1 W2 关卡 G2 通过条件 | `5.1` | `章节号` | `` |
+| 420 | \| 6 \| 数字溯源审计同步 \| `docs/技术方案/数字溯源审计.md` 第 5 行 受审集合含 `repro_check.json`，新增产物有字段级出处行 \| 具备 \| | `5` | `外部文件行号引用` | `` |
+| 423 | ### 5.2 W7 开工门槛七项（与本清单条目的对应） | `5.2` | `章节号` | `` |
+| 427 | …后端形态 / UI 形态 / 功能范围 / 交互 / 视觉） \| **P1–P7** \| §4.11 每项都有需求方的明确结论 \| **未满足——本项不拍板，第 3–5 项全部无法判定** \| | `4.11` | `章节号(§引用)` | `` |
+| 440 | ### 6.1 证据缺口（按类别） | `6.1` | `章节号` | `` |
+| 445 | \| 前后端工具链「可装可构建」未实测 \| 未实测 \| 技术方案 §4.4 第 391 行/第 392 行 自标「设计值，尚未实测」 \| W7 门槛第 4 项无法判定… | `4.4` | `章节号(§引用)` | `` |
+| 445 | \| 前后端工具链「可装可构建」未实测 \| 未实测 \| 技术方案 §4.4 第 391 行/第 392 行 自标「设计值，尚未实测」 \| W7 门槛第 4 项无法判定 \| C10… | `391` | `外部文件行号引用` | `` |
+| 445 | …前后端工具链「可装可构建」未实测 \| 未实测 \| 技术方案 §4.4 第 391 行/第 392 行 自标「设计值，尚未实测」 \| W7 门槛第 4 项无法判定 \| C10 \| | `392` | `外部文件行号引用` | `` |
+| 446 | …\| 未实测 \| `poc/kbgovernance/check_numbers.py` 第 66 行 只覆盖 md 文档 \| 前端页面数字可能漂移无人发现 \| N3 \| | `66` | `外部文件行号引用` | `` |
+| 448 | \| 缺口聚类耗时无产物 \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.2 判 `【无出处】`；`metrics.json` 的 `gap` 节无耗时字段 \| 附录… | `5.2` | `章节号(§引用)` | `` |
+| 449 | …各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关… | `79` | `外部文件行号引用` | `` |
+| 449 | …、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `7.3` | `章节号(§引用)` | `` |
+| 449 | …a 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `7.4` | `章节号(§引用)` | `` |
+| 449 | …0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `303` | `外部文件行号引用` | `` |
+| 450 | …实测 \| `poc/kbgovernance/gen_data.py` 抽样点；技术方案 §6.1 第 816 行 只登记命中篇数 \| 对照集规模口径可能被追问 \| 随 A1 的登记动作补齐… | `6.1` | `章节号(§引用)` | `` |
+| 450 | …poc/kbgovernance/gen_data.py` 抽样点；技术方案 §6.1 第 816 行 只登记命中篇数 \| 对照集规模口径可能被追问 \| 随 A1 的登记动作补齐 \| | `816` | `外部文件行号引用` | `` |
+| 451 | …在审计中仍为 `【无出处】` \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.4 \| 跨语料迁移章节的相关数字暂不可引用 \| 暂缓引用该组数字 \| | `5.4` | `章节号(§引用)` | `` |
+| 454 | …缓存命中未实测 \| 未实测 \| `poc/kbgovernance/embed.py` 第 29 行（模型缓存默认路径）；仓库无 CI 流水线 \| CI 落地前不可承诺自动门禁 \| 延后到… | `29` | `外部文件行号引用` | `` |
+| 457 | …在审计中仍为 `【无出处】` \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.4 \| 论文不得直接引用这两个数 \| 随标注 / 统计补齐 \| | `5.4` | `章节号(§引用)` | `` |
+| 459 | ### 6.2 冲突与待统一项（先报告，不自行选一方当真） | `6.2` | `章节号` | `` |
+| 463 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 1… | `66` | `外部文件行号引用` | `` |
+| 463 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列… | `201` | `外部文件行号引用` | `` |
+| 463 | …径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| 未拍板 \| D1；在 B1 逐项… | `2.2` | `章节号(§引用)` | `` |
+| 463 | …sue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| 未拍板 \| D1；在 B1 逐项签字时一并改… | `104` | `外部文件行号引用` | `` |
+| 463 | …6 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| 未拍板 \| D1；在 B1 逐项签字时一并改齐 \| | `120` | `外部文件行号引用` | `` |
+| 464 | \| 实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保… | `390` | `外部文件行号引用` | `` |
+| 465 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写 §6 对应行… | `205` | `外部文件行号引用` | `` |
+| 465 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写 §6 对应行 \| | `207` | `外部文件行号引用` | `` |
+| 466 | \| 技术方案 §4.3 主键写法与落地 DDL \| 技术方案 §4.3 写 `INTEGER PRIMARY KE… | `4.3 (×2)` | `章节号(§引用)` | `` |
+| 466 | …R PRIMARY KEY` \| 偏离已记录在 `system/schema.sql` 第 13 行至第 24 行 \| 确认是否回改技术方案正文，使两份文件一致 \| | `13` | `外部文件行号引用` | `` |
+| 466 | …RY KEY` \| 偏离已记录在 `system/schema.sql` 第 13 行至第 24 行 \| 确认是否回改技术方案正文，使两份文件一致 \| | `24` | `外部文件行号引用` | `` |
+| 467 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/k… | `7.2` | `章节号(§引用)` | `` |
+| 467 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/kbgover… | `272` | `外部文件行号引用` | `` |
+| 467 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/kbgovernance/sy… | `285` | `外部文件行号引用` | `` |
+
+### 4.5 EXTERNAL —— 引用他人文献或外部标准的数字
+
+（无）
+
+### 4.6 CITED —— 引用语境（转述并判定他处数值 / 审计自身计数）
+
+| 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
+|---|---|---|---|---|
+| 20 | \| 数字治理 \| 附录 D 与实测产物一致率 102 / 112（91.1%）；正文原子声明 155 条，其中 `一致` 122 条、`不一致`… | `102` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 20 | \| 数字治理 \| 附录 D 与实测产物一致率 102 / 112（91.1%）；正文原子声明 155 条，其中 `一致` 122 条、`不一致` 0 条、`… | `112` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 20 | \| 数字治理 \| 附录 D 与实测产物一致率 102 / 112（91.1%）；正文原子声明 155 条，其中 `一致` 122 条、`不一致` 0 条、`【无出处】… | `91.1` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 20 | …数字治理 \| 附录 D 与实测产物一致率 102 / 112（91.1%）；正文原子声明 155 条，其中 `一致` 122 条、`不一致` 0 条、`【无出处】` 26 条 \| `doc… | `155` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 20 | …实测产物一致率 102 / 112（91.1%）；正文原子声明 155 条，其中 `一致` 122 条、`不一致` 0 条、`【无出处】` 26 条 \| `docs/技术方案/数字溯源审计.… | `122` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+| 202 | …alue` / `formula` / `inputs` / `source_files`；52 条登记行）；`docs/技术方案/数字溯源审计.md` §1（正文无出处条目）。 | `52` | `溯源判定语境：该数字是本行判定所转述的对象，非本报告实测断言` | `` |
+
+### 4.7 ALLOWED —— 已在 ALLOWED_UNSOURCED 登记的例外
+
+（无）
+
+### 4.8 OK —— 精确命中产物
+
+| 行号 | 文档上下文 | 文档写的数字 | 匹配到的来源 | 产物值 |
+|---|---|---|---|---|
+| 3 | …缺「需求」，缺的是**已被确认的需求**——规格侧已有 64 条 User Stories、13 条接口契约、6 张表的 DDL、11 项图表规格，确认侧却仍是空的（G1 逐项签字记录 0… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 3 | …**已被确认的需求**——规格侧已有 64 条 User Stories、13 条接口契约、6 张表的 DDL、11 项图表规格，确认侧却仍是空的（G1 逐项签字记录 0 条、一手用户证… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 3 | …*——规格侧已有 64 条 User Stories、13 条接口契约、6 张表的 DDL、11 项图表规格，确认侧却仍是空的（G1 逐项签字记录 0 条、一手用户证据 0 份、论文第 1… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 3 | …3 条接口契约、6 张表的 DDL、11 项图表规格，确认侧却仍是空的（G1 逐项签字记录 0 条、一手用户证据 0 份、论文第 1、2 章草稿 0 章），规格密度与确认密度的落差是当前… | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 3 | …1 项图表规格，确认侧却仍是空的（G1 逐项签字记录 0 条、一手用户证据 0 份、论文第 1、2 章草稿 0 章），规格密度与确认密度的落差是当前最大风险源；本清单把 W2 收口到 W… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 3 | …项图表规格，确认侧却仍是空的（G1 逐项签字记录 0 条、一手用户证据 0 份、论文第 1、2 章草稿 0 章），规格密度与确认密度的落差是当前最大风险源；本清单把 W2 收口到 W7… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 5 | …026-10-23 用户反馈后补记）**：规格侧的 64 条 User Stories / 13 条接口 / 6 张表，全部来自 **Issue #3——该工单已撤回为 `needs-tr… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 5 | …用户反馈后补记）**：规格侧的 64 条 User Stories / 13 条接口 / 6 张表，全部来自 **Issue #3——该工单已撤回为 `needs-triage`**，… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 5 | …条 User Stories / 13 条接口 / 6 张表，全部来自 **Issue #3——该工单已撤回为 `needs-triage`**，因此这些规格连同本轮落盘的 `syst… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 5 | …P1–P7 未拍板前，`system/` 下的草案不构成可实现的契约，W7 开工门槛第 3/4/5 项无法判定。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 5 | …–P7 未拍板前，`system/` 下的草案不构成可实现的契约，W7 开工门槛第 3/4/5 项无法判定。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 9 | ## 1. 现状快照（2026-10-23，W2 第 3 天） | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 9 | ## 1. 现状快照（2026-10-23，W2 第 3 天） | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 13 | \| 排期位置 \| 今日落在 W2（10-21 → 10-27），W2 关卡为 **G2：语料可复现** \| `docs/技术方案/… | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 13 | …W2 关卡为 **G2：语料可复现** \| `docs/技术方案/本科版实施方案.md` §6 倒排表 第 200 行 \| 第 2.1 节的条目必须在本周内收口 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 14 | \| 需求确认 \| 11 张 GitHub issue 全部 OPEN、标签只剩 `needs-triage`，每票… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 14 | …GitHub issue 全部 OPEN、标签只剩 `needs-triage`，每票留 1 条「撤回说明（2026-10-23）」评论，票体未关闭未删除 \| `gh issue li… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 15 | \| 规格存量 \| User Stories 64 条；接口 13 条；数据表 6 张；图表规格 11 项（8 图 3 表）——**均为草案，未确认** \|… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 15 | \| 规格存量 \| User Stories 64 条；接口 13 条；数据表 6 张；图表规格 11 项（8 图 3 表）——**均为草案，未确认** \| Issue #3… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 15 | …规格存量 \| User Stories 64 条；接口 13 条；数据表 6 张；图表规格 11 项（8 图 3 表）——**均为草案，未确认** \| Issue #3 正文（已撤回为 `… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 15 | …\| User Stories 64 条；接口 13 条；数据表 6 张；图表规格 11 项（8 图 3 表）——**均为草案，未确认** \| Issue #3 正文（已撤回为 `need… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 15 | …er Stories 64 条；接口 13 条；数据表 6 张；图表规格 11 项（8 图 3 表）——**均为草案，未确认** \| Issue #3 正文（已撤回为 `needs-tr… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 15 | …ystem/openapi.yaml`；`system/schema.sql`；实施方案 §5 第 187 行 \| 规格侧密度足够，但来源工单已撤回，等于「有草案无定稿」 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 16 | \| 确认存量 \| G1 逐项签字记录 0 条；一手用户证据 0 份；论文第 1、2 章草稿 0 章 \| Issue #4 仍 OPE… | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 16 | \| 确认存量 \| G1 逐项签字记录 0 条；一手用户证据 0 份；论文第 1、2 章草稿 0 章 \| Issue #4 仍 OPEN；仓库内无对应文件 \| 确认侧为空，… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 16 | \| 确认存量 \| G1 逐项签字记录 0 条；一手用户证据 0 份；论文第 1、2 章草稿 0 章 \| Issue #4 仍 OPEN；仓库内无对应文件 \| 确认侧为空，是风… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 16 | …项签字记录 0 条；一手用户证据 0 份；论文第 1、2 章草稿 0 章 \| Issue #4 仍 OPEN；仓库内无对应文件 \| 确认侧为空，是风险集中点 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 17 | \| 契约前置 \| `system/schema.sql`（6 表 DDL，幂等）、`system/openapi.yaml`（13 条路径）、`syst… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 17 | …schema.sql`（6 表 DDL，幂等）、`system/openapi.yaml`（13 条路径）、`system/README.md` 三件套**草案**已落盘 \| `syste… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 18 | \| 产物一致性 \| 两轮运行比对 13 个产物，`n_identical`=13、`identical`=true \| `poc/… | `13 (×2)` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 19 | \| 误报归因 \| 腐化检测误报 7 篇已逐篇归因：6 篇来自防作弊对照集、1 篇为重复件继承主文档陈旧时间戳 \| `poc/k… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 19 | \| 误报归因 \| 腐化检测误报 7 篇已逐篇归因：6 篇来自防作弊对照集、1 篇为重复件继承主文档陈旧时间戳 \| `poc/kbgovernan… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 19 | \| 误报归因 \| 腐化检测误报 7 篇已逐篇归因：6 篇来自防作弊对照集、1 篇为重复件继承主文档陈旧时间戳 \| `poc/kbgovernance/metrics.j… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 20 | …/ 112（91.1%）；正文原子声明 155 条，其中 `一致` 122 条、`不一致` 0 条、`【无出处】` 26 条 \| `docs/技术方案/数字溯源审计.md` §1 第 3… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 20 | …；正文原子声明 155 条，其中 `一致` 122 条、`不一致` 0 条、`【无出处】` 26 条 \| `docs/技术方案/数字溯源审计.md` §1 第 34 行 第 44 行 \|… | `26` | `metrics.json:gap.cluster_rows[4].detected_intents` | `26` |
+| 20 | …一致` 0 条、`【无出处】` 26 条 \| `docs/技术方案/数字溯源审计.md` §1 第 34 行 第 44 行 \| 剩余无出处项集中在耗时与人工标注类承诺 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 21 | \| 耗时口径 \| 全仓耗时值按 §7.2 的 3b 条同步为当前复跑值；复跑后由 `poc/kbgovernance/sync_timing… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 27 | ## 2. 必做清单（W2 收口 → W7 开工前） | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 29 | ### 2.1 W2 关卡 G2 范围内（本周，10-27 前收口） | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 37 | …rnance/ground_truth.json` → `control_doc_ids`（10 篇）、`n_control_docs`=10；`poc/kbgovernance/metr… | `10 (×3)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 41 | - **事项**：把 7 篇误报按「对照集陈旧」「重复件继承陈旧」「其他」三类归因写进明细表，并给出逐篇结论。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 42 | …nance/detect.py`（写出 `corrupt_docs.csv`）；实施方案 §2 第 81 行（`metrics.json` 的 `corrupt` 段口径）。 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 45 | - **证据**：`poc/kbgovernance/corrupt_docs.csv`（300 行、11 列，新增 `in_control_sample` / `is_dup_copy`… | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 45 | …据**：`poc/kbgovernance/corrupt_docs.csv`（300 行、11 列，新增 `in_control_sample` / `is_dup_copy` / `d… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 45 | …poc/kbgovernance/metrics.json` → `corrupt.fp`=7、`fp_from_control`=6、`fp_from_dup_inherit`=1、`… | `7 (×3)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 45 | …rics.json` → `corrupt.fp`=7、`fp_from_control`=6、`fp_from_dup_inherit`=1、`fp_other`=0，`precisi… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 45 | …`=7、`fp_from_control`=6、`fp_from_dup_inherit`=1、`fp_other`=0，`precision`=0.8986 / `recall`=1.… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 45 | …control`=6、`fp_from_dup_inherit`=1、`fp_other`=0，`precision`=0.8986 / `recall`=1.0 / `f1`=0.94… | `0 (×2)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 45 | …_from_dup_inherit`=1、`fp_other`=0，`precision`=0.8986 / `recall`=1.0 / `f1`=0.9466，嵌入 62 篇、检出 69 篇、… | `0.8986` | `metrics.json:corrupt.precision` | `0.8986` |
+| 45 | …=1、`fp_other`=0，`precision`=0.8986 / `recall`=1.0 / `f1`=0.9466，嵌入 62 篇、检出 69 篇、真阳性 62、假阴性 0；7… | `1.0` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 45 | …r`=0，`precision`=0.8986 / `recall`=1.0 / `f1`=0.9466，嵌入 62 篇、检出 69 篇、真阳性 62、假阴性 0；7 篇误报的 `rule_hit… | `0.9466` | `metrics.json:corrupt.f1` | `0.9466` |
+| 45 | …ision`=0.8986 / `recall`=1.0 / `f1`=0.9466，嵌入 62 篇、检出 69 篇、真阳性 62、假阴性 0；7 篇误报的 `rule_hits` 均为… | `62 (×2)` | `metrics.json:corrupt.embedded` | `62` |
+| 45 | ….8986 / `recall`=1.0 / `f1`=0.9466，嵌入 62 篇、检出 69 篇、真阳性 62、假阴性 0；7 篇误报的 `rule_hits` 均为 `R2_更新时间… | `69` | `metrics.json:corrupt.detected` | `69` |
+| 45 | …篇、真阳性 62、假阴性 0；7 篇误报的 `rule_hits` 均为 `R2_更新时间超18个月\|R4_同类存在更新文档`，其中 6 篇 `fp_reason=control_stal… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
+| 50 | - **依据**：实施方案 §6 第 200 行（G2 关卡）；`docs/技术方案/企业知识库质量治理系统技术方案.md`… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 53 | …json` → `two_run_verify.n_artifacts_compared`=13、`n_identical`=13、`identical`=true；口径三类——`byte… | `13 (×2)` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 53 | …`identical`=true；口径三类——`byte_deterministic` 记 25 个文件的 md5、`normalized` 记 3 个剔除计时字段后比对的文件（`metr… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 53 | …e_deterministic` 记 25 个文件的 md5、`normalized` 记 3 个剔除计时字段后比对的文件（`metrics.json` 剔除 `encode_secon… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 58 | - **依据**：`docs/技术方案/数字溯源审计.md` §1（判定取值口径）；`poc/kbgovernance/check_numbers.py` 第… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 69 | …timings.py` 同步并打印逐处改动，`--check` 只检查不修改、有漂移退出码 1；覆盖 14 个文件，含本文档）；`poc/kbgovernance/timings_sta… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 69 | …gs.py` 同步并打印逐处改动，`--check` 只检查不修改、有漂移退出码 1；覆盖 14 个文件，含本文档）；`poc/kbgovernance/timings_state.jso… | `14` | `metrics.json:gap.cluster_rows[17].gap_clusters` | `14` |
+| 69 | …e.json`。同步已挂进 `poc/kbgovernance/run_all.sh` 第 6 步（`[6/7] 同步文档耗时值`），派生指标重算挂在第 4 步（`[4/7] 派生指标`… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 69 | …同步已挂进 `poc/kbgovernance/run_all.sh` 第 6 步（`[6/7] 同步文档耗时值`），派生指标重算挂在第 4 步（`[4/7] 派生指标`），因此「跑一次… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 69 | …/run_all.sh` 第 6 步（`[6/7] 同步文档耗时值`），派生指标重算挂在第 4 步（`[4/7] 派生指标`），因此「跑一次流水线 → 文档耗时值与产物自动对齐」不再依赖… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 69 | …线 → 文档耗时值与产物自动对齐」不再依赖人工。当前复跑值：`total_seconds`=3.09 秒、`corrupt.seconds`=0.4 秒、`embedding.encode_s… | `3.09` | `metrics.json:total_seconds` | `3.09` |
+| 69 | …前复跑值：`total_seconds`=3.09 秒、`corrupt.seconds`=0.4 秒、`embedding.encode_seconds`=14.61 秒（`poc/kbg… | `0.4` | `metrics.json:gap.cluster_rows[1].threshold` | `0.4` |
+| 69 | …upt.seconds`=0.4 秒、`embedding.encode_seconds`=14.61 秒（`poc/kbgovernance/metrics.json` / `poc/kbgo… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 74 | - **依据**：实施方案 §6 第 200 行（W2 关卡 G2）、§6 硬关卡表；`AGENTS.md` 里程碑 tag… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 81 | #### B1 §2 / §3 逐项签字确认 —— 未完成 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 81 | #### B1 §2 / §3 逐项签字确认 —— 未完成 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 83 | - **事项**：§2 必做范围表与 §3 主动砍掉表逐项确认并留痕，构成「已被确认的需求」。 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 83 | - **事项**：§2 必做范围表与 §3 主动砍掉表逐项确认并留痕，构成「已被确认的需求」。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 84 | - **依据**：实施方案 §2 第 72 行（必做表）、§3 第 112 行（砍掉表）、§2.1 第 89 行（四项不可砍… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 84 | - **依据**：实施方案 §2 第 72 行（必做表）、§3 第 112 行（砍掉表）、§2.1 第 89 行（四项不可砍）、§6 第 199 行（W1… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 84 | …72 行（必做表）、§3 第 112 行（砍掉表）、§2.1 第 89 行（四项不可砍）、§6 第 199 行（W1 关卡 G1 要求逐项签字确认）；Issue #4 正文 第 9 行。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 84 | …行（四项不可砍）、§6 第 199 行（W1 关卡 G1 要求逐项签字确认）；Issue #4 正文 第 9 行。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 87 | - **当前缺口**：签字记录 0 条；Issue #4 仍为 OPEN。 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 87 | - **当前缺口**：签字记录 0 条；Issue #4 仍为 OPEN。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 92 | - **依据**：实施方案 §2 第 79 行（双人独立标注）、§7.3（标注预算）、§7.4 第 303 行（Kappa… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 92 | …行（双人独立标注）、§7.3（标注预算）、§7.4 第 303 行（Kappa 计算）、§6 第 201 行（W3 关卡 G3）；Issue #4 正文 第 10 行、第 16 行；I… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 92 | …第 303 行（Kappa 计算）、§6 第 201 行（W3 关卡 G3）；Issue #4 正文 第 10 行、第 16 行；Issue #5 正文 第 64 行（外部依赖为第二标注… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 92 | …行（W3 关卡 G3）；Issue #4 正文 第 10 行、第 16 行；Issue #5 正文 第 64 行（外部依赖为第二标注者）。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 95 | - **当前缺口**：人选与时间均未落实；降级路径已写在实施方案 §6 关键路径行，需在 W1 末判定点触发。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 100 | - **依据**：`AGENTS.md` 里程碑 tag 纪律；实施方案 §6 第 199 行。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 107 | #### C1 13 接口机器可读契约 —— 草案已落盘，待拍板 | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 110 | - **依据**：Issue #3 正文 第 199 行（错误响应体结构统一）、第 201 行（清单接口最小排序参数、不分页）… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 110 | …（清单接口最小排序参数、不分页）、第 203 行（导入格式非法返回结构化错误）；实施方案 §2 第 86 行（三个功能面）。**注意：Issue #3 已撤回为 `needs-triag… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 113 | - **证据**：`system/openapi.yaml`（OpenAPI 3.0，13 条路径，`info.description` 顶部已写明「草案，未定稿」与三项未决）… | `3.0` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 113 | - **证据**：`system/openapi.yaml`（OpenAPI 3.0，13 条路径，`info.description` 顶部已写明「草案，未定稿」与三项未决）；`s… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 116 | #### C2 6 表 DDL 落盘 —— 草案已落盘，待拍板（含一处已记录偏离） | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 119 | …le_document` / `duplicate_group` 六张表关系）；实施方案 §6 第 205 行（W7：SQLite 建表 6 张）。 | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 122 | - **证据**：`system/schema.sql`（6 张表、8 个显式索引、`CREATE TABLE IF NOT EXISTS` 幂等，文件… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 122 | - **证据**：`system/schema.sql`（6 张表、8 个显式索引、`CREATE TABLE IF NOT EXISTS` 幂等，文件头已标「草… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 122 | …` 第 13 行至第 24 行（避免 `sqlite_sequence` 让「6 张表」变 7 项）——偏离已记录，未自行抹平。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 128 | …行（基准日期）、第 216 行（读 `ground_truth.json`）；Issue #3 正文要求直接复用已验证脚本。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 151 | - **依据**：实施方案 §2 第 80 行（`top15_gaps.csv` 输出、`metrics.json` 的 `… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 151 | …v` 输出、`metrics.json` 的 `gap.best` 为 threshold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/k… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 151 | …的 `gap.best` 为 threshold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/kbgovernance/top15… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 151 | …hold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/kbgovernance/top15_gaps.csv`（15 行，含 `is… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 151 | …intents`=5）；`poc/kbgovernance/top15_gaps.csv`（15 行，含 `is_true_gap`）；`poc/kbgovernance/metrics.… | `15` | `metrics.json:gap.cluster_rows[6].gap_clusters` | `15` |
+| 158 | …_group`；`poc/kbgovernance/corrupt_docs.csv` 为 300 行全量表（含归因列）。 | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 172 | - **依据**：UX 评审必做项；Issue #3 正文 第 199 行（错误响应体结构统一）。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 186 | - **依据**：实施方案 §6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 186 | …6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3（报告生成已砍，不新增导出链路）；`poc/kbgovernance/run_all.sh`… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 193 | …案 §4.4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 205 行（W7 上传与扫描）。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 194 | - **验收信号**：6 张表可写入并读回；三类清单表格有渲染截图或录屏留痕；渲染行为不依赖真值列。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 202 | …**依据**：`poc/kbgovernance/derived_metrics.csv`（5 列：`derived_key` / `value` / `formula` / `inpu… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 202 | …source_files`；52 条登记行）；`docs/技术方案/数字溯源审计.md` §1（正文无出处条目）。 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 210 | …md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
+| 211 | - **验收信号**：门禁退出码为 0，且受检集合清单有书面口径。 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 230 | #### E1 论文第 1、2 章初稿 —— 未完成 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 230 | #### E1 论文第 1、2 章初稿 —— 未完成 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 232 | - **事项**：把第 1 章绪论与第 2 章相关技术写出来，形成可读初稿。 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 232 | - **事项**：把第 1 章绪论与第 2 章相关技术写出来，形成可读初稿。 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 233 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 233 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 233 | …：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 233 | …交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 236 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 236 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 236 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 241 | - **依据**：`docs/技术方案/数字溯源审计.md` §4（未被引用的产物清单）；实施方案 §7（唯一数字来源）。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 241 | …据**：`docs/技术方案/数字溯源审计.md` §4（未被引用的产物清单）；实施方案 §7（唯一数字来源）。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 248 | - **依据**：Issue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 248 | …sue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险）；UX 评审必做项。 | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 254 | #### F1 8 份图稿口径 —— 已完成 | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 257 | - **依据**：实施方案 §5 第 168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 257 | …168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/` 8 份图稿。 | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 260 | - **证据**：`poc/kbgovernance/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数… | `01` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 260 | …据**：`poc/kbgovernance/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、… | `08` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 260 | …nce/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时… | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 260 | …架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时呈现）。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 260 | …~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时呈现）。 | `512` | `metrics.json:embedding.dim` | `512` |
+| 261 | - **限定**：本项只修**数值与结构口径**，不动**产品与 UI 形态**。其中 `01-系统架构图.md` 画的是「Vue 3 + Element Plus 独立前端 + Fas… | `01` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 261 | …口径**，不动**产品与 UI 形态**。其中 `01-系统架构图.md` 画的是「Vue 3 + Element Plus 独立前端 + FastAPI 单进程」的四层架构，`08-A… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 261 | …ue 3 + Element Plus 独立前端 + FastAPI 单进程」的四层架构，`08-ASCII演示图.md` 画的是三个功能面的页面草图——这两处隐含了 P3（前后端是否分离… | `08` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 265 | - **事项**：按 §5 白名单复核 11 项图表的数据源文件是否都存在、字段是否对得上。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 265 | - **事项**：按 §5 白名单复核 11 项图表的数据源文件是否都存在、字段是否对得上。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 266 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 266 | …170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 266 | …行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 266 | …71 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 267 | - **验收信号**：11 项图表各有可解析的数据源路径，且脚本可从对应产物重新生成。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 272 | ## 3. 可延后清单 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 276 | \| CI 六 job 全量落地 \| 实施方案 §6 第 207 行（W9 复跑）；仓库当前无 CI 流水线，`AGENTS.md` 记 sta… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 277 | \| 单元测试层与前端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 278 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 278 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 278 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 278 | …实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7 界面截图已能定稿 \| 论文图稿与实际产物脱节，答辩时被追问数据一… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 278 | …案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7 界面截图已能定稿 \| 论文图稿与实际产物脱节，答辩时被追问数据一致性 \| | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 279 | \| 答辩 PPT 与 E7/E8 小节 \| Issue #10（答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 279 | \| 答辩 PPT 与 E7/E8 小节 \| Issue #10（答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 279 | …答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 279 | …PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 279 | …施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 280 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 280 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \|… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 280 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \| 性能叙… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 280 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \| 性能叙述只能给需求阈… | `60` | `metrics.json:gap.cluster_rows[20].gap_clusters` | `60` |
+| 286 | ## 4. 待拍板清单 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 298 | \| D7 \| 论文第 1、2 章是否现在开写 \| 导师 \| W3 内 \| 现在写，至少建目录与可读初稿 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 298 | \| D7 \| 论文第 1、2 章是否现在开写 \| 导师 \| W3 内 \| 现在写，至少建目录与可读初稿 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 305 | \| P1 \| API 契约范围 \| 13 条接口是否全留、哪些合并或砍 \| 按 `system/openapi.yaml` 草案 1… | `13 (×2)` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 309 | …能范围 \| 上传 / 扫描 / 三类清单 / 下载 CSV 之外还要什么 \| 按实施方案 §2 第 86 行的三个功能面 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 315 | - **冲突双方出处**：Issue #3 正文 第 201 行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 316 | …——需同步改实施方案两处口径，改动面小、与契约一致；B 完全不做排序——需从 Issue #3 删 US25 与契约要点，后续若加回要重开契约。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 317 | - **PM 建议**：A（与 #3 契约要点已写的一致）。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 323 | - **冲突双方出处**：Issue #18 要求明确门禁受检范围；`poc/kbgovernance/check_numbers.py… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
+| 327 | - **未决默认口径**：先按 B 收缩受检范围，「指标类致命 0」作为 W7 门槛守住。 | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 331 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 335 | - **当前状态**：已按「保留并改口径」执行，8 份图稿见 F1；本项不再需要额外拍板，除非要求把图稿纳入门禁。 | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 339 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 19… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 339 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 339 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 339 | …sue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库当前没有任何签字载体文件。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 343 | - **未决默认口径**：Issue #4 评论 + 仓库 md 双留。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 347 | - **冲突双方出处**：实施方案 §6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 2… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 347 | …实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 347 | …放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二标注者。三处之间缺一个「本周内」的判据。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 348 | - **选项与代价**：A 10-27 前未落实即转单人——保住 W3 关卡不被拖住，但放弃双人一致性证据；B 等到 W3… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 355 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 355 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 355 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185… | `3 (×5)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 355 | …章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 356 | - **选项与代价**：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 356 | …与代价**：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 357 | - **PM 建议**：B，并把 §6 W7 栏回写为不含截图。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 359 | - **未决默认口径**：按 B，截图拍摄随 §6 第 207 行 一起执行。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 361 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 361 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 363 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 363 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 363 | …：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文列为验收项；PM 评审指出论文与开发并行是排期… | `2 (×2)` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 367 | - **未决默认口径**：A，至少建目录并产出可读初稿；这也是 W7 开工门槛的第 7 项。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 371 | - **冲突双方出处**：Issue #3 正文按真实用户角色组织功能面（上传 → 一键扫描 → 三类缺陷清单列表 + 展开详情），但… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 371 | …一键扫描 → 三类缺陷清单列表 + 展开详情），但仓库内没有任何一手用户材料；实施方案 §2 第 86 行 只写功能面，角色来源无处可查；UX 评审把「用户证据的诚实替代」列为必做。 | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 372 | - **选项与代价**：A 组织 3–5 人走查——约半天到一天，能把角色与流程从推演变成实证；B 不做并在第 3 章声明角色为… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 372 | - **选项与代价**：A 组织 3–5 人走查——约半天到一天，能把角色与流程从推演变成实证；B 不做并在第 3 章声明角色为推演… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 375 | - **未决默认口径**：B，但一旦能组织走查就补，且走查结论须写进论文第 3 章。 | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 381 | \| A1 \| 扫描复用方式 \| 参数化复用 PoC 脚本 \| Issue #3 要求直接调用已验证脚本，而脚本写死了工作目录 \| 维护者 \| C3、C4 \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 382 | …口径 \| `metrics.json` → `gap.best.gap_clusters`=7 与 Top15 行数不是一回事 \| 维护者 \| C6 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 397 | \| P1 \| API 契约范围 \| 13 条接口、错误体 `{code, message, location}`、清单接口不实现分页… | `13 (×3)` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 397 | …tion}`、清单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| 13 条全留还是砍？上传与导入是否合并为一个接口？错… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 398 | …1 行；`system/schema.sql`） \| 字段够不够用？要不要加用户/审计表（§3 已砍）？主键写法是否回改为技术方案原文的 AUTOINCREMENT？ \| 沿用六表草案，… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 398 | …T？ \| 沿用六表草案，主键偏离已记录在 `system/schema.sql` 第 13–24 行 \| | `24` | `metrics.json:gap.cluster_rows[8].detected_intents` | `24` |
+| 399 | …端独立 Vue3 + Element Plus 工程、构建产物由后端静态挂载（Issue #3「前后端分离」小节） \| 前后端彻底分离，还是后端直出页面减少一个工程？答辩现场是否必须一条… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 400 | …三类缺陷清单页；清单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3） \| 页面就是这三个还是更多？要… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 400 | …nt Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3） \| 页面就是这三个还是更多？要不要组件库？要不要封面/说明页？深浅色？ \| 无默认——需… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 401 | …列表 + 展开详情 / 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| 上传要不要接真实文件（Issue #3… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 401 | …/ 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| 上传要不要接真实文件（Issue #3 断言清单提到文件上传… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 405 | …/P5 任一未决，`system/` 下的三份草案就只能停在「讨论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Eleme… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 405 | …system/` 下的三份草案就只能停在「讨论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 405 | …论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格渲染实测）全部无法判定。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 405 | …；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格渲染实测）全部无法判定。 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 409 | ## 5. 验收信号汇总 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 415 | \| 1 \| 语料重跑产物齐备 \| `poc/kbgovernance/` 下 `docs.csv`… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 416 | \| 2 \| 两次运行一致性有记录 \| `poc/kbgovernance/repro_check.… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 416 | …ro_check.json` → `two_run_verify.n_identical`=13 且 `identical`=true \| 具备 \| | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 417 | \| 3 \| 对照集可机读 \| `poc/kbgovernance/ground_truth.jso… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 417 | …rnance/ground_truth.json` → `control_doc_ids`（10 篇）、`n_control_docs`=10 \| 具备 \| | `10 (×2)` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 418 | \| 4 \| 误报逐篇归因 \| `poc/kbgovernance/corrupt_docs.csv… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 418 | …vernance/corrupt_docs.csv` → `fp_reason` 覆盖全部 7 篇误报 \| 具备 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 419 | \| 5 \| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 419 | …\| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=7 与明细表误报行数相等；`fp_from_control`=6、`fp_from_dup_i… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 419 | …→ `corrupt.fp`=7 与明细表误报行数相等；`fp_from_control`=6、`fp_from_dup_inherit`=1 \| 具备 \| | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 419 | …数相等；`fp_from_control`=6、`fp_from_dup_inherit`=1 \| 具备 \| | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 420 | \| 6 \| 数字溯源审计同步 \| `docs/技术方案/数字溯源审计.md` 第 5 行 受审集合… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 421 | \| 7 \| 耗时值与产物一致 \| `python poc/kbgovernance/sync_ti… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 421 | …poc/kbgovernance/sync_timings.py --check` 退出码 0 \| 具备 \| | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 427 | \| 0 \| **产品形态已拍板**（API 范围 / 数据形态 / 前后端形态 / UI 形态 /… | `0` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 427 | …P1–P7** \| §4.11 每项都有需求方的明确结论 \| **未满足——本项不拍板，第 3–5 项全部无法判定** \| | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 427 | …–P7** \| §4.11 每项都有需求方的明确结论 \| **未满足——本项不拍板，第 3–5 项全部无法判定** \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 428 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 428 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \|… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 428 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \| 未满足（Iss… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 428 | …逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \| 未满足（Issue #4 仍 OPEN） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 429 | \| 2 \| `ground_truth.json` 带 `control_doc_ids`，两次运… | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 429 | …rol_doc_ids` 存在且 `two_run_verify.n_identical`=13 \| 具备 \| | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 430 | \| 3 \| 13 接口机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P… | `3` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 430 | \| 3 \| 13 接口机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P2 \| `… | `13` | `repro_check.json:two_run_verify.n_artifacts_compared` | `13` |
+| 430 | \| 3 \| 13 接口机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P2 \| `system/openap… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 431 | \| 4 \| 前后端各一条命令可起 / 可构建 \| C10、C11、P3 \| 两条命令各自可独立执行… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 432 | \| 5 \| 6 表 + Element Plus 表格渲染实测通过 \| C12、P4 \| 建库写入… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 432 | \| 5 \| 6 表 + Element Plus 表格渲染实测通过 \| C12、P4 \| 建库写入读回通过… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 433 | \| 6 \| `check_numbers.py` 受检集指标类致命 0 \| N2、N3 \| 门禁退… | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 433 | \| 6 \| `check_numbers.py` 受检集指标类致命 0 \| N2、N3 \| 门禁退出码 0，且受检范围有书面口径 \| 具备（当前退出码 0） \| | `0 (×3)` | `metrics.json:gap.cluster_rows[0].gap_clusters` | `0` |
+| 434 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 434 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物字段 \| 未开始… | `1` | `metrics.json:gap.cluster_rows[3].precision` | `1` |
+| 434 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物字段 \| 未开始 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 438 | ## 6. 风险与未知 | `6` | `metrics.json:corrupt.fp_from_control` | `6` |
+| 444 | \| 无一手用户研究，角色与流程来源均为推演 \| 假设 \| Issue #3 正文按角色组织功能面，但无用户材料 \| 论文第 3 章的可用性叙述缺证据 \| D8：走查或… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 445 | …方案 §4.4 第 391 行/第 392 行 自标「设计值，尚未实测」 \| W7 门槛第 4 项无法判定 \| C10 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 449 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方… | `10` | `metrics.json:gap.cluster_rows[6].detected_intents` | `10` |
+| 449 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 449 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303… | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 450 | \| 对照集抽样率 4% 属代码常量，命中篇数已落盘、抽样率本身未登记为产物字段 \| 计划值非实测 \| `poc/… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 463 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行… | `3 (×2)` | `metrics.json:gap.cluster_rows[3].gap_clusters` | `3` |
+| 464 | \| 实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 464 | …实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 464 | …条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几条 \| | `2` | `metrics.json:gap.cluster_rows[3].detected_intents` | `2` |
+| 464 | …\| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几条 \| | `8` | `dup_groups_best.csv:group[row=8][0]` | `8` |
+| 465 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写… | `6 (×2)` | `metrics.json:corrupt.fp_from_control` | `6` |
 

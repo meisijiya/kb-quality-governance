@@ -214,6 +214,17 @@ def main():
     cover = np.load(os.path.join(HERE, "ticket_cover.npy"))
     emeta = json.load(open(os.path.join(HERE, "embeddings_meta.json"), encoding="utf-8"))
     gt = json.load(open(os.path.join(HERE, "ground_truth.json"), encoding="utf-8"))
+    # 防作弊对照集（生成器 4% 分支命中）与重复件身份，用于误报归因
+    control_set = set(gt.get("control_doc_ids", []))
+    dup_copies = set()
+    dup_source_map = {}
+    for g in gt.get("dup_groups", []):
+        if len(g) >= 2:
+            # 组内 id 最小者为源文档，其余为重复件
+            src = g[0]
+            dup_copies.update(g[1:])
+            for d in g[1:]:
+                dup_source_map[d] = src
     docs_idx = docs.set_index("doc_id")
     doc_ids = docs["doc_id"].tolist()
 
@@ -265,8 +276,15 @@ def main():
         mark = "真缺口" if c["intent"] in gt_gap else "误报  "
         print(f"  {i:>2}. [{mark}] {c['intent']:<12s} n={c['size']:<4d} "
               f"cover={c['cover_median']:.3f}  {c['rep_text'][:28]}")
+    # 簇数与噪声条数是确定性结果（重复运行完全一致），必须落盘：
+    # 论文与方案里的「95 簇 / 0 噪声」「88 簇 / 9 噪声」要有机读出处。
+    # 聚类耗时按现行口径不落盘——它跨运行波动 ±25%，只在正文报量级。
     metrics["gap"] = {"best": best, "n_gap_clusters": len(gap_c),
-                      "cluster_rows": gap_rows}
+                      "cluster_rows": gap_rows,
+                      "clusters": {str(mcs): {"n_clusters": len(cl_mcs),
+                                              "n_noise": noise}
+                                   for mcs, (cl_mcs, noise, _)
+                                   in all_clusters.items()}}
 
     # ---------------- B 内容腐化 ----------------
     print("\n" + "-" * 74)
@@ -295,11 +313,39 @@ def main():
             print(f"        {d} risk={corr[corr.doc_id==d]['risk_score'].iloc[0]} "
                   f"hits={corr[corr.doc_id==d]['rule_hits'].iloc[0]!r} "
                   f"| {docs_idx['title'][d][:30]}")
+    # 误报归因：防作弊对照文档（自然陈旧但不算缺陷）vs 重复件继承主文档陈旧日期
+    # 注意：control_set 是生成器 4% 抽样命中集，其中部分随后被腐化埋设覆盖而成为真缺陷，
+    # 所以 in_control_sample=1 不等于误报；误报身份由 fp_reason 逐篇给出。
+    fp_ids = det_corrupt - gt_corrupt
+    fp_from_control = sorted(fp_ids & control_set)
+    fp_from_dup_inherit = sorted((fp_ids - control_set) & dup_copies)
+    fp_other = sorted(fp_ids - control_set - dup_copies)
+    fp_reason = {}
+    for d in fp_from_control:
+        fp_reason[d] = "control_stale"
+    for d in fp_from_dup_inherit:
+        fp_reason[d] = "dup_inherited_stale"
+    for d in fp_other:
+        fp_reason[d] = "other"
+    corr["in_control_sample"] = corr["doc_id"].isin(control_set).astype(int)
+    corr["is_dup_copy"] = corr["doc_id"].isin(dup_copies).astype(int)
+    corr["dup_source"] = corr["doc_id"].map(dup_source_map).fillna("")
+    corr["fp_reason"] = corr["doc_id"].map(fp_reason).fillna("")
     corr.sort_values("risk_score", ascending=False).to_csv(
         os.path.join(HERE, "corrupt_docs.csv"), index=False, encoding="utf-8-sig")
+    print(f"[corr] 误报归因: 对照集 {len(fp_from_control)} 篇 / "
+          f"重复件继承 {len(fp_from_dup_inherit)} 篇 / 其他 {len(fp_other)} 篇")
+    print(f"[corr] 对照集抽样命中 {len(control_set)} 篇，其中 {len(fp_from_control)} 篇构成误报")
     metrics["corrupt"] = {"embedded": len(gt_corrupt), "detected": len(det_corrupt),
                           "tp": tp, "fp": len(det_corrupt) - tp,
                           "fn": len(gt_corrupt) - tp,
+                          "fp_from_control": len(fp_from_control),
+                          "fp_from_dup_inherit": len(fp_from_dup_inherit),
+                          "fp_other": len(fp_other),
+                          "control_sampled": len(control_set),
+                          "control_sampled_doc_ids": sorted(control_set),
+                          "fp_control_doc_ids": fp_from_control,
+                          "fp_dup_inherit_doc_ids": fp_from_dup_inherit,
                           "precision": round(p, 4), "recall": round(r, 4),
                           "f1": round(f, 4),
                           "rule_weight": RULE_WEIGHTS,
