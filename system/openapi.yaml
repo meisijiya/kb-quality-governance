@@ -21,14 +21,46 @@ info:
       - docs/技术方案/企业知识库质量治理系统技术方案.md §4.3 / §4.4
       - 数据表定义见 system/schema.sql
 
+    字段映射（PoC 产物列 ↔ 本契约与数据库列，取值逐一对齐）：
+      | PoC 产物列 | 本契约 / 数据库列 | 说明 |
+      |---|---|---|
+      | docs.csv → doc_id | document.doc_code / DocumentUpload.doc_code | 取值相同，仅列名不同 |
+      | docs.csv → title / content | document.title / content | 一致 |
+      | docs.csv → category | document.domain / DocumentUpload.domain | 同一业务域，列名不同 |
+      | docs.csv → created_at / last_modified / effective_date | 同名列 | 一致 |
+      | docs.csv → status / ref_count | 同名列 | 一致；ref_count 缺省 0 |
+      | tickets.csv → ticket_id | ticket.ticket_code | 取值相同，仅列名不同 |
+      | tickets.csv → intent_label | ticket.intent_label | 一致 |
+      | tickets.csv → linked_doc_id | ticket.linked_doc_id → document(doc_code) | **是文档编码文本，不是行号** |
+      | top15_gaps.csv → rank / intent / size / cover_median / rep_cover / rep_ticket / rep_text | GapRow 同名列 ↔ knowledge_gap | 一致；is_true_gap 不透出 |
+      | corrupt_docs.csv → doc_id / title / category / last_modified / risk_score / rule_hits / reasons | StaleRow 同名列 ↔ stale_document | 一致；归因列不透出 |
+      | dup_groups_best.csv → group / size / primary_doc / member_docs / max_sim | DuplicateRow 同名列 ↔ duplicate_group | 一致；is_true_group 不透出 |
+      | metrics.json → gap.best / corrupt.* / dup.best | 三个清单接口的 threshold / precision / recall / f1 / count | 一致 |
+
+      源数据中 linked_doc_id 的实测分布：tickets.csv 2000 行中 1629 行非空，
+      全部能对上 docs.csv 的 doc_id（未匹配的 0 行）。
+
     契约要点（逐条来自 Issue #3）：
       - 全部接口返回 JSON；错误响应体统一为 {code, message, location}：机器可读错误码 + 中文说明 + 出错位置。
       - POST /api/scan 同步跑完「向量化 → 聚类 → 三模块检测 → 落库」，不引入任务队列。
       - GET /api/gaps、/api/stale、/api/duplicates 返回「清单行 + 本次 threshold 与 P/R/F1」。
-      - 清单接口只支持最小排序参数（工单数 / 风险分 / 组内最大相似度），不实现分页。
+      - 清单接口只支持最小排序参数，不实现分页。排序参数的取值就是对应 CSV 的列名
+        （缺口 size / 腐化 risk_score / 重复 max_sim），与清单行的字段名同名同义。
       - 阈值与主指标一律从本次扫描落盘的 metrics.json 读取，不在前端代码里硬编码。
       - 清单行的字段名与取值与对应 CSV 的列一致（缺口 top15_gaps.csv、腐化 corrupt_docs.csv、重复 dup_groups_best.csv）。
+      - 清单接口不返回真值标注列：is_true_gap / is_true_group 不出现在任何响应里
+        （真值只留在产物文件与论文中，见开发前准备清单 C7）。
       - 数字纪律：本文档里的每个数值都来自 poc/kbgovernance/metrics.json 或对应 CSV，不来自叙述性文本。
+
+    2026-10-23 评审结论对本契约的影响（技术方案评审团 + 架构评审，共 5 份报告；
+    逐条复现记录见 docs/技术方案/开发前准备清单.md §4.10 与 §6.2）：
+      - 已在本文件内修正的自相矛盾：sort 取值与清单行字段名不同名、错误码枚举不闭合
+        （工单 409 曾复用 DUPLICATE_DOC_CODE）、缺少 422 校验错误响应、真值列外泄、
+        /api/scan/status 把「各阶段耗时之和」写成需求阈值、/api/gaps 未说明 rows 上限。
+      - 仍需需求方拍板、本文件不做单方面决定的：扫描产物落盘目录是否与
+        poc/kbgovernance/ 物理隔离（A1）、自有语料无真值时 P/R/F1 是否置空（A3）、
+        /api/metrics 是否原样透传含真值派生字段的 metrics.json、以及清单接口的
+        列排序去留（D1）。这四项的取舍见准备清单 §4.10 与 §4.11。
 
 servers:
   - url: /
@@ -150,6 +182,17 @@ paths:
                 message: 文档编码 DOC0001 已存在，整批导入已回滚
                 location:
                   value: DOC0001
+        '422':
+          description: 请求体结构不合法（缺必填字段 / 类型不匹配）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: VALIDATION_FAILED
+                message: 请求体不合法：documents 必填，且每个文档必须含 doc_code / title / content / last_modified
+                location:
+                  column: documents
 
   /api/tickets:
     post:
@@ -161,6 +204,10 @@ paths:
         CSV 的列名与 poc/kbgovernance/tickets.csv 一致：
         ticket_id, created_at, channel, content, intent_label, urgency, status, handling_minutes, linked_doc_id
         其中 ticket_id / content / intent_label / created_at 为必填，缺列时错误体给出缺失列名与行号。
+
+        linked_doc_id 是**文档编码文本**（形如 DOC0001），对应 ticket.linked_doc_id →
+        document.doc_code 的外键，不是 document.id 的行号；空值与未匹配到文档时写 NULL，
+        不做「空串占位」（空串不是合法外键值，SQLite 会直接报 FOREIGN KEY constraint failed）。
 
         JSON 文件为上述字段的数组。
 
@@ -210,10 +257,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
-                code: DUPLICATE_DOC_CODE
+                code: DUPLICATE_TICKET_CODE
                 message: 工单编码 TK00019 已存在，整批导入已回滚
                 location:
                   value: TK00019
+        '422':
+          description: 请求体结构不合法（缺必填字段 / 类型不匹配）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: VALIDATION_FAILED
+                message: 请求体不合法：documents 必填，且每个文档必须含 doc_code / title / content / last_modified
+                location:
+                  column: documents
 
   /api/scan:
     post:
@@ -222,12 +280,21 @@ paths:
       description: |
         同步串行跑完「向量化 → 聚类 → 三模块检测 → 落库」，不引入任务队列（Issue #3）。
 
-        扫描产物写入与 run_all.sh 完全相同的文件路径与文件名
+        扫描产物沿用 run_all.sh 的文件路径与文件名
         （metrics.json / top15_gaps.csv / corrupt_docs.csv / dup_groups_best.csv 等），
         因此「下载的 CSV 与源文件逐字节一致」与「Web 产物 vs run_all.sh 复跑产物逐字节一致」
         是同一条性质的验证。
 
-        重复扫描时旧结果被清空而不是叠加（Issue #3 User Story 15）。
+        **产物落盘目录是否与 poc/kbgovernance/ 物理隔离，尚未拍板（A1）。**
+        现状按「同一目录」写会覆盖仓库里的论文溯源基线，并连带作废
+        poc/kbgovernance/repro_check.json 的逐字节基线；隔离方案（Web 扫描写独立
+        工作目录、基线目录只读）与取舍见 docs/技术方案/开发前准备清单.md §4.10 A1。
+
+        重复扫描时旧结果被清空而不是叠加（Issue #3 User Story 15）；
+        清库必须按外键依赖的子表 → 父表顺序执行（knowledge_gap → cluster_result、
+        stale_document / duplicate_group → document），否则 SQLite 会报
+        FOREIGN KEY constraint failed。数据库侧还需在**每个连接**上设置
+        PRAGMA foreign_keys = ON（该开关按连接生效，不随建表脚本持久化）。
         同一时刻只允许一个扫描在执行，重复请求返回「已有扫描在执行」（Issue #3 User Story 61）。
         语料为空时返回明确的 4xx，不抛未捕获异常（Issue #3 User Story 53）。
         模型权重缺失时返回明确的 HF_HOME 指引（Issue #3 User Story 17）。
@@ -291,10 +358,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-              example:
-                code: MODEL_WEIGHTS_MISSING
-                message: 未找到 BAAI/bge-small-zh-v1.5 模型权重：请把 HF_HOME 设为 D:/hf_cache，避免权重落进 C 盘系统盘
-                location: {}
+              examples:
+                model_weights_missing:
+                  summary: 模型权重缺失
+                  value:
+                    code: MODEL_WEIGHTS_MISSING
+                    message: 未找到 BAAI/bge-small-zh-v1.5 模型权重：请把 HF_HOME 设为 D:/hf_cache，避免权重落进 C 盘系统盘
+                    location: {}
+                scan_failed:
+                  summary: 扫描执行失败
+                  value:
+                    code: SCAN_FAILED
+                    message: 扫描执行失败：向量聚类阶段异常，未产出清单，请查看服务端日志
+                    location: {}
 
   /api/scan/status:
     get:
@@ -302,7 +378,11 @@ paths:
       summary: 最近一次扫描的状态
       description: |
         返回最近一次扫描的状态、各阶段耗时、三模块命中数与主指标。
-        各阶段耗时之和不超过 60 秒需求阈值（Issue #3 断言清单第 6 条）。
+
+        60 秒需求阈值（Issue #3 断言清单第 6 条）比对的是 seconds.total
+        （对应 metrics.json → total_seconds，即 detect.py 全流程墙钟，含聚类开销），
+        **不是各阶段耗时之和**：现产物中 corrupt.seconds = 0.4、dup.best.seconds = 0.0，
+        缺口阶段暂无独立耗时字段（seconds.gap 为 null），三者相加不等于 total。
 
         从未扫描过时 status = never_scanned，seconds 与 modules 为 null。
       responses:
@@ -351,17 +431,21 @@ paths:
         字段名与取值与该 CSV 的列一致（缺口与腐化返回的是 CSV 的子集，不是全表）。
         本次阈值 0.62 时命中 7 行，与 metrics.json → gap.best.gap_clusters 一致。
 
+        **rows 的行数可能少于 count**：源文件 top15_gaps.csv 只保留覆盖度最低的 15 个簇，
+        当本次阈值的命中簇数超过 15 时（例如 threshold=0.66 时 gap_clusters=27），
+        rows 最多只有 15 行。count 是命中簇总数，rows 是可展示的子集，两者不必相等。
+
         排序参数只提供一档，且不实现分页。**该参数是草案占位：D1 未拍板**
         （Issue #3 第 201 行要求保留，实施方案 §2.2 第 104 行 / §3 第 120 行把列排序列为砍掉项）。
       parameters:
         - name: sort
           in: query
           required: false
-          description: 排序字段。草案占位（D1 未拍板）：只允许一档排序参数——工单数（降序，最严重的在前）。
+          description: 排序字段。草案占位（D1 未拍板）：只允许一档排序参数——工单数（降序，最严重的在前）。取值与清单行的字段名同名（size = 涉及工单数）。
           schema:
             type: string
-            enum: [ticket_count]
-            default: ticket_count
+            enum: [size]
+            default: size
       responses:
         '200':
           description: 缺口清单
@@ -383,7 +467,6 @@ paths:
                     rep_cover: 0.5629
                     rep_ticket: TK00119
                     rep_text: 租房提取和购房提取材料一样吗，麻烦帮忙确认一下流程
-                    is_true_gap: 1
 
   /api/stale:
     get:
@@ -396,13 +479,19 @@ paths:
         中 risk_score >= 本次判定阈值的行，字段名与取值与该 CSV 的列一致。
         本次阈值 3 时命中 69 行，与 metrics.json → corrupt.detected 一致。
 
+        源 CSV 还带有若干真值与归因列（in_control_sample / is_dup_copy / dup_source /
+        fp_reason），**本接口不透出这些列**；它们只留在产物文件与论文中，用于解释
+        7 篇误报的来源（其中 6 篇来自对照集、1 篇是重复件继承了主文档的陈旧
+        last_modified，见 poc/kbgovernance/metrics.json → corrupt.fp_from_control
+        与 fp_from_dup_inherit）。
+
         排序参数只提供一档，且不实现分页。**该参数是草案占位：D1 未拍板**
         （Issue #3 第 201 行要求保留，实施方案 §2.2 第 104 行 / §3 第 120 行把列排序列为砍掉项）。
       parameters:
         - name: sort
           in: query
           required: false
-          description: 排序字段。草案占位（D1 未拍板）：只允许一档排序参数——风险分（降序，最严重的在前）。
+          description: 排序字段。草案占位（D1 未拍板）：只允许一档排序参数——风险分（降序，最严重的在前）。取值与清单行的字段名同名（risk_score = 时效性风险分）。
           schema:
             type: string
             enum: [risk_score]
@@ -440,17 +529,19 @@ paths:
         dup.best.dup_groups 一致），字段名与取值与该 CSV 的列一致。
         每组给出系统建议保留的主文档（primary_doc）与组内成员（member_docs）。
 
+        源 CSV 的 is_true_group 列（真值标注）**本接口不透出**。
+
         排序参数只提供一档，且不实现分页。**该参数是草案占位：D1 未拍板**
         （Issue #3 第 201 行要求保留，实施方案 §2.2 第 104 行 / §3 第 120 行把列排序列为砍掉项）。
       parameters:
         - name: sort
           in: query
           required: false
-          description: 排序字段。草案占位（D1 未拍板）：只允许一档排序参数——组内最大相似度（降序，最严重的在前）。
+          description: 排序字段。草案占位（D1 未拍板）：只允许一档排序参数——组内最大相似度（降序，最严重的在前）。取值与清单行的字段名同名（max_sim = 组内最大相似度）。
           schema:
             type: string
-            enum: [max_similarity]
-            default: max_similarity
+            enum: [max_sim]
+            default: max_sim
       responses:
         '200':
           description: 重复组清单
@@ -470,7 +561,6 @@ paths:
                     primary_doc: DOC0003
                     member_docs: DOC0001|DOC0002|DOC0003
                     max_sim: 0.9824
-                    is_true_group: 1
 
   /api/metrics:
     get:
@@ -482,6 +572,14 @@ paths:
 
         字段与 poc/kbgovernance/metrics.json 的顶层键一一对应：
         embedding / gap / corrupt / dup / total_seconds。
+
+        **真值派生字段的处理尚未拍板**：metrics.json 的 corrupt 段含
+        control_sampled_doc_ids / fp_control_doc_ids / fp_dup_inherit_doc_ids
+        三组文档 id 列表，它们直接指认哪些文档是防作弊对照集、哪些是误报及其归因，
+        属真值信息。默认口径是**不外露**（与 C7「清单接口排除真值列」一致），
+        只透出阈值、P/R/F1、命中数与计时；若确定要原样透传整份 metrics.json，
+        需一并决定页面上如何处置这些 id 列表。取舍见
+        docs/技术方案/开发前准备清单.md §4.10 A17。
       responses:
         '200':
           description: metrics.json 的内容
@@ -489,7 +587,7 @@ paths:
             application/json:
               schema:
                 type: object
-                description: metrics.json 的原文内容（字段与产物文件一一对应）
+                description: metrics.json 的指标部分（字段与产物文件一一对应）
                 additionalProperties: true
                 properties:
                   embedding:
@@ -499,18 +597,18 @@ paths:
                   gap:
                     type: object
                     additionalProperties: true
-                    description: 缺口识别结果，含 best（threshold / gap_clusters / detected_intents / precision / recall / f1）与 cluster_rows 扫参曲线
+                    description: 缺口识别结果，含 best（threshold / gap_clusters / detected_intents / precision / recall / f1）、cluster_rows 扫参曲线与 clusters（各 min_cluster_size 下的簇数与噪声条数）
                   corrupt:
                     type: object
                     additionalProperties: true
-                    description: 腐化检测结果，含 precision / recall / f1、score_threshold、rule_weight 与逐篇误报归因
+                    description: 腐化检测结果，含 precision / recall / f1、score_threshold、rule_weight 与逐篇误报归因计数
                   dup:
                     type: object
                     additionalProperties: true
                     description: 重复检测结果，含 best（threshold / dup_groups / detected_docs / group_precision / group_recall / group_f1）与 rows 扫参曲线
                   total_seconds:
                     type: number
-                    description: 三模块检测合计耗时（秒）
+                    description: detect.py 全流程墙钟耗时（秒），含聚类开销与三模块检测；不等于各阶段耗时之和
 
   /api/downloads/{name}:
     get:
@@ -523,6 +621,11 @@ paths:
         因此文件名与取值必须是扫描落盘时的原文件名，不得改写。
 
         文件名取值与 poc/kbgovernance/ 下扫描产物同名。
+
+        **逐字节一致的范围按文件分档**（见 poc/kbgovernance/repro_check.json）：
+        三个清单 CSV 是字节确定的，逐字节一致成立；metrics.json 含计时字段
+        （encode_seconds / total_seconds / corrupt.seconds），跨运行必然波动，
+        只能「剔除计时字段后一致」，不适用逐字节比对。
       parameters:
         - name: name
           in: path
@@ -676,7 +779,9 @@ components:
           description: 机器可读错误码
           enum:
             - INVALID_IMPORT_FILE
+            - VALIDATION_FAILED
             - DUPLICATE_DOC_CODE
+            - DUPLICATE_TICKET_CODE
             - EMPTY_CORPUS
             - SCAN_IN_PROGRESS
             - SCAN_FAILED
@@ -730,9 +835,8 @@ components:
           type: string
           nullable: true
           description: 代表工单原文（对应 knowledge_gap.representative_text）
-        is_true_gap:
-          type: integer
-          description: 真值标注，1 = 真实缺口，0 = 非缺口
+        # 真值标注列 is_true_gap 不出现在本接口：它只留在产物 CSV 与论文中。
+        # 依据：docs/技术方案/开发前准备清单.md C7。
 
     StaleRow:
       type: object
@@ -784,9 +888,8 @@ components:
           type: number
           nullable: true
           description: 组内最大相似度（对应 duplicate_group.max_similarity）
-        is_true_group:
-          type: integer
-          description: 真值标注，1 = 真实重复组，0 = 非重复组
+        # 真值标注列 is_true_group 不出现在本接口：它只留在产物 CSV 与论文中。
+        # 依据：docs/技术方案/开发前准备清单.md C7。
 
     GapList:
       type: object
@@ -868,7 +971,7 @@ components:
 
     ScanTiming:
       type: object
-      description: 各阶段耗时（秒），字段与 metrics.json 的计时字段一一对应。
+      description: 各阶段耗时（秒），字段与 metrics.json 的计时字段一一对应；total 是 detect.py 全流程墙钟，不是各阶段之和。
       properties:
         encoding:
           type: number
@@ -885,7 +988,7 @@ components:
           description: 重复检测耗时（对应 metrics.json → dup.best.seconds）
         total:
           type: number
-          description: 三模块检测合计耗时，含聚类开销（对应 metrics.json → total_seconds）
+          description: detect.py 全流程墙钟耗时（秒），含聚类开销与三模块检测（对应 metrics.json → total_seconds）；不等于各阶段耗时之和
 
     GapModuleMetrics:
       type: object

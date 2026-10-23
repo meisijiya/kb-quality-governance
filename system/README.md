@@ -52,15 +52,17 @@ cd /d/26code/毕设 && python -c "import yaml;d=yaml.safe_load(open('system/open
 
 ---
 
-## 实现须知（读契约前先看这 7 条）
+## 实现须知（读契约前先看这 9 条）
 
-1. **表结构不改。** 6 张表、列、类型、约束、索引一律沿用 `docs/技术方案/企业知识库质量治理系统技术方案.md` §4.3，不增删。唯一差异：主键由 `INTEGER PRIMARY KEY AUTOINCREMENT` 改为 `INTEGER PRIMARY KEY` —— `AUTOINCREMENT` 会让 SQLite 自动创建内部表 `sqlite_sequence`，上面第一条命令的输出就不再是 6 张表；行号语义不变（仍是 rowid 别名、仍自增），需要严格对齐原文时改回 6 处即可。
+1. **表结构以本目录的 `schema.sql` 为准**，它与 `docs/技术方案/企业知识库质量治理系统技术方案.md` §4.3 有两处已记录的差异，均写在 `schema.sql` 头部：①主键由 `INTEGER PRIMARY KEY AUTOINCREMENT` 改为 `INTEGER PRIMARY KEY`（`AUTOINCREMENT` 会让 SQLite 自动创建内部表 `sqlite_sequence`，上面第一条命令的输出就不再是 6 张表；行号语义不变）；②指向文档的三个外键（`ticket.linked_doc_id` / `stale_document.document_id` / `duplicate_group.primary_doc_id`）改为 `TEXT` 并指向 `document(doc_code)`，指向簇的外键改为三列复合外键 `(granularity, min_cluster_size, cluster_id)`——因为源数据里用的是文档编码文本与 HDBSCAN 标签，不是行号。**第 ② 处改变了数据形态，属于 P2 待拍板范围。**
 2. **类型约定。** 日期与时间以 ISO-8601 文本存 `TEXT` 列（字典序即时间序，索引仍可用）；`duplicate_group.member_doc_ids` 存 JSON 数组，不为「重复组—文档」多对多关系再引入第七张表。
-3. **三类清单的行来自扫描落盘的 CSV**，字段名与 CSV 列一致（`category` / `doc_id` / `member_docs` 等沿用 CSV 写法，落库时才映射到 `document.domain` / `document.doc_code` / `duplicate_group.member_doc_ids`）。三个接口都返回「行 + 本次 threshold + P/R/F1」。
-4. **阈值与主指标一律从本次扫描落盘的 `metrics.json` 读**，前端不写死；清单接口只支持一档排序参数，**不实现分页**。
-5. **错误响应体统一**为 `{code, message, location}`：机器可读错误码 + 中文说明 + 出错位置。
+3. **三类清单的行来自扫描落盘的 CSV**，字段名与 CSV 列一致（`category` / `doc_id` / `member_docs` 等沿用 CSV 写法，落库时才映射到 `document.domain` / `document.doc_code` / `duplicate_group.member_doc_ids`）。三个接口都返回「行 + 本次 threshold + P/R/F1」。**清单接口不透出真值标注列**（`is_true_gap` / `is_true_group` 及腐化清单的归因列），真值只留在产物文件与论文中。
+4. **阈值与主指标一律从本次扫描落盘的 `metrics.json` 读**，前端不写死；清单接口只支持一档排序参数，**不实现分页**，且排序参数的取值就是清单行的字段名（`size` / `risk_score` / `max_sim`）。
+5. **错误响应体统一**为 `{code, message, location}`：机器可读错误码 + 中文说明 + 出错位置。请求体结构不合法返回 **422 + `VALIDATION_FAILED`**，与其它错误码同一形状。
 6. **导入整批一次事务**：全成功或全回滚，不留半截数据；`doc_code` / `ticket_code` 重复在导入时即拒绝，并返回冲突的编码值。
-7. **扫描同步跑完**「向量化 → 聚类 → 三模块检测 → 落库」，产物落盘的文件名与路径和 `run_all.sh` 完全一致，因此「下载的 CSV 与磁盘源文件逐字节一致」与「Web 产物 vs 复跑产物逐字节一致」是同一条性质的验证。
+7. **扫描同步跑完**「向量化 → 聚类 → 三模块检测 → 落库」，产物落盘的文件名与路径和 `run_all.sh` 完全一致，因此「下载的 CSV 与磁盘源文件逐字节一致」与「Web 产物 vs 复跑产物逐字节一致」是同一条性质的验证。**逐字节一致按文件分档**：三个清单 CSV 成立；`metrics.json` 含计时字段，只能「剔除计时字段后一致」（口径见 `poc/kbgovernance/repro_check.json`）。
+8. **数据库连接要逐个开外键**：`PRAGMA foreign_keys` 是连接级开关，建表脚本里那句只对执行它的连接生效，应用在**每个连接**上都要设（实测：新连接默认 `0`）。清库按外键依赖的子表 → 父表顺序执行（`knowledge_gap` → `cluster_result`，`stale_document` / `duplicate_group` → `document`），否则报 `FOREIGN KEY constraint failed`。
+9. **扫描产物落盘目录尚未拍板（A1）。** 若与 `poc/kbgovernance/` 共用目录，Web 扫描会覆盖论文溯源基线，并连带作废 `repro_check.json` 的逐字节基线；隔离方案与取舍见 `docs/技术方案/开发前准备清单.md` §4.10 A1。
 
 ---
 
