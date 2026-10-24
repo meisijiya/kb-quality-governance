@@ -1,6 +1,8 @@
-/* 本文件由 data/ 下的真实产物自动生成，取值未作任何改写。
+/* 本文件是 poc/kbgovernance/ 下机读产物的内联快照，取值未作任何改写。
  * 数据源：top15_gaps.csv / corrupt_docs.csv / dup_groups_best.csv / metrics.json
  * 仅保留规格附录 A 允许透出的字段；评测依据列与归因列未纳入。
+ * audit 段是评审要求补充披露的口径数字，同样逐条对应产物文件，由
+ * check_prototype.py 第 5 节核对。
  */
 
 const KB = {
@@ -389,6 +391,68 @@ const KB = {
       "seconds": 0
     },
     "total_seconds": 3.09
+  },
+  "audit": {
+    "run": {
+      "generated_at": "2026-10-23T16:33:32+08:00",
+      "source": "poc/kbgovernance/repro_check.json"
+    },
+    "gap_pool": {
+      "clusters": 15,
+      "intents": 10,
+      "shown_clusters": 7,
+      "shown_intents": 5,
+      "source": "poc/kbgovernance/top15_gaps.csv"
+    },
+    "gap_threshold_scan": [
+      { "threshold": 0.6, "gap_clusters": 3, "detected_intents": 2, "precision": 1, "recall": 0.4, "f1": 0.5714 },
+      { "threshold": 0.62, "gap_clusters": 7, "detected_intents": 5, "precision": 0.8, "recall": 0.8, "f1": 0.8 },
+      { "threshold": 0.64, "gap_clusters": 15, "detected_intents": 10, "precision": 0.5, "recall": 1, "f1": 0.6667 },
+      { "threshold": 0.66, "gap_clusters": 27, "detected_intents": 16, "precision": 0.3125, "recall": 1, "f1": 0.4762 }
+    ],
+    "gap_threshold_scan_source": "poc/kbgovernance/gap_threshold.csv (min_cluster_size=5)",
+    "gap_near_miss": [
+      { "intent": "密码策略例外申请", "size": 21, "cover_median": 0.624 },
+      { "intent": "社保转移办理", "size": 31, "cover_median": 0.6272 },
+      { "intent": "考勤异常处理", "size": 28, "cover_median": 0.6278 },
+      { "intent": "门禁权限申请", "size": 23, "cover_median": 0.6287 },
+      { "intent": "数据导出权限申请", "size": 21, "cover_median": 0.6342 },
+      { "intent": "密码策略例外申请", "size": 22, "cover_median": 0.635 },
+      { "intent": "供应商准入申请", "size": 17, "cover_median": 0.6352 },
+      { "intent": "采购比价流程", "size": 9, "cover_median": 0.6398 }
+    ],
+    "gap_near_miss_source": "poc/kbgovernance/top15_gaps.csv (cover_median >= 0.62 的行)",
+    "dup_threshold_scan": [
+      { "threshold": 0.85, "dup_groups": 23, "detected_docs": 223, "group_f1": 0.1778, "doc_f1": 0.3603 },
+      { "threshold": 0.9, "dup_groups": 32, "detected_docs": 77, "group_f1": 0.7037, "doc_f1": 0.7778 },
+      { "threshold": 0.95, "dup_groups": 22, "detected_docs": 49, "group_f1": 1, "doc_f1": 1 }
+    ],
+    "dup_threshold_scan_source": "poc/kbgovernance/dup_threshold.csv",
+    "cover_stats": { "min": 0.5629, "mean": 0.6891, "max": 0.8294, "sd": 0.0529 },
+    "cover_stats_source": "poc/kbgovernance/standardize/scenario_meta.json (cover_stats.alpha)",
+    "corrupt_rule_combos": [
+      { "rules": "R1+R2+R3+R4", "docs": 1 },
+      { "rules": "R1+R3+R4", "docs": 5 },
+      { "rules": "R1+R3", "docs": 26 },
+      { "rules": "R2+R4", "docs": 37 }
+    ],
+    "corrupt_rule_combos_source": "poc/kbgovernance/corrupt_docs.csv (risk_score >= 3 的行按规则命中组合分组)",
+    "corrupt_sample": {
+      "shown": 12,
+      "total": 69,
+      "combos": 4,
+      "source": "poc/kbgovernance/corrupt_docs.csv"
+    },
+    "requirement": {
+      "scan_seconds_max": 60,
+      "page_response_seconds_max": 2,
+      "source": "docs/技术方案/企业知识库质量治理系统技术方案.md（需求阈值，非实测）"
+    },
+    "products": {
+      "gap": { "label": "知识缺口清单", "path": "poc/kbgovernance/top15_gaps.csv" },
+      "corrupt": { "label": "内容腐化清单", "path": "poc/kbgovernance/corrupt_docs.csv" },
+      "dup": { "label": "重复冗余清单", "path": "poc/kbgovernance/dup_groups_best.csv" }
+    }
   }
 };
 

@@ -176,8 +176,97 @@ def main():
         if not num(mm.get("corrupt", {}).get("score_hist", {}).get(sk), sv):
             fail(f"腐化风险分分布 {sk} 与产物不一致")
 
-    # ---- 5. 红线：数据字段与页面文本都不得出现评测依据列/归因列
-    for name in ("index.html", "app.js", "data.js", "styles.css"):
+    # ---- 5. audit 段：评审要求补充披露的口径数字，同样逐条对产物
+    audit = kb.get("audit", {})
+    if not audit:
+        fail("data.js 缺少 audit 段（评审要求补充披露的阈值敏感性、抽样规则等口径数字）")
+    else:
+        with open(os.path.join(POC, "repro_check.json"), encoding="utf-8") as f:
+            repro = json.load(f)
+        if audit.get("run", {}).get("generated_at") != repro.get("generated_at"):
+            fail(f"audit.run.generated_at={audit.get('run', {}).get('generated_at')} 与 repro_check.json 不一致")
+
+        top15 = read_csv("top15_gaps.csv")
+        pool = audit.get("gap_pool", {})
+        if not num(pool.get("clusters"), len(top15)):
+            fail(f"audit.gap_pool.clusters={pool.get('clusters')} 与 top15_gaps.csv 行数 {len(top15)} 不一致")
+        distinct = len({r["intent"] for r in top15})
+        if not num(pool.get("intents"), distinct):
+            fail(f"audit.gap_pool.intents={pool.get('intents')} 与 top15_gaps.csv 去重业务意图数 {distinct} 不一致")
+        if not num(pool.get("shown_clusters"), mm.get("gap", {}).get("gap_clusters")):
+            fail("audit.gap_pool.shown_clusters 与 metrics.gap.gap_clusters 不一致")
+        if not num(pool.get("shown_intents"), mm.get("gap", {}).get("detected_intents")):
+            fail("audit.gap_pool.shown_intents 与 metrics.gap.detected_intents 不一致")
+
+        gap_thr = {float(r["threshold"]): r for r in read_csv("gap_threshold.csv") if int(r["min_cluster_size"]) == 5}
+        for row in audit.get("gap_threshold_scan", []):
+            src = gap_thr.get(float(row["threshold"]))
+            if src is None:
+                fail(f"audit.gap_threshold_scan 的阈值 {row['threshold']} 在 gap_threshold.csv 里不存在")
+                continue
+            for key in ("gap_clusters", "detected_intents", "precision", "recall", "f1"):
+                if not num(row.get(key), src[key]):
+                    fail(f"audit.gap_threshold_scan 阈值 {row['threshold']} 的 {key} 与 gap_threshold.csv 不一致")
+
+        near_src = [r for r in top15 if float(r["cover_median"]) >= 0.62]
+        near = audit.get("gap_near_miss", [])
+        if len(near) != len(near_src):
+            fail(f"audit.gap_near_miss 行数 {len(near)} 与 top15_gaps.csv 中 cover_median>=0.62 的 {len(near_src)} 行不符")
+        for i, row in enumerate(near):
+            if i >= len(near_src):
+                break
+            src = near_src[i]
+            if row.get("intent") != src["intent"]:
+                fail(f"audit.gap_near_miss 第 {i + 1} 行的业务意图与 top15_gaps.csv 不一致")
+            if not num(row.get("size"), src["size"]):
+                fail(f"audit.gap_near_miss 第 {i + 1} 行的 size 与 top15_gaps.csv 不一致")
+            if not num(row.get("cover_median"), src["cover_median"]):
+                fail(f"audit.gap_near_miss 第 {i + 1} 行的 cover_median 与 top15_gaps.csv 不一致")
+
+        dup_thr = {float(r["threshold"]): r for r in read_csv("dup_threshold.csv")}
+        for row in audit.get("dup_threshold_scan", []):
+            src = dup_thr.get(float(row["threshold"]))
+            if src is None:
+                fail(f"audit.dup_threshold_scan 的阈值 {row['threshold']} 在 dup_threshold.csv 里不存在")
+                continue
+            for key in ("dup_groups", "detected_docs", "group_f1", "doc_f1"):
+                if not num(row.get(key), src[key]):
+                    fail(f"audit.dup_threshold_scan 阈值 {row['threshold']} 的 {key} 与 dup_threshold.csv 不一致")
+
+        with open(os.path.join(POC, "standardize", "scenario_meta.json"), encoding="utf-8") as f:
+            scenario = json.load(f)
+        alpha = scenario.get("cover_stats", {}).get("alpha", {})
+        for key in ("min", "mean", "max", "sd"):
+            if not num(audit.get("cover_stats", {}).get(key), alpha.get(key)):
+                fail(f"audit.cover_stats.{key} 与 standardize/scenario_meta.json 不一致")
+
+        combos = {}
+        for r in read_csv("corrupt_docs.csv"):
+            if int(r["risk_score"]) < 3:
+                continue
+            codes = "+".join(sorted(part.split("_", 1)[0] for part in r["rule_hits"].split("|")))
+            combos[codes] = combos.get(codes, 0) + 1
+        for row in audit.get("corrupt_rule_combos", []):
+            if not num(row.get("docs"), combos.get(row.get("rules"))):
+                fail(f"audit.corrupt_rule_combos 的 {row.get('rules')} 篇数与 corrupt_docs.csv 不一致")
+        if len(audit.get("corrupt_rule_combos", [])) != len(combos):
+            fail("audit.corrupt_rule_combos 的组合数与 corrupt_docs.csv 不一致")
+
+        sample = audit.get("corrupt_sample", {})
+        if not num(sample.get("total"), mm.get("corrupt", {}).get("detected")):
+            fail("audit.corrupt_sample.total 与 metrics.corrupt.detected 不一致")
+        if not num(sample.get("shown"), len(corrupt)):
+            fail("audit.corrupt_sample.shown 与原型腐化代表行数不一致")
+        if not num(sample.get("combos"), len(audit.get("corrupt_rule_combos", []))):
+            fail("audit.corrupt_sample.combos 与规则命中组合数不一致")
+
+        for key, item in audit.get("products", {}).items():
+            path = os.path.join(REPO, item.get("path", "").replace("/", os.sep))
+            if not os.path.exists(path):
+                fail(f"audit.products.{key} 指向的产物 {item.get('path')} 不存在")
+
+    # ---- 6. 红线：数据字段与页面文本都不得出现评测依据列/归因列
+    for name in ("index.html", "app.js", "data.js", "styles.css", "copy.js"):
         path = os.path.join(HERE, name)
         if not os.path.exists(path):
             continue
@@ -186,6 +275,17 @@ def main():
         for field in FORBIDDEN_FIELDS:
             if field in body:
                 fail(f"{name} 出现禁透出字段 {field}")
+
+    variants = os.path.join(HERE, "variants")
+    if os.path.isdir(variants):
+        for name in sorted(os.listdir(variants)):
+            if not name.endswith(".html"):
+                continue
+            with open(os.path.join(variants, name), encoding="utf-8") as f:
+                body = f.read()
+            for field in FORBIDDEN_FIELDS:
+                if field in body:
+                    fail(f"variants/{name} 出现禁透出字段 {field}")
 
     print_report()
     return 1 if errors else 0

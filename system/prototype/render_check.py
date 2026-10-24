@@ -2,7 +2,7 @@
 
 用法（仓库根目录）：
     python system/prototype/render_check.py
-输出：system/prototype/shots/*.png，控制台错误打印到 stdout。
+输出：system/prototype/shots/*.png 与 shots/variants/*.png，控制台错误打印到 stdout。
 退出码：0 = 无控制台错误且无横向溢出。
 """
 import os
@@ -12,7 +12,9 @@ from playwright.sync_api import sync_playwright
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SHOTS = os.path.join(HERE, "shots")
-# (截图名, 顶栏 data-page 值, 该页内需要额外点开的 tab 的 data-tab 值或 None)
+VAR_SHOTS = os.path.join(SHOTS, "variants")
+
+# (截图名, 导航按钮 data-page 值, 该页内需要额外点开的 tab 的 data-tab 值或 None)
 PAGES = [
     ("upload", "upload", None),
     ("scan", "scan", None),
@@ -21,12 +23,89 @@ PAGES = [
     ("dups", "lists", "dup"),
 ]
 
+# 变体：(文件相对 prototype 目录的路径, 截图前缀)
+VARIANTS = [
+    ("variants/v1-ledger.html", "v1-ledger"),
+    ("variants/v2-accent-ladder.html", "v2-accent-ladder"),
+    ("variants/v3-framed-sheet.html", "v3-framed-sheet"),
+]
+
 FATAL = []
+
+
+def file_url(path):
+    return "file:///" + path.replace("\\", "/")
+
+
+def check_page(page, name, page_key, tab_key, shot_dir):
+    """切到指定页与 tab，检查溢出与异常文本，返回该页的正文文本。"""
+    clicked = page.evaluate(
+        """(page_key) => {
+            const el = document.querySelector('.nav-item[data-page="' + page_key + '"]');
+            if (el) { el.click(); return true; }
+            return false;
+        }""",
+        page_key,
+    )
+    page.wait_for_timeout(200)
+    # 原型默认停在「语料已导入、尚未扫描」这一入口态，截图若也停在这里，
+    # 扫描页与清单页拍到的都是空态，看不出信息量与视觉层次。
+    # 截图统一切到该页信息量最大的状态：扫描成功 / 清单有数据。
+    if page_key in ("scan", "lists"):
+        page.evaluate(
+            """(page_key) => {
+                const sel = '.seg-btn[data-target="' + page_key + '"][data-state="success"]';
+                const el = document.querySelector(sel);
+                if (el) el.click();
+            }""",
+            page_key,
+        )
+        page.wait_for_timeout(200)
+    if tab_key:
+        tabbed = page.evaluate(
+            """(tab_key) => {
+                const el = document.querySelector('.tab[data-tab="' + tab_key + '"]');
+                if (el) { el.click(); return true; }
+                return false;
+            }""",
+            tab_key,
+        )
+        if not tabbed:
+            FATAL.append(f"{name} 页的 tab {tab_key} 未找到")
+    page.wait_for_timeout(350)
+
+    # 原型是「固定视口 + 内部滚动」布局（.app-main overflow-y:auto），
+    # full_page 截图只会拍到 900px 视口；先量出滚动容器的内容高度再放大视口。
+    need = page.evaluate(
+        """() => {
+            const m = document.querySelector('.app-main');
+            const h = m ? m.scrollHeight : document.body.scrollHeight;
+            return Math.min(Math.max(h + 80, 900), 4000);
+        }"""
+    )
+    page.set_viewport_size({"width": 1440, "height": int(need)})
+    page.wait_for_timeout(250)
+    page.screenshot(path=os.path.join(shot_dir, f"{name}.png"), full_page=True)
+
+    overflow = page.evaluate(
+        "() => { const d = document.documentElement;"
+        " return { sw: d.scrollWidth, cw: d.clientWidth }; }"
+    )
+    if overflow["sw"] > overflow["cw"] + 1:
+        FATAL.append(f"{name} 页横向溢出：scrollWidth={overflow['sw']} > clientWidth={overflow['cw']}")
+    if not clicked:
+        FATAL.append(f"{name} 页切换失败：找不到 .nav-item[data-page={page_key}]")
+
+    body = page.inner_text("body")
+    for bad in ("NaN", "undefined", "[object Object]"):
+        if bad in body:
+            FATAL.append(f"{name} 页出现异常文本 {bad}")
+    return body
 
 
 def main():
     os.makedirs(SHOTS, exist_ok=True)
-    url = "file:///" + os.path.join(HERE, "index.html").replace("\\", "/")
+    os.makedirs(VAR_SHOTS, exist_ok=True)
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -34,58 +113,16 @@ def main():
         errors = []
         page.on("console", lambda m: errors.append(f"[{m.type}] {m.text}") if m.type == "error" else None)
         page.on("pageerror", lambda e: errors.append(f"[pageerror] {e}"))
-        page.goto(url, wait_until="networkidle")
+        page.goto(file_url(os.path.join(HERE, "index.html")), wait_until="networkidle")
 
         for name, page_key, tab_key in PAGES:
-            clicked = page.evaluate(
-                """(page_key) => {
-                    const el = document.querySelector('[data-page="' + page_key + '"]');
-                    if (el) { el.click(); return true; }
-                    return false;
-                }""",
-                page_key,
-            )
-            page.wait_for_timeout(200)
-            if tab_key:
-                tabbed = page.evaluate(
-                    """(tab_key) => {
-                        const el = document.querySelector('[data-tab="' + tab_key + '"]');
-                        if (el) { el.click(); return true; }
-                        return false;
-                    }""",
-                    tab_key,
-                )
-                if not tabbed:
-                    FATAL.append(f"{name} 页的 tab {tab_key} 未找到")
-            page.wait_for_timeout(350)
-            path = os.path.join(SHOTS, f"{name}.png")
-            # 原型是「固定视口 + 内部滚动」布局（.app-main overflow-y:auto），
-            # full_page 截图只会拍到 900px 视口；先量出滚动容器的内容高度再放大视口。
-            need = page.evaluate(
-                """() => {
-                    const m = document.querySelector('.app-main');
-                    const h = m ? m.scrollHeight : document.body.scrollHeight;
-                    return Math.min(Math.max(h + 80, 900), 4000);
-                }"""
-            )
-            page.set_viewport_size({"width": 1440, "height": int(need)})
-            page.wait_for_timeout(250)
-            page.screenshot(path=path, full_page=True)
+            check_page(page, name, page_key, tab_key, SHOTS)
 
-            overflow = page.evaluate(
-                "() => { const d = document.documentElement;"
-                " return { sw: d.scrollWidth, cw: d.clientWidth }; }"
-            )
-            if overflow["sw"] > overflow["cw"] + 1:
-                FATAL.append(f"{name} 页横向溢出：scrollWidth={overflow['sw']} > clientWidth={overflow['cw']}")
-            if not clicked:
-                FATAL.append(f"{name} 页切换失败：找不到 data-page={page_key} 的导航元素")
-
-            # 页面内应能看到关键指标，检查是否渲染出 NaN / undefined / 空白
-            body = page.inner_text("body")
-            for bad in ("NaN", "undefined", "[object Object]"):
-                if bad in body:
-                    FATAL.append(f"{name} 页出现异常文本 {bad}")
+        # 三套变体各截「上传页 + 缺口清单页」，用于 P4 / P7 视觉与文案选型
+        for rel, prefix in VARIANTS:
+            page.goto(file_url(os.path.join(HERE, rel)), wait_until="networkidle")
+            check_page(page, f"{prefix}-upload", "upload", None, VAR_SHOTS)
+            check_page(page, f"{prefix}-gaps", "lists", "gap", VAR_SHOTS)
 
         browser.close()
 
@@ -93,6 +130,7 @@ def main():
         for e in errors:
             print("[console]", e)
     print(f"[render_check] 截图输出：{SHOTS}")
+    print(f"[render_check] 变体截图输出：{VAR_SHOTS}")
     if FATAL or errors:
         for f in FATAL:
             print("[render_check] 失败：", f)

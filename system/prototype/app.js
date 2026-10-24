@@ -1,634 +1,1002 @@
 /* =========================================================
-   企业知识库质量治理系统 Web 端原型 交互脚本
-   仅做本地交互：页面切换、状态切换、Tab 切换、行展开、
-   确认弹窗、轻提示、复制。不发起任何真实网络请求。
+   企业知识库质量治理系统 Web 端原型 交互脚本（静态讨论稿）
+   ---------------------------------------------------------
+   约定：
+   - 文案统一取自 copy.js（按 body[data-variant] 选变体），页面不写死业务文案。
+   - 数值统一取自 data.js；data.js 的每个取值都由 check_prototype.py
+     对回 poc/kbgovernance/ 的机读产物，页面不自行计算指标。
+   - 页面派生值（如「距阈值差值」）在界面上标注为派生值。
+   - 状态切换只切显隐，不发起任何网络请求。
    ========================================================= */
 (function () {
   'use strict';
 
   var KB = window.KB;
-  var M = KB.metrics;
+  var COPY = window.COPY;
+  var VARIANT = document.body.getAttribute('data-variant') || 'v1';
+  var T = (COPY && COPY[VARIANT]) || (COPY && COPY.v1) || {};
 
-  var ui = {
-    page: 'upload',
-    states: { upload: 'success', scan: 'success', lists: 'success' },
-    tab: 'gap',
-    scanTriggered: false,
-    expanded: {}
-  };
-
-  /* ---------- 工具 ---------- */
+  /* ---------- 小工具 ---------- */
   function q(sel, root) { return (root || document).querySelector(sel); }
   function qa(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
-
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text !== undefined && text !== null) node.textContent = String(text);
+    return node;
   }
-
-  /* 阈值等原值：3 -> "3"，0.62 -> "0.62" */
-  function raw(v) { return String(v); }
-  /* 三类模块的精确率等：缺口 3 位，其余 4 位 */
-  function p3(v) { return Number(v).toFixed(3); }
-  function p4(v) { return Number(v).toFixed(4); }
-  function diff4(a, b) { return (Number(a) - Number(b)).toFixed(4); }
-
-  var toastTimer = null;
-  function toast(msg) {
-    var el = q('#toast');
-    el.textContent = msg;
-    el.hidden = false;
-    if (toastTimer) { clearTimeout(toastTimer); }
-    toastTimer = setTimeout(function () { el.hidden = true; }, 2400);
-  }
-
-  function copyText(text, label) {
-    function done() { toast('已复制 ' + (label || text)); }
-    function fallback() {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); done(); }
-      catch (e) { toast('复制失败，请手动选择文本'); }
-      document.body.removeChild(ta);
+  function setText(node, value) { if (node) node.textContent = String(value); }
+  function show(node, visible) { if (node) node.hidden = !visible; }
+  function clear(node) { while (node && node.firstChild) node.removeChild(node.firstChild); }
+  function hasElementChild(node) {
+    if (!node) return false;
+    for (var i = 0; i < node.childNodes.length; i += 1) {
+      if (node.childNodes[i].nodeType === 1) return true;
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done, fallback);
-    } else {
-      fallback();
-    }
+    return false;
+  }
+  function fmt(value) {
+    if (value === null || value === undefined) return '—';
+    return String(value);
+  }
+  function round4(value) { return Math.round(Number(value) * 10000) / 10000; }
+
+  /* ---------- 变量表：文案里的 {占位符} ---------- */
+  function dupScanByThreshold() {
+    var map = {};
+    (KB.audit.dup_threshold_scan || []).forEach(function (row) { map[String(row.threshold)] = row; });
+    return map;
   }
 
-  /* ---------- 确认弹窗（message-box） ---------- */
-  function messageBox(opts) {
-    return new Promise(function (resolve) {
-      var mask = document.createElement('div');
-      mask.className = 'mask';
-      mask.innerHTML =
-        '<div class="msgbox" role="dialog" aria-modal="true" aria-labelledby="mbTitle">' +
-          '<div class="msgbox-head"><span id="mbTitle">' + esc(opts.title) + '</span>' +
-            '<button class="icon-btn msgbox-close" type="button" aria-label="关闭确认框"><svg class="icon"><use href="#i-close"></use></svg></button>' +
-          '</div>' +
-          '<div class="msgbox-body">' + esc(opts.message) + '</div>' +
-          '<div class="msgbox-foot">' +
-            '<button class="btn msgbox-cancel" type="button">' + esc(opts.cancelText || '取消') + '</button>' +
-            '<button class="btn btn-primary msgbox-ok" type="button">' + esc(opts.okText || '确定') + '</button>' +
-          '</div>' +
-        '</div>';
+  var DUP_SCAN = dupScanByThreshold();
 
-      document.body.appendChild(mask);
-      var okBtn = q('.msgbox-ok', mask);
-      var cancelBtn = q('.msgbox-cancel', mask);
-      var closeBtn = q('.msgbox-close', mask);
-
-      function close(result) {
-        document.removeEventListener('keydown', onKey);
-        mask.remove();
-        resolve(result);
-      }
-      function onKey(e) {
-        if (e.key === 'Escape') { close(false); }
-        if (e.key === 'Tab') {
-          var f = [okBtn, cancelBtn, closeBtn];
-          var i = f.indexOf(document.activeElement);
-          e.preventDefault();
-          var next = e.shiftKey ? (i <= 0 ? f.length - 1 : i - 1) : (i === f.length - 1 ? 0 : i + 1);
-          f[next].focus();
-        }
-      }
-      okBtn.addEventListener('click', function () { close(true); });
-      cancelBtn.addEventListener('click', function () { close(false); });
-      closeBtn.addEventListener('click', function () { close(false); });
-      mask.addEventListener('mousedown', function (e) { if (e.target === mask) { close(false); } });
-      document.addEventListener('keydown', onKey);
-      okBtn.focus();
-    });
-  }
-
-  /* ---------- 页面切换 ---------- */
-  function setPage(name) {
-    ui.page = name;
-    document.body.setAttribute('data-page', name);
-    qa('.page').forEach(function (sec) { sec.hidden = sec.getAttribute('data-page') !== name; });
-    qa('.menu-item').forEach(function (b) {
-      var on = b.getAttribute('data-page') === name;
-      b.classList.toggle('is-active', on);
-      if (on) { b.setAttribute('aria-current', 'page'); } else { b.removeAttribute('aria-current'); }
-    });
-    closeDrawer();
-    var main = q('.app-main');
-    if (main) { main.scrollTop = 0; }
-  }
-
-  /* ---------- 状态切换 ---------- */
-  function applyState(page, state) {
-    ui.states[page] = state;
-    var sec = q('#page-' + page);
-    qa('[data-states]', sec).forEach(function (el) {
-      var list = el.getAttribute('data-states').split(',');
-      el.hidden = list.indexOf(state) === -1;
-    });
-    qa('.seg-btn[data-target="' + page + '"]').forEach(function (b) {
-      var on = b.getAttribute('data-state') === state;
-      b.classList.toggle('is-on', on);
-      b.setAttribute('aria-pressed', on ? 'true' : 'false');
-    });
-    if (page === 'scan') {
-      var running = state === 'running';
-      document.body.classList.toggle('is-scanning', running);
-      q('#globalProgress').hidden = !running;
-      if (running) { setSteps(2); }
-      else if (ui.scanTriggered) {
-        ui.scanTriggered = false;
-        markCorpusCleared();
-      }
-      updateBadge(state);
-    }
-    refreshUploadLock();
-  }
-
-  /* 扫描占用时的上传锁定：扫描页进入 running，或上传页切到「扫描占用」态 */
-  function refreshUploadLock() {
-    var scanning = document.body.classList.contains('is-scanning');
-    var busy = scanning || ui.states.upload === 'busy';
-    q('#scanLockAlert').hidden = !busy;
-    syncUploadDisabled();
-  }
-
-  function markCorpusCleared() {
-    var el = q('#corpusClearedAlert');
-    if (el) { el.hidden = false; }
-    var btn = q('[data-goto="scan"]', q('#page-upload'));
-    var hint = q('#uploadNextHint');
-    if (hint) { hint.textContent = '上次扫描已清空语料，如需再次扫描请重新上传。'; }
-    if (btn) {
-      btn.setAttribute('disabled', 'disabled');
-      btn.setAttribute('title', '语料已清空，请重新上传语料');
-    }
-  }
-
-  function syncUploadDisabled() {
-    var busy = document.body.classList.contains('is-scanning');
-    ['#docUpload', '#ticketUpload'].forEach(function (sel) {
-      var el = q(sel);
-      if (!el) { return; }
-      el.setAttribute('aria-disabled', busy ? 'true' : 'false');
-      el.style.pointerEvents = busy ? 'none' : '';
-      el.style.opacity = busy ? '0.55' : '';
-    });
-  }
-
-  function updateBadge(scanState) {
-    var badge = q('#scanBadge');
-    var map = {
-      success: { cls: 'tag-success', icon: 'i-success', text: '已完成', tip: '扫描状态：已完成（status=completed）' },
-      running: { cls: 'tag-warning', icon: 'i-info', text: '扫描中', tip: '扫描状态：扫描中（status=running）' },
-      empty: { cls: 'tag-info', icon: 'i-info', text: '未扫描', tip: '扫描状态：从未扫描（status=never_scanned）' },
-      error: { cls: 'tag-danger', icon: 'i-error', text: '失败', tip: '扫描状态：失败（status=failed）' }
-    };
-    var m = map[scanState] || map.success;
-    badge.className = 'tag ' + m.cls;
-    badge.setAttribute('data-tip', m.tip);
-    badge.innerHTML = '<svg class="icon"><use href="#' + m.icon + '"></use></svg>' + m.text;
-  }
-
-  function setSteps(activeIndex) {
-    qa('#scanSteps .step').forEach(function (li, i) {
-      li.classList.remove('is-done', 'is-process');
-      if (i < activeIndex) { li.classList.add('is-done'); }
-      else if (i === activeIndex) { li.classList.add('is-process'); }
-    });
-  }
-
-  /* ---------- 扫描结果总览 ---------- */
-  function renderScanOverview() {
-    var rows = [
-      { name: '知识缺口', thr: M.gap.threshold, p: p3(M.gap.precision), r: p3(M.gap.recall), f: p3(M.gap.f1), count: M.gap.gap_clusters, unit: '缺口簇' },
-      { name: '内容腐化', thr: M.corrupt.threshold, p: p4(M.corrupt.precision), r: p4(M.corrupt.recall), f: p4(M.corrupt.f1), count: M.corrupt.detected, unit: '篇文档' },
-      { name: '重复冗余', thr: M.dup.threshold, p: p4(M.dup.group_precision), r: p4(M.dup.group_recall), f: p4(M.dup.group_f1), count: M.dup.dup_groups, unit: '个重复组' }
-    ];
-    q('#scanOverviewBody').innerHTML = rows.map(function (row) {
-      return '<tr>' +
-        '<td>' + esc(row.name) + '</td>' +
-        '<td class="num">' + esc(raw(row.thr)) + '</td>' +
-        '<td class="num">' + esc(row.p) + '</td>' +
-        '<td class="num">' + esc(row.r) + '</td>' +
-        '<td class="num">' + esc(row.f) + '</td>' +
-        '<td class="num">' + esc(String(row.count)) + ' ' + esc(row.unit) + '</td>' +
-      '</tr>';
-    }).join('');
-  }
-
-  /* ---------- 清单页：指标条 ---------- */
-  function tabMetrics(tab) {
-    if (tab === 'gap') {
-      return {
-        thr: raw(M.gap.threshold), p: p3(M.gap.precision), r: p3(M.gap.recall), f: p3(M.gap.f1),
-        count: M.gap.gap_clusters, unit: '缺口簇',
-        cali: '缺口簇（1 簇 = 1 个业务意图下的工单群）；涉及业务意图 5 个',
-        rule: '段落级语义覆盖度中位数低于阈值 0.62 判定为知识缺口，命中名次 1–7 共 7 个缺口簇。同一业务意图可能对应多个缺口簇，列表未按意图去重。'
-      };
-    }
-    if (tab === 'corrupt') {
-      return {
-        thr: raw(M.corrupt.threshold), p: p4(M.corrupt.precision), r: p4(M.corrupt.recall), f: p4(M.corrupt.f1),
-        count: M.corrupt.detected, unit: '篇文档',
-        cali: '文档（1 篇 = 1 行）；埋入 62 篇 / 检出 69 篇',
-        rule: '风险分达到阈值 3 判定为内容腐化。风险分与命中规则组合一一对应（权重 R1 3 / R2 2 / R3 2 / R4 1），每行同时给出数值与规则组合，不以颜色作为唯一编码。'
-      };
-    }
-    return {
-      thr: raw(M.dup.threshold), p: p4(M.dup.group_precision), r: p4(M.dup.group_recall), f: p4(M.dup.group_f1),
-      count: M.dup.dup_groups, unit: '个重复组',
-      cali: '重复组（1 组 = 1 组重复文档）；覆盖文档 49 篇',
-      rule: '组内最大余弦相似度达到阈值 0.95 判定为重复冗余。精确率、召回率、F1 为组级口径，F1 = 1.0000 属乐观值。'
-    };
-  }
-
-  function renderListMetrics() {
-    var m = tabMetrics(ui.tab);
-    q('#listMetricGrid').innerHTML =
-      cell('阈值', m.thr) +
-      cell('精确率', m.p) +
-      cell('召回率', m.r) +
-      cell('F1', m.f) +
-      cell('命中数', String(m.count) + '<span class="unit">' + esc(m.unit) + '</span>');
-
-    q('#listCaliGrid').innerHTML =
-      '<div class="desc-cell"><span class="desc-label">统计单元口径</span><span class="desc-value">' + esc(m.cali) + '</span></div>' +
-      '<div class="desc-cell"><span class="desc-label">判定口径</span><span class="desc-value">' + esc(m.rule) + '</span></div>';
-  }
-
-  function cell(label, value) {
-    return '<div class="desc-cell"><span class="desc-label">' + esc(label) + '</span><span class="desc-value">' + value + '</span></div>';
-  }
-
-  /* ---------- 清单页：表格 ---------- */
-  function progCell(dec, threshold, label) {
-    var pct = Math.round(dec * 100);
-    return '<div class="prog-cell">' +
-      '<div class="prog-nums"><span class="prog-pct">' + pct + '%</span><span class="prog-dec">' + esc(raw(dec)) + '</span></div>' +
-      '<div class="prog" role="img" aria-label="' + esc(label) + ' ' + pct + '%，原始值 ' + esc(raw(dec)) + '，阈值 ' + esc(raw(threshold)) + '">' +
-        '<span class="prog-fill" style="width:' + (dec * 100).toFixed(2) + '%"></span>' +
-        '<span class="prog-tick" style="left:' + (threshold * 100) + '%"></span>' +
-      '</div>' +
-      '<div class="prog-foot">刻度线标出阈值 ' + esc(raw(threshold)) + '</div>' +
-    '</div>';
-  }
-
-  function copyBtn(text, label) {
-    return '<button class="copy-btn" type="button" data-copy="' + esc(text) + '" data-copy-label="' + esc(label || '') + '" aria-label="复制 ' + esc(label || text) + '">' +
-      '<svg class="icon"><use href="#i-copy"></use></svg></button>';
-  }
-
-  var HEADS = {
-    gap: ['排名', '业务意图', '簇内工单数', '覆盖度（中位数）', '距阈值差值'],
-    corrupt: ['文档编码', '标题', '业务域', '最后修改时间', '风险分', '命中规则'],
-    dup: ['组号', '组内文档数', '主文档', '组内最大余弦相似度', '组规模']
+  var VARS = {
+    n_docs: KB.metrics.n_docs,
+    n_tickets: KB.metrics.n_tickets,
+    n_passages: KB.metrics.n_passages,
+    gap_threshold: KB.metrics.gap.threshold,
+    gap_clusters: KB.metrics.gap.gap_clusters,
+    gap_intents: KB.metrics.gap.detected_intents,
+    gap_pool_clusters: KB.audit.gap_pool.clusters,
+    corrupt_detected: KB.metrics.corrupt.detected,
+    corrupt_shown: KB.audit.corrupt_sample.shown,
+    corrupt_combos: KB.audit.corrupt_sample.combos,
+    dup_groups: KB.metrics.dup.dup_groups,
+    dup_docs: KB.metrics.dup.detected_docs,
+    dup_threshold: KB.metrics.dup.threshold,
+    dup_f1_095: KB.metrics.dup.group_f1,
+    dup_f1_095_threshold: KB.metrics.dup.threshold,
+    dup_f1_090: (DUP_SCAN['0.9'] || {}).group_f1,
+    dup_f1_090_threshold: 0.9,
+    req_scan_seconds: KB.audit.requirement.scan_seconds_max,
+    req_page_seconds: KB.audit.requirement.page_response_seconds_max,
+    run_time: String(KB.audit.run.generated_at || '').replace('T', ' ').replace('+08:00', '')
   };
 
-  function severityOf(score) {
-    if (score >= 8) { return { cls: 'sev-danger', tag: 'tag-solid-danger', text: '最高风险' }; }
-    if (score >= 6) { return { cls: 'sev-danger', tag: 'tag-danger', text: '高' }; }
-    if (score >= 5) { return { cls: 'sev-warning', tag: 'tag-warning', text: '中' }; }
-    return { cls: 'sev-info', tag: 'tag-info', text: '低（达阈值）' };
+  function interpolate(text, extra) {
+    if (text === undefined || text === null) return '';
+    return String(text).replace(/\{([a-zA-Z0-9_]+)\}/g, function (whole, key) {
+      if (extra && Object.prototype.hasOwnProperty.call(extra, key)) return String(extra[key]);
+      if (Object.prototype.hasOwnProperty.call(VARS, key)) return String(VARS[key]);
+      return whole;
+    });
+  }
+
+  function copy(key, extra) {
+    if (!(key in T)) return '';
+    return interpolate(T[key], extra);
+  }
+
+  /* ---------- 数值注入 ---------- */
+  function resolveNum(path) {
+    var parts = String(path).split('.');
+    var node = KB;
+    for (var i = 0; i < parts.length; i += 1) {
+      if (node === null || node === undefined) return null;
+      node = node[parts[i]];
+    }
+    return node;
+  }
+
+  function fillNumbers() {
+    qa('[data-num]').forEach(function (node) {
+      if (node.textContent.trim()) return;
+      node.textContent = fmt(resolveNum(node.getAttribute('data-num')));
+    });
+  }
+
+  /* ---------- 文案注入：叶子节点整段替换；含子节点的保留结构 ---------- */
+  function fillCopy() {
+    qa('[data-copy]').forEach(function (node) {
+      var key = node.getAttribute('data-copy');
+      if (!(key in T)) return;
+      if (hasElementChild(node)) return;
+      node.textContent = copy(key);
+    });
+  }
+
+  /* ---------- 状态模型 ----------
+     三个状态必须互相自洽（评审 A7 / 操作效率 #3）：
+     - 扫描未完成（idle / running / loading / error）时，清单没有数据，
+       徽标、指标与明细一律走占位符，不允许出现「未扫描却显示上一轮数字」；
+     - 扫描完成（success）后清单才有数据，徽标数 = 该类判定数，
+       指标与该 tab 同源，明细行数与徽标对应。
+     默认落在「语料已导入、尚未扫描」这一入口状态：先导语料、再扫描、最后看清单，
+     与页内「原型状态演示」开关配合可逐个状态检视。 */
+  var state = {
+    page: 'upload',
+    upload: 'success',
+    scan: 'idle',
+    lists: 'never'
+  };
+
+  /* 扫描状态变化时，清单状态随之收敛，避免出现自相矛盾的组合 */
+  function applyScanState(next) {
+    state.scan = next;
+    if (next === 'success') state.lists = 'success';
+    else if (next === 'running' || next === 'loading') state.lists = 'loading';
+    else if (next === 'error') state.lists = 'error';
+    else state.lists = 'never';
+  }
+
+  /* 清单状态变化时，反推扫描状态：只有「有结果」才意味着扫描跑过 */
+  function applyListsState(next) {
+    state.lists = next;
+    if (next === 'success' || next === 'nohit') state.scan = 'success';
+    else if (next === 'loading') state.scan = 'loading';
+    else if (next === 'error') state.scan = 'error';
+    else state.scan = 'idle';
+  }
+
+  function scanLocked() { return state.scan === 'running'; }
+
+  function scanStatusKey() {
+    if (state.scan === 'running') return 'running';
+    if (state.scan === 'error') return 'error';
+    if (state.scan === 'success') return 'ready';
+    return 'empty';
+  }
+
+  /* ---------- 播报与轻提示 ---------- */
+  function announce(text) {
+    var region = q('#liveRegion');
+    if (region) region.textContent = String(text);
+  }
+
+  var toastTimer = null;
+  function toast(text) {
+    var node = q('#toast');
+    if (!node) return;
+    node.textContent = String(text);
+    show(node, true);
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { show(node, false); }, 3200);
+  }
+
+  /* ---------- 模态框：焦点陷阱 + Esc 关闭并归还焦点 ---------- */
+  var modalOpener = null;
+  var modalKeyHandler = null;
+
+  function closeModal() {
+    var root = q('#modalRoot');
+    if (!root || !root.firstChild) return;
+    clear(root);
+    if (modalKeyHandler) {
+      document.removeEventListener('keydown', modalKeyHandler);
+      modalKeyHandler = null;
+    }
+    if (modalOpener && typeof modalOpener.focus === 'function') modalOpener.focus();
+    modalOpener = null;
+  }
+
+  function openModal(opts) {
+    var root = q('#modalRoot');
+    if (!root) return;
+    /* 焦点归还目标由调用方显式指定：弹窗常在切换页面之后才打开，
+       此时 document.activeElement 已是新页标题，而不是触发按钮。 */
+    modalOpener = opts.opener || document.activeElement;
+    clear(root);
+
+    var mask = el('div', 'modal-mask');
+    var box = el('div', 'msgbox');
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-labelledby', 'msgbox-title');
+
+    var title = el('h2', null, opts.title);
+    title.id = 'msgbox-title';
+    var body = el('p', null, opts.body);
+    var actions = el('div', 'msgbox-actions');
+
+    var ok = el('button', 'btn btn-primary', opts.okText);
+    ok.type = 'button';
+    var cancel = el('button', 'btn btn-ghost', opts.cancelText);
+    cancel.type = 'button';
+
+    ok.addEventListener('click', function () { closeModal(); if (opts.onOk) opts.onOk(); });
+    cancel.addEventListener('click', function () { closeModal(); if (opts.onCancel) opts.onCancel(); });
+
+    actions.appendChild(ok);
+    actions.appendChild(cancel);
+    box.appendChild(title);
+    box.appendChild(body);
+    box.appendChild(actions);
+    mask.appendChild(box);
+    root.appendChild(mask);
+
+    modalKeyHandler = function (event) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeModal();
+        if (opts.onCancel) opts.onCancel();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      var focusable = qa('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])', box);
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', modalKeyHandler);
+    ok.focus();
+  }
+
+  /* ---------- 页面切换：切显隐 + 移焦 + 播报 ---------- */
+  function setPage(page) {
+    state.page = page;
+    document.body.setAttribute('data-page', page);
+    var heading = null;
+    qa('.page').forEach(function (section) {
+      var active = section.getAttribute('data-page') === page;
+      show(section, active);
+      if (active) heading = q('h1', section);
+    });
+    qa('.nav-item').forEach(function (item) {
+      if (item.getAttribute('data-page') === page) item.setAttribute('aria-current', 'page');
+      else item.removeAttribute('aria-current');
+    });
+    if (heading) {
+      heading.setAttribute('tabindex', '-1');
+      heading.focus();
+      announce(heading.textContent);
+    }
+    render();
+  }
+
+  /* ---------- 表格片段 ---------- */
+  function kpi(label, value, unit) {
+    var box = el('div', 'kpi');
+    box.appendChild(el('span', 'kpi-label', label));
+    box.appendChild(el('span', 'kpi-value', value));
+    if (unit) box.appendChild(el('span', 'kpi-unit', unit));
+    return box;
+  }
+
+  function headRow(container, labels) {
+    clear(container);
+    labels.forEach(function (label) {
+      var th = el('th', null, label);
+      th.setAttribute('scope', 'col');
+      container.appendChild(th);
+    });
+  }
+
+  function cell(row, value, cls, title) {
+    var td = el('td', cls || null, value);
+    if (title) td.title = title;
+    row.appendChild(td);
+    return td;
+  }
+
+  /* ---------- 上传页 ---------- */
+  function renderUpload() {
+    var locked = scanLocked();
+    qa('.page[data-page="upload"] .state-block').forEach(function (block) {
+      var states = (block.getAttribute('data-states') || '').split(',');
+      var wanted = locked ? 'busy' : state.upload;
+      show(block, states.indexOf(wanted) >= 0);
+    });
+
+    var docs = '—';
+    var tickets = '—';
+    if (!locked) {
+      if (state.upload === 'success') { docs = fmt(KB.metrics.n_docs); tickets = fmt(KB.metrics.n_tickets); }
+      else if (state.upload === 'empty') { docs = '0'; tickets = '0'; }
+    }
+    setText(q('#corpusDocs'), docs);
+    setText(q('#corpusTickets'), tickets);
+
+    var cta = q('#uploadCta');
+    var note = q('#uploadCtaNote');
+    var ctaKey = 'upload.cta.ready';
+    if (locked) ctaKey = 'upload.cta.busy';
+    else if (state.upload === 'empty') ctaKey = 'upload.cta.empty';
+    else if (state.upload === 'loading') ctaKey = 'upload.cta.loading';
+    else if (state.upload === 'error') ctaKey = 'upload.cta.error';
+    setText(cta, copy(ctaKey));
+    if (cta) {
+      var enabled = !locked && state.upload === 'success';
+      cta.disabled = !enabled;
+      cta.setAttribute('aria-disabled', enabled ? 'false' : 'true');
+    }
+    if (note) setText(note, copy('upload.cta.note'));
+
+    [['#docUploadInput', '#docUpload'], ['#ticketUploadInput', '#ticketUpload']].forEach(function (pair) {
+      var input = q(pair[0]);
+      var zone = q(pair[1]);
+      if (input) input.disabled = locked;
+      if (zone) {
+        if (locked) zone.setAttribute('data-busy', 'true');
+        else zone.removeAttribute('data-busy');
+        zone.setAttribute('aria-disabled', locked ? 'true' : 'false');
+      }
+    });
+  }
+
+  function wireUpload() {
+    [['#docUploadInput', '#docUploadFeedback'], ['#ticketUploadInput', '#ticketUploadFeedback']].forEach(function (pair) {
+      var input = q(pair[0]);
+      var feedback = q(pair[1]);
+      if (!input) return;
+      function report(name) {
+        var text = copy('upload.feedback.selected', { file: name });
+        setText(feedback, text);
+        show(feedback, true);
+        announce(text);
+      }
+      input.addEventListener('change', function () {
+        var file = input.files && input.files[0];
+        if (file) report(file.name);
+      });
+      var zone = input.closest ? input.closest('.dropzone') : null;
+      if (!zone) return;
+      ['dragenter', 'dragover'].forEach(function (type) {
+        zone.addEventListener(type, function (event) { event.preventDefault(); });
+      });
+      zone.addEventListener('drop', function (event) {
+        event.preventDefault();
+        var file = event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0];
+        if (file) report(file.name);
+      });
+    });
+
+    var cta = q('#uploadCta');
+    if (cta) {
+      cta.addEventListener('click', function () {
+        if (scanLocked() || state.upload !== 'success') return;
+        setPage('scan');
+      });
+    }
+    var retry = q('#uploadRetry');
+    if (retry) {
+      retry.addEventListener('click', function () {
+        state.upload = 'loading';
+        render();
+        window.setTimeout(function () { state.upload = 'success'; render(); }, 600);
+      });
+    }
+  }
+
+  /* ---------- 扫描页 ---------- */
+  function renderScan() {
+    qa('.page[data-page="scan"] .state-block').forEach(function (block) {
+      var states = (block.getAttribute('data-states') || '').split(',');
+      show(block, states.indexOf(state.scan) >= 0);
+    });
+
+    var cta = q('#scanCta');
+    if (cta) {
+      var key = 'scan.cta.idle';
+      if (state.scan === 'running') key = 'scan.cta.running';
+      else if (state.scan === 'success') key = 'scan.cta.success';
+      else if (state.scan === 'error') key = 'scan.cta.error';
+      else if (state.scan === 'loading') key = 'scan.cta.loading';
+      setText(cta, copy(key));
+      var busy = state.scan === 'running' || state.scan === 'loading';
+      cta.disabled = busy;
+      cta.setAttribute('aria-disabled', busy ? 'true' : 'false');
+    }
+
+    renderScanOverview();
+    renderScanTiming();
+    renderThresholdScan();
+  }
+
+  var OVERVIEW_ROWS = [
+    { name: '知识缺口', metric: KB.metrics.gap, unit: 'lists.unit.gap', key: 'metrics.json → gap.best' },
+    { name: '内容腐化', metric: KB.metrics.corrupt, unit: 'lists.unit.corrupt', key: 'metrics.json → corrupt' },
+    { name: '重复冗余', metric: KB.metrics.dup, unit: 'lists.unit.dup', key: 'metrics.json → dup.best' }
+  ];
+
+  function renderScanOverview() {
+    var body = q('#scanOverviewBody');
+    if (!body) return;
+    clear(body);
+    OVERVIEW_ROWS.forEach(function (item) {
+      var m = item.metric;
+      var row = el('tr');
+      cell(row, item.name);
+      cell(row, fmt(m.threshold), 'n');
+      cell(row, fmt(m.precision), 'n');
+      cell(row, fmt(m.recall), 'n');
+      cell(row, fmt(m.f1), 'n');
+      cell(row, fmt(m.gap_clusters !== undefined ? m.gap_clusters : (m.detected !== undefined ? m.detected : m.dup_groups)), 'n');
+      cell(row, copy(item.unit));
+      cell(row, item.key, 'id');
+      body.appendChild(row);
+    });
+    var note = q('#scanOverviewNote');
+    if (note) setText(note, copy('scan.overview.note'));
+  }
+
+  var TIMING_ROWS = [
+    { key: 'scan.timing.stage.embed', value: function () { return KB.metrics.encode_seconds; }, artifact: 'embeddings_meta.json → encode_seconds' },
+    { key: 'scan.timing.stage.cluster', value: function () { return null; }, artifact: '—' },
+    { key: 'scan.timing.stage.gap', value: function () { return null; }, artifact: '—' },
+    { key: 'scan.timing.stage.corrupt', value: function () { return KB.metrics.corrupt.seconds; }, artifact: 'metrics.json → corrupt.seconds' },
+    { key: 'scan.timing.stage.total', value: function () { return KB.metrics.total_seconds; }, artifact: 'metrics.json → total_seconds' }
+  ];
+
+  function renderScanTiming() {
+    var body = q('#scanTimingBody');
+    if (!body) return;
+    clear(body);
+    TIMING_ROWS.forEach(function (item) {
+      var value = item.value();
+      var row = el('tr');
+      cell(row, copy(item.key));
+      cell(row, value === null ? '—' : fmt(value) + ' 秒', 'n');
+      cell(row, value === null ? copy('scan.timing.range.missing') : copy('scan.timing.range.measured'));
+      cell(row, item.artifact, 'id');
+      body.appendChild(row);
+    });
+    var note = q('#scanTimingNote');
+    if (note) setText(note, copy('scan.timing.note'));
+  }
+
+  function renderThresholdScan() {
+    var body = q('#gapThresholdBody');
+    if (!body) return;
+    clear(body);
+    (KB.audit.gap_threshold_scan || []).forEach(function (item) {
+      var row = el('tr');
+      cell(row, fmt(item.threshold), 'n');
+      cell(row, fmt(item.gap_clusters), 'n');
+      cell(row, fmt(item.detected_intents), 'n');
+      cell(row, fmt(item.precision), 'n');
+      cell(row, fmt(item.recall), 'n');
+      cell(row, fmt(item.f1), 'n');
+      body.appendChild(row);
+    });
+  }
+
+  var scanTimers = [];
+  function clearScanTimers() {
+    scanTimers.forEach(function (timer) { window.clearTimeout(timer); });
+    scanTimers = [];
+  }
+
+  function runScan() {
+    clearScanTimers();
+    applyScanState('running');
+    render();
+    announce(copy('scan.running.title'));
+    var steps = qa('#scanSteps .step');
+    var bar = q('#scanProgress .progress-bar');
+    var progress = q('#scanProgress');
+    steps.forEach(function (step) { step.setAttribute('data-state', 'pending'); });
+    if (bar) bar.style.width = '0%';
+    steps.forEach(function (step, index) {
+      scanTimers.push(window.setTimeout(function () {
+        step.setAttribute('data-state', 'done');
+        if (bar) bar.style.width = Math.round(((index + 1) / steps.length) * 100) + '%';
+        if (progress) progress.setAttribute('aria-valuetext', step.textContent);
+      }, 450 * (index + 1)));
+    });
+    scanTimers.push(window.setTimeout(function () {
+      applyScanState('success');
+      render();
+      announce(copy('scan.overview.title'));
+    }, 450 * steps.length + 400));
+  }
+
+  function confirmScan() {
+    openModal({
+      title: copy('confirm.scan.title'),
+      body: copy('confirm.scan.body'),
+      okText: copy('confirm.scan.ok'),
+      cancelText: copy('confirm.scan.cancel'),
+      opener: q('#scanCta'),
+      onOk: runScan
+    });
+  }
+
+  function wireScan() {
+    var cta = q('#scanCta');
+    if (cta) {
+      cta.addEventListener('click', function () {
+        if (state.scan === 'success') { setPage('lists'); return; }
+        if (state.scan === 'running' || state.scan === 'loading') return;
+        confirmScan();
+      });
+    }
+    var cancel = q('#cancelScanBtn');
+    if (cancel) {
+      cancel.addEventListener('click', function () {
+        clearScanTimers();
+        applyScanState('idle');
+        render();
+        announce(copy('scan.cta.idle'));
+      });
+    }
+    var retry = q('#retryScanBtn');
+    if (retry) retry.addEventListener('click', confirmScan);
+  }
+
+  /* ---------- 清单页 ---------- */
+  var TABS = ['gap', 'corrupt', 'dup'];
+
+  function tabUnit(tab) {
+    if (tab === 'gap') return copy('lists.unit.gap');
+    if (tab === 'corrupt') return copy('lists.unit.corrupt');
+    return copy('lists.unit.dup');
+  }
+
+  function tabMetrics(tab) {
+    if (tab === 'gap') {
+      var g = KB.metrics.gap;
+      return { threshold: g.threshold, precision: g.precision, recall: g.recall, f1: g.f1, count: g.gap_clusters };
+    }
+    if (tab === 'corrupt') {
+      var c = KB.metrics.corrupt;
+      return { threshold: c.threshold, precision: c.precision, recall: c.recall, f1: c.f1, count: c.detected };
+    }
+    var d = KB.metrics.dup;
+    return { threshold: d.threshold, precision: d.group_precision, recall: d.group_recall, f1: d.group_f1, count: d.dup_groups };
+  }
+
+  function tabHead(tab) {
+    if (tab === 'gap') {
+      return ['lists.table.head.gap1', 'lists.table.head.gap2', 'lists.table.head.gap3', 'lists.table.head.gap4', 'lists.table.head.gap5'];
+    }
+    if (tab === 'corrupt') {
+      return ['lists.table.head.corrupt1', 'lists.table.head.corrupt2', 'lists.table.head.corrupt3', 'lists.table.head.corrupt4', 'lists.table.head.corrupt5', 'lists.table.head.corrupt6'];
+    }
+    return ['lists.table.head.dup1', 'lists.table.head.dup2', 'lists.table.head.dup3', 'lists.table.head.dup4'];
+  }
+
+  /* 各清单里由页面自己算出来的列（其余列都是产物里的原值）：
+     缺口清单的「距阈值差值」= 判定阈值 − 覆盖度中位数；
+     腐化清单的「规则命中组合」由产物的 rule_hits 归并而来。
+     这些列在表头就写明是派生值——只写在单元格的 title 里等于没说。 */
+  function derivedColumnIndex(tab) {
+    if (tab === 'gap') return 4;
+    if (tab === 'corrupt') return 4;
+    return -1;
+  }
+
+  function tabCaption(tab) {
+    return copy('lists.detail.caption.' + tab);
+  }
+
+  function tabDesc(tab) {
+    return copy('lists.detail.desc.' + tab);
   }
 
   function ruleCodes(ruleHits) {
-    return ruleHits.split('|').map(function (s) { return s.split('_')[0]; }).join('+');
+    if (!ruleHits) return '—';
+    return String(ruleHits).split('|').map(function (part) {
+      return String(part).split('_')[0];
+    }).join('+');
+  }
+
+  function renderListMetrics() {
+    var grid = q('#listMetricGrid');
+    var sub = q('#listCaliGrid');
+    var note = q('#listUnitNote');
+    var ready = state.lists === 'success';
+    var m = tabMetrics(state.tab);
+    if (grid) {
+      clear(grid);
+      grid.appendChild(kpi(copy('lists.metrics.threshold'), ready ? fmt(m.threshold) : '—'));
+      grid.appendChild(kpi(copy('lists.metrics.precision'), ready ? fmt(m.precision) : '—'));
+      grid.appendChild(kpi(copy('lists.metrics.recall'), ready ? fmt(m.recall) : '—'));
+      grid.appendChild(kpi(copy('lists.metrics.f1'), ready ? fmt(m.f1) : '—'));
+      grid.appendChild(kpi(copy('lists.metrics.count'), ready ? fmt(m.count) : '—', tabUnit(state.tab)));
+    }
+    if (sub) {
+      clear(sub);
+      sub.appendChild(kpi(copy('lists.metrics.unit'), tabUnit(state.tab)));
+    }
+    if (note) setText(note, ready ? copy('lists.metrics.countNote') : copy('lists.metrics.thresholdNote'));
+  }
+
+  function detailRow(pairs) {
+    var row = el('tr', 'detail-row');
+    var td = el('td');
+    td.setAttribute('colspan', '8');
+    var grid = el('div', 'detail-grid');
+    pairs.forEach(function (pair) {
+      var item = el('div', 'detail-item');
+      item.appendChild(el('dt', null, pair[0]));
+      item.appendChild(el('dd', null, pair[1]));
+      grid.appendChild(item);
+    });
+    td.appendChild(grid);
+    row.appendChild(td);
+    return row;
+  }
+
+  function appendExpandCell(row, index, label, build) {
+    var td = el('td', 'action-cell');
+    var button = el('button', 'btn btn-sm', copy('lists.btn.expand'));
+    button.type = 'button';
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-label', copy('lists.expand', { n: index, label: label }));
+    var detail = null;
+    button.addEventListener('click', function () {
+      var expanded = button.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        if (detail && detail.parentNode) detail.parentNode.removeChild(detail);
+        detail = null;
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', copy('lists.expand', { n: index, label: label }));
+        setText(button, copy('lists.btn.expand'));
+        return;
+      }
+      detail = build();
+      row.parentNode.insertBefore(detail, row.nextSibling);
+      button.setAttribute('aria-expanded', 'true');
+      button.setAttribute('aria-label', copy('lists.collapse', { n: index, label: label }));
+      setText(button, copy('lists.btn.collapse'));
+    });
+    td.appendChild(button);
+    row.appendChild(td);
   }
 
   function renderListTable() {
     var head = q('#listHead');
     var body = q('#listBody');
-    var alertHost = q('#listAlertHost');
+    var caption = q('#listCaption');
+    if (!head || !body) return;
+    var derived = copy('lists.derived');
+    var labels = tabHead(state.tab).map(function (key) { return copy(key); });
+    /* 页面自己算出来的列（缺口清单的「距阈值差值」、腐化清单的「规则命中组合」）
+       在表头就写明是派生值——只写在单元格的 title 里等于没说。 */
+    var dIndex = derivedColumnIndex(state.tab);
+    if (dIndex >= 0 && labels[dIndex]) labels[dIndex] += '（' + derived + '）';
+    headRow(head, labels.concat([copy('lists.table.action')]));
+    if (caption) setText(caption, tabCaption(state.tab));
+    clear(body);
 
-    head.innerHTML = '<tr><th scope="col" class="col-expand"><span class="visually-hidden">展开</span></th>' +
-      HEADS[ui.tab].map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') + '</tr>';
-
-    alertHost.innerHTML = '';
-    var rows = [];
-
-    if (ui.tab === 'gap') {
-      rows = KB.gaps.map(function (g) {
-        var d = diff4(M.gap.threshold, g.cover_median);
-        return {
-          id: 'gap-' + g.rank,
-          cls: '',
-          cells:
-            '<td class="num">' + g.rank + '</td>' +
-            '<td>' + esc(g.intent) + '</td>' +
-            '<td><span class="tag tag-info">' + g.size + ' 条工单</span></td>' +
-            '<td>' + progCell(g.cover_median, M.gap.threshold, '覆盖度') + '</td>' +
-            '<td class="num">低于阈值 ' + d + '</td>',
-          detail: gapDetail(g, d)
-        };
+    if (state.tab === 'gap') {
+      (KB.gaps || []).forEach(function (item, index) {
+        var row = el('tr');
+        cell(row, fmt(item.rank), 'n');
+        cell(row, item.intent);
+        cell(row, fmt(item.size), 'n');
+        cell(row, fmt(item.cover_median), 'n');
+        cell(row, fmt(round4(KB.metrics.gap.threshold - item.cover_median)), 'n', derived);
+        appendExpandCell(row, index + 1, item.intent, function () {
+          return detailRow([
+            [copy('lists.detail.rep'), item.rep_ticket + ' · ' + item.rep_text],
+            [copy('lists.table.head.gap3'), fmt(item.size)],
+            [copy('lists.table.head.gap4'), fmt(item.cover_median)]
+          ]);
+        });
+        body.appendChild(row);
       });
-    } else if (ui.tab === 'corrupt') {
-      rows = KB.corrupt.map(function (c) {
-        var s = severityOf(c.risk_score);
-        return {
-          id: 'corrupt-' + c.doc_id,
-          cls: s.cls,
-          cells:
-            '<td class="cell-code">' + esc(c.doc_id) + copyBtn(c.doc_id, c.doc_id) + '</td>' +
-            '<td><span class="cell-clip is-wide" title="' + esc(c.title) + '">' + esc(c.title) + '</span></td>' +
-            '<td>' + esc(c.category) + '</td>' +
-            '<td class="num">' + esc(c.last_modified) + '</td>' +
-            '<td><span class="num">' + c.risk_score + '</span> <span class="tag ' + s.tag + '">' + esc(s.text) + '</span></td>' +
-            '<td><span class="cell-clip" title="' + esc(c.rule_hits) + '">' + esc(ruleCodes(c.rule_hits)) + '</span></td>',
-          detail: corruptDetail(c, s)
-        };
+    } else if (state.tab === 'corrupt') {
+      (KB.corrupt || []).forEach(function (item, index) {
+        var row = el('tr');
+        cell(row, item.doc_id, 'id');
+        cell(row, item.title, 'truncate', item.title);
+        cell(row, item.category);
+        cell(row, item.last_modified, 'id');
+        cell(row, ruleCodes(item.rule_hits));
+        cell(row, fmt(item.risk_score), 'n');
+        appendExpandCell(row, index + 1, item.doc_id, function () {
+          return detailRow([
+            [copy('lists.detail.reason'), item.reasons],
+            [copy('lists.table.head.corrupt6'), fmt(item.risk_score)]
+          ]);
+        });
+        body.appendChild(row);
       });
-      alertHost.innerHTML =
-        '<div class="alert alert-info mb12">' +
-          '<svg class="icon alert-icon"><use href="#i-info"></use></svg>' +
-          '<div><span class="alert-title">共命中 ' + M.corrupt.detected + ' 项，已加载 ' + KB.corrupt.length + ' 条明细</span>' +
-          '<span class="alert-desc">列表展示命中结果中的代表行，完整命中集合共 ' + M.corrupt.detected + ' 篇文档。</span></div>' +
-        '</div>';
     } else {
-      rows = KB.dups.map(function (d) {
-        var three = d.size === 3;
-        return {
-          id: 'dup-' + d.group,
-          cls: three ? 'sev-warning' : 'sev-info',
-          cells:
-            '<td class="num">' + d.group + '</td>' +
-            '<td class="num">' + d.size + ' 篇</td>' +
-            '<td class="cell-code">' + esc(d.primary_doc) + copyBtn(d.primary_doc, d.primary_doc) + '</td>' +
-            '<td>' + progCell(d.max_sim, M.dup.threshold, '组内最大余弦相似度') + '</td>' +
-            '<td><span class="tag ' + (three ? 'tag-warning' : 'tag-info') + '">' + d.size + ' 篇成组</span></td>',
-          detail: dupDetail(d)
-        };
+      (KB.dups || []).forEach(function (item, index) {
+        var row = el('tr');
+        cell(row, fmt(item.group), 'n');
+        cell(row, fmt(item.size), 'n');
+        cell(row, item.primary_doc, 'id');
+        cell(row, fmt(item.max_sim), 'n');
+        appendExpandCell(row, index + 1, item.primary_doc, function () {
+          return detailRow([
+            [copy('lists.detail.members'), String(item.member_docs).split('|').join('、')],
+            [copy('lists.table.head.dup4'), fmt(item.max_sim)]
+          ]);
+        });
+        body.appendChild(row);
       });
     }
-
-    body.innerHTML = rows.map(function (row) {
-      return '<tr class="' + row.cls + '" data-row-id="' + row.id + '">' +
-          '<td class="col-expand">' +
-            '<button class="expand-btn" type="button" aria-expanded="false" aria-label="展开该行详情" data-expand="' + row.id + '">' +
-              '<svg class="icon"><use href="#i-chevron"></use></svg>' +
-            '</button>' +
-          '</td>' +
-          row.cells +
-        '</tr>' +
-        '<tr class="expand-row" data-expand-row="' + row.id + '" hidden><td colspan="' + (HEADS[ui.tab].length + 1) + '">' + row.detail + '</td></tr>';
-    }).join('');
-
-    var hint = q('#downloadHint');
-    if (hint) {
-      var names = { gap: '知识缺口', corrupt: '内容腐化', dup: '重复冗余' };
-      hint.textContent = '当前 Tab：' + names[ui.tab] + '。下载内容为源 CSV 原文，不做二次加工。';
-    }
   }
 
-  /* ---------- 展开详情 ---------- */
-  function gapDetail(g, d) {
-    return '<div class="expand">' +
-      '<div class="sub-card">' +
-        '<h4>代表工单' + copyBtn(g.rep_ticket, g.rep_ticket) + '</h4>' +
-        '<dl class="kv-list">' +
-          '<div class="kv"><dt>代表工单号</dt><dd class="cell-code">' + esc(g.rep_ticket) + '</dd></div>' +
-        '</dl>' +
-        '<div class="quote mt12">' + esc(g.rep_text) + '</div>' +
-      '</div>' +
-      '<div class="expand-cols">' +
-        '<div class="sub-card">' +
-          '<h4>覆盖度判定</h4>' +
-          '<dl class="kv-list">' +
-            '<div class="kv"><dt>覆盖度（中位数）</dt><dd class="num">' + esc(raw(g.cover_median)) + '</dd></div>' +
-            '<div class="kv"><dt>阈值</dt><dd class="num">' + esc(raw(M.gap.threshold)) + '</dd></div>' +
-            '<div class="kv"><dt>差值</dt><dd class="num">低于阈值 ' + d + '</dd></div>' +
-          '</dl>' +
-          '<p class="hint mt12">覆盖度低于阈值才入选；条越短表示覆盖越低。数值与整数百分比并列，避免整数化造成精度误读。</p>' +
-        '</div>' +
-        '<div class="sub-card">' +
-          '<h4>影响规模</h4>' +
-          '<dl class="kv-list">' +
-            '<div class="kv"><dt>业务意图</dt><dd>' + esc(g.intent) + '</dd></div>' +
-            '<div class="kv"><dt>簇内工单数</dt><dd class="num">' + g.size + ' 条</dd></div>' +
-            '<div class="kv"><dt>命中名次</dt><dd class="num">' + g.rank + '</dd></div>' +
-          '</dl>' +
-          '<p class="hint mt12">列表按源文件命中名次固定展示，不提供列排序切换。</p>' +
-        '</div>' +
-      '</div>' +
-      '<div class="alert alert-info">' +
-        '<svg class="icon alert-icon"><use href="#i-info"></use></svg>' +
-        '<div><span class="alert-title">判定基于段落级语义覆盖度</span><span class="alert-desc">同一业务意图可能对应多个缺口簇，因此命中 7 簇只涉及 5 个业务意图。产物中没有严重度字段，因此不做离散分档。</span></div>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function corruptDetail(c, s) {
-    var reasons = c.reasons.split(';').map(function (r) { return r.trim(); }).filter(Boolean);
-    var rules = c.rule_hits.split('|');
-    var weightMap = { R1: M.corrupt.rule_weight.R1, R2: M.corrupt.rule_weight.R2, R3: M.corrupt.rule_weight.R3, R4: M.corrupt.rule_weight.R4 };
-    var hitMap = { R1: M.corrupt.rule_hit_counts.R1, R2: M.corrupt.rule_hit_counts.R2, R3: M.corrupt.rule_hit_counts.R3, R4: M.corrupt.rule_hit_counts.R4 };
-
-    return '<div class="expand">' +
-      '<div class="sub-card">' +
-        '<h4>判定理由' + copyBtn(c.doc_id, c.doc_id) + '</h4>' +
-        '<div class="reason-list">' +
-          reasons.map(function (r, i) {
-            return '<div class="reason-item"><span class="bullet">' + (i + 1) + '</span><span>' + esc(r) + '</span></div>';
-          }).join('') +
-        '</div>' +
-      '</div>' +
-      '<div class="expand-cols">' +
-        '<div class="sub-card">' +
-          '<h4>命中规则</h4>' +
-          '<dl class="kv-list">' +
-            rules.map(function (r) {
-              var code = r.split('_')[0];
-              var text = r.split('_').slice(1).join('_');
-              return '<div class="kv"><dt>' + esc(code) + ' ' + esc(text) + '</dt><dd>权重 ' + weightMap[code] + '，命中 ' + hitMap[code] + ' 篇</dd></div>';
-            }).join('') +
-            '<div class="kv"><dt>风险分</dt><dd class="num">' + c.risk_score + ' <span class="tag ' + s.tag + '">' + esc(s.text) + '</span></dd></div>' +
-          '</dl>' +
-          '<p class="hint mt12">规则命中数为全部 300 篇文档的统计口径。</p>' +
-        '</div>' +
-        '<div class="sub-card">' +
-          '<h4>文档信息</h4>' +
-          '<dl class="kv-list">' +
-            '<div class="kv"><dt>文档编码</dt><dd class="cell-code">' + esc(c.doc_id) + '</dd></div>' +
-            '<div class="kv"><dt>标题</dt><dd>' + esc(c.title) + '</dd></div>' +
-            '<div class="kv"><dt>业务域</dt><dd>' + esc(c.category) + '</dd></div>' +
-            '<div class="kv"><dt>最后修改时间</dt><dd class="num">' + esc(c.last_modified) + '</dd></div>' +
-          '</dl>' +
-        '</div>' +
-      '</div>' +
-      '<div class="alert alert-warning">' +
-        '<svg class="icon alert-icon"><use href="#i-warning"></use></svg>' +
-        '<div><span class="alert-title">阈值 risk_score ≥ 3</span><span class="alert-desc">命中规则越多分值越高。风险分与规则组合一一对应，颜色不是唯一编码，可只读数值与文字分辨。</span></div>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function dupDetail(d) {
-    var members = d.member_docs.split('|');
-    var tags = members.map(function (m) {
-      var isPrimary = m === d.primary_doc;
-      return '<span class="tag ' + (isPrimary ? 'tag-primary-doc' : 'tag-info') + '">' + esc(m) + (isPrimary ? ' 主文档' : '') + '</span>';
-    }).join('');
-
-    return '<div class="expand">' +
-      '<div class="sub-card">' +
-        '<h4>成员文档</h4>' +
-        '<div class="tag-cloud">' + tags + '</div>' +
-      '</div>' +
-      '<div class="expand-cols">' +
-        '<div class="sub-card">' +
-          '<h4>相似度判定</h4>' +
-          '<dl class="kv-list">' +
-            '<div class="kv"><dt>组内最大余弦相似度</dt><dd class="num">' + esc(raw(d.max_sim)) + '</dd></div>' +
-            '<div class="kv"><dt>阈值</dt><dd class="num">' + esc(raw(M.dup.threshold)) + '</dd></div>' +
-            '<div class="kv"><dt>组内文档数</dt><dd class="num">' + d.size + ' 篇</dd></div>' +
-          '</dl>' +
-          '<div class="mt12">' + progCell(d.max_sim, M.dup.threshold, '组内最大余弦相似度') + '</div>' +
-        '</div>' +
-        '<div class="sub-card">' +
-          '<h4>主文档选举</h4>' +
-          '<dl class="kv-list">' +
-            '<div class="kv"><dt>主文档</dt><dd class="cell-code">' + esc(d.primary_doc) + '</dd></div>' +
-            '<div class="kv"><dt>选举依据</dt><dd>引用次数、最后修改时间、标题包含度的归一化加权合成</dd></div>' +
-          '</dl>' +
-          '<p class="hint mt12">产物只给出归一化合成式描述，不提供各项权重数值，因此界面不作量化说明。</p>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-  }
-
-  /* ---------- 展开 / 收起 ---------- */
-  function toggleExpand(id, btn) {
-    var row = q('[data-expand-row="' + id + '"]');
-    var tr = q('[data-row-id="' + id + '"]');
-    if (!row) { return; }
-    var open = row.hidden;
-    row.hidden = !open;
-    if (tr) { tr.classList.toggle('is-open', open); }
-    if (btn) { btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
-  }
-
-  /* ---------- Tab 切换 ---------- */
-  function setTab(tab) {
-    ui.tab = tab;
-    qa('.tab').forEach(function (b) {
-      var on = b.getAttribute('data-tab') === tab;
-      b.classList.toggle('is-on', on);
-      b.setAttribute('aria-selected', on ? 'true' : 'false');
+  function extraTable(headers, rows) {
+    var wrap = el('div', 'tbl-wrap');
+    var table = el('table', 'tbl');
+    var thead = el('thead');
+    var hrow = el('tr');
+    headers.forEach(function (label) {
+      var th = el('th', null, label);
+      th.setAttribute('scope', 'col');
+      hrow.appendChild(th);
     });
-    q('#listPanel').setAttribute('aria-labelledby', 'tab-' + tab);
+    thead.appendChild(hrow);
+    table.appendChild(thead);
+    var tbody = el('tbody');
+    rows.forEach(function (cells) {
+      var row = el('tr');
+      cells.forEach(function (value, index) {
+        cell(row, value, index === 0 ? null : 'n');
+      });
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    return wrap;
+  }
+
+  function renderListExtra() {
+    var host = q('#listTabExtra');
+    if (!host) return;
+    clear(host);
+    if (state.lists !== 'success') return;
+
+    var section = el('section', 'panel');
+    var head = el('div', 'panel-head');
+
+    if (state.tab === 'gap') {
+      head.appendChild(el('h2', 'panel-title', copy('lists.gap.extraTitle')));
+      section.appendChild(head);
+      section.appendChild(el('p', 'note', copy('lists.gap.extraNote')));
+      section.appendChild(extraTable(
+        [copy('lists.table.head.gap2'), copy('lists.table.head.gap3'), copy('lists.table.head.gap4')],
+        (KB.audit.gap_near_miss || []).map(function (item) {
+          return [item.intent, fmt(item.size), fmt(item.cover_median)];
+        })
+      ));
+    } else if (state.tab === 'corrupt') {
+      head.appendChild(el('h2', 'panel-title', copy('lists.corrupt.extraTitle')));
+      section.appendChild(head);
+      section.appendChild(el('p', 'note', copy('lists.corrupt.extraNote')));
+      section.appendChild(extraTable(
+        [copy('lists.extra.comboCol1'), copy('lists.extra.comboCol2')],
+        (KB.audit.corrupt_rule_combos || []).map(function (item) {
+          return [item.rules, fmt(item.docs)];
+        })
+      ));
+      section.appendChild(el('h3', 'panel-title', copy('lists.corrupt.weightTitle')));
+      section.appendChild(extraTable(
+        [copy('lists.extra.weightCol1'), copy('lists.extra.weightCol2'), copy('lists.extra.weightCol3')],
+        Object.keys(KB.metrics.corrupt.rule_weight || {}).map(function (rule) {
+          return [rule, fmt(KB.metrics.corrupt.rule_weight[rule]), fmt((KB.metrics.corrupt.rule_hit_counts || {})[rule])];
+        })
+      ));
+    } else {
+      head.appendChild(el('h2', 'panel-title', copy('lists.dup.extraTitle')));
+      section.appendChild(head);
+      section.appendChild(el('p', 'note', copy('lists.dup.extraNote')));
+      section.appendChild(extraTable(
+        [copy('lists.extra.dupCol3'), copy('lists.extra.dupCol4'), copy('lists.extra.dupCol5')],
+        (KB.audit.dup_threshold_scan || []).map(function (item) {
+          return [fmt(item.threshold), fmt(item.group_f1), fmt(item.detected_docs)];
+        })
+      ));
+    }
+    host.appendChild(section);
+  }
+
+  function renderDownloads() {
+    var body = q('#downloadBody');
+    if (!body) return;
+    clear(body);
+    var products = KB.audit.products || {};
+    TABS.forEach(function (key) {
+      var item = products[key];
+      if (!item) return;
+      var row = el('tr');
+      cell(row, item.label);
+      cell(row, item.path, 'id');
+      body.appendChild(row);
+    });
+  }
+
+  function renderLists() {
+    qa('#listPanel .state-block').forEach(function (block) {
+      var key = block.getAttribute('data-list') || '';
+      var active = key === state.lists;
+      show(block, active);
+      /* 加载态的 aria-busy 挂在真正会被替换的那个容器上：
+         读屏据此知道该区域正在更新，而不是读到一段空白骨架。 */
+      if (active && key === 'loading') block.setAttribute('aria-busy', 'true');
+      else block.removeAttribute('aria-busy');
+    });
+    qa('.page[data-page="lists"] .tab').forEach(function (button) {
+      var selected = button.getAttribute('data-tab') === state.tab;
+      button.setAttribute('aria-selected', selected ? 'true' : 'false');
+      button.tabIndex = selected ? 0 : -1;
+    });
+
+    var desc = q('#listDetailDesc');
+    if (desc) setText(desc, state.lists === 'success' ? tabDesc(state.tab) : '');
+    var caption = q('#listCaption');
+    if (caption) setText(caption, tabCaption(state.tab));
+
+    var stateNote = q('#listStateNote');
+    if (stateNote) {
+      var key = 'lists.tabnote.' + (state.lists === 'success' ? 'success' : state.lists);
+      setText(stateNote, copy(key in T ? key : 'lists.tabnote.success'));
+    }
+
     renderListMetrics();
     renderListTable();
+    renderListExtra();
+
+    var badgeValue = function (tab) {
+      if (state.lists !== 'success') return '—';
+      return fmt(tabMetrics(tab).count);
+    };
+    setText(q('#badge-gap'), badgeValue('gap'));
+    setText(q('#badge-corrupt'), badgeValue('corrupt'));
+    setText(q('#badge-dup'), badgeValue('dup'));
+
+    var cta = q('#listsCta');
+    if (cta) {
+      var key = 'lists.cta.' + (state.lists === 'success' ? 'success' : state.lists);
+      setText(cta, copy(key in T ? key : 'lists.cta.success'));
+      var busy = state.lists === 'loading';
+      cta.disabled = busy;
+      cta.setAttribute('aria-disabled', busy ? 'true' : 'false');
+    }
+    var ctaNote = q('#listsCtaNote');
+    if (ctaNote) setText(ctaNote, copy('lists.cta.note'));
   }
 
-  /* ---------- 侧边抽屉（窄屏） ---------- */
-  function closeDrawer() {
-    var aside = q('#appAside');
-    aside.classList.remove('is-open');
-    q('#asideMask').hidden = true;
-    q('#menuToggle').setAttribute('aria-expanded', 'false');
+  function reloadLists() {
+    applyListsState('loading');
+    render();
+    window.setTimeout(function () {
+      applyListsState('success');
+      render();
+      toast(copy('toast.reloaded'));
+    }, 500);
   }
 
-  /* ---------- 初始化 ---------- */
+  function wireLists() {
+    qa('.page[data-page="lists"] .tab').forEach(function (button) {
+      button.addEventListener('click', function () {
+        state.tab = button.getAttribute('data-tab');
+        render();
+        announce(button.textContent);
+      });
+      button.addEventListener('keydown', function (event) {
+        var tabs = qa('.page[data-page="lists"] .tab');
+        var index = tabs.indexOf(button);
+        var next = null;
+        if (event.key === 'ArrowRight') next = tabs[(index + 1) % tabs.length];
+        else if (event.key === 'ArrowLeft') next = tabs[(index - 1 + tabs.length) % tabs.length];
+        else if (event.key === 'Home') next = tabs[0];
+        else if (event.key === 'End') next = tabs[tabs.length - 1];
+        if (!next) return;
+        event.preventDefault();
+        state.tab = next.getAttribute('data-tab');
+        render();
+        next.focus();
+      });
+    });
+
+    var cta = q('#listsCta');
+    if (cta) {
+      cta.addEventListener('click', function () {
+        if (state.lists === 'never') { setPage('scan'); return; }
+        if (state.lists === 'nohit' || state.lists === 'error') { reloadLists(); return; }
+        if (state.lists !== 'success') return;
+        var product = (KB.audit.products || {})[state.tab];
+        if (!product) return;
+        setText(q('#downloadReceipt'), copy('lists.download.receipt', { product: product.label, path: product.path }));
+        toast(copy('toast.download'));
+      });
+    }
+    var retry = q('#listsRetry');
+    if (retry) retry.addEventListener('click', reloadLists);
+    var gotoScan = q('#listsGotoScan');
+    if (gotoScan) gotoScan.addEventListener('click', function () { setPage('scan'); });
+  }
+
+  /* ---------- 状态演示开关 ---------- */
+  function wireDemo() {
+    qa('.seg-btn[data-target]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var target = button.getAttribute('data-target');
+        var next = button.getAttribute('data-state');
+        if (target === 'upload') state.upload = next;
+        else if (target === 'scan') applyScanState(next === 'empty' ? 'idle' : next);
+        else applyListsState(next);
+        render();
+      });
+    });
+  }
+
+  function syncDemoButtons() {
+    qa('.seg-btn[data-target]').forEach(function (button) {
+      var target = button.getAttribute('data-target');
+      var next = button.getAttribute('data-state');
+      var current = target === 'upload' ? state.upload
+        : (target === 'scan' ? (state.scan === 'idle' ? 'empty' : state.scan) : state.lists);
+      button.setAttribute('aria-pressed', current === next ? 'true' : 'false');
+    });
+  }
+
+  /* ---------- 侧栏状态与抽屉 ---------- */
+  function renderStatus() {
+    var dot = q('#statusDot');
+    var text = q('#statusText');
+    var key = scanStatusKey();
+    if (dot) dot.setAttribute('data-tone', key === 'ready' ? 'ok' : (key === 'running' ? 'warn' : (key === 'error' ? 'bad' : 'idle')));
+    if (text) setText(text, copy('status.' + key));
+  }
+
+  function wireChrome() {
+    qa('.nav-item').forEach(function (item) {
+      item.addEventListener('click', function () { setPage(item.getAttribute('data-page')); });
+    });
+    var statusLink = q('#statusLink');
+    if (statusLink) statusLink.addEventListener('click', function () { setPage(statusLink.getAttribute('data-goto') || 'scan'); });
+
+    var toggle = q('#menuToggle');
+    var scrim = q('#drawerScrim');
+    function setDrawer(open) {
+      document.body.setAttribute('data-drawer', open ? 'open' : 'closed');
+      if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      show(scrim, open);
+    }
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        setDrawer(document.body.getAttribute('data-drawer') !== 'open');
+      });
+    }
+    if (scrim) scrim.addEventListener('click', function () { setDrawer(false); });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && document.body.getAttribute('data-drawer') === 'open') setDrawer(false);
+    });
+    setDrawer(false);
+  }
+
+  /* ---------- 总渲染 ---------- */
+  function render() {
+    renderUpload();
+    renderScan();
+    renderLists();
+    renderDownloads();
+    renderStatus();
+    syncDemoButtons();
+  }
+
   function init() {
-    renderScanOverview();
+    fillNumbers();
+    fillCopy();
+    wireUpload();
+    wireScan();
+    wireLists();
+    wireDemo();
+    wireChrome();
+    var bar = q('#scanProgress .progress-bar');
+    if (bar) bar.style.width = '0%';
     setPage('upload');
-    setTab('gap');
-    updateBadge('success');
-
-    qa('.menu-item').forEach(function (b) {
-      b.addEventListener('click', function () { setPage(b.getAttribute('data-page')); });
-    });
-
-    qa('.seg-btn').forEach(function (b) {
-      b.addEventListener('click', function () {
-        applyState(b.getAttribute('data-target'), b.getAttribute('data-state'));
-      });
-    });
-
-    qa('[data-goto]').forEach(function (b) {
-      b.addEventListener('click', function () { setPage(b.getAttribute('data-goto')); });
-    });
-
-    qa('.tab').forEach(function (b) {
-      b.addEventListener('click', function () { setTab(b.getAttribute('data-tab')); });
-    });
-
-    q('#menuToggle').addEventListener('click', function () {
-      var aside = q('#appAside');
-      var open = !aside.classList.contains('is-open');
-      aside.classList.toggle('is-open', open);
-      q('#asideMask').hidden = !open;
-      this.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    q('#asideMask').addEventListener('click', closeDrawer);
-
-    document.addEventListener('click', function (e) {
-      var expand = e.target.closest ? e.target.closest('[data-expand]') : null;
-      if (expand) {
-        toggleExpand(expand.getAttribute('data-expand'), expand);
-        return;
-      }
-      var copy = e.target.closest ? e.target.closest('[data-copy]') : null;
-      if (copy) {
-        copyText(copy.getAttribute('data-copy'), copy.getAttribute('data-copy-label'));
-      }
-    });
-
-    q('#runScanBtn').addEventListener('click', function () {
-      messageBox({
-        title: '运行治理扫描',
-        message: '本次扫描将清空当前库中数据并重新计算，是否继续？',
-        okText: '继续扫描',
-        cancelText: '取消'
-      }).then(function (ok) {
-        if (!ok) { return; }
-        ui.scanTriggered = true;
-        setPage('scan');
-        applyState('scan', 'running');
-        toast('扫描已启动');
-      });
-    });
-
-    q('#retryScanBtn').addEventListener('click', function () {
-      messageBox({
-        title: '重新运行治理扫描',
-        message: '本次扫描将清空当前库中数据并重新计算，是否继续？',
-        okText: '继续扫描',
-        cancelText: '取消'
-      }).then(function (ok) {
-        if (!ok) { return; }
-        ui.scanTriggered = true;
-        applyState('scan', 'running');
-        toast('扫描已启动');
-      });
-    });
-
-    q('#downloadBtn').addEventListener('click', function () {
-      messageBox({
-        title: '下载结果文件',
-        message: '下载的是源 CSV 原文，文件名由接口返回，本原型不发起真实下载请求。是否继续？',
-        okText: '继续下载',
-        cancelText: '取消'
-      }).then(function (ok) {
-        if (ok) { toast('下载已开始'); }
-      });
-    });
-
-    applyState('upload', 'success');
-    applyState('scan', 'success');
-    applyState('lists', 'success');
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+}());
