@@ -44,7 +44,7 @@ def split_passages(text, min_len=8):
 
     整篇文档做向量化会把多个主题平均掉，导致"有没有被覆盖"这件事
     被稀释；按段落检索是检索系统的常规做法，实测也把意图级 AUC
-    从 0.936 提升到 0.968（见 RESULT.md）。
+    从 0.888（整篇级）提升到 0.968（段落级），见 granularity.csv。
     """
     parts = [p.strip() for p in re.split(r"[。；]", text) if len(p.strip()) >= min_len]
     return parts or [text]

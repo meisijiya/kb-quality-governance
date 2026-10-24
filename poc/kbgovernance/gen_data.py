@@ -288,6 +288,7 @@ def gen_docs():
     for i, d in enumerate(docs):
         if random.random() < 0.04:
             age = random.randint(600, 900)       # 4% 自然陈旧（非埋入缺陷）
+            d["_control_sampled"] = True         # 只记录命中，不新增随机调用
         else:
             age = random.randint(20, 520)        # 96% 近期维护过
         lm = BASE_DATE - timedelta(days=age)
@@ -404,6 +405,12 @@ def build_ground_truth(docs, corrupt_ids):
         "n_gap_intents": len(GAP_INTENTS),
         "n_corrupt_docs": len(corrupt_ids),
         "n_dup_groups": len(merged),
+        # 防作弊对照集：生成器 4% 分支实际命中的文档（抽样时刻为"自然陈旧"）。
+        # 后续埋设步骤可能覆盖其中部分文档的日期或使其同时成为缺陷，
+        # 因此本键记录的是"抽样命中数"，实际误报归因见 corrupt_docs.csv 的
+        # in_control_sample 与 fp_reason 两列。
+        "control_doc_ids": sorted(d["doc_id"] for d in docs if d.get("_control_sampled")),
+        "n_control_docs": sum(1 for d in docs if d.get("_control_sampled")),
     }
 
 

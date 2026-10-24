@@ -4,8 +4,9 @@
     "scheme": "FlagEmbedding",
     "model": "BAAI/bge-small-zh-v1.5",
     "fallback": false,
+    "device": "cpu",
     "dim": 512,
-    "encode_seconds": 15.43,
+    "encode_seconds": 14.61,
     "n_docs": 300,
     "n_tickets": 2000,
     "n_passages": 1852,
@@ -221,7 +222,17 @@
         "recall": 1.0,
         "f1": 0.2857
       }
-    ]
+    ],
+    "clusters": {
+      "5": {
+        "n_clusters": 95,
+        "n_noise": 0
+      },
+      "10": {
+        "n_clusters": 88,
+        "n_noise": 9
+      }
+    }
   },
   "corrupt": {
     "embedded": 62,
@@ -229,6 +240,33 @@
     "tp": 62,
     "fp": 7,
     "fn": 0,
+    "fp_from_control": 6,
+    "fp_from_dup_inherit": 1,
+    "fp_other": 0,
+    "control_sampled": 10,
+    "control_sampled_doc_ids": [
+      "DOC0055",
+      "DOC0074",
+      "DOC0101",
+      "DOC0105",
+      "DOC0113",
+      "DOC0127",
+      "DOC0186",
+      "DOC0241",
+      "DOC0262",
+      "DOC0283"
+    ],
+    "fp_control_doc_ids": [
+      "DOC0055",
+      "DOC0101",
+      "DOC0105",
+      "DOC0113",
+      "DOC0127",
+      "DOC0262"
+    ],
+    "fp_dup_inherit_doc_ids": [
+      "DOC0242"
+    ],
     "precision": 0.8986,
     "recall": 1.0,
     "f1": 0.9466,
@@ -253,7 +291,7 @@
       "6": 5,
       "8": 1
     },
-    "seconds": 0.42
+    "seconds": 0.4
   },
   "dup": {
     "embedded_groups": 22,
@@ -309,5 +347,5 @@
       "seconds": 0.0
     }
   },
-  "total_seconds": 2.85
+  "total_seconds": 3.09
 }

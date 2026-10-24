@@ -58,13 +58,16 @@ SCORE_SCHEMES = [
     ("max-min", "max - min(极差, span)"),
 ]
 
-# RESULT.md 散文里记录、但此前没有任何机读产物支撑的数字（用于事后比对, 不参与计算）
+# RESULT.md §2.3 散表里记录的 AUC 数字（用于事后比对, 不参与计算）。
+# 数值口径以 granularity.csv 为准: 意图级 AUC 逐粒度分列
+# (doc_level max-cosine 0.888 / passage_level max-cosine 0.968 /
+#  passage_level margin 0.92 / max÷std 0.704 / max÷top5mean 0.888)。
 RESULT_MD_REFERENCE = {
-    "doc_level|max-cosine": 0.936,
+    "doc_level|max-cosine": 0.888,
     "passage_level|max-cosine": 0.968,
-    "passage_level|max-top5mean": 0.512,
-    "passage_level|max/std": 0.448,
-    "passage_level|max/top5mean": 0.384,
+    "passage_level|max-top5mean": 0.92,
+    "passage_level|max/std": 0.704,
+    "passage_level|max/top5mean": 0.888,
 }
 DUP_REFERENCE = (0.9545, 0.9845)   # RESULT.md §5.3 写的重复组内相似度区间(22 组 max_sim 的 min/max)
 
