@@ -1007,6 +1007,17 @@ paths:
         **下载件保留全量列**（含真值标注列与归因列），与清单接口相反：清单接口不返回
         真值列（口径：§4.10 A14），下载件是论文溯源用的原始产物。
 
+        **为什么下载件不能裁剪**：`docs/技术方案/本科版实施方案.md` §2「M-系统·Web 交付」
+        的验收标准要求「直接下载 poc/kbgovernance/ 已产出的 CSV」，且 Issue #3 断言清单
+        第 10 条要求「下载的 CSV 与源文件逐字节一致」。裁剪视图会同时违反这两条，
+        且会让「逐字节一致」这条可机读复核的验收信号失效。
+
+        **代价与对应义务**：下载件因此会把评测依据（is_true_gap / is_true_group /
+        in_control_sample / is_dup_copy / dup_source / fp_reason）一并交给下载者。
+        因此下载区必须在按钮附近明示这一点——**「下载的是含评测标注列的原始产物，
+        仅用于论文溯源与复现」**，不得静默下载；清单页面本身仍不展示任何真值列
+        （同一份源文件在页面上被裁掉了这几列，下载区必须让这一区别可见）。
+
         **逐字节一致的范围按文件分档**（见 poc/kbgovernance/repro_check.json）：
         三个清单 CSV 与 docs.csv / tickets.csv / gap_threshold.csv /
         corrupt_rule_ablation.csv / granularity.csv / granularity_dup.csv /
@@ -1437,11 +1448,11 @@ components:
         precision:
           type: number
           nullable: true
-          description: 本次扫描的精确率（对应 metrics.json → gap.best.precision）；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
+          description: 本次扫描的精确率（对应 metrics.json → gap.best.precision）。**统计单元 = 去重后的业务意图**，与同对象的 count（缺口簇）不是同一分母，两者不可直接相除换算；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
         recall:
           type: number
           nullable: true
-          description: 本次扫描的召回率（对应 metrics.json → gap.best.recall）；has_ground_truth=false 时为 null（不可得）
+          description: 本次扫描的召回率（对应 metrics.json → gap.best.recall）；has_ground_truth=false 时为 null（不可得）。**统计单元 = 去重后的业务意图**，与同对象的 count（缺口簇）不是同一分母，两者不可直接相除换算
         f1:
           type: number
           nullable: true
@@ -1472,11 +1483,11 @@ components:
         precision:
           type: number
           nullable: true
-          description: 本次扫描的精确率（对应 metrics.json → corrupt.precision）；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
+          description: 本次扫描的精确率（对应 metrics.json → corrupt.precision）。**统计单元 = 文档**，与同对象的 count（篇文档）一致；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
         recall:
           type: number
           nullable: true
-          description: 本次扫描的召回率（对应 metrics.json → corrupt.recall）；has_ground_truth=false 时为 null（不可得）
+          description: 本次扫描的召回率（对应 metrics.json → corrupt.recall）；has_ground_truth=false 时为 null（不可得）。**统计单元 = 文档**，与同对象的 count（篇文档）一致
         f1:
           type: number
           nullable: true
@@ -1507,11 +1518,11 @@ components:
         precision:
           type: number
           nullable: true
-          description: 组级精确率（对应 metrics.json → dup.best.group_precision）；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
+          description: 组级精确率（对应 metrics.json → dup.best.group_precision）。**统计单元 = 重复组**；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
         recall:
           type: number
           nullable: true
-          description: 组级召回率（对应 metrics.json → dup.best.group_recall）；has_ground_truth=false 时为 null（不可得）
+          description: 组级召回率（对应 metrics.json → dup.best.group_recall）；has_ground_truth=false 时为 null（不可得）。**统计单元 = 重复组**
         f1:
           type: number
           nullable: true
@@ -1585,10 +1596,10 @@ components:
           description: 腐化检测耗时（对应 metrics.json → corrupt.seconds）
         duplicate:
           type: number
-          description: 重复检测耗时（对应 metrics.json → dup.best.seconds）
+          description: 重复检测耗时（对应 metrics.json → dup.best.seconds）。**口径窄**：该字段只包住阈值分组循环，不含 300×300 的余弦矩阵计算（那一段只 print 不落盘），因此前端不能用它推断重复检测的真实耗时
         total:
           type: number
-          description: 检测环节的全流程墙钟耗时（秒），含聚类开销与三模块检测（对应 metrics.json → total_seconds）；按 metrics.json 的取值它不覆盖向量化那一段（embedding.encode_seconds 单列，14.61 与 total_seconds 3.09 互不包含），也不等于各阶段耗时之和
+          description: 检测环节的全流程墙钟耗时（秒），对应 metrics.json → total_seconds。按 detect.py 的计时范围，它从读取语料与聚类开始算起，到三模块检测结束，不含向量化那一段（embedding.encode_seconds 单列，两者互不包含），也不等于各阶段耗时之和
 
     GapModuleMetrics:
       type: object
