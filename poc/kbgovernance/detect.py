@@ -442,7 +442,9 @@ def main():
                         round(float(off.max()), 4),
                         "" if not has_gt else
                         int(len(gids) == 1 and None not in gids)])
-    metrics["dup"] = {"embedded_groups": len(gt_dup), "embedded_docs": len(gt_doc2grp),
+    # 无真值时「埋设了多少组」不可得（None = 不可得，0 = 可得且为零）
+    metrics["dup"] = {"embedded_groups": len(gt_dup) if has_gt else None,
+                      "embedded_docs": len(gt_doc2grp) if has_gt else None,
                       "rows": dup_rows, "best": best_dup,
                       "detected_groups": len(groups),
                       "duplicate_copies": len(dup_copies)}
@@ -543,16 +545,25 @@ def main():
         hit_col = "cause_score_" + name
         hits = set(corr.loc[corr[hit_col] >= CORRUPT_SCORE_THRESHOLD, "doc_id"])
         nature = nature_sets[name]
-        # 真值 = 被埋设 ∧ 满足本口径判据；跨类文档（埋的是另一类、但物理上
-        # 同时满足本类）在两个口径下都算真阳性——它是真缺陷，只是成因不止一个。
-        tp_set = hits & planted
-        fp_set = hits - planted
-        fn_set = nature - hits
-        positives = tp_set | fn_set
-        cross = sorted(tp_set - nature)
-        p = len(tp_set) / len(hits) if hits else None
-        r = len(tp_set) / len(positives) if positives else None
-        f = 2 * p * r / (p + r) if (p is not None and r is not None and p + r) else None
+        if has_gt:
+            # 真值 = 被埋设 ∧ 满足本口径判据；跨类文档（埋的是另一类、但物理上
+            # 同时满足本类）在两个口径下都算真阳性——它是真缺陷，只是成因不止一个。
+            tp_set = hits & planted
+            fp_set = hits - planted
+            fn_set = nature - hits
+            positives = tp_set | fn_set
+            cross = sorted(tp_set - nature)
+            p = len(tp_set) / len(hits) if hits else None
+            r = len(tp_set) / len(positives) if positives else None
+            f = 2 * p * r / (p + r) if (p is not None and r is not None and p + r) else None
+        else:
+            # 无真值：没有真值集就没有 TP/FP/FN。此时若照常计算，等于把
+            # 「所有检出的文档」当成误报，报出一组凭空捏造的 P/R/F1。
+            # 正确做法是真值相关字段一律留空（含义是「不可得」，不是 0）。
+            tp_set = fp_set = fn_set = set()
+            positives = set()
+            cross = []
+            p = r = f = None
         attrib = Counter()
         for d in fp_set:
             if d in dup_copies:
@@ -566,9 +577,12 @@ def main():
             "rules": list(spec["rules"]),
             "truth_key": spec["truth_key"],
             "threshold": CORRUPT_SCORE_THRESHOLD,
-            "planted_of_this_nature": len(nature),
+            # 无真值时真值侧计数不可得（None = 不可得，0 = 可得且为零）
+            "planted_of_this_nature": len(nature) if has_gt else None,
             "detected": len(hits),
-            "tp": len(tp_set), "fp": len(fp_set), "fn": len(fn_set),
+            "tp": len(tp_set) if has_gt else None,
+            "fp": len(fp_set) if has_gt else None,
+            "fn": len(fn_set) if has_gt else None,
             "precision": None if p is None else round(p, 4),
             "recall": None if r is None else round(r, 4),
             "f1": None if f is None else round(f, 4),
@@ -579,10 +593,16 @@ def main():
             "cross_class_doc_ids": cross,
             "fp_attribution": dict(attrib),
         }
+        metric_txt = ""
+        if p is not None:
+            metric_txt = f" | P={p:.4f} R={r:.4f} F1={f:.4f}"
+        else:
+            metric_txt = " | 无真值，P/R/F1 不可得"
         print(f"[corr][{name}] {spec['label']}（规则 {'+'.join(spec['rules'])}）: "
-              f"真值 {len(tp_set | fn_set)} 篇 / 检出 {len(hits)} 篇 / "
-              f"TP={len(tp_set)} FP={len(fp_set)} FN={len(fn_set)}"
-              + (f" | P={p:.4f} R={r:.4f} F1={f:.4f}" if p is not None else "")
+              f"检出 {len(hits)} 篇"
+              + (f" / 真值 {len(tp_set | fn_set)} 篇 / TP={len(tp_set)} "
+                 f"FP={len(fp_set)} FN={len(fn_set)}" if has_gt else "")
+              + metric_txt
               + (f" | 跨类文档 {len(cross)} 篇" if cross else ""))
 
     # 合计口径只作覆盖面说明：两类缺陷语义不同，不合成单一 F1。
@@ -591,8 +611,11 @@ def main():
     union_tp = det_corrupt & gt_corrupt
     union_fp = det_corrupt - gt_corrupt
     union_fn = gt_corrupt - det_corrupt
-    print(f"[corr] 合计检出 {len(det_corrupt)} 篇（真值 {len(gt_corrupt)} 篇，"
-          f"覆盖 {len(union_tp)} 篇），两类口径的 P/R/F1 见上，不合成单一 F1")
+    if has_gt:
+        print(f"[corr] 合计检出 {len(det_corrupt)} 篇（真值 {len(gt_corrupt)} 篇，"
+              f"覆盖 {len(union_tp)} 篇），两类口径的 P/R/F1 见上，不合成单一 F1")
+    else:
+        print(f"[corr] 合计检出 {len(det_corrupt)} 篇；无真值，覆盖与误报数不可得")
 
     # 逐篇标记：命中哪类口径、在该口径下是否真值、误报原因
     fp_causes, fp_reason = {}, {}
@@ -612,18 +635,19 @@ def main():
     corr["fp_causes"] = corr["doc_id"].map(
         lambda d: ",".join(fp_causes.get(d, [])))
     corr["fp_reason"] = corr["doc_id"].map(fp_reason).fillna("")
-    corr["in_control_sample"] = corr["doc_id"].isin(control_set).astype(int)
+    corr["in_control_sample"] = (corr["doc_id"].isin(control_set).astype(int)
+                                  if has_gt else "")
     corr["is_dup_copy"] = corr["doc_id"].isin(dup_copies).astype(int)
     corr["dup_source"] = corr["doc_id"].map(dup_source_map).fillna("")
     corr.sort_values("risk_score", ascending=False).to_csv(
         os.path.join(out_dir, "corrupt_docs.csv"), index=False, encoding="utf-8-sig")
 
     metrics["corrupt"] = {
-        "embedded": len(gt_corrupt),
+        "embedded": len(gt_corrupt) if has_gt else None,
         "detected": len(det_corrupt),
-        "covered": len(union_tp),
-        "fn": len(union_fn),
-        "fp": len(union_fp),
+        "covered": len(union_tp) if has_gt else None,
+        "fn": len(union_fn) if has_gt else None,
+        "fp": len(union_fp) if has_gt else None,
         "by_cause": by_cause,
         "control_sampled": len(control_set),
         "control_sampled_doc_ids": sorted(control_set),

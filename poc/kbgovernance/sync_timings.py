@@ -84,6 +84,7 @@ TARGETS = [
     "poc/kbgovernance/figures/06-实验矩阵图.md",
     "poc/kbgovernance/figures/07-部署与运行环境.md",
     "system/openapi.yaml",
+    "system/prototype/data.js",
 ]
 
 # 关键词 -> 指标。匹配时取候选值前面最近的一个。
@@ -145,6 +146,18 @@ HTML_DT = {
     "耗时": "corrupt_seconds",
     "encode_seconds": "encode_seconds",
     "total_seconds": "total_seconds",
+}
+
+# 需要跨行上下文才能定位的赋值形态。逐行扫描在这里不够用：原型数据文件里
+# 同一个 "seconds" 键在两个对象下各出现一次（腐化段与重复段），只看键名会
+# 改错地方。改用「对象起点 + 键」定位，并在整篇文本上做替换。
+WHOLE_TEXT_RULES = {
+    "system/prototype/data.js": [
+        (re.compile(r'("encode_seconds":\s*)([\d.]+)'), "encode_seconds"),
+        (re.compile(r'("total_seconds":\s*)([\d.]+)'), "total_seconds"),
+        (re.compile(r'("corrupt":\s*\{.*?"seconds":\s*)([\d.]+)', re.S),
+         "corrupt_seconds"),
+    ],
 }
 
 # 候选值形态
@@ -403,6 +416,27 @@ def sync(check_only=False):
             lines[i] = new_line
 
         text = "\n".join(lines)
+
+        # 跨行上下文的赋值：整篇文本上做，替换后必须保持行数不变
+        for rule_pat, metric in WHOLE_TEXT_RULES.get(rel, []):
+            mm = rule_pat.search(text)
+            if not mm:
+                continue
+            old_val = mm.group(2)
+            cur_val = cur.get(metric)
+            if cur_val is None:
+                continue
+            new_val = fmt(cur_val)
+            if fmt(old_val) == fmt(new_val):
+                continue
+            old_list = [fmt(v) for v in known.get(metric, [])]
+            if fmt(old_val) not in old_list:
+                unresolved.append(
+                    f"{rel} {metric} 的值 {old_val} 不在已知旧值清单内")
+                continue
+            line_no = text[:mm.start()].count(chr(10)) + 1
+            text = text[:mm.start()] + mm.group(1) + new_val + text[mm.end():]
+            changes.append((rel, line_no, metric, fmt(old_val), new_val))
         if text != original:
             before = original.count("\n")
             after = text.count("\n")

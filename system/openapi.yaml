@@ -679,9 +679,9 @@ paths:
                 seconds:
                   encoding: 14.61
                   gap: null
-                  corrupt: 0.46
+                  corrupt: 0.45
                   duplicate: 0.0
-                  total: 3.82
+                  total: 3.46
                 modules:
                   gap:
                     threshold: 0.62
@@ -808,9 +808,9 @@ paths:
                 seconds:
                   encoding: 14.61
                   gap: null
-                  corrupt: 0.46
+                  corrupt: 0.45
                   duplicate: 0.0
-                  total: 3.82
+                  total: 3.46
                 modules:
                   gap:
                     threshold: 0.62

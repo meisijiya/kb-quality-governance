@@ -83,7 +83,7 @@ const KB = {
       "detected": 69,
       "covered": 62,
       "fp": 7,
-      "seconds": 0.46,
+      "seconds": 0.45,
       "rule_weight": {
         "R1_正文过期日期": 3,
         "R2_更新时间超18个月": 2,
@@ -155,7 +155,7 @@ const KB = {
       "group_f1": 1,
       "seconds": 0
     },
-    "total_seconds": 3.82
+    "total_seconds": 3.46
   },
   "audit": {
     "run": {
