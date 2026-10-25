@@ -13,7 +13,15 @@ embed.py -- 把 300 篇文档 + 2000 条工单向量化，落盘为 .npy
 计算设备同理：FlagEmbedding 在 devices=None 时会自动选 CUDA（NPU/MPS 同理），
 本项目的产物必须在 CPU 上可复现，因此显式固定 devices="cpu"，
 并把实际使用的 device 字段落进 embeddings_meta.json。
+
+用法:
+  python embed.py                                    # 读本目录语料、产物写本目录（默认口径）
+  python embed.py --work-dir D:/scan/run01            # 从该目录读 docs.csv / tickets.csv
+  python embed.py --work-dir D:/scan/run01 --out-dir D:/scan/run01/out
+
+注意: HF_HOME 是模型缓存的环境变量，不受 --work-dir / --out-dir 影响。
 """
+import argparse
 import json
 import os
 import re
@@ -31,9 +39,9 @@ os.environ.setdefault("HF_HOME", "D:/hf_cache")
 MODEL_NAME = "BAAI/bge-small-zh-v1.5"
 
 
-def load_corpus():
-    docs = pd.read_csv(os.path.join(HERE, "docs.csv"), encoding="utf-8-sig")
-    tickets = pd.read_csv(os.path.join(HERE, "tickets.csv"), encoding="utf-8-sig")
+def load_corpus(work_dir):
+    docs = pd.read_csv(os.path.join(work_dir, "docs.csv"), encoding="utf-8-sig")
+    tickets = pd.read_csv(os.path.join(work_dir, "tickets.csv"), encoding="utf-8-sig")
     doc_texts = (docs["title"].astype(str) + "。" + docs["content"].astype(str)).tolist()
     tk_texts = tickets["content"].astype(str).tolist()
     return docs, tickets, doc_texts, tk_texts
@@ -109,10 +117,27 @@ def make_encoder():
     return enc3, meta
 
 
+def parse_args():
+    ap = argparse.ArgumentParser(description="文档 / 工单 / 段落三级向量化，落盘 .npy")
+    ap.add_argument("--work-dir", default=None,
+                    help="工作目录：输入语料 docs.csv / tickets.csv 所在位置"
+                         "（默认 = 本脚本所在目录）")
+    ap.add_argument("--out-dir", default=None,
+                    help="产物输出目录（默认 = --work-dir）")
+    return ap.parse_args()
+
+
 def main():
-    docs, tickets, doc_texts, tk_texts = load_corpus()
+    args = parse_args()
+    work_dir = os.path.abspath(args.work_dir) if args.work_dir else HERE
+    out_dir = os.path.abspath(args.out_dir) if args.out_dir else work_dir
+    os.makedirs(out_dir, exist_ok=True)
+
+    docs, tickets, doc_texts, tk_texts = load_corpus(work_dir)
     passage_texts, owner = build_passages(docs)
     print("=" * 70)
+    print(f"[embed] 工作目录 = {work_dir}")
+    print(f"[embed] 产物输出目录 = {out_dir}")
     print(f"[embed] 文档 {len(doc_texts)} 篇 / 工单 {len(tk_texts)} 条 / "
           f"文档段落 {len(passage_texts)} 段 (平均每篇 "
           f"{len(passage_texts) / len(doc_texts):.1f} 段)")
@@ -149,10 +174,10 @@ def main():
                 n_passages=int(P.shape[0]),
                 model_download_mb=95.8)
 
-    np.save(os.path.join(HERE, "doc_emb.npy"), D)
-    np.save(os.path.join(HERE, "ticket_emb.npy"), T)
-    np.save(os.path.join(HERE, "ticket_cover.npy"), ticket_cover)
-    with open(os.path.join(HERE, "embeddings_meta.json"), "w", encoding="utf-8") as f:
+    np.save(os.path.join(out_dir, "doc_emb.npy"), D)
+    np.save(os.path.join(out_dir, "ticket_emb.npy"), T)
+    np.save(os.path.join(out_dir, "ticket_cover.npy"), ticket_cover)
+    with open(os.path.join(out_dir, "embeddings_meta.json"), "w", encoding="utf-8") as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)
 
     # ---- 自检：同一意图内应高相似，跨意图应低（验证向量确有语义区分度）

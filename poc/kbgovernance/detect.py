@@ -24,6 +24,16 @@ detect.py -- 三个检测模块 + 与 ground truth 的对比评估
   dup_groups_best.csv     重复簇明细
   corrupt_docs.csv        腐化文档明细（逐篇含两类口径命中与误报归因）
   metrics.json            汇总指标（论文与文档的全部数字来自这里）
+
+用法:
+  python detect.py                                    # 读本目录输入、产物写本目录（默认口径）
+  python detect.py --work-dir D:/scan/run01            # 从该目录读语料、向量与 ground_truth.json
+  python detect.py --work-dir D:/scan/run01 --out-dir D:/scan/run01/out
+  python detect.py --no-gt                            # 无真值模式（固定阈值）
+
+说明: 输入（docs.csv / tickets.csv / *.npy / embeddings_meta.json / ground_truth.json）
+      一律从 --work-dir 读，产物一律写到 --out-dir；ground_truth.json 只读不抄，
+      扫描产物里不会出现真值内容。
 """
 import argparse
 import csv
@@ -298,16 +308,31 @@ def dup_groups_at(S, thr):
 
 
 def elect_primary(members, docs):
-    """主文档选举：ref_count 高 + last_modified 新 + 标题被包含度高。"""
+    """主文档选举：ref_count 高 + last_modified 新 + 标题被包含度高。
+
+    三个分量都先各自归一化再相加。归一化必须防零除：自有语料里
+    ref_count 全部缺省为 0（契约 DocumentUpload.ref_count 默认 0），
+    此时 rc.max() == 0，直接相除会得到 0/0 = NaN，整列分数全成 NaN，
+    idxmax() 返回 nan，主文档列会写出字面量 "nan"。同理 last_modified
+    全部相同时 lm.max() 也不会是 0，但同一组文档日期完全一致时
+    lm/lm.max() 仍为 1；两者都要按「分母为 0 则该分量全记 0」处理。
+    """
     m = docs.iloc[members].copy()
     rc = pd.to_numeric(m["ref_count"], errors="coerce").fillna(0)
     lm = pd.to_datetime(m["last_modified"]).astype("int64")
+
+    def norm(series):
+        top = series.max()
+        if not np.isfinite(top) or top == 0:
+            return pd.Series(0.0, index=series.index)
+        return series / top
+
     cont = []
     for _, r in m.iterrows():
         others = [x for x in m.index if x != r.name]
         cont.append(max([containment(r["title"], docs["title"][o]) for o in others],
                         default=0.0))
-    score = (rc / rc.max()) + (lm / lm.max()) + np.asarray(cont)
+    score = norm(rc) + norm(lm) + np.asarray(cont)
     m["_score"] = score
     return m["_score"].idxmax()
 
@@ -317,28 +342,32 @@ def parse_args():
     ap = argparse.ArgumentParser(description="知识库质量治理三模块检测")
     ap.add_argument("--no-gt", action="store_true",
                     help="无真值模式：固定阈值、不计算 P/R/F1，真值列留空")
+    ap.add_argument("--work-dir", default=None,
+                    help="工作目录：输入语料、向量与 ground_truth.json 所在位置"
+                         "（默认 = 本脚本所在目录）")
     ap.add_argument("--out-dir", default=None,
-                    help="产物输出目录（默认与本脚本同级；用于把扫描结果与基线隔离）")
+                    help="产物输出目录（默认 = --work-dir；用于把扫描结果与基线隔离）")
     return ap.parse_args()
 
 
 def main():
     args = parse_args()
     t_all = time.time()
-    out_dir = os.path.abspath(args.out_dir) if args.out_dir else HERE
+    work_dir = os.path.abspath(args.work_dir) if args.work_dir else HERE
+    out_dir = os.path.abspath(args.out_dir) if args.out_dir else work_dir
     os.makedirs(out_dir, exist_ok=True)
 
-    docs = pd.read_csv(os.path.join(HERE, "docs.csv"), encoding="utf-8-sig")
-    tickets = pd.read_csv(os.path.join(HERE, "tickets.csv"), encoding="utf-8-sig")
-    D = np.load(os.path.join(HERE, "doc_emb.npy"))
-    T = np.load(os.path.join(HERE, "ticket_emb.npy"))
-    cover = np.load(os.path.join(HERE, "ticket_cover.npy"))
-    emeta = json.load(open(os.path.join(HERE, "embeddings_meta.json"),
+    docs = pd.read_csv(os.path.join(work_dir, "docs.csv"), encoding="utf-8-sig")
+    tickets = pd.read_csv(os.path.join(work_dir, "tickets.csv"), encoding="utf-8-sig")
+    D = np.load(os.path.join(work_dir, "doc_emb.npy"))
+    T = np.load(os.path.join(work_dir, "ticket_emb.npy"))
+    cover = np.load(os.path.join(work_dir, "ticket_cover.npy"))
+    emeta = json.load(open(os.path.join(work_dir, "embeddings_meta.json"),
                            encoding="utf-8"))
 
     has_gt = not args.no_gt
     gt = {}
-    gt_path = os.path.join(HERE, "ground_truth.json")
+    gt_path = os.path.join(work_dir, "ground_truth.json")
     if has_gt:
         gt = json.load(open(gt_path, encoding="utf-8"))
     elif os.path.exists(gt_path):
@@ -348,6 +377,8 @@ def main():
     doc_ids = docs["doc_id"].tolist()
 
     print("=" * 74)
+    print(f"[detect] 工作目录 = {work_dir}")
+    print(f"[detect] 产物输出目录 = {out_dir}")
     print(f"[detect] embedding 方案 = {emeta['scheme']} ({emeta['model']})")
     print(f"[detect] 输入: {D.shape[0]} 文档 / {T.shape[0]} 工单")
     print(f"[detect] 模式: {'有真值（按真值择优阈值）' if has_gt else '无真值（固定阈值）'}")
@@ -565,7 +596,11 @@ def main():
             cross = []
             p = r = f = None
         attrib = Counter()
-        for d in fp_set:
+        # 必须按排序后的顺序遍历：fp_set 是集合，迭代顺序随 Python 的字符串哈希
+        # 随机化（PYTHONHASHSEED）变化，直接遍历会让 attrib 的键插入顺序漂移，
+        # 于是 metrics.json 里 fp_attribution 的键顺序每次运行都可能不同——
+        # 产物就不再逐字节可复现了。集合本身无序，排序才是确定序。
+        for d in sorted(fp_set):
             if d in dup_copies:
                 attrib["dup_inherited_stale"] += 1
             elif d in control_set:
@@ -621,7 +656,7 @@ def main():
     fp_causes, fp_reason = {}, {}
     for name in CORRUPT_CAUSES:
         fp_set = set(by_cause[name]["fp_doc_ids"])
-        for d in fp_set:
+        for d in sorted(fp_set):   # 同上：集合遍历顺序不定会让 fp_causes 的键序漂移
             fp_causes.setdefault(d, []).append(name)
     for d, causes in fp_causes.items():
         reason = ""

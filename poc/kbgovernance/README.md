@@ -53,6 +53,9 @@ cd D:/26code/毕设/poc/kbgovernance
 `granularity_exp.py` 与 `corrupt_rule_ablation.py` 不在 `run_all.sh` 的四步里，
 需要时单独跑；两者都是纯 CPU、无随机性的确定性脚本。
 
+`gen_data.py` / `embed.py` / `detect.py` 三个主脚本都支持 `--work-dir`（输入所在目录）
+与 `--out-dir`（产物输出目录），用于把扫描产物写到基线之外——见 [§七](#七扫描区与基线隔离)。
+
 ---
 
 ## 三、产物清单
@@ -210,3 +213,67 @@ F1 / AUC / precision / recall / ROC / 阈值 / 秒 / ms / MB / 耗时 / 相似�
 `ground_truth.json` / `gap_intents_best.csv` 与首跑**逐字节相同**；
 `metrics.json` 仅耗时字段抖动（`encode_seconds`、`seconds`、`total_seconds`），
 **所有指标值完全一致**。
+
+---
+
+## 七、扫描区与基线隔离
+
+`poc/kbgovernance/` 是论文数字的唯一合法来源，**基线产物只读**。Web 后端做扫描时，
+产物必须写到独立目录：写回基线会覆盖 `metrics.json` 等文件，作废 `repro_check.json`
+的逐字节基线，并让 `sync_timings.py` 静默改写仓库文档。
+
+### 7.1 三个脚本的命令行
+
+| 脚本 | 参数 | 含义 | 默认值 |
+|---|---|---|---|
+| `gen_data.py` | `--work-dir` | 本次生成的语料与真值的落地位置 | 脚本所在目录 |
+| | `--out-dir` | 产物输出目录 | = `--work-dir` |
+| `embed.py` | `--work-dir` | 输入语料 `docs.csv` / `tickets.csv` 所在位置 | 脚本所在目录 |
+| | `--out-dir` | 产物输出目录 | = `--work-dir` |
+| `detect.py` | `--work-dir` | 输入语料、向量与 `ground_truth.json` 所在位置 | 脚本所在目录 |
+| | `--out-dir` | 产物输出目录 | = `--work-dir` |
+| | `--no-gt` | 无真值模式：固定阈值、不计算 P/R/F1，真值列留空 | 关 |
+
+规则：
+
+- **输入只从 `--work-dir` 读，产物只写到 `--out-dir`。** 两个参数都不给时，
+  读写目录都是脚本所在目录 `poc/kbgovernance/`，产物口径与现行基线完全一致。
+- `--out-dir` 省略时跟随 `--work-dir`，所以只给 `--work-dir` 不会把产物写回基线目录。
+- `embed.py` 的 `HF_HOME` 是模型缓存的环境变量，**不受** `--work-dir` / `--out-dir` 影响，
+  权重仍由 `HF_HOME`（默认 `D:/hf_cache`）决定。
+- `ground_truth.json` 只读不抄：真值文件不进 `--out-dir`，扫描产物里不出现真值文件。
+  Web 扫描不提供真值，用 `--no-gt` 跑，真值侧指标为 null（不可得），不是 0。
+
+### 7.2 扫描区目录约定
+
+```
+var/scan/<run_id>/
+├── work/    # 本次扫描的输入区：语料 + 向量 +（离线评测时）真值
+└── out/     # 本次扫描的产物区：detect.py 的 7 件产物
+```
+
+- `run_id` 取 `<yyyymmdd-HHMMSS>-<来源>`，例如 `20261025-150211-web-001`。
+  一次扫描一个目录，不复用、不覆盖。
+- `var/` 已在 `.gitignore` 里，扫描产物与中间向量不入库。
+- 基线目录 `poc/kbgovernance/` 对扫描只读：扫描不写它，`sync_timings.py` 也只认它。
+
+### 7.3 典型用法
+
+```bash
+# 离线复算（真值齐全，产物口径与基线一致）
+RUN=var/scan/20261025-150211-web-001
+python poc/kbgovernance/gen_data.py --work-dir $RUN/work --out-dir $RUN/work
+python poc/kbgovernance/embed.py    --work-dir $RUN/work --out-dir $RUN/work
+python poc/kbgovernance/detect.py   --work-dir $RUN/work --out-dir $RUN/out
+
+# Web 扫描（无真值）
+python poc/kbgovernance/detect.py --work-dir $RUN/work --out-dir $RUN/out --no-gt
+```
+
+### 7.4 隔离的不变量
+
+- 扫描跑完后，`poc/kbgovernance/` 下基线产物的 md5 **一个字节都不变**。
+- 隔离目录的 `metrics.json` 与基线 `metrics.json` 除计时字段
+  （`encode_seconds` / `seconds` / `total_seconds`）外完全一致。
+- 无真值模式（`--no-gt`）产物照产，真值侧计数与 P/R/F1 一律为 null，
+  `corrupt_docs.csv` 的 `in_control_sample` 列留空。

@@ -97,7 +97,7 @@ cd /d/26code/毕设 && python -c "import yaml;d=yaml.safe_load(open('system/open
 7. **导入整批一次事务**：全成功或全回滚，不留半截数据；`doc_code` / `ticket_code` 重复在导入时即拒绝，并返回冲突的编码值（文档与工单用**不同**的错误码）。删除文档时先把引用它的 `stale_document` / `duplicate_group` 行删掉、把仍引用它的 `ticket.linked_doc_id` 置 NULL，再删 `document` 本身。
 8. **扫描同步跑完**「向量化 → 聚类 → 三模块检测 → 落库」，产物落盘的文件名与路径和 `run_all.sh` 完全一致，因此「下载的 CSV 与磁盘源文件逐字节一致」与「Web 产物 vs 复跑产物逐字节一致」是同一条性质的验证。**逐字节一致按文件分档**：三个清单 CSV 成立；`metrics.json` 含计时字段，只能「剔除计时字段后一致」（口径见 `poc/kbgovernance/repro_check.json`）。`POST /api/scan` 的请求体用 `mode` 区分**复现模式**（沿用已固化阈值）与**自有语料模式**（不按真值择优）。
 9. **数据库连接要逐个开外键**：`PRAGMA foreign_keys` 是连接级开关，建表脚本里那句只对执行它的连接生效，应用在**每个连接**上都要设（实测：新连接默认 `0`）。清库按外键依赖的子表 → 父表顺序执行（`knowledge_gap` → `cluster_result`，`stale_document` / `duplicate_group` → `document`），否则报 `FOREIGN KEY constraint failed`。
-10. **扫描产物落盘目录尚未拍板（A1/A10）。** 若与 `poc/kbgovernance/` 共用目录，Web 扫描会覆盖论文溯源基线，并连带作废 `repro_check.json` 的逐字节基线；隔离方案与取舍见 `docs/技术方案/开发前准备清单.md` §4.10 A1。
+10. **扫描产物落盘目录已定（PoC 侧）。** 扫描区约定为 `var/scan/<run_id>/{work,out}`：输入（语料、向量）在 `work/`，`detect.py` 的 7 件产物在 `out/`，`var/` 不入库。`poc/kbgovernance/` 对扫描**只读**——Web 扫描写回该目录会覆盖论文溯源基线，并连带作废 `repro_check.json` 的逐字节基线。`gen_data.py` / `embed.py` / `detect.py` 已支持 `--work-dir`（读）与 `--out-dir`（写），不传参数时行为与现行基线口径完全一致；用法见 `poc/kbgovernance/README.md` §七。**Web 后端调用扫描时必须显式传这两个参数。**
 
 ---
 

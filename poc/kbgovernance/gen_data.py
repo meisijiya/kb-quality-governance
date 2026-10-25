@@ -8,7 +8,16 @@ gen_data.py -- 生成企业知识库质量治理 PoC 的合成数据 + ground tr
   ground_truth.json 真实缺陷清单（缺口意图 / 腐化文档 / 重复组）
 
 可复现: random.seed(42) + np.random.seed(42)
+
+用法:
+  python gen_data.py                                  # 产物写到本脚本所在目录（默认口径）
+  python gen_data.py --work-dir D:/scan/run01         # 语料与真值落到该目录
+  python gen_data.py --out-dir D:/scan/run01/out      # 产物落到该目录（优先于 --work-dir）
+
+说明: 生成器没有独立输入阶段，--work-dir 与 --out-dir 指向同一批产物；
+      --out-dir 给出时以它为准。
 """
+import argparse
 import csv
 import json
 import os
@@ -414,14 +423,32 @@ def build_ground_truth(docs, corrupt_ids):
     }
 
 
+def parse_args():
+    ap = argparse.ArgumentParser(
+        description="生成 PoC 合成语料与 ground truth"
+                    "（docs.csv / tickets.csv / ground_truth.json）")
+    ap.add_argument("--work-dir", default=None,
+                    help="工作目录：本次生成的语料与真值的落地位置"
+                         "（默认 = 本脚本所在目录）")
+    ap.add_argument("--out-dir", default=None,
+                    help="产物输出目录（默认 = --work-dir）；"
+                         "生成器没有独立输入阶段，两者指向同一批产物")
+    return ap.parse_args()
+
+
 def main():
+    args = parse_args()
+    work_dir = os.path.abspath(args.work_dir) if args.work_dir else HERE
+    out_dir = os.path.abspath(args.out_dir) if args.out_dir else work_dir
+    os.makedirs(out_dir, exist_ok=True)
+
     docs, corrupt_ids = gen_docs()
     tickets = gen_tickets(docs)
 
     doc_fields = ["doc_id", "title", "content", "category", "created_at",
                   "last_modified", "effective_date", "status", "ref_count",
                   "corrupt", "corrupt_reason"]
-    with open(os.path.join(HERE, "docs.csv"), "w", newline="", encoding="utf-8-sig") as f:
+    with open(os.path.join(out_dir, "docs.csv"), "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=doc_fields)
         w.writeheader()
         for d in docs:
@@ -429,7 +456,7 @@ def main():
 
     tk_fields = ["ticket_id", "created_at", "channel", "content", "intent_label",
                  "urgency", "status", "handling_minutes", "linked_doc_id"]
-    with open(os.path.join(HERE, "tickets.csv"), "w", newline="", encoding="utf-8-sig") as f:
+    with open(os.path.join(out_dir, "tickets.csv"), "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=tk_fields)
         w.writeheader()
         w.writerows(tickets)
@@ -440,11 +467,13 @@ def main():
     gt["gap_ticket_ratio"] = round(n_gap_tickets / len(tickets), 4)
     gt["n_tickets"] = len(tickets)
     gt["n_docs"] = len(docs)
-    with open(os.path.join(HERE, "ground_truth.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(out_dir, "ground_truth.json"), "w", encoding="utf-8") as f:
         json.dump(gt, f, ensure_ascii=False, indent=2)
 
     print("=" * 70)
     print("[gen_data] 生成完成")
+    print(f"[gen_data] 工作目录 = {work_dir}")
+    print(f"[gen_data] 产物输出目录 = {out_dir}")
     print(f"[gen_data] docs.csv           : {len(docs)} 篇")
     print(f"[gen_data] tickets.csv        : {len(tickets)} 条")
     print(f"[gen_data] 业务域             : {len(set(d['category'] for d in docs))} 个 -> "

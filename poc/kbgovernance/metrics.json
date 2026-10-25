@@ -793,8 +793,8 @@
           "DOC0241"
         ],
         "fp_attribution": {
-          "dup_inherited_stale": 1,
-          "control_stale": 6
+          "control_stale": 6,
+          "dup_inherited_stale": 1
         }
       }
     },
@@ -832,7 +832,7 @@
       "6": 5,
       "8": 1
     },
-    "seconds": 0.45
+    "seconds": 0.51
   },
-  "total_seconds": 3.46
+  "total_seconds": 3.75
 }
