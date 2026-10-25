@@ -37,14 +37,34 @@
 --          （2000 行中 1629 行非空，全部匹配 docs.csv 的 doc_id），不是行号；
 --        · poc/kbgovernance/corrupt_docs.csv 与 dup_groups_best.csv 同样用文档
 --          编码而非行号指认文档；
---        · poc/kbgovernance/top15_gaps.csv 的簇号是 HDBSCAN 标签（0、1、2…），
---          与 cluster_result.id 的自增行号无关。
---      因此：指向文档的三个外键改为 TEXT 并指向 document(doc_code)；指向簇的
---      外键改为三列复合外键 (granularity, min_cluster_size, cluster_id)，
---      cluster_result 上加 UNIQUE 约束支撑该复合外键。
+--        · 聚类簇号（HDBSCAN 标签，0、1、2…）原先只在 detect.py 的内存里生成，
+--          2026-10-25 口径更正后已落盘到 gap_clusters_best.csv 的 cluster_id 列
+--          （95 行），簇号因此有了出处；但它仍不是 cluster_result.id 的自增行号。
+--      因此：指向文档的三个外键改为 TEXT 并指向 document(doc_code)。
+--      指向簇的 knowledge_gap.cluster_id 外键已随下文第 3 条（判定单元改业务意图）
+--      一并取消。
 --      **这一处改动改变了数据形态，属于 P2（数据形态）的待拍板范围**，
 --      评审与拍板记录见 docs/技术方案/开发前准备清单.md §4.11 P2、§4.10 A17
 --      （doc_code → document.id 的映射口径）与 §4.10 A16（每次扫描生成 scan_id）。
+--   3) 判定单元与列集合：2026-10-25 口径更正后，缺口清单的**判定单元是业务意图**
+--      （意图簇降为内部量与溯源），内容腐化**拆成内容过期（R1+R3）与维护周期
+--      （R2+R4）两个口径各自独立判定**。§4.3 原文的 DDL 是簇级 + 单一 risk_score
+--      的形态，与现行口径不一致，按「错误、过时就剔除、更正」的原则本草案改为：
+--        · knowledge_gap 由「每簇一行」改为「每个业务意图一行」：删掉
+--          granularity / min_cluster_size / cluster_id 三列与指向
+--          cluster_result 的三列复合外键，新增 n_clusters（该意图下的簇数）。
+--          cover_score 存**意图覆盖度**（该意图下各簇覆盖度的最小值），
+--          ticket_count 存**该意图下的工单总数**（原为簇内工单数）。
+--        · cluster_result 仍按簇存，补一列 cover_score（簇覆盖度中位数），
+--          这样「某个意图由哪些簇构成、各簇覆盖度多少」可从库里查回，
+--          意图级行与簇级行靠 intent_name ↔ main_intent 对应
+--          （与 ticket.linked_doc_id → document(doc_code) 同样的软链接口径）。
+--        · stale_document 增两列 cause_score_content_expiry /
+--          cause_score_maintenance（两类口径各自的规则加权分），
+--          risk_score 保留为**四规则合并分**（历史口径，不再用于任何判定）。
+--      差异清单里第 2 条提到的「knowledge_gap.cluster_id 指向 cluster_result」
+--      这一处因本条改动而不再适用。口径更正的依据与拍板记录见
+--      docs/技术方案/开发前准备清单.md §4.11 P1、§6.2。
 --
 --      **推荐与代价（待拍板）——指向文档的外键**：
 --        · 推荐（当前草案采用）：linked_doc_id 等三列存 doc_code 文本并指向
@@ -60,19 +80,9 @@
 --          验收口径冲突），导入期多一次映射查找，且工单行里的编码值与库里
 --          存的值不同源。
 --
---      **推荐与代价（待拍板）——指向簇的外键**：
---        · 推荐（当前草案采用）：cluster_id 列存业务标签（HDBSCAN label），
---          用 (granularity, min_cluster_size, cluster_id) 复合唯一键承载
---          「同一参数轮次下的同一个簇」，knowledge_gap 用同样的三列复合外键
---          引用它。
---          代价：① 对外的簇号是 cluster_id，不是 cluster_result.id，两者不可
---          混用；② 复合外键比单列外键宽，knowledge_gap 插入要带全三列；
---          ③ 与 §4.3 原文的 `cluster_id INTEGER NOT NULL REFERENCES
---          cluster_result(id)` 不符。
---        · 备选：把 cluster_result 主键改成 (scan_id, granularity,
---          min_cluster_size, label) 复合主键。代价：复合主键宽；且本库目前
---          没有 scan_id 列（每次扫描生成 scan_id 是 §4.10 A16 的口径，落库时
---          需新增列），同样偏离 §4.3 原文。
+--      **推荐与代价（已随第 3 条失效）——指向簇的外键**：口径更正后
+--      knowledge_gap 一行 = 一个业务意图，一个意图对应多个簇，无法用外键表达，
+--      该外键已取消，改为 intent_name ↔ main_intent 软链接。
 --
 -- 字段映射（PoC 产物 ↔ 本库列名）：
 --   docs.csv 的 doc_id      ↔ document.doc_code（取值相同，仅列名不同）
@@ -108,29 +118,38 @@
 --     ③ 若要在库里做成员反查，只能另建一张反范式映射表（会变成 7 张表，与
 --     「6 张表」的验收口径冲突，需另行拍板，本文件不擅自新增）。
 --
--- 四列在 PoC 产物中零命中（保持可空并留注释，待 P2 拍板）：
+-- 仍无出处的两列（保持可空并留注释，待 P2 拍板）：
 --   · cluster_result.centroid_sim —— PoC 产物里没有对应的列值，无来源
---   · cluster_result.main_intent  —— PoC 产物里没有对应的列值，无来源
---   · cluster_result.purity        —— 依赖真值标注，自有语料无真值时恒为 NULL
---   · knowledge_gap.priority        —— 当前恒为 0，排序规则未定义
+--   · knowledge_gap.priority       —— 当前恒为 0，排序规则未定义
 --
 -- 三模块产物的列 ↔ 本库列（补全「字段映射」）：
---   top15_gaps.csv  cover_median   ↔ knowledge_gap.cover_score
---   top15_gaps.csv  size           ↔ knowledge_gap.ticket_count
---   top15_gaps.csv  intent         ↔ knowledge_gap.intent_name
---   top15_gaps.csv  rep_ticket     ↔ knowledge_gap.representative_ticket
---   top15_gaps.csv  rep_text       ↔ knowledge_gap.representative_text
---   top15_gaps.csv  rank           ↔ **无对应列**：rank 是清单行号（knowledge_gap.id
---                                    升序的第 N 行），不落库为列
---   top15_gaps.csv  rep_cover      ↔ **无对应列**：cover_score 存的是 cover_median，
---                                    代表工单自身的覆盖度（rep_cover）没有列可存。
---                                    **待拍板（P2 数据形态）**：新增一列 rep_cover，
---                                    还是接受清单接口用 cover_median 同时顶替两者；
---                                    新增列会偏离 §4.3 的六表 DDL。
+--   gap_intents_best.csv intent            ↔ knowledge_gap.intent_name
+--   gap_intents_best.csv n_clusters        ↔ knowledge_gap.n_clusters
+--   gap_intents_best.csv min_cover_median  ↔ knowledge_gap.cover_score
+--   gap_intents_best.csv total_tickets      ↔ knowledge_gap.ticket_count
+--   gap_intents_best.csv rep_ticket        ↔ knowledge_gap.representative_ticket
+--   gap_intents_best.csv rep_text          ↔ knowledge_gap.representative_text
+--   gap_intents_best.csv threshold         ↔ knowledge_gap.threshold_used
+--   gap_intents_best.csv is_true_gap       ↔ **不落库**：真值标注列，只在产物与论文中
+--   gap_clusters_best.csv cluster_id        ↔ cluster_result.cluster_id
+--   gap_clusters_best.csv intent           ↔ cluster_result.main_intent
+--   gap_clusters_best.csv size             ↔ cluster_result.member_count
+--   gap_clusters_best.csv cover_median     ↔ cluster_result.cover_score
+--   gap_clusters_best.csv purity           ↔ cluster_result.purity
+--   gap_clusters_best.csv rep_cover      ↔ **无对应列**：代表工单自身的覆盖度；
+--                                          簇级清单展示用 cover_median，两者语义不同
+--   gap_clusters_best.csv n_intent_members ↔ **无对应列**：簇内众数意图的工单数，
+--                                          仅用于解释 purity，不单独落库
+--   gap_clusters_best.csv is_gap/is_true_gap↔ **不落库**：判定结果与真值标注列
 --   corrupt_docs.csv doc_id        ↔ stale_document.document_id（存 doc_code 文本）
---   corrupt_docs.csv risk_score    ↔ stale_document.risk_score
+--   corrupt_docs.csv risk_score    ↔ stale_document.risk_score（四规则合并分，
+--                                    历史口径，不再用于任何判定）
+--   corrupt_docs.csv cause_score_content_expiry ↔ stale_document 同名列
+--   corrupt_docs.csv cause_score_maintenance   ↔ stale_document 同名列
 --   corrupt_docs.csv rule_hits     ↔ stale_document.rule_hits
 --   corrupt_docs.csv reasons       ↔ stale_document.reasons
+--   corrupt_docs.csv fp_causes / fp_reason / in_control_sample / is_dup_copy /
+--     dup_source                        ↔ **不落库**：真值派生与归因列
 --   dup_groups_best.csv group      ↔ **无独立列**：group 是清单行号（1..22），
 --                                    duplicate_group.id 是自增行号；落库按同一顺序
 --                                    写入可保证两者取值一致，但它们不是同一个值
@@ -138,6 +157,9 @@
 --   dup_groups_best.csv primary_doc↔ duplicate_group.primary_doc_id
 --   dup_groups_best.csv member_docs↔ duplicate_group.member_doc_ids（JSON 数组）
 --   dup_groups_best.csv max_sim    ↔ duplicate_group.max_similarity
+--   corrupt_rule_ablation_content_expiry.csv / corrupt_rule_ablation_maintenance.csv
+--                                    ↔ **不落库**：两张分口径消融表是实验产物，
+--                                      库只存扫描结果，不存实验对照
 -- ============================================================================
 -- 查询路径 → 索引对照（P2：保证查询性能；索引清单与 §4.3 对齐，只在既有列上建）
 --
@@ -164,23 +186,28 @@
 --      索引：idx_ticket_time 范围扫描；created_at 是 16 字符 ISO-8601 文本，
 --            字典序即时间序。
 --      覆盖：范围扫描后仍需回表取其余列。
---   6) 按 cluster 取该簇的缺口
---      SQL : SELECT * FROM knowledge_gap WHERE cluster_id = ?
---      索引：idx_gap_cluster 等值定位（外键列）。
---      覆盖：只覆盖 cluster_id 一列；knowledge_gap 的外键是三列复合
---            (granularity, min_cluster_size, cluster_id)，若查询带全三列，应把
---            idx_gap_cluster 扩成三列复合索引——当前按「只按簇号取」这一条
---            典型查询建单列索引。
---   7) 按风险分取腐化清单前 N 条
---      SQL : SELECT * FROM stale_document ORDER BY risk_score DESC LIMIT ?
---      索引：idx_stale_score 降序扫描，索引本身有序可免排序。
+--   6) 按业务意图取缺口清单行（主清单的读法）
+--      SQL : SELECT * FROM knowledge_gap WHERE intent_name = ?
+--      索引：idx_gap_intent 等值定位。
+--      覆盖：只覆盖 intent_name 一列，需回表取其余列。
+--   7) 按业务意图取它下面的全部簇（溯源用：某意图由哪些簇构成）
+--      SQL : SELECT * FROM cluster_result WHERE main_intent = ?
+--      索引：idx_cluster_intent 等值定位。
+--      覆盖：只覆盖 main_intent 一列；排序需加 cover_score，语料规模 95 簇，
+--            回表代价可接受，暂不建 (main_intent, cover_score) 复合索引。
+--   8) 按某一类口径的分数取腐化清单前 N 条
+--      SQL : SELECT * FROM stale_document
+--             WHERE cause_score_content_expiry >= 3
+--             ORDER BY cause_score_content_expiry DESC LIMIT ?
+--      索引：idx_stale_cause_expiry 范围扫描 + 降序，索引本身有序可免排序。
 --      覆盖：不覆盖 document_id / rule_hits / reasons，需回表。
---   8) 按组号取重复组成员
+--      维护周期口径同理走 idx_stale_cause_maintenance。
+--   9) 按组号取重复组成员
 --      SQL : SELECT * FROM duplicate_group WHERE id = ?
 --      索引：duplicate_group 的 INTEGER PRIMARY KEY（rowid 定位），主键即索引。
 --      覆盖：rowid 定位后回表取 member_doc_ids 等列；member_doc_ids 是 JSON 数组，
 --            不可索引（见上文「查询限制」）。
---   9) 按主文档取重复组
+--   10) 按主文档取重复组
 --      SQL : SELECT * FROM duplicate_group WHERE primary_doc_id = ?
 --      索引：idx_dup_primary 等值定位（外键列）。
 --      覆盖：只覆盖 primary_doc_id 一列。
@@ -271,52 +298,63 @@ CREATE TABLE IF NOT EXISTS cluster_result (
   min_cluster_size  INTEGER NOT NULL,
   cluster_id        INTEGER NOT NULL,
   member_count      INTEGER NOT NULL,
-  centroid_sim      REAL,
-  main_intent       TEXT,
-  purity            REAL,      -- 依赖真值标注；自有语料无真值时为 NULL
+  centroid_sim      REAL,      -- 无机读产物列值，无来源，保持可空
+  main_intent       TEXT,      -- 簇内工单意图标签的众数
+  purity            REAL,      -- 众数意图占簇内工单的比例；不依赖 ground truth
+  cover_score       REAL,      -- 簇覆盖度中位数
   threshold_used    REAL,
   created_at        TEXT    NOT NULL,
   UNIQUE (granularity, min_cluster_size, cluster_id)
 );
--- idx_cluster_gmcs：定位「某一轮参数（粒度 + min_cluster_size）下的全部簇」，
---   是 knowledge_gap 三列复合外键在父表一侧的定位键；不覆盖返回列。
+-- idx_cluster_gmcs：定位「某一轮参数（粒度 + min_cluster_size）下的全部簇」；
+--   不覆盖返回列。
 CREATE INDEX IF NOT EXISTS idx_cluster_gmcs ON cluster_result(granularity, min_cluster_size);
+-- idx_cluster_intent：查询路径 7「按业务意图取它下面的全部簇」的等值定位键。
+CREATE INDEX IF NOT EXISTS idx_cluster_intent ON cluster_result(main_intent);
 
 CREATE TABLE IF NOT EXISTS knowledge_gap (
   id                    INTEGER PRIMARY KEY,
-  -- 复合外键：指向 cluster_result 的 (granularity, min_cluster_size, cluster_id)，
-  -- 其中 cluster_id 是 HDBSCAN 标签，不是 cluster_result.id 的自增行号。
-  granularity           TEXT    NOT NULL DEFAULT 'passage_level',
-  min_cluster_size      INTEGER NOT NULL,
-  cluster_id            INTEGER NOT NULL,
+  -- 判定单元 = 业务意图。**不是** §4.3 原文的簇级形态：现行口径是
+  -- 「意图覆盖度 = 该意图下各簇覆盖度的最小值」，一个意图对应多个簇，
+  -- 因此本表一行装一个意图，不再有 cluster_id 外键。
+  -- intent_name 与 cluster_result.main_intent 对应（软链接口径，同
+  -- ticket.linked_doc_id → document(doc_code)）。
   intent_name           TEXT    NOT NULL,
-  ticket_count          INTEGER NOT NULL,
-  cover_score           REAL    NOT NULL,
+  n_clusters            INTEGER NOT NULL,   -- 该意图下的簇数
+  ticket_count          INTEGER NOT NULL,   -- 该意图下的工单总数
+  cover_score           REAL    NOT NULL,     -- 意图覆盖度 = 各簇 cover_median 的最小值
   threshold_used        REAL    NOT NULL,
   representative_ticket TEXT,
   representative_text   TEXT,
   priority              INTEGER NOT NULL DEFAULT 0,  -- 排序规则未定义，当前恒 0
-  detected_at           TEXT    NOT NULL,
-  FOREIGN KEY (granularity, min_cluster_size, cluster_id)
-    REFERENCES cluster_result(granularity, min_cluster_size, cluster_id)
+  detected_at           TEXT    NOT NULL
 );
--- idx_gap_score：按覆盖度取缺口（清单页取高分簇 / 缺口自检）。
+-- idx_gap_score：按覆盖度取缺口（清单页按覆盖度升序取最差的意图）。
 CREATE INDEX IF NOT EXISTS idx_gap_score ON knowledge_gap(cover_score);
--- idx_gap_cluster：查询路径 6「按 cluster 取该簇的缺口」的等值定位键；外键列
---   必须有索引。不覆盖返回列。
-CREATE INDEX IF NOT EXISTS idx_gap_cluster ON knowledge_gap(cluster_id);
+-- idx_gap_intent：查询路径 6「按业务意图取缺口清单行」的等值定位键。
+CREATE INDEX IF NOT EXISTS idx_gap_intent ON knowledge_gap(intent_name);
 
 CREATE TABLE IF NOT EXISTS stale_document (
   id          INTEGER PRIMARY KEY,
   document_id TEXT    NOT NULL REFERENCES document(doc_code),
+  -- risk_score = 四条规则的合并加权分（历史口径）。现行判定按两类口径**各自**
+  -- 算分，见下面两列；risk_score 不再用于任何判定，只保留作溯源与对照。
   risk_score  INTEGER NOT NULL,
+  -- 内容过期口径（R1 + R3）的加权分；>= 3 时该篇在内容过期口径下命中。
+  cause_score_content_expiry INTEGER NOT NULL DEFAULT 0,
+  -- 维护周期口径（R2 + R4）的加权分；>= 3 时该篇在维护周期口径下命中。
+  cause_score_maintenance   INTEGER NOT NULL DEFAULT 0,
   rule_hits   TEXT,
   reasons     TEXT,
   detected_at TEXT    NOT NULL
 );
--- idx_stale_score：查询路径 7「按风险分取腐化清单前 N 条」的降序扫描键；
---   索引本身有序，可免排序。不覆盖 document_id / rule_hits / reasons，需回表。
+-- idx_stale_score：按合并分取腐化清单前 N 条的降序扫描键；索引本身有序，
+--   可免排序。不覆盖 document_id / rule_hits / reasons，需回表。
 CREATE INDEX IF NOT EXISTS idx_stale_score ON stale_document(risk_score);
+-- idx_stale_cause_expiry：查询路径 8「按内容过期口径的分数取清单前 N 条」。
+CREATE INDEX IF NOT EXISTS idx_stale_cause_expiry ON stale_document(cause_score_content_expiry);
+-- idx_stale_cause_maintenance：同上，维护周期口径。
+CREATE INDEX IF NOT EXISTS idx_stale_cause_maintenance ON stale_document(cause_score_maintenance);
 -- idx_stale_document：按文档取腐化记录（外键列，等值定位）；不覆盖返回列。
 CREATE INDEX IF NOT EXISTS idx_stale_document ON stale_document(document_id);
 

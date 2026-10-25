@@ -50,7 +50,7 @@
         <span class="status-dot" id="statusDot" aria-hidden="true"></span>
         <span class="status-text" id="statusText">扫描状态：已完成</span>
       </button>
-      <p class="sidebar-note" data-copy="app.source">页面数字取自 <code>poc/kbgovernance/</code> 的机读产物</p>
+      <p class="sidebar-note">页面数字取自 <code>poc/kbgovernance/</code> 的机读产物</p>
     </div>
   </aside>
 
@@ -89,7 +89,7 @@
             </div>
           </div>
 
-          <p class="note" data-copy="upload.corpus.refNote">参考语料规模（PoC 实测语料，非当前库）：<span data-num="metrics.n_docs"></span> 篇文档 / <span data-num="metrics.n_tickets"></span> 条工单 / <span data-num="metrics.n_passages"></span> 个文档段落。</p>
+          <p class="note">参考语料规模（PoC 实测语料，非当前库）：<span data-num="metrics.n_docs"></span> 篇文档 / <span data-num="metrics.n_tickets"></span> 条工单 / <span data-num="metrics.n_passages"></span> 个文档段落。</p>
 
           <div class="state-block" data-states="empty">
             <p class="state-line" data-copy="upload.corpus.empty">当前库中没有任何语料，导入后方可运行治理扫描。</p>
@@ -137,7 +137,7 @@
             <ul class="records" id="docRecords">
               <li class="record">
                 <span class="record-name">docs.csv</span>
-                <span class="record-desc" data-copy="upload.doc.recordOk">已导入 <span data-num="metrics.n_docs"></span> 篇文档</span>
+                <span class="record-desc">已导入 <span data-num="metrics.n_docs"></span> 篇文档</span>
                 <span class="pill pill-pos" data-copy="upload.doc.recordOkTag">成功</span>
               </li>
               <li class="record">
@@ -167,7 +167,7 @@
             <ul class="records" id="ticketRecords">
               <li class="record">
                 <span class="record-name">tickets.csv</span>
-                <span class="record-desc" data-copy="upload.ticket.recordOk">已导入 <span data-num="metrics.n_tickets"></span> 条工单</span>
+                <span class="record-desc">已导入 <span data-num="metrics.n_tickets"></span> 条工单</span>
                 <span class="pill pill-pos" data-copy="upload.ticket.recordOkTag">成功</span>
               </li>
             </ul>
@@ -259,11 +259,11 @@
             <p class="panel-desc" data-copy="demo.desc">走查用脚手架，不是产品功能。切换后徽标、计数与文案同步变化。</p>
           </div>
           <div class="segmented" role="group" aria-label="上传页状态演示">
-            <button type="button" class="seg-btn" data-target="upload" data-state="success" aria-pressed="true" data-copy="demo.state.success">语料就绪</button>
-            <button type="button" class="seg-btn" data-target="upload" data-state="empty" aria-pressed="false" data-copy="demo.state.empty">空语料</button>
-            <button type="button" class="seg-btn" data-target="upload" data-state="loading" aria-pressed="false" data-copy="demo.state.loading">读取中</button>
-            <button type="button" class="seg-btn" data-target="upload" data-state="error" aria-pressed="false" data-copy="demo.state.error">统计失败</button>
-            <button type="button" class="seg-btn" data-target="upload" data-state="busy" aria-pressed="false" data-copy="demo.state.busy">扫描占用</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="success" aria-pressed="true" data-copy="demo.state.upload.success">语料就绪</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="empty" aria-pressed="false" data-copy="demo.state.upload.empty">空语料</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="loading" aria-pressed="false" data-copy="demo.state.upload.loading">读取中</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="error" aria-pressed="false" data-copy="demo.state.upload.error">统计失败</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="busy" aria-pressed="false" data-copy="demo.state.upload.busy">扫描占用</button>
           </div>
         </section>
       </section>
@@ -299,7 +299,7 @@
             </div>
           </div>
           <p class="note" data-copy="scan.pre.modelNote">模型权重需指向本地缓存目录（HF_HOME），否则扫描不启动。</p>
-          <p class="note" data-copy="scan.pre.thresholdNote">需求阈值（非实测）：单次全量扫描 ≤ <span data-num="audit.requirement.scan_seconds_max"></span> 秒；页面响应 ≤ <span data-num="audit.requirement.page_response_seconds_max"></span> 秒。实测值只取自耗时表。</p>
+          <p class="note">需求阈值（非实测）：单次全量扫描 ≤ <span data-num="audit.requirement.scan_seconds_max"></span> 秒；页面响应 ≤ <span data-num="audit.requirement.page_response_seconds_max"></span> 秒。实测值只取自耗时表。</p>
           <p class="note note-warn" data-copy="scan.pre.clearNote">扫描会清空当前库中的文档与工单，扫描后需要重新上传全部数据。</p>
         </section>
 
@@ -324,7 +324,7 @@
         <section class="panel state-block" data-states="success" aria-labelledby="scan-overview-title">
           <div class="panel-head">
             <h2 class="panel-title" id="scan-overview-title" data-copy="scan.overview.title">扫描结果总览</h2>
-            <p class="panel-desc" data-copy="scan.overview.desc">三类缺陷的阈值与判定结果来自同一次扫描。</p>
+            <p class="panel-desc" data-copy="scan.overview.desc">三类缺陷的阈值与判定结果来自同一次扫描；内容腐化按两类口径分列。</p>
           </div>
           <div class="tbl-wrap">
             <table class="tbl">
@@ -392,8 +392,8 @@
                 <thead>
                   <tr>
                     <th scope="col" class="n" data-copy="scan.calib.tcol1">覆盖度阈值</th>
-                    <th scope="col" class="n" data-copy="scan.calib.tcol2">缺口簇</th>
-                    <th scope="col" class="n" data-copy="scan.calib.tcol3">业务意图</th>
+                    <th scope="col" class="n" data-copy="scan.calib.tcol2">命中簇数</th>
+                    <th scope="col" class="n" data-copy="scan.calib.tcol3">检出业务意图</th>
                     <th scope="col" class="n" data-copy="scan.calib.tcol4">精确率</th>
                     <th scope="col" class="n" data-copy="scan.calib.tcol5">召回率</th>
                     <th scope="col" class="n" data-copy="scan.calib.tcol6">F1</th>
@@ -407,7 +407,7 @@
 
           <details class="disclosure">
             <summary data-copy="scan.calib.d2">统计单元</summary>
-            <p class="note" data-copy="scan.calib.d2body">三类缺陷的统计单元不同，不可横向比较：知识缺口按缺口簇计数、按去重后的业务意图算精确率与召回率；内容腐化按文档计数并按文档算精确率与召回率；重复冗余按重复组计数并按组算精确率与召回率。</p>
+            <p class="note" data-copy="scan.calib.d2body">三类缺陷的统计单元不同，不可横向比较：知识缺口按业务意图计数并按业务意图算精确率与召回率；内容腐化按文档计数，分内容过期与维护周期两个口径各自算精确率与召回率，不合成单一 F1；重复冗余按重复组计数并按组算精确率与召回率。</p>
           </details>
 
           <details class="disclosure">
@@ -427,11 +427,11 @@
             <p class="panel-desc" data-copy="demo.desc">走查用脚手架，不是产品功能。切换后徽标、计数与文案同步变化。</p>
           </div>
           <div class="segmented" role="group" aria-label="扫描页状态演示">
-            <button type="button" class="seg-btn" data-target="scan" data-state="success" aria-pressed="true" data-copy="demo.state.success">已扫描</button>
-            <button type="button" class="seg-btn" data-target="scan" data-state="empty" aria-pressed="false" data-copy="demo.state.empty">尚无结果</button>
-            <button type="button" class="seg-btn" data-target="scan" data-state="loading" aria-pressed="false" data-copy="demo.state.loading">读取中</button>
-            <button type="button" class="seg-btn" data-target="scan" data-state="error" aria-pressed="false" data-copy="demo.state.error">扫描失败</button>
-            <button type="button" class="seg-btn" data-target="scan" data-state="running" aria-pressed="false" data-copy="demo.state.running">扫描中</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="success" aria-pressed="true" data-copy="demo.state.scan.success">已扫描</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="empty" aria-pressed="false" data-copy="demo.state.scan.empty">尚无结果</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="loading" aria-pressed="false" data-copy="demo.state.scan.loading">读取中</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="error" aria-pressed="false" data-copy="demo.state.scan.error">扫描失败</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="running" aria-pressed="false" data-copy="demo.state.scan.running">扫描中</button>
           </div>
         </section>
       </section>
@@ -468,11 +468,12 @@
         <section class="panel" aria-labelledby="lists-metrics-title">
           <div class="panel-head">
             <h2 class="panel-title" id="lists-metrics-title" data-copy="lists.metrics.title">判定指标</h2>
-            <p class="panel-desc" data-copy="lists.metrics.desc">阈值、精确率、召回率、F1 与判定数，全部取自本轮扫描。</p>
+            <p class="panel-desc" data-copy="lists.metrics.desc">阈值、判定数与各口径的精确率、召回率、F1，全部取自本轮扫描；内容腐化按两类口径分别给出，不合成单一 F1。</p>
           </div>
           <div class="kpis" id="listMetricGrid"></div>
           <div class="kpis kpis-sub" id="listCaliGrid"></div>
           <p class="note" id="listUnitNote"></p>
+          <p class="note" id="listCaliberNote"></p>
         </section>
 
         <section class="panel" aria-labelledby="lists-download-title">
@@ -525,7 +526,7 @@
             <div class="state-block" data-list="nohit">
               <div class="empty">
                 <p class="empty-title" data-copy="lists.empty.nohit.title">本次扫描未发现该类缺陷</p>
-                <p class="empty-body" data-copy="lists.empty.nohit.body">本轮该类判定数为 0，指标条显示的是上一轮取值。</p>
+                <p class="empty-body" data-copy="lists.empty.nohit.body">本轮该类判定数为 0，说明该类缺陷没有命中；精确率、召回率与 F1 在没有命中的轮次里没有可展示的读数，因此显示为占位破折号。</p>
               </div>
             </div>
 
@@ -560,11 +561,11 @@
           </div>
           <details class="disclosure" open>
             <summary data-copy="lists.calib.d1">数字来源</summary>
-            <p class="note" data-copy="lists.calib.d1body">页面上的每个数字都来自 <code>poc/kbgovernance/</code> 下的机读产物，页面同时给出对应的产物键与文件路径；页面不展示评测标注列与归因列。</p>
+            <p class="note">页面上的每个数字都来自 <code>poc/kbgovernance/</code> 下的机读产物，页面同时给出对应的产物键与文件路径；页面不展示评测标注列与归因列。</p>
           </details>
           <details class="disclosure">
             <summary data-copy="lists.calib.d2">展示行数与判定总数</summary>
-            <p class="note" data-copy="lists.calib.d2body">清单行数与判定总数不是同一个数：知识缺口展示的是命中阈值的全部缺口簇，内容腐化展示的是代表行，重复冗余展示的是全部重复组。</p>
+            <p class="note" data-copy="lists.calib.d2body">清单行数与判定总数不是同一个数：知识缺口展示的是命中阈值的业务意图，内容腐化展示的是代表行，重复冗余展示的是全部重复组。</p>
           </details>
           <details class="disclosure">
             <summary data-copy="lists.calib.d3">免责</summary>
@@ -578,17 +579,17 @@
             <p class="panel-desc" data-copy="demo.desc">走查用脚手架，不是产品功能。切换后徽标、计数与文案同步变化。</p>
           </div>
           <div class="segmented" role="group" aria-label="清单页状态演示">
-            <button type="button" class="seg-btn" data-target="lists" data-state="success" aria-pressed="true" data-copy="demo.state.success">已扫描</button>
-            <button type="button" class="seg-btn" data-target="lists" data-state="never" aria-pressed="false" data-copy="demo.state.never">未扫描</button>
-            <button type="button" class="seg-btn" data-target="lists" data-state="nohit" aria-pressed="false" data-copy="demo.state.nohit">无命中</button>
-            <button type="button" class="seg-btn" data-target="lists" data-state="loading" aria-pressed="false" data-copy="demo.state.loading">加载中</button>
-            <button type="button" class="seg-btn" data-target="lists" data-state="error" aria-pressed="false" data-copy="demo.state.error">加载失败</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="success" aria-pressed="true" data-copy="demo.state.lists.success">已扫描</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="never" aria-pressed="false" data-copy="demo.state.lists.never">未扫描</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="nohit" aria-pressed="false" data-copy="demo.state.lists.nohit">无命中</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="loading" aria-pressed="false" data-copy="demo.state.lists.loading">加载中</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="error" aria-pressed="false" data-copy="demo.state.lists.error">加载失败</button>
           </div>
         </section>
       </section>
 
       <footer class="page-foot">
-        <p data-copy="app.foot">本原型是 <code>system/prototype/</code> 下的静态讨论稿：数字取自 <code>poc/kbgovernance/</code> 的机读产物，页面不发起真实请求。</p>
+        <p>本原型是 <code>system/prototype/</code> 下的静态讨论稿：数字取自 <code>poc/kbgovernance/</code> 的机读产物，页面不发起真实请求。</p>
       </footer>
 
     </div>

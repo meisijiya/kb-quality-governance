@@ -58,9 +58,14 @@
     gap_clusters: KB.metrics.gap.gap_clusters,
     gap_intents: KB.metrics.gap.detected_intents,
     gap_pool_clusters: KB.audit.gap_pool.clusters,
+    gap_pool_intents: KB.audit.gap_pool.intents,
+    near_miss_total: KB.audit.gap_near_miss_total,
     corrupt_detected: KB.metrics.corrupt.detected,
     corrupt_shown: KB.audit.corrupt_sample.shown,
     corrupt_combos: KB.audit.corrupt_sample.combos,
+    corrupt_embedded: KB.metrics.corrupt.embedded,
+    corrupt_covered: KB.metrics.corrupt.covered,
+    corrupt_fp: KB.metrics.corrupt.fp,
     dup_groups: KB.metrics.dup.dup_groups,
     dup_docs: KB.metrics.dup.detected_docs,
     dup_threshold: KB.metrics.dup.threshold,
@@ -127,7 +132,8 @@
     page: 'upload',
     upload: 'success',
     scan: 'idle',
-    lists: 'never'
+    lists: 'never',
+    tab: 'gap'
   };
 
   /* 扫描状态变化时，清单状态随之收敛，避免出现自相矛盾的组合 */
@@ -404,10 +410,44 @@
     renderThresholdScan();
   }
 
+  /* 内容腐化按内容过期、维护周期两个口径分别报告，不合成单一 F1，
+     所以总览表里是两个口径各占一行；缺口侧按业务意图计数。 */
+  function causeRow(cause, key) {
+    return {
+      name: cause.label,
+      threshold: cause.threshold,
+      precision: cause.precision,
+      recall: cause.recall,
+      f1: cause.f1,
+      count: cause.detected,
+      unit: 'lists.unit.corrupt',
+      key: key
+    };
+  }
+
   var OVERVIEW_ROWS = [
-    { name: '知识缺口', metric: KB.metrics.gap, unit: 'lists.unit.gap', key: 'metrics.json → gap.best' },
-    { name: '内容腐化', metric: KB.metrics.corrupt, unit: 'lists.unit.corrupt', key: 'metrics.json → corrupt' },
-    { name: '重复冗余', metric: KB.metrics.dup, unit: 'lists.unit.dup', key: 'metrics.json → dup.best' }
+    {
+      name: '知识缺口',
+      threshold: KB.metrics.gap.threshold,
+      precision: KB.metrics.gap.precision,
+      recall: KB.metrics.gap.recall,
+      f1: KB.metrics.gap.f1,
+      count: KB.metrics.gap.detected_intents,
+      unit: 'lists.unit.gap',
+      key: 'metrics.json → gap.best'
+    },
+    causeRow(KB.metrics.corrupt.by_cause.content_expiry, 'metrics.json → corrupt.by_cause.content_expiry'),
+    causeRow(KB.metrics.corrupt.by_cause.maintenance, 'metrics.json → corrupt.by_cause.maintenance'),
+    {
+      name: '重复冗余',
+      threshold: KB.metrics.dup.threshold,
+      precision: KB.metrics.dup.group_precision,
+      recall: KB.metrics.dup.group_recall,
+      f1: KB.metrics.dup.group_f1,
+      count: KB.metrics.dup.dup_groups,
+      unit: 'lists.unit.dup',
+      key: 'metrics.json → dup.best'
+    }
   ];
 
   function renderScanOverview() {
@@ -415,14 +455,13 @@
     if (!body) return;
     clear(body);
     OVERVIEW_ROWS.forEach(function (item) {
-      var m = item.metric;
       var row = el('tr');
       cell(row, item.name);
-      cell(row, fmt(m.threshold), 'n');
-      cell(row, fmt(m.precision), 'n');
-      cell(row, fmt(m.recall), 'n');
-      cell(row, fmt(m.f1), 'n');
-      cell(row, fmt(m.gap_clusters !== undefined ? m.gap_clusters : (m.detected !== undefined ? m.detected : m.dup_groups)), 'n');
+      cell(row, fmt(item.threshold), 'n');
+      cell(row, fmt(item.precision), 'n');
+      cell(row, fmt(item.recall), 'n');
+      cell(row, fmt(item.f1), 'n');
+      cell(row, fmt(item.count), 'n');
       cell(row, copy(item.unit));
       cell(row, item.key, 'id');
       body.appendChild(row);
@@ -547,11 +586,13 @@
   function tabMetrics(tab) {
     if (tab === 'gap') {
       var g = KB.metrics.gap;
-      return { threshold: g.threshold, precision: g.precision, recall: g.recall, f1: g.f1, count: g.gap_clusters };
+      /* 判定单元是业务意图：判定数报意图数，簇数只作内部量。 */
+      return { threshold: g.threshold, precision: g.precision, recall: g.recall, f1: g.f1, count: g.detected_intents };
     }
     if (tab === 'corrupt') {
+      /* 腐化侧没有单一 P/R/F1：两个口径各自报告，判定数取合计检出。 */
       var c = KB.metrics.corrupt;
-      return { threshold: c.threshold, precision: c.precision, recall: c.recall, f1: c.f1, count: c.detected };
+      return { threshold: c.threshold, precision: null, recall: null, f1: null, count: c.detected };
     }
     var d = KB.metrics.dup;
     return { threshold: d.threshold, precision: d.group_precision, recall: d.group_recall, f1: d.group_f1, count: d.dup_groups };
@@ -559,21 +600,20 @@
 
   function tabHead(tab) {
     if (tab === 'gap') {
-      return ['lists.table.head.gap1', 'lists.table.head.gap2', 'lists.table.head.gap3', 'lists.table.head.gap4', 'lists.table.head.gap5'];
+      return ['lists.table.head.gap1', 'lists.table.head.gap2', 'lists.table.head.gap3', 'lists.table.head.gap4'];
     }
     if (tab === 'corrupt') {
-      return ['lists.table.head.corrupt1', 'lists.table.head.corrupt2', 'lists.table.head.corrupt3', 'lists.table.head.corrupt4', 'lists.table.head.corrupt5', 'lists.table.head.corrupt6'];
+      return ['lists.table.head.corrupt1', 'lists.table.head.corrupt2', 'lists.table.head.corrupt3', 'lists.table.head.corrupt4', 'lists.table.head.corrupt5', 'lists.table.head.corrupt6', 'lists.table.head.corrupt7'];
     }
     return ['lists.table.head.dup1', 'lists.table.head.dup2', 'lists.table.head.dup3', 'lists.table.head.dup4'];
   }
 
   /* 各清单里由页面自己算出来的列（其余列都是产物里的原值）：
-     缺口清单的「距阈值差值」= 判定阈值 − 覆盖度中位数；
-     腐化清单的「规则命中组合」由产物的 rule_hits 归并而来。
+     腐化清单的「命中规则」由产物的 rule_hits 按两类口径拆开而来；
+     缺口清单的「距阈值差值」是阈值减意图覆盖度，出现在展开详情里。
      这些列在表头就写明是派生值——只写在单元格的 title 里等于没说。 */
   function derivedColumnIndex(tab) {
-    if (tab === 'gap') return 4;
-    if (tab === 'corrupt') return 4;
+    if (tab === 'corrupt') return 6;
     return -1;
   }
 
@@ -585,38 +625,88 @@
     return copy('lists.detail.desc.' + tab);
   }
 
-  function ruleCodes(ruleHits) {
-    if (!ruleHits) return '—';
-    return String(ruleHits).split('|').map(function (part) {
+  /* 腐化清单的「命中规则」列：把产物里的 rule_hits 按内容过期、
+     维护周期两个口径拆开，同一篇文档分别命中了哪一类一目了然。 */
+  function ruleLabels(ruleHits) {
+    var codes = String(ruleHits || '').split('|').map(function (part) {
       return String(part).split('_')[0];
-    }).join('+');
+    });
+    var causes = KB.metrics.corrupt.by_cause;
+    function pick(cause) {
+      var hit = cause.rules.map(function (rule) {
+        return String(rule).split('_')[0];
+      }).filter(function (code) {
+        return codes.indexOf(code) >= 0;
+      });
+      return hit.length ? hit.join('+') : '—';
+    }
+    return [
+      causes.content_expiry.label + '：' + pick(causes.content_expiry),
+      causes.maintenance.label + '：' + pick(causes.maintenance)
+    ].join(' ／ ');
+  }
+
+  function fmt4(value) {
+    if (value === null || value === undefined) return '—';
+    return Number(value).toFixed(4);
   }
 
   function renderListMetrics() {
     var grid = q('#listMetricGrid');
     var sub = q('#listCaliGrid');
     var note = q('#listUnitNote');
+    var caliberNote = q('#listCaliberNote');
     var ready = state.lists === 'success';
+    /* 没有真值标注时，精确率 / 召回率 / F1 没有读数，只显示占位破折号。 */
+    var hasTruth = KB.metrics.has_ground_truth !== false;
     var m = tabMetrics(state.tab);
     if (grid) {
       clear(grid);
       grid.appendChild(kpi(copy('lists.metrics.threshold'), ready ? fmt(m.threshold) : '—'));
-      grid.appendChild(kpi(copy('lists.metrics.precision'), ready ? fmt(m.precision) : '—'));
-      grid.appendChild(kpi(copy('lists.metrics.recall'), ready ? fmt(m.recall) : '—'));
-      grid.appendChild(kpi(copy('lists.metrics.f1'), ready ? fmt(m.f1) : '—'));
-      grid.appendChild(kpi(copy('lists.metrics.count'), ready ? fmt(m.count) : '—', tabUnit(state.tab)));
+      if (state.tab === 'corrupt') {
+        /* 腐化侧不报单一 P/R/F1，主行只留阈值与判定数，
+           两个口径的精确率、召回率、F1 放到下面一行并列展示。 */
+        grid.appendChild(kpi(copy('lists.metrics.count'), ready ? fmt(m.count) : '—', tabUnit(state.tab)));
+      } else {
+        grid.appendChild(kpi(copy('lists.metrics.precision'), ready && hasTruth ? fmt(m.precision) : '—'));
+        grid.appendChild(kpi(copy('lists.metrics.recall'), ready && hasTruth ? fmt(m.recall) : '—'));
+        grid.appendChild(kpi(copy('lists.metrics.f1'), ready && hasTruth ? fmt(m.f1) : '—'));
+        grid.appendChild(kpi(copy('lists.metrics.count'), ready ? fmt(m.count) : '—', tabUnit(state.tab)));
+      }
     }
     if (sub) {
       clear(sub);
       sub.appendChild(kpi(copy('lists.metrics.unit'), tabUnit(state.tab)));
+      if (state.tab === 'corrupt') {
+        var causes = KB.metrics.corrupt.by_cause;
+        ['content_expiry', 'maintenance'].forEach(function (key) {
+          var cause = causes[key];
+          sub.appendChild(kpi(cause.label + ' · ' + copy('lists.metrics.precision'), ready && hasTruth ? fmt4(cause.precision) : '—'));
+          sub.appendChild(kpi(cause.label + ' · ' + copy('lists.metrics.recall'), ready && hasTruth ? fmt4(cause.recall) : '—'));
+          sub.appendChild(kpi(cause.label + ' · ' + copy('lists.metrics.f1'), ready && hasTruth ? fmt4(cause.f1) : '—'));
+        });
+      }
     }
-    if (note) setText(note, ready ? copy('lists.metrics.countNote') : copy('lists.metrics.thresholdNote'));
+    if (note) {
+      var noteKey = 'lists.metrics.countNote';
+      if (state.tab === 'gap') noteKey = 'lists.metrics.gapNote';
+      else if (state.tab === 'corrupt') noteKey = 'lists.metrics.corruptNote';
+      setText(note, ready ? copy(noteKey) : copy('lists.metrics.thresholdNote'));
+    }
+    if (caliberNote) {
+      var caliber = '';
+      if (ready && state.tab === 'gap') caliber = copy('lists.gap.internalNote');
+      else if (ready && state.tab === 'corrupt') {
+        caliber = [copy('lists.metrics.ceNote'), copy('lists.metrics.mtNote'), copy('lists.metrics.totalNote')].join(' ');
+      }
+      setText(caliberNote, caliber);
+    }
   }
 
-  function detailRow(pairs) {
+  function detailRow(pairs, colspan) {
     var row = el('tr', 'detail-row');
     var td = el('td');
-    td.setAttribute('colspan', '8');
+    td.setAttribute('colspan', String(colspan || 8));
     var grid = el('div', 'detail-grid');
     pairs.forEach(function (pair) {
       var item = el('div', 'detail-item');
@@ -674,17 +764,18 @@
     if (state.tab === 'gap') {
       (KB.gaps || []).forEach(function (item, index) {
         var row = el('tr');
-        cell(row, fmt(item.rank), 'n');
         cell(row, item.intent);
-        cell(row, fmt(item.size), 'n');
-        cell(row, fmt(item.cover_median), 'n');
-        cell(row, fmt(round4(KB.metrics.gap.threshold - item.cover_median)), 'n', derived);
+        cell(row, fmt(item.n_clusters), 'n');
+        cell(row, fmt(item.min_cover_median), 'n');
+        cell(row, fmt(item.total_tickets), 'n');
         appendExpandCell(row, index + 1, item.intent, function () {
           return detailRow([
             [copy('lists.detail.rep'), item.rep_ticket + ' · ' + item.rep_text],
-            [copy('lists.table.head.gap3'), fmt(item.size)],
-            [copy('lists.table.head.gap4'), fmt(item.cover_median)]
-          ]);
+            [copy('lists.table.head.gap2'), fmt(item.n_clusters)],
+            [copy('lists.table.head.gap3'), fmt(item.min_cover_median)],
+            [copy('lists.table.head.gap4'), fmt(item.total_tickets)],
+            [copy('lists.detail.gapDelta'), fmt(round4(KB.metrics.gap.threshold - item.min_cover_median))]
+          ], 5);
         });
         body.appendChild(row);
       });
@@ -695,13 +786,17 @@
         cell(row, item.title, 'truncate', item.title);
         cell(row, item.category);
         cell(row, item.last_modified, 'id');
-        cell(row, ruleCodes(item.rule_hits));
-        cell(row, fmt(item.risk_score), 'n');
+        cell(row, fmt(item.cause_score_content_expiry), 'n');
+        cell(row, fmt(item.cause_score_maintenance), 'n');
+        cell(row, ruleLabels(item.rule_hits));
         appendExpandCell(row, index + 1, item.doc_id, function () {
           return detailRow([
             [copy('lists.detail.reason'), item.reasons],
-            [copy('lists.table.head.corrupt6'), fmt(item.risk_score)]
-          ]);
+            [copy('lists.table.head.corrupt5'), fmt(item.cause_score_content_expiry)],
+            [copy('lists.table.head.corrupt6'), fmt(item.cause_score_maintenance)],
+            [copy('lists.detail.totalScore'), fmt(item.risk_score)],
+            [copy('lists.table.head.corrupt7'), ruleLabels(item.rule_hits)]
+          ], 8);
         });
         body.appendChild(row);
       });
@@ -716,7 +811,7 @@
           return detailRow([
             [copy('lists.detail.members'), String(item.member_docs).split('|').join('、')],
             [copy('lists.table.head.dup4'), fmt(item.max_sim)]
-          ]);
+          ], 5);
         });
         body.appendChild(row);
       });
@@ -762,9 +857,9 @@
       section.appendChild(head);
       section.appendChild(el('p', 'note', copy('lists.gap.extraNote')));
       section.appendChild(extraTable(
-        [copy('lists.table.head.gap2'), copy('lists.table.head.gap3'), copy('lists.table.head.gap4')],
+        [copy('lists.extra.gapCol1'), copy('lists.extra.gapCol2'), copy('lists.extra.gapCol3'), copy('lists.extra.gapCol4')],
         (KB.audit.gap_near_miss || []).map(function (item) {
-          return [item.intent, fmt(item.size), fmt(item.cover_median)];
+          return [item.intent, fmt(item.cluster_id), fmt(item.size), fmt(item.cover_median)];
         })
       ));
     } else if (state.tab === 'corrupt') {

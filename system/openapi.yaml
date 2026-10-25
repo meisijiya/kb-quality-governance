@@ -34,12 +34,13 @@ info:
       | tickets.csv → ticket_id | ticket.ticket_code | 取值相同，仅列名不同 |
       | tickets.csv → intent_label | ticket.intent_label | 一致 |
       | tickets.csv → linked_doc_id | ticket.linked_doc_id → document(doc_code) | **是文档编码文本，不是行号** |
-      | top15_gaps.csv → rank / intent / size / cover_median / rep_cover / rep_ticket / rep_text | GapRow 同名列 ↔ knowledge_gap | 一致；真值标注列不透出 |
-      | corrupt_docs.csv → doc_id / title / category / last_modified / risk_score / rule_hits / reasons | StaleRow 同名列 ↔ stale_document | 一致；真值与归因列不透出 |
+      | gap_intents_best.csv → intent / n_clusters / min_cover_median / total_tickets / rep_ticket / rep_text | GapRow 同名列 ↔ knowledge_gap | 一致；判定单元 = 业务意图；真值标注列 is_true_gap 不透出 |
+      | gap_clusters_best.csv → cluster_id / intent / size / cover_median / rep_cover / rep_ticket / rep_text / purity / n_intent_members | 不进清单接口 | 簇级明细是内部量与溯源用，经下载接口取原始 CSV |
+      | corrupt_docs.csv → doc_id / title / category / last_modified / risk_score / rule_hits / reasons / cause_score_content_expiry / cause_score_maintenance | StaleRow 同名列 ↔ stale_document | 一致；两个口径各自独立判定；评测标注与归因列（fp_causes / fp_reason / in_control_sample / is_dup_copy / dup_source）不透出 |
       | dup_groups_best.csv → group / size / primary_doc / member_docs / max_sim | DuplicateRow 同名列 ↔ duplicate_group | 一致；真值标注列不透出 |
       | docs.csv → doc_id / title / category / created_at / last_modified / effective_date / status / ref_count | DocumentSummary 同名列 ↔ document | 取值一致；doc_id→doc_code、category→domain 见上两行；正文 content 不进列表 |
       | tickets.csv → ticket_id / intent_label / channel / urgency / status / handling_minutes / linked_doc_id / created_at | TicketSummary 同名列 ↔ ticket | 取值一致；ticket_id→ticket_code 见上表；正文 content 不进列表 |
-      | metrics.json → gap.best / corrupt.* / dup.best | 三个清单接口的 threshold / precision / recall / f1 / count | 一致；另加 has_ground_truth（是否有真值）与 row_order（行序定义）两个本文件自有的字段 |
+      | metrics.json → gap.best / corrupt.by_cause.* / dup.best | 三个清单接口的 threshold / precision / recall / f1 / count | 一致；腐化按两个口径分列（content_expiry 与 maintenance），各自报 P/R/F1，不合成单一 F1；另加 has_ground_truth（是否有真值）与 row_order（行序定义）两个本文件自有的字段 |
 
       源数据中 linked_doc_id 的实测分布：tickets.csv 2000 行中 1629 行非空，
       全部能对上 docs.csv 的 doc_id（未匹配的 0 行）。
@@ -51,15 +52,17 @@ info:
       - 错误码枚举里的每个取值都必须至少被一条路径引用；无路径引用的错误码不得留在枚举里。
       - POST /api/scan 同步跑完「向量化 → 聚类 → 三模块检测 → 落库」，不引入任务队列。
       - GET /api/gaps、/api/stale、/api/duplicates 返回「清单行 + 本次 threshold 与 P/R/F1」。
+        腐化的 P/R/F1 按两个口径分列（内容过期 / 维护周期），**各自报，不合成单一 F1**；
+        缺口清单的判定单元是业务意图，簇数不作主指标。
       - 清单接口不支持列排序、不分页：行序 = 源 CSV 行序，由响应里的 row_order 字段声明，
         每一档的行序都能按「文件路径 + 列名」复核。
       - 阈值与主指标一律从本次扫描落盘的 metrics.json 读取，不在前端代码里硬编码。
-      - 清单行的字段名与取值与对应 CSV 的列一致（缺口 top15_gaps.csv、腐化 corrupt_docs.csv、重复 dup_groups_best.csv）。
+      - 清单行的字段名与取值与对应 CSV 的列一致（缺口 gap_intents_best.csv、腐化 corrupt_docs.csv、重复 dup_groups_best.csv）。
       - 清单接口不返回真值标注列：源 CSV 的真值标注列不作为字段出现在任何响应里
         （真值只留在产物文件与论文中，见开发前准备清单 §4.10 A14）；下载件则保留全量列。
       - precision / recall / f1 可为 null：无真值语料时 has_ground_truth = false，
         三个指标恒为 null（不是 0）；has_ground_truth = true 时才有值。
-      - count 是「本次命中数量」，三个清单的统计单元不同：缺口=簇、腐化=文档、重复=组。
+      - count 是「本次命中数量」，三个清单的统计单元不同：缺口=意图、腐化=文档、重复=组。
       - 文档与工单各自提供 POST（导入）/ GET（查询）/ DELETE（单条删除 + 整批清空，
         清空是重导的前置动作）；三类缺陷清单只读。内容字段落库后只读，编辑语义等于
         重新导入（在线编辑已按 `docs/技术方案/本科版实施方案.md` §3 第 135 行砍掉）。
@@ -82,8 +85,10 @@ info:
         清单是否分页、是否另设独立详情端点、是否允许 DELETE 整批语料、
         文档上传是否也收文件、两种上传形态是否统一、扫描是否清空语料表、
         linked_doc_id 未命中是拒绝该行还是写 NULL（A17 与现行草案冲突）、
-        linked_doc_id 与簇号的数据形态、清单行字段与落库列的缺口
-        （top15_gaps.csv 的 rep_cover 没有对应列）。取舍见准备清单 §4.10 与 §4.11。
+        清单行字段与落库列的缺口（缺口清单改成意图级后，
+        knowledge_gap 的簇级行与意图级行不再一一对应：n_clusters 没有对应列，
+        cover_score 若复用则装的是意图级 min_cover_median）。
+        取舍见准备清单 §4.10 与 §4.11。
 
 servers:
   - url: /
@@ -617,7 +622,8 @@ paths:
         （见 ScanRequest 的 has_ground_truth 说明）。
 
         扫描产物沿用 run_all.sh 的文件路径与文件名
-        （metrics.json / top15_gaps.csv / corrupt_docs.csv / dup_groups_best.csv 等），
+        （metrics.json / gap_intents_best.csv / gap_clusters_best.csv / corrupt_docs.csv /
+        dup_groups_best.csv 等），
         因此「下载的 CSV 与源文件逐字节一致」与「Web 产物 vs run_all.sh 复跑产物逐字节一致」
         是同一条性质的验证。
 
@@ -636,9 +642,10 @@ paths:
         每次扫描生成一个 scan_id（口径：§4.10 A16「扫描轮次标识与清库语义」），
         重复扫描时旧结果被清空而不是叠加（Issue #3 User Story 15）；
         清库只清结果表、不动语料表，且必须按外键依赖的子表 → 父表顺序执行：
-        先删 knowledge_gap（cluster_result 的子表）→ 再删 cluster_result；
-        先删 stale_document / duplicate_group（document 的子表）→ 保留
-        document / ticket 不动。否则 SQLite 会报 FOREIGN KEY constraint failed。
+        先删 knowledge_gap / stale_document / duplicate_group → 再删 cluster_result；
+        保留 document / ticket 不动。否则 SQLite 会报 FOREIGN KEY constraint failed。
+        （2026-10-25 口径更正后 knowledge_gap 不再是 cluster_result 的子表，
+        它与 cluster_result 之间是 intent_name ↔ main_intent 的软链接。）
         数据库侧还需在**每个连接**上设置 PRAGMA foreign_keys = ON（该开关按连接生效，
         不随建表脚本持久化）。
 
@@ -672,24 +679,58 @@ paths:
                 seconds:
                   encoding: 14.61
                   gap: null
-                  corrupt: 0.4
+                  corrupt: 0.46
                   duplicate: 0.0
-                  total: 3.09
+                  total: 3.82
                 modules:
                   gap:
                     threshold: 0.62
                     precision: 0.8
                     recall: 0.8
                     f1: 0.8
-                    count: 7
+                    count: 5
                     has_ground_truth: true
                   corrupt:
                     threshold: 3
-                    precision: 0.8986
-                    recall: 1.0
-                    f1: 0.9466
-                    count: 69
                     has_ground_truth: true
+                    count: 69
+                    embedded: 62
+                    detected: 69
+                    covered: 62
+                    fp: 7
+                    by_cause:
+                      content_expiry:
+                        label: 内容过期
+                        rules:
+                          - R1_正文过期日期
+                          - R3_正文含绝对过期年份
+                        threshold: 3
+                        planted_of_this_nature: 32
+                        truth: 32
+                        detected: 32
+                        tp: 32
+                        fp: 0
+                        fn: 0
+                        precision: 1.0
+                        recall: 1.0
+                        f1: 1.0
+                        has_ground_truth: true
+                      maintenance:
+                        label: 维护周期
+                        rules:
+                          - R2_更新时间超18个月
+                          - R4_同类存在更新文档
+                        threshold: 3
+                        planted_of_this_nature: 30
+                        truth: 31
+                        detected: 38
+                        tp: 31
+                        fp: 7
+                        fn: 0
+                        precision: 0.8158
+                        recall: 1.0
+                        f1: 0.8986
+                        has_ground_truth: true
                   duplicate:
                     threshold: 0.95
                     precision: 1.0
@@ -767,24 +808,58 @@ paths:
                 seconds:
                   encoding: 14.61
                   gap: null
-                  corrupt: 0.4
+                  corrupt: 0.46
                   duplicate: 0.0
-                  total: 3.09
+                  total: 3.82
                 modules:
                   gap:
                     threshold: 0.62
                     precision: 0.8
                     recall: 0.8
                     f1: 0.8
-                    count: 7
+                    count: 5
                     has_ground_truth: true
                   corrupt:
                     threshold: 3
-                    precision: 0.8986
-                    recall: 1.0
-                    f1: 0.9466
-                    count: 69
                     has_ground_truth: true
+                    count: 69
+                    embedded: 62
+                    detected: 69
+                    covered: 62
+                    fp: 7
+                    by_cause:
+                      content_expiry:
+                        label: 内容过期
+                        rules:
+                          - R1_正文过期日期
+                          - R3_正文含绝对过期年份
+                        threshold: 3
+                        planted_of_this_nature: 32
+                        truth: 32
+                        detected: 32
+                        tp: 32
+                        fp: 0
+                        fn: 0
+                        precision: 1.0
+                        recall: 1.0
+                        f1: 1.0
+                        has_ground_truth: true
+                      maintenance:
+                        label: 维护周期
+                        rules:
+                          - R2_更新时间超18个月
+                          - R4_同类存在更新文档
+                        threshold: 3
+                        planted_of_this_nature: 30
+                        truth: 31
+                        detected: 38
+                        tp: 31
+                        fp: 7
+                        fn: 0
+                        precision: 0.8158
+                        recall: 1.0
+                        f1: 0.8986
+                        has_ground_truth: true
                   duplicate:
                     threshold: 0.95
                     precision: 1.0
@@ -796,28 +871,44 @@ paths:
   /api/gaps:
     get:
       tags: [findings]
-      summary: 知识缺口清单
+      summary: 知识缺口清单（判定单元 = 业务意图）
       description: |
         返回「清单行 + 本次扫描的 threshold 与 P/R/F1」。
 
-        行来自 poc/kbgovernance/top15_gaps.csv 中 cover_median < 本次 threshold 的行，
-        字段名与取值与该 CSV 的列一致（缺口与腐化返回的是 CSV 的子集，不是全表）。
-        本次阈值 0.62 时命中 7 行，与 metrics.json → gap.best.gap_clusters 一致。
+        **判定单元 = 业务意图**：行来自 poc/kbgovernance/gap_intents_best.csv 中判定为缺口的
+        意图行（该文件只保留缺口意图行，5 行；哪些意图判为缺口见 metrics.json →
+        gap.intent_rows 的 is_gap 列），字段名与取值与该 CSV 的列一致。
+        意图级覆盖度 = 该意图下所有簇覆盖度的**最小值**（min 聚合，对应 CSV 的
+        min_cover_median 列）。本次阈值 0.62 时命中 5 个意图，与 metrics.json →
+        gap.best.detected_intents 一致。
 
-        **rows 的行数可能少于 count**：源文件 top15_gaps.csv 只保留覆盖度最低的 15 个簇，
-        当本次阈值的命中簇数超过 15 时（例如 threshold=0.66 时 gap_clusters=27），
-        rows 最多只有 15 行。count 是命中簇总数，rows 是可展示的子集，两者不必相等。
+        **簇数不是主指标**：簇是算法中间量，一个意图可跨多个簇（本次 5 个意图共跨 7 个
+        缺口簇，对应 metrics.json → gap.best.gap_clusters）。簇数只出现在簇级明细里。
 
-        **行序 = 源 CSV 行序**：rows 保持 poc/kbgovernance/top15_gaps.csv 的原始行序
-        （rank 升序，1..15），可按「文件路径 + 列名」复核；落库时按同一顺序写入，
-        knowledge_gap.id 升序与之等价。
+        **统计单元与分母**：count 的统计单元 = **业务意图**；precision / recall / f1 的
+        分母 = **去重后的业务意图**（对应 metrics.json → gap.best.precision / recall /
+        f1），与 count 同一分母，可以直接换算；has_ground_truth=false 时三个指标恒为 null
+        （含义是「不可得」，不是 0）。
+
+        **簇级明细不在本接口**：需要簇级明细（cluster_id / intent / size / cover_median /
+        rep_cover / purity / n_intent_members 等）时，**通过下载
+        poc/kbgovernance/gap_clusters_best.csv 获得**（见 GET /api/downloads/{name}）。
+        【待拍板】是否另设 GET /api/gaps/clusters 只读入口：按推荐不设（簇是内部量，
+        页面主清单只到意图级）；若页面要做簇级下钻再开这个入口。
+
+        **rows 的行数可能少于 count**：源文件 gap_intents_best.csv 只保留本次固定阈值
+        （0.62）下的意图行；本次阈值下命中意图数超过源文件行数时 rows 少于 count，
+        页面需自己说明「rows 是可展示子集」。
+
+        **行序 = 源 CSV 行序**：rows 保持 poc/kbgovernance/gap_intents_best.csv 的原始行序
+        （该文件已按 min_cover_median 升序排好），可按「文件路径 + 列名」复核；落库时按
+        同一顺序写入，knowledge_gap.id 升序与之等价。
 
         **不提供列排序、不分页**：docs/技术方案/本科版实施方案.md §2.2 第 104 行与 §3
         第 120 行把「分页 / 排序 / 跳转详情」列为砍掉项。
 
         【待拍板】是否分页：按推荐不设分页（count 与 rows 一次返回，rows 的行数上限由
-        源 CSV 的 15 行决定）；代价是命中簇数超过源文件行数时 rows 少于 count，页面
-        需自己说明「rows 是可展示子集」。
+        源 CSV 的意图行数决定）；代价是命中意图数超过源文件行数时 rows 少于 count。
       responses:
         '200':
           description: 缺口清单
@@ -831,33 +922,49 @@ paths:
                 precision: 0.8
                 recall: 0.8
                 f1: 0.8
-                count: 7
-                row_order: top15_gaps.csv 原始行序（rank 升序）
+                count: 5
+                row_order: gap_intents_best.csv 原始行序（min_cover_median 升序）
                 rows:
-                  - rank: 1
-                    intent: 公积金提取材料
-                    size: 18
-                    cover_median: 0.5629
-                    rep_cover: 0.5629
+                  - intent: 公积金提取材料
+                    n_clusters: 3
+                    min_cover_median: 0.5629
+                    total_tickets: 76
                     rep_ticket: TK00119
                     rep_text: 租房提取和购房提取材料一样吗，麻烦帮忙确认一下流程
 
   /api/stale:
     get:
       tags: [findings]
-      summary: 内容腐化清单
+      summary: 内容腐化清单（两个口径并列）
       description: |
-        返回「清单行 + 本次扫描的 threshold 与 P/R/F1」。
+        返回「清单行 + 本次扫描的 threshold + 两个口径各自的 P/R/F1 + 合计覆盖面」。
+
+        **两个口径各自独立判定、各自报 P/R/F1，不合成单一 F1**：
+          - 内容过期口径（R1_正文过期日期 + R3_正文含绝对过期年份）：真值 32 篇、
+            检出 32 篇、TP 32 / FP 0 / FN 0，P/R/F1 = 1.0000 / 1.0000 / 1.0000；
+          - 维护周期口径（R2_更新时间超18个月 + R4_同类存在更新文档）：真值 31 篇、
+            检出 38 篇、TP 31 / FP 7 / FN 0，P/R/F1 = 0.8158 / 1.0000 / 0.8986。
+        两类缺陷语义不同，合成一个分数没有意义，因此本接口**不提供单一的 precision /
+        recall / f1**，口径明细见响应体的 by_cause 字段。
+
+        **合计只作覆盖面说明，不报 F1**：埋设 62 篇、检出 69 篇、两口径合并覆盖 62 篇、
+        误报 7 篇（对应 metrics.json → corrupt.embedded / detected / covered / fp）。
+        注意 by_cause 里两个口径的 detected 之和为 70（32 + 38），与合计 detected 69
+        相差 1：DOC0241 埋设的成因是正文过期，但物理上同时满足维护周期口径，
+        在两个口径下都算真阳性。两口径命中行的并集为 69 篇（交集 1 篇），
+        与 risk_score >= 3 的行集一致。
 
         行来自 poc/kbgovernance/corrupt_docs.csv（该文件是全量 300 篇逐篇打分表，不是命中清单）
         中 risk_score >= 本次判定阈值的行，字段名与取值与该 CSV 的列一致。
         本次阈值 3 时命中 69 行，与 metrics.json → corrupt.detected 一致。
+        行内给出两个口径各自的规则子集加权分（cause_score_content_expiry /
+        cause_score_maintenance），各自与本口径的阈值 3 比较。
 
-        源 CSV 还带有若干真值与归因列（in_control_sample / is_dup_copy / dup_source /
-        fp_reason），**本接口不透出这些列**；它们只留在产物文件与论文中，用于解释
-        7 篇误报的来源（其中 6 篇来自对照集、1 篇是重复件继承了主文档的陈旧
-        last_modified，见 poc/kbgovernance/metrics.json → corrupt.fp_from_control
-        与 fp_from_dup_inherit）。
+        源 CSV 还带有若干评测标注与归因列（fp_reason / in_control_sample / is_dup_copy /
+        dup_source），**本接口不透出这些列**；它们只留在产物文件与论文中，用于解释
+        维护周期口径的 7 篇误报（6 篇来自生成器刻意埋设的「4% 自然陈旧但不算缺陷」
+        对照集，1 篇是重复件继承了主文档的陈旧 last_modified，见 poc/kbgovernance/
+        metrics.json → corrupt.by_cause.maintenance.fp_attribution）。
 
         **行序 = 源 CSV 行序**：rows 保持 poc/kbgovernance/corrupt_docs.csv 的原始行序
         （该文件按 risk_score 降序存储），可按「文件路径 + 列名」复核；落库时按同一
@@ -878,10 +985,44 @@ paths:
               example:
                 threshold: 3
                 has_ground_truth: true
-                precision: 0.8986
-                recall: 1.0
-                f1: 0.9466
                 count: 69
+                embedded: 62
+                detected: 69
+                covered: 62
+                fp: 7
+                by_cause:
+                  content_expiry:
+                    label: 内容过期
+                    rules:
+                      - R1_正文过期日期
+                      - R3_正文含绝对过期年份
+                    threshold: 3
+                    planted_of_this_nature: 32
+                    truth: 32
+                    detected: 32
+                    tp: 32
+                    fp: 0
+                    fn: 0
+                    precision: 1.0
+                    recall: 1.0
+                    f1: 1.0
+                    has_ground_truth: true
+                  maintenance:
+                    label: 维护周期
+                    rules:
+                      - R2_更新时间超18个月
+                      - R4_同类存在更新文档
+                    threshold: 3
+                    planted_of_this_nature: 30
+                    truth: 31
+                    detected: 38
+                    tp: 31
+                    fp: 7
+                    fn: 0
+                    precision: 0.8158
+                    recall: 1.0
+                    f1: 0.8986
+                    has_ground_truth: true
                 row_order: corrupt_docs.csv 原始行序（risk_score 降序）
                 rows:
                   - doc_id: DOC0241
@@ -891,6 +1032,8 @@ paths:
                     risk_score: 8
                     rule_hits: R1_正文过期日期|R2_更新时间超18个月|R3_正文含绝对过期年份|R4_同类存在更新文档
                     reasons: 正文含早于2026年的日期表述+过期标记词; last_modified=2024-05-26, 距基准日超过18个月; 正文含绝对过期年份 [2024]; 同'客户服务'下有 9 篇更新且标题重合的文档
+                    cause_score_content_expiry: 5
+                    cause_score_maintenance: 3
 
   /api/duplicates:
     get:
@@ -948,14 +1091,29 @@ paths:
         页面上的每个数字都从这里读，不在前端代码里写死（Issue #3 User Story 52）。
 
         字段与 poc/kbgovernance/metrics.json 的顶层键一一对应：
-        embedding / gap / corrupt / dup / total_seconds。
+        embedding / has_ground_truth / gap / corrupt / dup / total_seconds。
+
+        **has_ground_truth** 是全局开关：true 表示本次语料带真值标注，各模块的
+        precision / recall / f1 有意义；false 时这些指标为 null（含义是「不可得」，
+        不是 0），页面据此决定是否显示指标区。
+
+        **缺口段的判定单元 = 业务意图**：主指标是意图级——detected_intents 是检出的
+        缺口意图数，precision / recall / f1 的分母是去重后的业务意图。
+        gap_clusters（best 内）与 n_gap_clusters 是**簇数**，属于算法内部量与溯源用：
+        一个意图可跨多个簇，本次 5 个缺口意图共跨 7 个缺口簇。簇数不作为主指标，
+        页面主指标用意图级，簇数只用于溯源说明。
+
+        **腐化段按两个口径分别给指标**：内容过期（R1+R3）与维护周期（R2+R4）语义不同，
+        各自独立判定、各自报 P/R/F1，**不合成单一 F1**；顶层 embedded / detected /
+        covered / fp / fn 是两口径合计的覆盖面，不带综合 F1。
 
         **真值派生字段不外露**（口径：docs/技术方案/开发前准备清单.md §4.10 A14
         「真值列是否外泄 → 清单接口不返回真值列」，与 C7 一致）。metrics.json 的
-        corrupt 段含 control_sampled_doc_ids / fp_control_doc_ids /
-        fp_dup_inherit_doc_ids 三组文档 id 列表，它们直接指认哪些文档是防作弊对照集、
-        哪些是误报及其归因，属真值信息；本接口只透出阈值、P/R/F1、命中数与计时，
-        这三组 id 列表不出现。自有语料模式（无真值）下它们本就无从计算。
+        corrupt 段含 control_sampled_doc_ids，以及 by_cause 下各口径的 truth_doc_ids /
+        tp_doc_ids / fp_doc_ids / fn_doc_ids / cross_class_doc_ids 与 fp_attribution，
+        它们直接指认哪些文档是防作弊对照集、哪些是误报及其归因，属真值信息；
+        本接口只透出阈值、比率、命中数与计时，这些 id 列表与归因明细不出现
+        （gap.intent_rows 的 is_true_gap 列同理）。自有语料模式（无真值）下它们本就无从计算。
       responses:
         '200':
           description: metrics.json 的内容
@@ -966,6 +1124,9 @@ paths:
                 description: metrics.json 的指标部分（字段与产物文件一一对应）
                 additionalProperties: true
                 properties:
+                  has_ground_truth:
+                    type: boolean
+                    description: 本次语料是否带真值标注；false 时各模块的 precision / recall / f1 为 null（不可得，不是 0）
                   embedding:
                     type: object
                     additionalProperties: true
@@ -973,11 +1134,24 @@ paths:
                   gap:
                     type: object
                     additionalProperties: true
-                    description: 缺口识别结果，含 best（threshold / gap_clusters / detected_intents / precision / recall / f1）、cluster_rows 扫参曲线与 clusters（各 min_cluster_size 下的簇数与噪声条数）
+                    description: |
+                      缺口识别结果，判定单元 = 业务意图。含 best（min_cluster_size / threshold /
+                      gap_clusters / detected_intents / precision / recall / f1）、n_gap_clusters、
+                      n_gap_intents、gap_intents（检出的缺口意图名数组）、threshold_rows 扫参曲线
+                      与 clusters（各 min_cluster_size 下的簇数与噪声条数）。
+                      主指标是意图级：detected_intents 与 precision / recall / f1 的分母都是去重后的
+                      业务意图；gap_clusters 与 n_gap_clusters 是簇数，属内部量与溯源用
+                      （本次 5 个缺口意图共跨 7 个缺口簇），不作为主指标。
                   corrupt:
                     type: object
                     additionalProperties: true
-                    description: 腐化检测结果，含 precision / recall / f1、score_threshold、rule_weight 与逐篇误报归因计数
+                    description: |
+                      腐化检测结果，按两个口径分别给指标。含 by_cause（内容过期 R1+R3 与
+                      维护周期 R2+R4 各自的 label / rules / threshold / planted_of_this_nature /
+                      detected / tp / fp / fn / precision / recall / f1）、合计 embedded / detected /
+                      covered / fp / fn、score_threshold、rule_weight、rule_hit_counts、score_hist
+                      与 control_sampled。两口径各自独立判定、各自报 P/R/F1，**不合成单一 F1**；
+                      合计字段只作覆盖面说明。
                   dup:
                     type: object
                     additionalProperties: true
@@ -985,6 +1159,74 @@ paths:
                   total_seconds:
                     type: number
                     description: detect.py 全流程墙钟耗时（秒），含聚类开销与三模块检测；不等于各阶段耗时之和
+              example:
+                has_ground_truth: true
+                gap:
+                  best:
+                    min_cluster_size: 5
+                    threshold: 0.62
+                    gap_clusters: 7
+                    detected_intents: 5
+                    precision: 0.8
+                    recall: 0.8
+                    f1: 0.8
+                  n_gap_clusters: 7
+                  n_gap_intents: 5
+                  gap_intents:
+                    - 公积金提取材料
+                    - 海外出差报销标准
+                    - 密码策略例外申请
+                    - 社保转移办理
+                    - 终端病毒处置
+                corrupt:
+                  embedded: 62
+                  detected: 69
+                  covered: 62
+                  fp: 7
+                  fn: 0
+                  score_threshold: 3
+                  by_cause:
+                    content_expiry:
+                      label: 内容过期
+                      rules:
+                        - R1_正文过期日期
+                        - R3_正文含绝对过期年份
+                      threshold: 3
+                      planted_of_this_nature: 32
+                      truth: 32
+                      detected: 32
+                      tp: 32
+                      fp: 0
+                      fn: 0
+                      precision: 1.0
+                      recall: 1.0
+                      f1: 1.0
+                      has_ground_truth: true
+                    maintenance:
+                      label: 维护周期
+                      rules:
+                        - R2_更新时间超18个月
+                        - R4_同类存在更新文档
+                      threshold: 3
+                      planted_of_this_nature: 30
+                      truth: 31
+                      detected: 38
+                      tp: 31
+                      fp: 7
+                      fn: 0
+                      precision: 0.8158
+                      recall: 1.0
+                      f1: 0.8986
+                      has_ground_truth: true
+                dup:
+                  best:
+                    threshold: 0.95
+                    dup_groups: 22
+                    detected_docs: 49
+                    group_precision: 1.0
+                    group_recall: 1.0
+                    group_f1: 1.0
+                total_seconds: 3.82
 
   /api/downloads/{name}:
     get:
@@ -998,11 +1240,18 @@ paths:
 
         **枚举与 poc/kbgovernance/ 下实际存在的机读产物同名**，分两类：
           - 页面清单的投影（三类清单的源文件，页面上看到的行就是这些文件里的行）：
-            top15_gaps.csv、corrupt_docs.csv、dup_groups_best.csv；
+            gap_intents_best.csv、corrupt_docs.csv、dup_groups_best.csv；
           - 全量明细与辅助产物（不直接投影到页面，用于复核与溯源）：
+            gap_clusters_best.csv（缺口簇级明细，页面不下钻时靠下载它获得）、
             docs.csv、tickets.csv、metrics.json、gap_threshold.csv、dup_threshold.csv、
-            corrupt_rule_ablation.csv、derived_metrics.csv、granularity.csv、
+            corrupt_rule_ablation_content_expiry.csv、
+            corrupt_rule_ablation_maintenance.csv、derived_metrics.csv、granularity.csv、
             granularity_dup.csv、embeddings_meta.json、repro_check.json。
+
+        **消融产物按口径分文件**：原先的单张消融表已拆成
+        corrupt_rule_ablation_content_expiry.csv（内容过期口径）与
+        corrupt_rule_ablation_maintenance.csv（维护周期口径），两张表各自对应一个口径的
+        P/R/F1，不再有合并的单一 F1。
 
         **下载件保留全量列**（含真值标注列与归因列），与清单接口相反：清单接口不返回
         真值列（口径：§4.10 A14），下载件是论文溯源用的原始产物。
@@ -1019,8 +1268,9 @@ paths:
         （同一份源文件在页面上被裁掉了这几列，下载区必须让这一区别可见）。
 
         **逐字节一致的范围按文件分档**（见 poc/kbgovernance/repro_check.json）：
-        三个清单 CSV 与 docs.csv / tickets.csv / gap_threshold.csv /
-        corrupt_rule_ablation.csv / granularity.csv / granularity_dup.csv /
+        三个清单 CSV 与 gap_clusters_best.csv / docs.csv / tickets.csv /
+        gap_threshold.csv / corrupt_rule_ablation_content_expiry.csv /
+        corrupt_rule_ablation_maintenance.csv / granularity.csv / granularity_dup.csv /
         derived_metrics.csv 是字节确定的，逐字节一致成立；metrics.json 含计时字段
         （encode_seconds / total_seconds / corrupt.seconds）、embeddings_meta.json 含
         encode_seconds、dup_threshold.csv 含 seconds，跨运行必然波动，只能
@@ -1041,7 +1291,8 @@ paths:
           schema:
             type: string
             enum:
-              - top15_gaps.csv
+              - gap_intents_best.csv
+              - gap_clusters_best.csv
               - corrupt_docs.csv
               - dup_groups_best.csv
               - docs.csv
@@ -1049,7 +1300,8 @@ paths:
               - metrics.json
               - gap_threshold.csv
               - dup_threshold.csv
-              - corrupt_rule_ablation.csv
+              - corrupt_rule_ablation_content_expiry.csv
+              - corrupt_rule_ablation_maintenance.csv
               - derived_metrics.csv
               - granularity.csv
               - granularity_dup.csv
@@ -1076,9 +1328,9 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 code: DOWNLOAD_NOT_FOUND
-                message: 未找到产物 top15_gaps.csv：请先运行 POST /api/scan
+                message: 未找到产物 gap_intents_best.csv：请先运行 POST /api/scan
                 location:
-                  value: top15_gaps.csv
+                  value: gap_intents_best.csv
 
   /docs:
     get:
@@ -1341,35 +1593,36 @@ components:
 
     GapRow:
       type: object
-      description: 知识缺口清单的一行，字段名与取值与 top15_gaps.csv 的列一致。
-      required: [rank, intent, size, cover_median]
-      properties:
-        rank:
-          type: integer
-          description: |
-            名次（对应 top15_gaps.csv 的 rank 列）。
+      description: |
+        知识缺口清单的一行，**判定单元 = 业务意图**，字段名与取值与
+        poc/kbgovernance/gap_intents_best.csv 的列一致。
 
-            rank 是清单行号，不落库为列：行序 = top15_gaps.csv 的原始行序
-            （rank 升序 1..15），落库按同一顺序写入 knowledge_gap。
+        **落库形态（2026-10-25 口径更正后已定）**：knowledge_gap 一行 = 一个业务意图，
+        不再是簇级——cover_score 装意图覆盖度（该意图下各簇覆盖度的最小值），
+        ticket_count 对应 total_tickets，新增 n_clusters 存该意图下的簇数；
+        指向 cluster_result 的外键已取消，意图与簇的对应靠 intent_name ↔ main_intent
+        的软链接口径。簇级产物里原有的 rep_cover 在意图级产物中已不存在，
+        本接口也不再透出。
+      required: [intent, n_clusters, min_cover_median, total_tickets]
+      properties:
         intent:
           type: string
-          description: 意图名（对应 knowledge_gap.intent_name）
-        size:
-          type: integer
-          description: 涉及工单数（对应 knowledge_gap.ticket_count）
-        cover_median:
-          type: number
-          description: 该意图的段落级覆盖度中位数（对应 knowledge_gap.cover_score）
-        rep_cover:
-          type: number
-          nullable: true
           description: |
-            代表工单的覆盖度。
-
-            **【待拍板】落库形态**：top15_gaps.csv 有 rep_cover 列，但六表 DDL 里没有
-            对应列（knowledge_gap.cover_score 存的是 cover_median）。是新增一列
-            rep_cover，还是接受本字段用 cover_median 顶替，待拍板；新增列会偏离
-            技术方案 §4.3 的六表 DDL。
+            业务意图名，缺口判定的最小单元（对应 knowledge_gap.intent_name）。
+            一个意图可跨多个簇；行序按 min_cover_median 升序。
+        n_clusters:
+          type: integer
+          description: |
+            该意图下的簇数。**簇数是算法内部量与溯源用，不是主指标**；
+            本次 5 个缺口意图共跨 7 个缺口簇（metrics.json → gap.best.gap_clusters）。
+        min_cover_median:
+          type: number
+          description: |
+            意图级覆盖度 = 该意图下所有簇覆盖度的最小值（min 聚合），
+            低于本次 threshold 即判为缺口（对应 knowledge_gap.cover_score）。
+        total_tickets:
+          type: integer
+          description: 该意图涉及的工单总数（对应 knowledge_gap.ticket_count）
         rep_ticket:
           type: string
           nullable: true
@@ -1378,12 +1631,15 @@ components:
           type: string
           nullable: true
           description: 代表工单原文（对应 knowledge_gap.representative_text）
+        # 行里不重复给 threshold：响应顶层已给本次阈值。
         # 真值标注列 is_true_gap 不出现在本接口：它只留在产物 CSV 与论文中。
         # 依据：docs/技术方案/开发前准备清单.md §4.10 A14（与 Issue #3 评审意见 C7 一致）。
 
     StaleRow:
       type: object
-      description: 内容腐化清单的一行，字段名与取值与 corrupt_docs.csv 的列一致。
+      description: |
+        内容腐化清单的一行，字段名与取值与 poc/kbgovernance/corrupt_docs.csv 的列一致。
+        行内给出两个口径各自的规则子集加权分（cause_score_*），各自与本口径的阈值比较。
       required: [doc_id, risk_score]
       properties:
         doc_id:
@@ -1400,7 +1656,7 @@ components:
           description: 最后修改日期（对应 document.last_modified）
         risk_score:
           type: integer
-          description: 时效性风险分（对应 stale_document.risk_score）
+          description: 时效性风险分，四条规则的加权分之和（对应 stale_document.risk_score）
         rule_hits:
           type: string
           nullable: true
@@ -1409,6 +1665,21 @@ components:
           type: string
           nullable: true
           description: 逐条规则的理由，分号分隔（对应 stale_document.reasons）
+        cause_score_content_expiry:
+          type: number
+          description: |
+            内容过期口径（R1 + R3）的规则加权分。该分 >= 本口径阈值 3 时，
+            本篇在内容过期口径下命中。
+        cause_score_maintenance:
+          type: number
+          description: |
+            维护周期口径（R2 + R4）的规则加权分。该分 >= 本口径阈值 3 时，
+            本篇在维护周期口径下命中。
+        # 评测标注与归因列 fp_causes / fp_reason / in_control_sample /
+        # is_dup_copy / dup_source 不出现在本接口：它们只留在产物 CSV 与论文中。
+        # fp_causes 尤其不能外露——它非空即等价于「这一行是误报」，与
+        # is_true_gap 同属真值派生列。
+        # 依据：docs/技术方案/开发前准备清单.md §4.10 A14（与 Issue #3 评审意见 C7 一致）。
 
     DuplicateRow:
       type: object
@@ -1436,7 +1707,9 @@ components:
 
     GapList:
       type: object
-      description: 知识缺口清单：行 + 本次扫描的 threshold 与 P/R/F1。
+      description: |
+        知识缺口清单：行 + 本次扫描的 threshold 与 P/R/F1。
+        判定单元 = 业务意图；count 与 P/R/F1 的分母都是去重后的业务意图。
       required: [threshold, has_ground_truth, precision, recall, f1, count, row_order, rows]
       properties:
         threshold:
@@ -1448,21 +1721,21 @@ components:
         precision:
           type: number
           nullable: true
-          description: 本次扫描的精确率（对应 metrics.json → gap.best.precision）。**统计单元 = 去重后的业务意图**，与同对象的 count（缺口簇）不是同一分母，两者不可直接相除换算；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
+          description: 本次扫描的精确率（对应 metrics.json → gap.best.precision）。**统计单元 = 去重后的业务意图**，与同对象的 count（缺口意图数）同一分母，两者可直接换算；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
         recall:
           type: number
           nullable: true
-          description: 本次扫描的召回率（对应 metrics.json → gap.best.recall）；has_ground_truth=false 时为 null（不可得）。**统计单元 = 去重后的业务意图**，与同对象的 count（缺口簇）不是同一分母，两者不可直接相除换算
+          description: 本次扫描的召回率（对应 metrics.json → gap.best.recall）；has_ground_truth=false 时为 null（不可得）。**统计单元 = 去重后的业务意图**，与同对象的 count 同一分母
         f1:
           type: number
           nullable: true
           description: 本次扫描的 F1（对应 metrics.json → gap.best.f1）；has_ground_truth=false 时为 null（不可得）
         count:
           type: integer
-          description: 统计单元 = 缺口簇：本次命中的缺口簇数（对应 metrics.json → gap.best.gap_clusters）
+          description: 统计单元 = 业务意图：本次命中的缺口意图数（对应 metrics.json → gap.best.detected_intents）。簇数不作为主指标（见 metrics.json → gap.best.gap_clusters）
         row_order:
           type: string
-          description: 行序定义：rows 保持源 CSV 行序（top15_gaps.csv 原始行序，rank 升序），可按「文件路径 + 列名」复核；不提供列排序与分页
+          description: 行序定义：rows 保持源 CSV 行序（gap_intents_best.csv 原始行序，该文件已按 min_cover_median 升序排好），可按「文件路径 + 列名」复核；不提供列排序与分页
         rows:
           type: array
           description: 清单行（未检出时为空数组）
@@ -1471,8 +1744,11 @@ components:
 
     StaleList:
       type: object
-      description: 内容腐化清单：行 + 本次扫描的 threshold 与 P/R/F1。
-      required: [threshold, has_ground_truth, precision, recall, f1, count, row_order, rows]
+      description: |
+        内容腐化清单：行 + 本次扫描的 threshold + 两个口径各自的 P/R/F1 + 合计覆盖面。
+        **不提供单一的 precision / recall / f1**：两个口径语义不同、各自独立判定，
+        合成一个分数没有意义。
+      required: [threshold, has_ground_truth, count, embedded, detected, covered, fp, by_cause, row_order, rows]
       properties:
         threshold:
           type: integer
@@ -1480,21 +1756,34 @@ components:
         has_ground_truth:
           type: boolean
           description: 本次扫描是否有评测真值。自有语料模式恒为 false（口径：§4.10 A13）
-        precision:
-          type: number
-          nullable: true
-          description: 本次扫描的精确率（对应 metrics.json → corrupt.precision）。**统计单元 = 文档**，与同对象的 count（篇文档）一致；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
-        recall:
-          type: number
-          nullable: true
-          description: 本次扫描的召回率（对应 metrics.json → corrupt.recall）；has_ground_truth=false 时为 null（不可得）。**统计单元 = 文档**，与同对象的 count（篇文档）一致
-        f1:
-          type: number
-          nullable: true
-          description: 本次扫描的 F1（对应 metrics.json → corrupt.f1）；has_ground_truth=false 时为 null（不可得）
         count:
           type: integer
-          description: 统计单元 = 腐化文档：本次命中的腐化文档数（对应 metrics.json → corrupt.detected）
+          description: 统计单元 = 文档：本次命中的腐化文档数（对应 metrics.json → corrupt.detected），与同对象的 detected 同一数值
+        embedded:
+          type: integer
+          description: 本次语料埋设的腐化文档总数（对应 metrics.json → corrupt.embedded）
+        detected:
+          type: integer
+          description: 本次检出的腐化文档数（对应 metrics.json → corrupt.detected）
+        covered:
+          type: integer
+          description: 两口径合并覆盖的埋设文档数（对应 metrics.json → corrupt.covered）
+        fp:
+          type: integer
+          description: 误报文档数（对应 metrics.json → corrupt.fp）
+        by_cause:
+          type: object
+          description: |
+            两个判定口径各自的指标：内容过期（R1 + R3）与维护周期（R2 + R4）。
+            键固定为 content_expiry 与 maintenance，各自独立判定、各自报 P/R/F1。
+            注意两口径的 detected 之和为 70（32 + 38），与合计 detected 69 相差 1：
+            有一篇跨类文档埋设的成因是正文过期，但物理上同时满足维护周期口径，
+            在两个口径下都算真阳性。
+          properties:
+            content_expiry:
+              $ref: '#/components/schemas/CorruptCauseMetrics'
+            maintenance:
+              $ref: '#/components/schemas/CorruptCauseMetrics'
         row_order:
           type: string
           description: 行序定义：rows 保持源 CSV 行序（corrupt_docs.csv 原始行序，该文件按 risk_score 降序存储），可按「文件路径 + 列名」复核；不提供列排序与分页
@@ -1503,6 +1792,65 @@ components:
           description: 清单行（未检出时为空数组）
           items:
             $ref: '#/components/schemas/StaleRow'
+
+    CorruptCauseMetrics:
+      type: object
+      description: |
+        内容腐化的一个判定口径（成因类别）：规则、阈值与该口径自身的 P/R/F1。
+        两个口径各自独立判定、各自报 P/R/F1，**不合成单一 F1**；
+        合计（embedded / detected / covered / fp）只作覆盖面说明，不带综合 F1。
+      required: [label, rules, threshold, planted_of_this_nature, truth, detected, tp, fp, fn, precision, recall, f1, has_ground_truth]
+      properties:
+        label:
+          type: string
+          description: 口径名（内容过期 / 维护周期）
+        rules:
+          type: array
+          description: 该口径包含的规则编码
+          items:
+            type: string
+        threshold:
+          type: integer
+          description: 该口径的判定阈值（规则子集加权分 >= 此值即在该口径下命中）
+        planted_of_this_nature:
+          type: integer
+          description: |
+            生成器按此成因埋设的文档数（metrics.json → corrupt.by_cause.*.planted_of_this_nature）。
+            维护周期口径的埋设数小于该口径的真值数：跨类文档埋设的成因是正文过期，
+            但物理上同时满足维护周期口径，在两个口径下都算真阳性。
+        truth:
+          type: integer
+          description: |
+            该口径的真值文档数（metrics.json → corrupt.by_cause.*.truth_doc_ids 的条数，
+            与分口径消融表 corrupt_rule_ablation_content_expiry.csv /
+            corrupt_rule_ablation_maintenance.csv 的 truth 列一致）。
+        detected:
+          type: integer
+          description: 该口径下检出的文档数
+        tp:
+          type: integer
+          description: 该口径下的真阳性文档数
+        fp:
+          type: integer
+          description: 该口径下的误报文档数
+        fn:
+          type: integer
+          description: 该口径下的漏报文档数
+        precision:
+          type: number
+          nullable: true
+          description: 该口径的精确率；has_ground_truth=false 时为 null（不可得，不是 0）
+        recall:
+          type: number
+          nullable: true
+          description: 该口径的召回率；has_ground_truth=false 时为 null（不可得）
+        f1:
+          type: number
+          nullable: true
+          description: 该口径的 F1；has_ground_truth=false 时为 null（不可得）
+        has_ground_truth:
+          type: boolean
+          description: 该口径本次是否有评测真值；为 false 时上面三个指标恒为 null（不可得，不是 0）
 
     DuplicateList:
       type: object
@@ -1572,10 +1920,10 @@ components:
           properties:
             gap_coverage_threshold:
               type: number
-              description: 覆盖度阈值（簇内工单覆盖度低于此值判为知识缺口）
+              description: 覆盖度阈值（意图级覆盖度 = 该意图下各簇覆盖度的最小值，低于此值判为知识缺口）
             corrupt_score_threshold:
               type: integer
-              description: 风险分判定阈值（规则加权分 ≥ 此值判为内容腐化）
+              description: 风险分判定阈值（规则加权分 ≥ 此值判为内容腐化；两个口径各用自己的规则子集加权分与阈值）
             duplicate_similarity_threshold:
               type: number
               description: 余弦相似度阈值（组内最大相似度 ≥ 此值判为重复组）
@@ -1625,33 +1973,44 @@ components:
           description: F1；has_ground_truth=false 时为 null
         count:
           type: integer
-          description: 命中缺口簇数（统计单元 = 簇）
+          description: 命中缺口意图数（统计单元 = 业务意图；簇数是内部量，不是主指标）
 
     CorruptModuleMetrics:
       type: object
-      required: [threshold, has_ground_truth, precision, recall, f1, count]
+      description: |
+        内容腐化模块的主指标：两个口径各自报 P/R/F1，另给合计覆盖面。
+        **不提供单一的 precision / recall / f1**：两个口径语义不同、各自独立判定。
+      required: [threshold, has_ground_truth, count, embedded, detected, covered, fp, by_cause]
       properties:
         threshold:
           type: integer
           description: 风险分判定阈值
         has_ground_truth:
           type: boolean
-          description: 本模块本次是否有评测真值；为 false 时下面三个指标恒为 null（含义是「不可得」，不是 0）
-        precision:
-          type: number
-          nullable: true
-          description: 精确率；has_ground_truth=false 时为 null
-        recall:
-          type: number
-          nullable: true
-          description: 召回率；has_ground_truth=false 时为 null
-        f1:
-          type: number
-          nullable: true
-          description: F1；has_ground_truth=false 时为 null
+          description: 本模块本次是否有评测真值；为 false 时各口径的 precision / recall / f1 恒为 null（含义是「不可得」，不是 0）
         count:
           type: integer
           description: 命中腐化文档数（统计单元 = 文档）
+        embedded:
+          type: integer
+          description: 本次语料埋设的腐化文档总数
+        detected:
+          type: integer
+          description: 本次检出的腐化文档数
+        covered:
+          type: integer
+          description: 两口径合并覆盖的埋设文档数
+        fp:
+          type: integer
+          description: 误报文档数
+        by_cause:
+          type: object
+          description: 两个判定口径各自的指标（内容过期 R1+R3 / 维护周期 R2+R4）
+          properties:
+            content_expiry:
+              $ref: '#/components/schemas/CorruptCauseMetrics'
+            maintenance:
+              $ref: '#/components/schemas/CorruptCauseMetrics'
 
     DuplicateModuleMetrics:
       type: object

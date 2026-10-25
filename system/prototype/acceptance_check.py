@@ -193,8 +193,29 @@ def main():
         page.evaluate(
             "document.querySelector('.seg-btn[data-target=\"lists\"][data-state=\"success\"]').click()")
         page.wait_for_timeout(250)
+        # 缺口页：判定单元是业务意图，候选池规模来自簇级明细
+        page.evaluate("document.querySelector('#tab-gap').click()")
+        page.wait_for_timeout(250)
+        gap_text = page.inner_text("body")
+        gap_rows = page.eval_on_selector_all("#listBody tr", "els => els.length")
+        gap_head = page.inner_text("#listHead")
+        check("H5 缺口页声明判定单元是业务意图",
+              "判定单元" in gap_text and "业务意图" in gap_text)
+        check("H5 缺口清单按业务意图逐条列示",
+              gap_rows == 5 and "业务意图" in gap_head and "簇数" in gap_head
+              and "意图覆盖度" in gap_head and "意图下工单数" in gap_head,
+              f"rows={gap_rows}")
+        check("H5 缺口候选池规模取自簇级明细",
+              "95" in gap_text and "30" in gap_text, "")
+
+        # 腐化页：两个口径各自报 P/R/F1，合计只作覆盖面说明
+        page.evaluate("document.querySelector('#tab-corrupt').click()")
+        page.wait_for_timeout(250)
         body = page.inner_text("body")
-        check("H5 缺口页声明只显示 15 个中的 7 个", "15" in body and "7" in body)
+        check("H5 腐化页分两类口径各报 P/R/F1",
+              "内容过期" in body and "维护周期" in body
+              and "1.0000" in body and "0.8158" in body and "0.8986" in body)
+        check("H5 腐化页声明合计只作覆盖面说明", "覆盖面" in body)
         check("H6 下载区明示含评测标注列", "评测标注" in body or "溯源" in body)
         check("H7 交代展示行数与判定总数", "代表行" in body and "判定总数" in body)
         check("H5 派生值有标注", "派生值" in body)

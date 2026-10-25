@@ -19,6 +19,13 @@
 
 每个页面右下角有「原型状态演示」开关，可切换成功态 / 未扫描 / 加载态 / 错误态 / 扫描占用等状态，用来核对各状态下的文案、空态与「数据状态诚实」规则（0 打印 0，缺失打印灰破折号，不补数）。
 
+## 判定口径（页面按这套口径呈现）
+
+- **知识缺口的判定单元是业务意图**，不是意图簇。意图级覆盖度 = 该意图下各簇覆盖度的**最小值**（min 聚合），阈值 0.62；清单列示 5 个缺口业务意图，对应 7 个意图簇。意图簇只作内部量与溯源明细，页面在「口径与免责」里单列说明。
+- **内容腐化分两类口径，各自独立判定、各自报精确率 / 召回率 / F1，不合成单一 F1**：内容过期（R1 + R3）与维护周期（R2 + R4）。指标区两行并列，合计只作覆盖面说明（埋设 62 篇 / 检出 69 篇 / 覆盖 62 篇）。
+- **重复冗余**按重复组计数，按组算精确率与召回率。
+- 三类的统计单元不同，不做横向比较；精确率、召回率、F1 在没有评测标注时显示占位破折号而不是 0。
+
 ## 三套视觉与文案变体（P7 已选定 A）
 
 `variants/` 下三页结构完全相同，只换视觉 token 与文案语气。**需求方已选定 A｜学术清朗**（2026-10-24），原型默认变体即 `data-variant="v1"`；B / C 保留为备选，换风格只改 token 与文案语气，不动结构。
@@ -33,15 +40,17 @@
 
 ## 数据从哪来
 
-`data.js` 里的每个数字都取自 `poc/kbgovernance/` 的机读产物（`metrics.json` / `top15_gaps.csv` / `corrupt_docs.csv` / `dup_groups_best.csv` / `dup_threshold.csv` / `gap_threshold.csv` / `standardize/scenario_meta.json` / `repro_check.json`），与页面上的文案一一对应。原型页面不发起任何真实请求，界面上的接口路径、数据来源、统计单元口径都是**设计标注**，用来核对将来实现时应当对齐的契约。
+`data.js` 里的每个数字都取自 `poc/kbgovernance/` 的机读产物（`metrics.json` / `gap_intents_best.csv` / `gap_clusters_best.csv` / `corrupt_docs.csv` / `dup_groups_best.csv` / `dup_threshold.csv` / `gap_threshold.csv` / `standardize/scenario_meta.json` / `repro_check.json`），与页面上的文案一一对应。原型页面不发起任何真实请求，界面上的接口路径、数据来源、统计单元口径都是**设计标注**，用来核对将来实现时应当对齐的契约。
 
 页面上出现的边界是刻意保留的诚实标注，不是没做完：
 
 - 重复冗余 F1 = 1.0000 是**乐观值**，页面同时给出阈值 0.90 下的组级 F1 0.7037 作为真实预期基线；
+- 内容过期口径的 F1 = 1.0000 是**循环验证**：规则是照着语料生成时的埋设模板写的，这一栏的满分不代表真实语料上的表现，页面直接写明这一点；
+- 维护周期口径的 7 篇误报与真缺陷命中的规则完全相同，属规则层面本来就不可区分的**真实边界**，页面如实声明；
 - 聚类耗时与缺口阶段耗时在产物里没有对应字段，页面写「—」并说明原因；
 - `total_seconds` 是 `detect.py` 主流程全程（读 CSV + 聚类 + 三检测，不含向量化），页面按 `detect.py` 的实际计时范围表述，不复算不出的分项；
-- 缺口页声明「本次仅显示 15 个意图簇中的 7 个」，并给出 0.60 / 0.62 / 0.64 / 0.66 四档阈值的敏感性对比；
-- 清单页不展示任何评测依据列（`is_true_gap` / `is_true_group` 等），但下载区明示下载的是含标注列的原始产物。
+- 缺口页声明「判定单元是业务意图」，并给出 0.60 / 0.62 / 0.64 / 0.66 四档阈值的敏感性对比；
+- 清单页不展示任何评测依据列（真值标注列、归因列），但下载区明示下载的是含标注列的原始产物。
 
 ## 校验
 
@@ -54,7 +63,7 @@ python system/prototype/check_prototype.py
 # 2) 渲染：三个页面 + 三个清单 Tab + 三套变体实际渲染，无控制台错误、无横向溢出、无 NaN/undefined
 python system/prototype/render_check.py
 
-# 3) 交互验收：逐条核验准备清单 §2.8 H1~H7 的验收信号（25 项）
+# 3) 交互验收：逐条核验准备清单 §2.8 H1~H7 的验收信号（29 项）
 python system/prototype/acceptance_check.py
 ```
 
@@ -73,12 +82,20 @@ system/prototype/
 ├── copy.js             # 三套变体的文案表（window.COPY.v1 / .v2 / .v3，键集一致）
 ├── app.js              # 文案与数值注入、三页状态机、清单渲染、展开、键盘模型、弹窗与抽屉
 ├── data.js             # 来自 poc/kbgovernance/ 产物的样例数据（含 audit 段）
-├── check_prototype.py  # 数字溯源校验（含 audit 段逐项核对与真值列红线扫描）
+├── check_prototype.py  # 数字溯源校验（audit 段逐项核对 + 真值列红线 + 文案键覆盖）
 ├── render_check.py     # 渲染校验 + 截图（含三套变体）
-├── acceptance_check.py # 交互验收（准备清单 §2.8 H1~H7 的 25 项验收信号）
+├── acceptance_check.py # 交互验收（准备清单 §2.8 H1~H7 的 29 项验收信号）
 ├── variants/           # 三套视觉与文案变体（P7 待选）
-└── shots/              # 渲染截图（校验副产物）
+└── shots/              # 渲染截图（校验副产物，随脚本重跑刷新）
 ```
+
+## 两条容易踩的约定
+
+**文案键的死活看元素有没有子节点。** `app.js` 的文案注入对含 `<code>` 或 `<span data-num>` 子节点的元素整段跳过，所以这类元素的显示文本来自 HTML 静态文本，`copy.js` 里同名的键是永不生效的死键。已确认并从 `copy.js` 删掉的死键有 7 个：`app.source`、`app.foot`、`lists.calib.d1body`、`scan.pre.thresholdNote`、`upload.corpus.refNote`、`upload.doc.recordOk`、`upload.ticket.recordOk`。要改这几处的显示文本，改 HTML，不改 `copy.js`。
+
+**真值列红线的范围是页面与数据侧。** `check_prototype.py` 的禁列扫描覆盖 `index.html` / `app.js` / `data.js` / `styles.css` / `copy.js` 与 `variants/*.html`，这些文件里不得出现评测依据列与归因列；校验脚本自身要列出禁列名就得写出这些字面量，不在扫描范围内。判定口径是「页面与数据侧 0 命中，校验脚本的禁列清单字面量除外」。
+
+`check_prototype.py` 另有两项是防回归的护栏：文案键覆盖（页面引用的每个 `data-copy` 键都必须存在于三变体且三变体键集一致——少一个键的后果是页面上留下一段运行时永远不会被替换的静态文本，看起来像文案、实际是死键）与产物内容指纹对账（`data.js` 的 `audit.run.artifacts_fingerprint` 对 `repro_check.json` 的字节确定产物 md5 集合算出的指纹——**不拿时间戳对账**，因为 `repro_check.json` 每次重跑都会刷新 `generated_at`，拿时间戳对账等于每次重跑必然失败）。
 
 ## 与规格书的关系
 

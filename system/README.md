@@ -38,7 +38,7 @@
 
 1. **工单不是机器可读的。** 接口细节写在 GitHub Issue #3 正文里，人能读、前后端各写各的时会各自发明字段名、错误体和排序参数，联调期改一次的成本远高于落盘一次。
 2. **契约要能被机械校验。** 建表脚本能被 `sqlite3` 幂等执行、OpenAPI 能被 `yaml.safe_load` 解析并数出路径数，于是「实现是否对齐契约」有了唯一判据，而不是靠人读文档。
-3. **数字纪律在这里生效。** 契约里出现的每个指标值都来自 `poc/kbgovernance/metrics.json` 与对应 CSV（`top15_gaps.csv` / `corrupt_docs.csv` / `dup_groups_best.csv`），不从叙述性文本反推、不在前端代码里写死。先落盘等于先把数字的出处钉死。
+3. **数字纪律在这里生效。** 契约里出现的每个指标值都来自 `poc/kbgovernance/metrics.json` 与对应 CSV（`gap_intents_best.csv` / `gap_clusters_best.csv` / `corrupt_docs.csv` / `dup_groups_best.csv`），不从叙述性文本反推、不在前端代码里写死。先落盘等于先把数字的出处钉死。
 4. **前端类型由后端 OpenAPI 生成。** 契约先行，前端的 TS 类型才有单一来源，不会出现「后端改了字段名、前端还按旧名编译」。
 
 ---
@@ -130,7 +130,11 @@ cd /d/26code/毕设 && python -c "import yaml;d=yaml.safe_load(open('system/open
 5. **文档上传是否也收文件。** Issue #3 同时提到「原样保存上传文件」与「校验必填列」；契约把文档与工单统一按 multipart 文件上传写，需确认是否改成 JSON 体、两种形态是否统一。
 6. **扫描是否清空语料表。** 契约的 DELETE 接口存在（重导的前置动作），但「扫描是否自动清空语料表」尚未拍板；这直接决定上传页要不要「重新上传」提示与扫描确认框的文案（规格书 OPEN-1）。
 7. **`linked_doc_id` 未命中是拒绝该行还是写 NULL。** 现行草案按 A17「未命中即拒绝该行」写，但 A17 的方向是建 `doc_code → id` 映射后仍存行号，与现行「存编码文本」的方案冲突；两者只能选一套。
-8. **清单行字段与落库列的一处缺口。** `top15_gaps.csv` 有 `rep_cover` 列，但六表 DDL 里没有对应列（`knowledge_gap.cover_score` 存的是 `cover_median`）；新增列会偏离 §4.3 的六表 DDL，需拍板。
+8. **清单行字段与落库列的一处缺口。** `gap_clusters_best.csv` 有 `rep_cover` 列（代表工单自身的覆盖度），但六表 DDL 里没有对应列（`cluster_result.cover_score` 存的是 `cover_median`）；新增列会偏离 §4.3 的六表 DDL，需拍板。
+
+9. **判定单元已改为业务意图（2026-10-25 口径更正）。** `knowledge_gap` 一行 = 一个业务意图，不是簇：`cover_score` 存意图覆盖度（该意图下各簇覆盖度的最小值），`n_clusters` 存该意图下的簇数，`ticket_count` 存该意图下的工单总数。指向 `cluster_result` 的外键已取消（一个意图对应多个簇，外键表达不了），意图与簇的对应靠 `knowledge_gap.intent_name` ↔ `cluster_result.main_intent` 的软链接口径。`stale_document` 增 `cause_score_content_expiry` / `cause_score_maintenance` 两列，内容过期（R1+R3）与维护周期（R2+R4）两类口径各自独立判定、各自算分；`risk_score` 保留为四规则合并分，只作溯源与对照。
+
+10. **清库顺序因本次更正而变。** `knowledge_gap` 已不是 `cluster_result` 的子表，删表顺序改为：`knowledge_gap` / `stale_document` / `duplicate_group` → `cluster_result` → `ticket` → `document`。
 9. **腐化清单的行范围与判定符。** `corrupt_docs.csv` 是 300 篇逐篇打分表，不是命中清单；契约取 `risk_score >= 本次阈值` 的子集（阈值 3 时 69 行，与 `metrics.json → corrupt.detected` 一致），需确认判定用 `>=`（当前写法）而非 `>`。
 10. **耗时字段是每次复跑重写的值**（`total_seconds` / `corrupt.seconds`），不是稳定指标，跨机器必然波动；契约里的示例值取自当前工作树产物。
 11. **下载件含真值列 —— 已定口径（2026-10-24）。** `GET /api/downloads/{name}` 原样返回源 CSV，`is_true_gap` / `is_true_group` / `in_control_sample` / `is_dup_copy` / `dup_source` / `fp_reason` 六列会一并交到用户硬盘。**定为「保留全量列 + 下载区明示」**，不裁剪视图。理由：`docs/技术方案/本科版实施方案.md` §2「M-系统·Web 交付」要求「直接下载 poc/kbgovernance/ 已产出的 CSV」，Issue #3 断言清单第 10 条要求「下载的 CSV 与源文件逐字节一致」——裁剪会同时违反这两条，并让「逐字节一致」这条可机读验收信号失效。对应义务：**下载区必须在按钮附近明示「下载的是含评测标注列的原始产物，仅用于论文溯源与复现」**，不得静默下载；清单页面本身仍不展示任何真值列。落地见 `system/openapi.yaml` 的 `GET /api/downloads/{name}` 描述与准备清单 C7。
