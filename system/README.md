@@ -10,7 +10,7 @@
 | 文件 | 内容 | 消费方 |
 |---|---|---|
 | `schema.sql` | 6 张表的 SQLite 建表脚本（幂等，可重复执行）+ 迁移组织方式 + 查询路径→索引对照 | 后端建库 / 迁移 |
-| `openapi.yaml` | 15 条路径 / 19 个操作 / 22 个 schema 的 OpenAPI 3.0 契约草案 | 讨论用；定稿后才供实现消费 |
+| `openapi.yaml` | 15 条路径 / 19 个操作 / 23 个 schema 的 OpenAPI 3.0 契约草案 | 讨论用；定稿后才供实现消费 |
 | `README.md` | 本说明 | 人 |
 
 本轮**只落草案，不含实现代码**：没有 FastAPI 应用、没有前端工程、没有依赖清单。
@@ -23,7 +23,7 @@
 
 | 拍板项 | 口径 | 契约内的体现 |
 |---|---|---|
-| P1 API 契约范围 | 按推荐 | 15 条路径、22 个 schema；错误码枚举 10 个且**每个码值至少被一条路径引用**（无引用即不得留在枚举里）；补 422 + `VALIDATION_FAILED`，把 FastAPI 默认的 `{"detail":[...]}` 收编进统一错误体 |
+| P1 API 契约范围 | 按推荐 | 15 条路径、19 个操作、23 个 schema；错误码枚举 10 个且**每个码值至少被一条路径引用**（无引用即不得留在枚举里）；补 422 + `VALIDATION_FAILED`，把 FastAPI 默认的 `{"detail":[...]}` 收编进统一错误体 |
 | P1（附带）排序口径 | 按实施口径砍掉列排序 | 三个清单接口**不再提供 `sort` 参数**；行序 = 源 CSV 行序，由响应里的 `row_order` 字段声明，每一档行序都能按「文件路径 + 列名」复核 |
 | P2 数据形态 | 按推荐，保证查询性能 | 指向文档的三个外键改 `TEXT` 并指向 `document(doc_code)`（与源数据真实语义一致）；指向簇的外键改三列复合键 `(granularity, min_cluster_size, cluster_id)`；索引 8 → **12 个**（补齐四个外键列的索引），并在 `schema.sql` 内给出 9 条典型查询 → 索引对照 |
 | P3 产品形态 | 前后端分离 + 一条命令启动前后端 | 后端单进程（FastAPI + uvicorn）挂载前端构建产物；SQLite 走 WAL；契约的 `GET /` 即静态挂载点。启动形态与验收信号见 §4 |
@@ -135,10 +135,14 @@ cd /d/26code/毕设 && python -c "import yaml;d=yaml.safe_load(open('system/open
 9. **判定单元已改为业务意图（2026-10-25 口径更正）。** `knowledge_gap` 一行 = 一个业务意图，不是簇：`cover_score` 存意图覆盖度（该意图下各簇覆盖度的最小值），`n_clusters` 存该意图下的簇数，`ticket_count` 存该意图下的工单总数。指向 `cluster_result` 的外键已取消（一个意图对应多个簇，外键表达不了），意图与簇的对应靠 `knowledge_gap.intent_name` ↔ `cluster_result.main_intent` 的软链接口径。`stale_document` 增 `cause_score_content_expiry` / `cause_score_maintenance` 两列，内容过期（R1+R3）与维护周期（R2+R4）两类口径各自独立判定、各自算分；`risk_score` 保留为四规则合并分，只作溯源与对照。
 
 10. **清库顺序因本次更正而变。** `knowledge_gap` 已不是 `cluster_result` 的子表，删表顺序改为：`knowledge_gap` / `stale_document` / `duplicate_group` → `cluster_result` → `ticket` → `document`。
-9. **腐化清单的行范围与判定符。** `corrupt_docs.csv` 是 300 篇逐篇打分表，不是命中清单；契约取 `risk_score >= 本次阈值` 的子集（阈值 3 时 69 行，与 `metrics.json → corrupt.detected` 一致），需确认判定用 `>=`（当前写法）而非 `>`。
-10. **耗时字段是每次复跑重写的值**（`total_seconds` / `corrupt.seconds`），不是稳定指标，跨机器必然波动；契约里的示例值取自当前工作树产物。
-11. **下载件含真值列 —— 已定口径（2026-10-24）。** `GET /api/downloads/{name}` 原样返回源 CSV，`is_true_gap` / `is_true_group` / `in_control_sample` / `is_dup_copy` / `dup_source` / `fp_reason` 六列会一并交到用户硬盘。**定为「保留全量列 + 下载区明示」**，不裁剪视图。理由：`docs/技术方案/本科版实施方案.md` §2「M-系统·Web 交付」要求「直接下载 poc/kbgovernance/ 已产出的 CSV」，Issue #3 断言清单第 10 条要求「下载的 CSV 与源文件逐字节一致」——裁剪会同时违反这两条，并让「逐字节一致」这条可机读验收信号失效。对应义务：**下载区必须在按钮附近明示「下载的是含评测标注列的原始产物，仅用于论文溯源与复现」**，不得静默下载；清单页面本身仍不展示任何真值列。落地见 `system/openapi.yaml` 的 `GET /api/downloads/{name}` 描述与准备清单 C7。
-12. **三个清单接口的统计单元 —— 已按契约口径标注（2026-10-24）。** 缺口清单的 count 单位是「缺口簇」、腐化清单是「篇文档」、重复清单是「组」；而缺口 P/R/F1 的分母是**去重后的业务意图数**（`detect.py:117-125`，当前为 5），与「7 个缺口簇」不是同一个数（簇级真值 6/7=0.8571 ≠ 页面 0.800）。契约的 `count` 与 envelope 里的 P/R/F1 现已各自带「统计单元 = …」说明：三个 `count` 字段标注命中单位，三个 P/R/F1 字段标注各自的统计单元并写明「与同对象的 count 不是同一分母，两者不可直接相除换算」，`has_ground_truth=false` 时为 `null`（含义是「不可得」，不是 0）。
+
+11. **腐化清单的行范围与判定符。** `corrupt_docs.csv` 是 300 篇逐篇打分表，不是命中清单；契约取 `risk_score >= 本次阈值` 的子集（阈值 3 时 69 行，与 `metrics.json → corrupt.detected` 一致），需确认判定用 `>=`（当前写法）而非 `>`。
+
+12. **耗时字段是每次复跑重写的值**（`total_seconds` / `corrupt.seconds`），不是稳定指标，跨机器必然波动；契约里的示例值取自当前工作树产物。
+
+13. **下载件含真值列 —— 已定口径（2026-10-24）。** `GET /api/downloads/{name}` 原样返回源 CSV，`is_true_gap` / `is_true_group` / `in_control_sample` / `is_dup_copy` / `dup_source` / `fp_reason` 六列会一并交到用户硬盘。**定为「保留全量列 + 下载区明示」**，不裁剪视图。理由：`docs/技术方案/本科版实施方案.md` §2「M-系统·Web 交付」要求「直接下载 poc/kbgovernance/ 已产出的 CSV」，Issue #3 断言清单第 10 条要求「下载的 CSV 与源文件逐字节一致」——裁剪会同时违反这两条，并让「逐字节一致」这条可机读验收信号失效。对应义务：**下载区必须在按钮附近明示「下载的是含评测标注列的原始产物，仅用于论文溯源与复现」**，不得静默下载；清单页面本身仍不展示任何真值列。落地见 `system/openapi.yaml` 的 `GET /api/downloads/{name}` 描述与准备清单 C7。
+
+14. **三个清单接口的统计单元 —— 已按契约口径标注（2026-10-24）。** 缺口清单的 count 单位是「缺口簇」、腐化清单是「篇文档」、重复清单是「组」；而缺口 P/R/F1 的分母是**去重后的业务意图数**（`detect.py:117-125`，当前为 5），与「7 个缺口簇」不是同一个数（簇级真值 6/7=0.8571 ≠ 页面 0.800）。契约的 `count` 与 envelope 里的 P/R/F1 现已各自带「统计单元 = …」说明：三个 `count` 字段标注命中单位，三个 P/R/F1 字段标注各自的统计单元并写明「与同对象的 count 不是同一分母，两者不可直接相除换算」，`has_ground_truth=false` 时为 `null`（含义是「不可得」，不是 0）。
 
 ---
 
@@ -154,8 +158,8 @@ cd /d/26code/毕设 && python -c "import yaml;d=yaml.safe_load(open('system/open
 
 **其中两条直接落在契约上，不只是原型问题**：
 
-1. **下载通道泄露真值列**（C1，阻塞）→ 上面「已知歧义」第 11 条，**已定口径**（保留全量列 + 下载区明示）。
-2. **统计单元未声明**（C2，阻塞）→ 上面「已知歧义」第 12 条，**已在契约字段说明中标注**。
+1. **下载通道泄露真值列**（C1，阻塞）→ 上面「已知歧义」第 13 条，**已定口径**（保留全量列 + 下载区明示）。
+2. **统计单元未声明**（C2，阻塞）→ 上面「已知歧义」第 14 条，**已在契约字段说明中标注**。
 
 另有两处口径与本目录的实现须知相关：**耗时口径**——`metrics.json → total_seconds` 是 `detect.py` 主流程全程（读 CSV + 聚类 + 三检测），不含向量化；`dup.best.seconds` 只包住阈值分组循环，不含 300×300 余弦矩阵（该矩阵只 `print` 不落盘）。契约的 `ScanTiming` 描述需按实际计时范围表述，不能让前端复算出分项。
 

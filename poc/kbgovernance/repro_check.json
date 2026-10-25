@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T13:23:52+08:00",
+  "generated_at": "2026-10-25T14:10:29+08:00",
   "python": "3.11.9",
   "platform": "win32",
   "note": "byte_deterministic 为逐字节可复现产物；normalized 为剔除计时字段后比对（计时字段跨运行必然波动，指标值不受影响）；binary 为同机浮点向量产物，跨机器不保证一致。verify 为连跑两次全链路的自证结果。",
