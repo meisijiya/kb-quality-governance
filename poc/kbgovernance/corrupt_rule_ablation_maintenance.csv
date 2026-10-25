@@ -1,0 +1,6 @@
+﻿cause,setting,precision,recall,f1,detected,tp,fp,fn,truth,docs_with_hit,mean_risk,delta_f1
+maintenance,all,0.8158,1.0,0.8986,38,31,7,0,31,88,0.5467,
+maintenance,drop_R2,0.0,0.0,0.0,0,0,0,31,31,88,0.2933,-0.8986
+maintenance,drop_R4,0.0,0.0,0.0,0,0,0,31,31,38,0.2533,-0.8986
+maintenance,only_R2,0.0,0.0,0.0,0,0,0,31,31,38,0.2533,-0.8986
+maintenance,only_R4,0.0,0.0,0.0,0,0,0,31,31,88,0.2933,-0.8986

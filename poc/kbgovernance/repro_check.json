@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-10-23T16:33:32+08:00",
+  "generated_at": "2026-10-25T13:23:52+08:00",
   "python": "3.11.9",
   "platform": "win32",
   "note": "byte_deterministic 为逐字节可复现产物；normalized 为剔除计时字段后比对（计时字段跨运行必然波动，指标值不受影响）；binary 为同机浮点向量产物，跨机器不保证一致。verify 为连跑两次全链路的自证结果。",
   "two_run_verify": {
     "identical": true,
-    "scope": "run_all.sh 三步（gen_data.py → embed.py → detect.py）产出的 13 个文件",
-    "n_artifacts_compared": 13,
-    "n_identical": 13,
+    "scope": "run_all.sh 三步（gen_data.py → embed.py → detect.py）产出的 14 个文件",
+    "n_artifacts_compared": 14,
+    "n_identical": 14,
     "differing": [],
     "still_matches_worktree": true,
     "rows": [
       {
         "artifact": "corrupt_docs.csv",
         "mode": "byte_deterministic",
-        "run_a": "76e4cff6eb7b4e2a778c45a32b6b8d78",
-        "run_b": "76e4cff6eb7b4e2a778c45a32b6b8d78",
+        "run_a": "94d53ecbca264d227ada78e4632f6fa4",
+        "run_b": "94d53ecbca264d227ada78e4632f6fa4",
         "identical": true
       },
       {
@@ -30,6 +30,20 @@
         "mode": "byte_deterministic",
         "run_a": "c29be8d68745320556da2583ded9c818",
         "run_b": "c29be8d68745320556da2583ded9c818",
+        "identical": true
+      },
+      {
+        "artifact": "gap_clusters_best.csv",
+        "mode": "byte_deterministic",
+        "run_a": "a98dcb867fcb1fe1cf024c14ed2a3450",
+        "run_b": "a98dcb867fcb1fe1cf024c14ed2a3450",
+        "identical": true
+      },
+      {
+        "artifact": "gap_intents_best.csv",
+        "mode": "byte_deterministic",
+        "run_a": "be742d288b68ee34405d63aa6186ca72",
+        "run_b": "be742d288b68ee34405d63aa6186ca72",
         "identical": true
       },
       {
@@ -51,13 +65,6 @@
         "mode": "byte_deterministic",
         "run_a": "68f6ad15a517aaa278e0639075b6f3a5",
         "run_b": "68f6ad15a517aaa278e0639075b6f3a5",
-        "identical": true
-      },
-      {
-        "artifact": "top15_gaps.csv",
-        "mode": "byte_deterministic",
-        "run_a": "48633b587c072009a3ddeed64a527e6c",
-        "run_b": "48633b587c072009a3ddeed64a527e6c",
         "identical": true
       },
       {
@@ -104,8 +111,8 @@
       {
         "artifact": "metrics.json",
         "mode": "normalized",
-        "run_a": "008effcb55e096bcedb5d98131338238",
-        "run_b": "008effcb55e096bcedb5d98131338238",
+        "run_a": "8ce86109875481bfd17ce4f610fcc2d2",
+        "run_b": "8ce86109875481bfd17ce4f610fcc2d2",
         "identical": true,
         "stripped_fields": [
           "encode_seconds",
@@ -120,13 +127,15 @@
     "tickets.csv": "68f6ad15a517aaa278e0639075b6f3a5",
     "ground_truth.json": "d165823eb8aac00ca30c67f5f238ff0a",
     "gap_threshold.csv": "5967a92a812fd45ab3d0fffdbc75fa46",
-    "corrupt_rule_ablation.csv": "e8e5171e90435b9d3a5a4637f44cd095",
-    "corrupt_docs.csv": "76e4cff6eb7b4e2a778c45a32b6b8d78",
+    "corrupt_rule_ablation_content_expiry.csv": "398624d30c3a02bd1403c972bb8359cf",
+    "corrupt_rule_ablation_maintenance.csv": "bf0350001024cd2107f5be21ee7be908",
+    "corrupt_docs.csv": "94d53ecbca264d227ada78e4632f6fa4",
     "dup_groups_best.csv": "c29be8d68745320556da2583ded9c818",
-    "top15_gaps.csv": "48633b587c072009a3ddeed64a527e6c",
+    "gap_intents_best.csv": "be742d288b68ee34405d63aa6186ca72",
+    "gap_clusters_best.csv": "a98dcb867fcb1fe1cf024c14ed2a3450",
     "granularity.csv": "e1db817ec54a896e61b7e90f7be59b9c",
     "granularity_dup.csv": "e5dda1fdeb76d36547c119c7f1dae18c",
-    "derived_metrics.csv": "81b246e3202c8515e3ced85edde16eac",
+    "derived_metrics.csv": "4683d59190767d5a64deebca2f6b0bfa",
     "standardize/results_auc.csv": "bcf17320343cbbf2da5e938c8f219bbf",
     "standardize/results_transfer.csv": "0a54c8a244d675a8d7f4e2d35d46229c",
     "standardize/results_directionC.csv": "f611e89f5705fc034972700a065acb14",
@@ -144,13 +153,13 @@
   },
   "normalized": {
     "metrics.json": {
-      "normalized_md5": "008effcb55e096bcedb5d98131338238",
+      "normalized_md5": "8ce86109875481bfd17ce4f610fcc2d2",
       "stripped_fields": [
         "encode_seconds",
         "seconds",
         "total_seconds"
       ],
-      "raw_md5": "79f6cb1abc9e2dbc4bce1ddd26c0b5ea"
+      "raw_md5": "01edc67f9de3cfdcdbd85cdf389b2e3a"
     },
     "embeddings_meta.json": {
       "normalized_md5": "3293ac36ed6c77ffdea9a3bd60328513",

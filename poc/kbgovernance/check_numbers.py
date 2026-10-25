@@ -77,12 +77,14 @@ SOURCES_JSON = ["metrics.json", "embeddings_meta.json", "ground_truth.json",
 # CSV 产物(与 metrics.json 同级)
 SOURCES_CSV = ["granularity.csv",
                "granularity_dup.csv",
-               "corrupt_rule_ablation.csv",
+               "corrupt_rule_ablation_content_expiry.csv",
+               "corrupt_rule_ablation_maintenance.csv",
                "gap_threshold.csv",
                "dup_threshold.csv",
                "dup_groups_best.csv",
                "corrupt_docs.csv",
-               "top15_gaps.csv"]
+               "gap_intents_best.csv",
+               "gap_clusters_best.csv"]
 # 长表型来源: 逐行 (derived_key, value) 的派生指标表, 只能读 value 列。
 # 绝不能按宽表那套「把每格里的数字都抠出来」的办法处理——formula / inputs 列
 # 里全是公式与被代入的原始值, 收进来等于让文档里的任何数字都能「自己证明自己」。
