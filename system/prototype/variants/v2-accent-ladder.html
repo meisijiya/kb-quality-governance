@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B · 紧凑数据（紧凑术语文案） · 企业知识库质量治理 · 治理后台原型</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body data-variant="v2" data-page="upload">
+
+<a class="skip-link" href="#main" data-copy="skip.main">跳到主内容</a>
+
+<div class="app">
+
+  <header class="topbar">
+    <span class="topbar-brand" data-copy="app.name">知识库质量治理</span>
+    <span class="topbar-sep" aria-hidden="true">/</span>
+    <span class="topbar-sub" data-copy="app.sub">治理后台原型</span>
+  </header>
+
+  <aside class="sidebar" id="appAside">
+    <div class="brand">
+      <span class="brand-name" data-copy="app.name">知识库质量治理</span>
+      <span class="brand-sub" data-copy="app.sub">治理后台原型</span>
+    </div>
+
+    <nav class="nav" aria-label="主导航">
+      <button type="button" class="nav-item" data-page="upload" aria-current="page" title="语料准备">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 11V2.5M8 2.5 4.5 6M8 2.5 11.5 6M2.5 10v3.5h11V10"/></svg>
+        </span>
+        <span class="nav-text" data-copy="nav.upload">语料准备</span>
+      </button>
+      <button type="button" class="nav-item" data-page="scan" title="治理扫描">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg>
+        </span>
+        <span class="nav-text" data-copy="nav.scan">治理扫描</span>
+      </button>
+      <button type="button" class="nav-item" data-page="lists" title="治理清单">
+        <span class="nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 4h11M2.5 8h11M2.5 12h7"/></svg>
+        </span>
+        <span class="nav-text" data-copy="nav.lists">治理清单</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <button type="button" class="status-link" data-goto="scan" id="statusLink">
+        <span class="status-dot" id="statusDot" aria-hidden="true"></span>
+        <span class="status-text" id="statusText">扫描状态：已完成</span>
+      </button>
+      <p class="sidebar-note">页面数字取自 <code>poc/kbgovernance/</code> 的机读产物</p>
+    </div>
+  </aside>
+
+  <main class="app-main" id="main" tabindex="0" role="region" aria-label="主内容">
+    <div class="main-inner">
+
+      <!-- ================= 页面一：语料准备 ================= -->
+      <section class="page" data-page="upload" aria-labelledby="upload-title">
+        <div class="page-head">
+          <div class="page-head-text">
+            <h1 class="page-title" id="upload-title" tabindex="-1" data-copy="upload.title">语料准备</h1>
+            <p class="page-lede" data-copy="upload.lede">导入文档与工单后运行治理扫描。本页是静态原型，不向任何服务发送数据。</p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn-primary" id="uploadCta" data-copy="upload.cta.ready">去运行治理扫描</button>
+            <p class="action-note" id="uploadCtaNote" data-copy="upload.cta.note">扫描会清空当前库，请先确认语料已就绪。</p>
+          </div>
+        </div>
+
+        <section class="panel" aria-labelledby="upload-corpus-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="upload-corpus-title" data-copy="upload.corpus.title">当前库与参考语料</h2>
+            <p class="panel-desc" data-copy="upload.corpus.desc">当前库指本原型中的语料状态；参考语料规模是 PoC 实测语料的规模，两者不是同一件事。</p>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi">
+              <span class="kpi-label" data-copy="upload.corpus.kDocs">当前库文档</span>
+              <span class="kpi-value" id="corpusDocs">—</span>
+              <span class="kpi-unit">篇</span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-label" data-copy="upload.corpus.kTickets">当前库工单</span>
+              <span class="kpi-value" id="corpusTickets">—</span>
+              <span class="kpi-unit">条</span>
+            </div>
+          </div>
+
+          <p class="note">参考语料规模（PoC 实测语料，非当前库）：<span data-num="metrics.n_docs"></span> 篇文档 / <span data-num="metrics.n_tickets"></span> 条工单 / <span data-num="metrics.n_passages"></span> 个文档段落。</p>
+
+          <div class="state-block" data-states="empty">
+            <p class="state-line" data-copy="upload.corpus.empty">当前库中没有任何语料，导入后方可运行治理扫描。</p>
+          </div>
+
+          <div class="state-block" data-states="loading">
+            <div class="skeleton-wrap" role="status" aria-live="polite" aria-busy="true">
+              <p class="state-line" data-copy="upload.corpus.loading">正在读取语料统计…</p>
+              <span class="skeleton skeleton-line"></span>
+              <span class="skeleton skeleton-line"></span>
+            </div>
+          </div>
+
+          <div class="state-block" data-states="error">
+            <div class="notice notice-error">
+              <p class="notice-title" data-copy="upload.corpus.errorTitle">语料统计获取失败</p>
+              <p class="notice-body" data-copy="upload.corpus.errorBody">未取得当前语料规模。导入区仍可操作，导入成功后统计项会重新出数。</p>
+              <button type="button" class="btn btn-ghost" id="uploadRetry" data-copy="upload.corpus.retry">重新读取语料状态</button>
+            </div>
+          </div>
+
+          <div class="state-block" data-states="busy">
+            <div class="notice notice-lock">
+              <p class="notice-title" data-copy="upload.lock.title">扫描占用中</p>
+              <p class="notice-body" data-copy="upload.lock.body">扫描期间语料与导入入口被锁定，扫描结束或取消后恢复。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="upload-doc-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="upload-doc-title" data-copy="upload.doc.title">文档导入</h2>
+            <p class="panel-desc" data-copy="upload.doc.desc">POST /api/documents，源列 docs.csv。</p>
+          </div>
+
+          <label class="dropzone" id="docUpload">
+            <span class="dropzone-title" data-copy="upload.doc.dropTitle">将文件拖到此处，或 点击上传</span>
+            <span class="dropzone-hint" data-copy="upload.doc.dropHint">支持 CSV / JSON，单次批量导入文档</span>
+            <input type="file" id="docUploadInput" class="file-input" accept=".csv,.json" aria-describedby="docUploadNote">
+          </label>
+          <p class="note note-static" id="docUploadNote" data-copy="upload.staticNote">静态演示：该控件只读取所选文件名，不发起上传请求。</p>
+          <p class="note note-feedback" id="docUploadFeedback" role="status" hidden></p>
+
+          <div class="state-block" data-states="success">
+            <ul class="records" id="docRecords">
+              <li class="record">
+                <span class="record-name">docs.csv</span>
+                <span class="record-desc">已导入 <span data-num="metrics.n_docs"></span> 篇文档</span>
+                <span class="pill pill-pos" data-copy="upload.doc.recordOkTag">成功</span>
+              </li>
+              <li class="record">
+                <span class="record-name">docs_v2.csv</span>
+                <span class="record-desc" data-copy="upload.doc.recordFail">文档编码重复，本批未入库</span>
+                <span class="pill pill-neg" data-copy="upload.doc.recordFailTag">失败</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="upload-ticket-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="upload-ticket-title" data-copy="upload.ticket.title">工单导入</h2>
+            <p class="panel-desc" data-copy="upload.ticket.desc">POST /api/tickets，源列 tickets.csv。</p>
+          </div>
+
+          <label class="dropzone" id="ticketUpload">
+            <span class="dropzone-title" data-copy="upload.ticket.dropTitle">将文件拖到此处，或 点击上传</span>
+            <span class="dropzone-hint" data-copy="upload.ticket.dropHint">工单表的业务意图标签列参与聚类</span>
+            <input type="file" id="ticketUploadInput" class="file-input" accept=".csv,.json" aria-describedby="ticketUploadNote">
+          </label>
+          <p class="note note-static" id="ticketUploadNote" data-copy="upload.staticNote">静态演示：该控件只读取所选文件名，不发起上传请求。</p>
+          <p class="note note-feedback" id="ticketUploadFeedback" role="status" hidden></p>
+
+          <div class="state-block" data-states="success">
+            <ul class="records" id="ticketRecords">
+              <li class="record">
+                <span class="record-name">tickets.csv</span>
+                <span class="record-desc">已导入 <span data-num="metrics.n_tickets"></span> 条工单</span>
+                <span class="pill pill-pos" data-copy="upload.ticket.recordOkTag">成功</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="upload-contract-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="upload-contract-title" data-copy="upload.contract.title">导入反馈与字段约定</h2>
+            <p class="panel-desc" data-copy="upload.contract.desc">错误码取自 system/openapi.yaml，字段对照取自接口契约与产物列名。</p>
+          </div>
+
+          <details class="disclosure">
+            <summary data-copy="upload.errcode.title">导入错误码对照（5 类）</summary>
+            <div class="tbl-wrap">
+              <table class="tbl">
+                <caption class="sr-only" data-copy="upload.errcode.caption">导入错误码与界面处置</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" data-copy="upload.errcode.col1">错误码</th>
+                    <th scope="col" data-copy="upload.errcode.col2">触发条件</th>
+                    <th scope="col" data-copy="upload.errcode.col3">界面文案与处置</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>INVALID_IMPORT_FILE</code></td>
+                    <td data-copy="upload.errcode.r1c2">文件列头或必填列不符合契约</td>
+                    <td data-copy="upload.errcode.r1c3">列出缺失列名并给出正确表头，导入中止</td>
+                  </tr>
+                  <tr>
+                    <td><code>DUPLICATE_DOC_CODE</code></td>
+                    <td data-copy="upload.errcode.r2c2">同一批次内文档编码重复</td>
+                    <td data-copy="upload.errcode.r2c3">本批未入库，提示重复编码</td>
+                  </tr>
+                  <tr>
+                    <td><code>DUPLICATE_TICKET_CODE</code></td>
+                    <td data-copy="upload.errcode.r3c2">同一批次内工单编码重复</td>
+                    <td data-copy="upload.errcode.r3c3">本批未入库，提示重复编码</td>
+                  </tr>
+                  <tr>
+                    <td><code>VALIDATION_FAILED</code></td>
+                    <td data-copy="upload.errcode.r4c2">字段类型或必填校验不通过</td>
+                    <td data-copy="upload.errcode.r4c3">给出出错行号与列名，保留已成功部分</td>
+                  </tr>
+                  <tr>
+                    <td><code>EMPTY_CORPUS</code></td>
+                    <td data-copy="upload.errcode.r5c2">语料为空时启动扫描</td>
+                    <td data-copy="upload.errcode.r5c3">扫描未启动，提示先导入语料</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+          <details class="disclosure">
+            <summary data-copy="upload.fields.title">文档列头对照表</summary>
+            <div class="tbl-wrap">
+              <table class="tbl">
+                <caption class="sr-only" data-copy="upload.fields.caption">文档导入列头对照</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" data-copy="upload.fields.col1">界面字段</th>
+                    <th scope="col" data-copy="upload.fields.col2">契约字段</th>
+                    <th scope="col" data-copy="upload.fields.col3">产物列名</th>
+                    <th scope="col" data-copy="upload.fields.col4">必填</th>
+                    <th scope="col" data-copy="upload.fields.col5">说明</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td data-copy="upload.fields.r1c1">文档编码</td><td><code>doc_code</code></td><td><code>doc_id</code></td><td data-copy="upload.fields.r1c4">是</td><td data-copy="upload.fields.r1c5">批次内唯一</td></tr>
+                  <tr><td data-copy="upload.fields.r2c1">标题</td><td><code>title</code></td><td><code>title</code></td><td data-copy="upload.fields.r2c4">是</td><td data-copy="upload.fields.r2c5">用于清单展示</td></tr>
+                  <tr><td data-copy="upload.fields.r3c1">正文</td><td><code>content</code></td><td><code>content</code></td><td data-copy="upload.fields.r3c4">是</td><td data-copy="upload.fields.r3c5">段落切分后参与向量化</td></tr>
+                  <tr><td data-copy="upload.fields.r4c1">业务域</td><td><code>domain</code></td><td><code>category</code></td><td data-copy="upload.fields.r4c4">是</td><td data-copy="upload.fields.r4c5">命名不同，取值一致</td></tr>
+                  <tr><td data-copy="upload.fields.r5c1">创建时间</td><td><code>created_at</code></td><td><code>created_at</code></td><td data-copy="upload.fields.r5c4">是</td><td data-copy="upload.fields.r5c5">日期格式</td></tr>
+                  <tr><td data-copy="upload.fields.r6c1">最后修改时间</td><td><code>last_modified</code></td><td><code>last_modified</code></td><td data-copy="upload.fields.r6c4">是</td><td data-copy="upload.fields.r6c5">内容腐化判定输入</td></tr>
+                  <tr><td data-copy="upload.fields.r7c1">生效日期</td><td><code>effective_date</code></td><td><code>effective_date</code></td><td data-copy="upload.fields.r7c4">是</td><td data-copy="upload.fields.r7c5">时效性分析输入</td></tr>
+                  <tr><td data-copy="upload.fields.r8c1">状态</td><td><code>status</code></td><td><code>status</code></td><td data-copy="upload.fields.r8c4">否</td><td data-copy="upload.fields.r8c5">选填，缺省为生效</td></tr>
+                  <tr><td data-copy="upload.fields.r9c1">引用次数</td><td><code>ref_count</code></td><td><code>ref_count</code></td><td data-copy="upload.fields.r9c4">是</td><td data-copy="upload.fields.r9c5">引用计数</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel panel-demo" aria-labelledby="upload-demo-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="upload-demo-title" data-copy="demo.title">原型状态演示</h2>
+            <p class="panel-desc" data-copy="demo.desc">走查用脚手架，不是产品功能。切换后徽标、计数与文案同步变化。</p>
+          </div>
+          <div class="segmented" role="group" aria-label="上传页状态演示">
+            <button type="button" class="seg-btn" data-target="upload" data-state="success" aria-pressed="true" data-copy="demo.state.upload.success">语料就绪</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="empty" aria-pressed="false" data-copy="demo.state.upload.empty">空语料</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="loading" aria-pressed="false" data-copy="demo.state.upload.loading">读取中</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="error" aria-pressed="false" data-copy="demo.state.upload.error">统计失败</button>
+            <button type="button" class="seg-btn" data-target="upload" data-state="busy" aria-pressed="false" data-copy="demo.state.upload.busy">扫描占用</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- ================= 页面二：治理扫描 ================= -->
+      <section class="page" data-page="scan" hidden aria-labelledby="scan-title">
+        <div class="page-head">
+          <div class="page-head-text">
+            <h1 class="page-title" id="scan-title" tabindex="-1" data-copy="scan.title">治理扫描</h1>
+            <p class="page-lede" data-copy="scan.lede">一次全量扫描产出三类缺陷清单，阈值固定取自算法实现。</p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn-primary" id="scanCta" data-copy="scan.cta.idle">运行治理扫描</button>
+            <p class="action-note" id="scanCtaNote" data-copy="scan.cta.note">扫描会清空当前库并重新计算。</p>
+          </div>
+        </div>
+
+        <section class="panel" aria-labelledby="scan-pre-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="scan-pre-title" data-copy="scan.pre.title">扫描前检查</h2>
+            <p class="panel-desc" data-copy="scan.pre.desc">文档数与工单数取自 corpus/stats；模型权重缺失时扫描无法启动。</p>
+          </div>
+          <div class="kpis">
+            <div class="kpi">
+              <span class="kpi-label" data-copy="scan.pre.kDocs">待扫描文档</span>
+              <span class="kpi-value" data-num="metrics.n_docs"></span>
+              <span class="kpi-unit">篇</span>
+            </div>
+            <div class="kpi">
+              <span class="kpi-label" data-copy="scan.pre.kTickets">待扫描工单</span>
+              <span class="kpi-value" data-num="metrics.n_tickets"></span>
+              <span class="kpi-unit">条</span>
+            </div>
+          </div>
+          <p class="note" data-copy="scan.pre.modelNote">模型权重需指向本地缓存目录（HF_HOME），否则扫描不启动。</p>
+          <p class="note">需求阈值（非实测）：单次全量扫描 ≤ <span data-num="audit.requirement.scan_seconds_max"></span> 秒；页面响应 ≤ <span data-num="audit.requirement.page_response_seconds_max"></span> 秒。实测值只取自耗时表。</p>
+          <p class="note note-warn" data-copy="scan.pre.clearNote">扫描会清空当前库中的文档与工单，扫描后需要重新上传全部数据。</p>
+        </section>
+
+        <section class="panel state-block" data-states="running" aria-labelledby="scan-running-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="scan-running-title" data-copy="scan.running.title">扫描进行中</h2>
+            <p class="panel-desc" data-copy="scan.running.desc">按固定顺序执行四个阶段。</p>
+          </div>
+          <ol class="steps" id="scanSteps">
+            <li class="step" data-step="0" data-copy="scan.running.step1">文档向量化</li>
+            <li class="step" data-step="1" data-copy="scan.running.step2">工单语义聚类</li>
+            <li class="step" data-step="2" data-copy="scan.running.step3">三类缺陷检测</li>
+            <li class="step" data-step="3" data-copy="scan.running.step4">结果落库</li>
+          </ol>
+          <div class="progress" id="scanProgress" role="progressbar" aria-labelledby="scan-running-title" aria-valuetext="正在执行第 1 步：文档向量化">
+            <span class="progress-bar"></span>
+          </div>
+          <p class="note" data-copy="scan.running.note">进度不定量：产物中不存在百分比读数，页面只显示阶段顺序。</p>
+          <button type="button" class="btn btn-ghost" id="cancelScanBtn" data-copy="scan.running.cancel">取消扫描</button>
+        </section>
+
+        <section class="panel state-block" data-states="success" aria-labelledby="scan-overview-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="scan-overview-title" data-copy="scan.overview.title">扫描结果总览</h2>
+            <p class="panel-desc" data-copy="scan.overview.desc">三类缺陷的阈值与判定结果来自同一次扫描；内容腐化按两类口径分列。</p>
+          </div>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <caption class="sr-only" data-copy="scan.overview.caption">扫描结果总览</caption>
+              <thead>
+                <tr>
+                  <th scope="col" data-copy="scan.overview.col1">缺陷类型</th>
+                  <th scope="col" class="n" data-copy="scan.overview.col2">判定阈值</th>
+                  <th scope="col" class="n" data-copy="scan.overview.col3">精确率</th>
+                  <th scope="col" class="n" data-copy="scan.overview.col4">召回率</th>
+                  <th scope="col" class="n" data-copy="scan.overview.col5">F1</th>
+                  <th scope="col" class="n" data-copy="scan.overview.col6">判定数</th>
+                  <th scope="col" data-copy="scan.overview.col7">统计单元</th>
+                  <th scope="col" data-copy="scan.overview.col8">产物键</th>
+                </tr>
+              </thead>
+              <tbody id="scanOverviewBody"></tbody>
+            </table>
+          </div>
+          <p class="note note-warn" id="scanOverviewNote"></p>
+        </section>
+
+        <section class="panel state-block" data-states="error" aria-labelledby="scan-error-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="scan-error-title" data-copy="scan.error.title">本轮扫描失败</h2>
+          </div>
+          <div class="notice notice-error">
+            <p class="notice-body" data-copy="scan.error.body">失败原因见服务端日志。下方耗时分项仍显示上一轮取值，保持只读。</p>
+            <button type="button" class="btn btn-ghost" id="retryScanBtn" data-copy="scan.error.retry">重新运行扫描</button>
+          </div>
+        </section>
+
+        <section class="panel state-block" data-states="success,error" aria-labelledby="scan-timing-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="scan-timing-title" data-copy="scan.timing.title">耗时分项</h2>
+            <p class="panel-desc" data-copy="scan.timing.desc">逐项标注计时范围，只列能对上产物的耗时。</p>
+          </div>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <caption class="sr-only" data-copy="scan.timing.caption">耗时分项与计时范围</caption>
+              <thead>
+                <tr>
+                  <th scope="col" data-copy="scan.timing.col1">阶段</th>
+                  <th scope="col" class="n" data-copy="scan.timing.col2">耗时</th>
+                  <th scope="col" data-copy="scan.timing.col3">计时范围</th>
+                  <th scope="col" data-copy="scan.timing.col4">产物键</th>
+                </tr>
+              </thead>
+              <tbody id="scanTimingBody"></tbody>
+            </table>
+          </div>
+          <p class="note" id="scanTimingNote"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="scan-calib-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="scan-calib-title" data-copy="scan.calib.title">口径与说明</h2>
+          </div>
+
+          <details class="disclosure" open>
+            <summary data-copy="scan.calib.d1">阈值口径与敏感性</summary>
+            <div class="tbl-wrap">
+              <table class="tbl">
+                <caption class="sr-only" data-copy="scan.calib.d1caption">知识缺口阈值敏感性</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" class="n" data-copy="scan.calib.tcol1">覆盖度阈值</th>
+                    <th scope="col" class="n" data-copy="scan.calib.tcol2">命中簇数</th>
+                    <th scope="col" class="n" data-copy="scan.calib.tcol3">检出业务意图</th>
+                    <th scope="col" class="n" data-copy="scan.calib.tcol4">精确率</th>
+                    <th scope="col" class="n" data-copy="scan.calib.tcol5">召回率</th>
+                    <th scope="col" class="n" data-copy="scan.calib.tcol6">F1</th>
+                  </tr>
+                </thead>
+                <tbody id="gapThresholdBody"></tbody>
+              </table>
+            </div>
+            <p class="note note-warn" data-copy="scan.calib.d1note">当前阈值是扫描后 F1 最优取值，属局部最优：相邻阈值的 F1 明显更低，说明判定对阈值敏感。</p>
+          </details>
+
+          <details class="disclosure">
+            <summary data-copy="scan.calib.d2">统计单元</summary>
+            <p class="note" data-copy="scan.calib.d2body">三类缺陷的统计单元不同，不可横向比较：知识缺口按业务意图计数并按业务意图算精确率与召回率；内容腐化按文档计数，分内容过期与维护周期两个口径各自算精确率与召回率，不合成单一 F1；重复冗余按重复组计数并按组算精确率与召回率。</p>
+          </details>
+
+          <details class="disclosure">
+            <summary data-copy="scan.calib.d3">耗时口径</summary>
+            <p class="note" data-copy="scan.calib.d3body">耗时为本次运行的实测值，跨机器必然波动，指标值不受影响。语义聚类与知识缺口识别的耗时未落盘，页面显示占位破折号，不用其他阶段的耗时代替。</p>
+          </details>
+
+          <details class="disclosure">
+            <summary data-copy="scan.calib.d4">无评测基线时的降级说明</summary>
+            <p class="note" data-copy="scan.calib.d4body">从未扫描时，产物中的耗时与模块字段为空，页面不显示占位数值，只说明没有可展示的读数。</p>
+          </details>
+        </section>
+
+        <section class="panel panel-demo" aria-labelledby="scan-demo-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="scan-demo-title" data-copy="demo.title">原型状态演示</h2>
+            <p class="panel-desc" data-copy="demo.desc">走查用脚手架，不是产品功能。切换后徽标、计数与文案同步变化。</p>
+          </div>
+          <div class="segmented" role="group" aria-label="扫描页状态演示">
+            <button type="button" class="seg-btn" data-target="scan" data-state="success" aria-pressed="true" data-copy="demo.state.scan.success">已扫描</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="empty" aria-pressed="false" data-copy="demo.state.scan.empty">尚无结果</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="loading" aria-pressed="false" data-copy="demo.state.scan.loading">读取中</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="error" aria-pressed="false" data-copy="demo.state.scan.error">扫描失败</button>
+            <button type="button" class="seg-btn" data-target="scan" data-state="running" aria-pressed="false" data-copy="demo.state.scan.running">扫描中</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- ================= 页面三：治理清单 ================= -->
+      <section class="page" data-page="lists" hidden aria-labelledby="lists-title">
+        <div class="page-head">
+          <div class="page-head-text">
+            <h1 class="page-title" id="lists-title" tabindex="-1" data-copy="lists.title">治理清单</h1>
+            <p class="page-lede" data-copy="lists.lede">三类缺陷的复核入口。统计单元不同，不做横向比较。</p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn btn-primary" id="listsCta" data-copy="lists.cta.success">下载当前清单 CSV</button>
+            <p class="action-note" id="listsCtaNote" data-copy="lists.cta.note">下载的是含评测标注列的原始产物，仅用于论文溯源与复现。</p>
+          </div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="缺陷类别">
+          <button type="button" class="tab" id="tab-gap" role="tab" data-tab="gap" aria-selected="true" aria-controls="listPanel" tabindex="0">
+            <span data-copy="lists.tab.gap">知识缺口</span>
+            <span class="badge" id="badge-gap">—</span>
+          </button>
+          <button type="button" class="tab" id="tab-corrupt" role="tab" data-tab="corrupt" aria-selected="false" aria-controls="listPanel" tabindex="-1">
+            <span data-copy="lists.tab.corrupt">内容腐化</span>
+            <span class="badge" id="badge-corrupt">—</span>
+          </button>
+          <button type="button" class="tab" id="tab-dup" role="tab" data-tab="dup" aria-selected="false" aria-controls="listPanel" tabindex="-1">
+            <span data-copy="lists.tab.dup">重复冗余</span>
+            <span class="badge" id="badge-dup">—</span>
+          </button>
+        </div>
+        <p class="note" id="listStateNote" role="status"></p>
+
+        <section class="panel" aria-labelledby="lists-metrics-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="lists-metrics-title" data-copy="lists.metrics.title">判定指标</h2>
+            <p class="panel-desc" data-copy="lists.metrics.desc">阈值、判定数与各口径的精确率、召回率、F1，全部取自本轮扫描；内容腐化按两类口径分别给出，不合成单一 F1。</p>
+          </div>
+          <div class="kpis" id="listMetricGrid"></div>
+          <div class="kpis kpis-sub" id="listCaliGrid"></div>
+          <p class="note" id="listUnitNote"></p>
+          <p class="note" id="listCaliberNote"></p>
+        </section>
+
+        <section class="panel" aria-labelledby="lists-download-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="lists-download-title" data-copy="lists.download.title">下载与溯源</h2>
+            <p class="panel-desc" data-copy="lists.download.desc">下载内容与产物路径一一对应，页面本身不展示任何评测标注列。</p>
+          </div>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <caption class="sr-only" data-copy="lists.download.caption">下载产物与溯源路径</caption>
+              <thead>
+                <tr>
+                  <th scope="col" data-copy="lists.download.col1">清单</th>
+                  <th scope="col" data-copy="lists.download.col2">产物路径</th>
+                </tr>
+              </thead>
+              <tbody id="downloadBody"></tbody>
+            </table>
+          </div>
+          <p class="note note-warn" data-copy="lists.download.warn">原始产物含评测标注列，仅用于论文溯源与复现，不作为业务数据使用。</p>
+          <p class="note" id="downloadReceipt" data-copy="lists.download.receiptEmpty">尚未发起下载请求。</p>
+        </section>
+
+        <section class="panel" aria-labelledby="lists-detail-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="lists-detail-title" data-copy="lists.detail.title">明细列表</h2>
+            <p class="panel-desc" id="listDetailDesc"></p>
+          </div>
+
+          <div id="listPanel" role="tabpanel" aria-labelledby="tab-gap" tabindex="0">
+            <div class="state-block" data-list="success">
+              <div class="tbl-wrap">
+                <table class="tbl" id="listTable">
+                  <caption id="listCaption"></caption>
+                  <thead>
+                    <tr id="listHead"></tr>
+                  </thead>
+                  <tbody id="listBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="state-block" data-list="never">
+              <div class="empty">
+                <p class="empty-title" data-copy="lists.empty.never.title">尚未扫描</p>
+                <p class="empty-body" data-copy="lists.empty.never.body">运行一次治理扫描后，这里会出现三类缺陷的判定结果。</p>
+              </div>
+            </div>
+
+            <div class="state-block" data-list="nohit">
+              <div class="empty">
+                <p class="empty-title" data-copy="lists.empty.nohit.title">本次扫描未发现该类缺陷</p>
+                <p class="empty-body" data-copy="lists.empty.nohit.body">本轮该类判定数为 0，精确率、召回率、F1 无读数，显示占位破折号。</p>
+              </div>
+            </div>
+
+            <div class="state-block" data-list="loading">
+              <div class="skeleton-wrap" role="status" aria-live="polite" aria-busy="true">
+                <p class="state-line" data-copy="lists.empty.loading">正在加载清单…</p>
+                <span class="skeleton skeleton-line"></span>
+                <span class="skeleton skeleton-line"></span>
+                <span class="skeleton skeleton-line"></span>
+              </div>
+            </div>
+
+            <div class="state-block" data-list="error">
+              <div class="notice notice-error">
+                <p class="notice-title" data-copy="lists.error.title">清单加载失败</p>
+                <p class="notice-body" data-copy="lists.error.body">未取得清单数据。重新加载只重读清单，不影响已导入的语料与扫描结果。</p>
+                <div class="notice-actions">
+                  <button type="button" class="btn btn-primary" id="listsRetry" data-copy="lists.error.retry">重新加载清单</button>
+                  <button type="button" class="btn btn-ghost" id="listsGotoScan" data-copy="lists.error.goto">去运行扫描</button>
+                </div>
+                <p class="note note-warn" data-copy="lists.error.warn">运行扫描会清空语料，需要重新上传全部文档与工单。</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="listTabExtra"></div>
+        </section>
+
+        <section class="panel" aria-labelledby="lists-calib-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="lists-calib-title" data-copy="lists.calib.title">口径与免责</h2>
+          </div>
+          <details class="disclosure" open>
+            <summary data-copy="lists.calib.d1">数字来源</summary>
+            <p class="note">页面上的每个数字都来自 <code>poc/kbgovernance/</code> 下的机读产物，页面同时给出对应的产物键与文件路径；页面不展示评测标注列与归因列。</p>
+          </details>
+          <details class="disclosure">
+            <summary data-copy="lists.calib.d2">展示行数与判定总数</summary>
+            <p class="note" data-copy="lists.calib.d2body">清单行数与判定总数不是同一个数：知识缺口展示的是命中阈值的业务意图，内容腐化展示的是代表行，重复冗余展示的是全部重复组。</p>
+          </details>
+          <details class="disclosure">
+            <summary data-copy="lists.calib.d3">免责</summary>
+            <p class="note" data-copy="lists.calib.d3body">本原型仅用于讨论与走查，指标来自 PoC 的一次实测运行，不构成生产结论。</p>
+          </details>
+        </section>
+
+        <section class="panel panel-demo" aria-labelledby="lists-demo-title">
+          <div class="panel-head">
+            <h2 class="panel-title" id="lists-demo-title" data-copy="demo.title">原型状态演示</h2>
+            <p class="panel-desc" data-copy="demo.desc">走查用脚手架，不是产品功能。切换后徽标、计数与文案同步变化。</p>
+          </div>
+          <div class="segmented" role="group" aria-label="清单页状态演示">
+            <button type="button" class="seg-btn" data-target="lists" data-state="success" aria-pressed="true" data-copy="demo.state.lists.success">已扫描</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="never" aria-pressed="false" data-copy="demo.state.lists.never">未扫描</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="nohit" aria-pressed="false" data-copy="demo.state.lists.nohit">无命中</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="loading" aria-pressed="false" data-copy="demo.state.lists.loading">加载中</button>
+            <button type="button" class="seg-btn" data-target="lists" data-state="error" aria-pressed="false" data-copy="demo.state.lists.error">加载失败</button>
+          </div>
+        </section>
+      </section>
+
+      <footer class="page-foot">
+        <p>本原型是 <code>system/prototype/</code> 下的静态讨论稿：数字取自 <code>poc/kbgovernance/</code> 的机读产物，页面不发起真实请求。</p>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="appAside" data-copy="nav.open">打开导航</button>
+<div class="drawer-scrim" id="drawerScrim" hidden></div>
+
+<div class="sr-only" id="liveRegion" role="status" aria-live="polite" aria-atomic="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div id="modalRoot"></div>
+
+<script src="../data.js"></script>
+<script src="../copy.js"></script>
+<script src="../app.js"></script>
+</body>
+</html>

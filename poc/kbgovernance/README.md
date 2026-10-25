@@ -45,13 +45,16 @@ cd D:/26code/毕设/poc/kbgovernance
 |---|---|---|
 | `gen_data.py` | 生成合成语料与 ground truth。`random.seed(42)` + `np.random.seed(42)` | `python gen_data.py` |
 | `embed.py` | 文档 / 工单 / 段落三级向量化，落盘 `doc_emb.npy`、`ticket_emb.npy`、`ticket_cover.npy`、`embeddings_meta.json` | `python embed.py` |
-| `detect.py` | 三模块检测与评测，写出 `gap_threshold.csv` / `dup_threshold.csv` / `corrupt_docs.csv` / `dup_groups_best.csv` / `top15_gaps.csv` / `metrics.json` | `python detect.py` |
+| `detect.py` | 三模块检测与评测，写出 `gap_threshold.csv` / `dup_threshold.csv` / `corrupt_docs.csv` / `dup_groups_best.csv` / `gap_intents_best.csv` / `gap_clusters_best.csv` / `metrics.json` | `python detect.py` |
 | `granularity_exp.py` | 检索粒度（整篇 / 段落）× 5 种打分方案对照，算工单级与意图级两种 AUC。段落切分与向量化直接复用 `embed.py` 的实现，并把重算的 cover 与 `ticket_cover.npy` 逐元素比对做自校验 | `python granularity_exp.py`（别名入口 `python granularity.py` 等价） |
 | `corrupt_rule_ablation.py` | 内容腐化 4 条规则的 leave-one-rule-out 与 only-Rn 消融。权重与判定阈值一律从 `metrics.json:corrupt` 读，不在本文件里硬编码第二份 | `python corrupt_rule_ablation.py` |
 | `check_numbers.py` | 数字纪律门禁：扫三份文档里的每个数值断言，判定它能否在本目录产物里找到出处 | `python check_numbers.py` |
 
 `granularity_exp.py` 与 `corrupt_rule_ablation.py` 不在 `run_all.sh` 的四步里，
 需要时单独跑；两者都是纯 CPU、无随机性的确定性脚本。
+
+`gen_data.py` / `embed.py` / `detect.py` 三个主脚本都支持 `--work-dir`（输入所在目录）
+与 `--out-dir`（产物输出目录），用于把扫描产物写到基线之外——见 [§七](#七扫描区与基线隔离)。
 
 ---
 
@@ -64,12 +67,14 @@ cd D:/26code/毕设/poc/kbgovernance
 | `metrics.json` | 三模块主结果：embedding 规模与模型、gap 的 P/R/F1 与簇明细、corrupt 的 P/R/F1 与规则命中、dup 的 P/R/F1 与重复组明细、总耗时 |
 | `granularity.csv` | 检索粒度 × 打分方案：10 行（2 粒度 × 5 方案），列 `auc`（工单级）/ `auc_intent_median`（意图级）/ `n_tickets` / `n_labeled` |
 | `granularity_dup.csv` | 两种粒度下真实重复组的组内两两最大余弦：`n_groups` / `mean_max_sim` / `min_max_sim` / `max_max_sim` |
-| `corrupt_rule_ablation.csv` | 内容腐化规则消融：9 行设置，`all` 行必须与 `metrics.json:corrupt` 的 P/R/F1 逐位一致 |
+| `corrupt_rule_ablation_content_expiry.csv` | 内容过期口径（R1+R3）的规则消融：5 行设置，`all` 行必须与 `metrics.json:corrupt.by_cause.content_expiry` 的 P/R/F1 逐位一致 |
+| `corrupt_rule_ablation_maintenance.csv` | 维护周期口径（R2+R4）的规则消融：5 行设置，`all` 行必须与 `metrics.json:corrupt.by_cause.maintenance` 的 P/R/F1 逐位一致 |
 | `gap_threshold.csv` | 知识缺口扫参：min_cluster_size × threshold 的簇数、检出意图数、P/R/F1 |
 | `dup_threshold.csv` | 重复冗余扫参：threshold 的组级与文档级 P/R/F1、检出组数与篇数 |
 | `dup_groups_best.csv` | 逐重复组明细：`size` / `max_sim` / `is_true_group`（组内余弦区间的原始出处） |
 | `corrupt_docs.csv` | 逐篇腐化文档明细：`last_modified` / `risk_score` / `rule_hits` / `reasons` |
-| `top15_gaps.csv` | 疑似缺口 Top15：`intent` / `size` / `cover_median` / `rep_ticket` / `is_true_gap` |
+| `gap_intents_best.csv` | 知识缺口主清单（判定单元 = 业务意图）：`intent` / `n_clusters` / `min_cover_median` / `total_tickets` / `threshold` / `is_true_gap` / `rep_ticket` / `rep_text` |
+| `gap_clusters_best.csv` | 知识缺口簇级明细（溯源用）：`cluster_id` / `intent` / `size` / `cover_median` / `rep_cover` / `rep_ticket` / `rep_text` / `purity` / `n_intent_members` / `is_gap` / `is_true_gap` |
 | `ground_truth.json` | ground truth：缺口意图列表、腐化文档 ID 列表、重复组、`gap_ticket_count` / `gap_ticket_ratio` / `seed` / `base_date` |
 | `embeddings_meta.json` | 实际使用的 embedding 方案与模型、维度、`encode_seconds`、各语料条数、模型下载体积 |
 | `derived_metrics.csv` | **派生指标长表**（`derived_key,value,formula,inputs,source_files`，52 行）：跨场景极差与门槛带、跨语料/跨模型差值、F1 均值与标准差、消融下降幅度、覆盖度与吞吐等。每个值都由上表里的实测产物按 `formula` 算出，`inputs` 列给出被代入的原始键值，`source_files` 列给出上游产物。论文里的**每一个派生数字都必须在此表有对应行**；`formula` / `inputs` 两列只是公式文本，**不是**可引用的数值出处，门禁只读 `value` 列 |
@@ -123,7 +128,7 @@ cd D:/26code/毕设/poc/kbgovernance
 ## 四、数字纪律
 
 **论文与答辩里的任何数字，都必须能在 `metrics.json` / `granularity.csv` /
-`granularity_dup.csv` / `corrupt_rule_ablation.csv` / `standardize/*.csv` / `standardize/*.json` /
+`granularity_dup.csv` / `corrupt_rule_ablation_content_expiry.csv` / `corrupt_rule_ablation_maintenance.csv` / `standardize/*.csv` / `standardize/*.json` /
 `derived_metrics.csv` 中找到。** 其中派生数字（均值、标准差、极差、差值、消融幅度）
 统一登记到 `derived_metrics.csv`，并在 `formula` / `inputs` / `source_files` 三列
 留下「从哪些实测值按什么公式算出来」的自证链；门禁只把该表的 `value` 列当出处。
@@ -205,6 +210,70 @@ F1 / AUC / precision / recall / ROC / 阈值 / 秒 / ms / MB / 耗时 / 相似�
 ## 六、复现性实测
 
 已实测：连续跑第二遍后，`gap_threshold.csv` / `dup_threshold.csv` /
-`ground_truth.json` / `top15_gaps.csv` 与首跑**逐字节相同**；
+`ground_truth.json` / `gap_intents_best.csv` 与首跑**逐字节相同**；
 `metrics.json` 仅耗时字段抖动（`encode_seconds`、`seconds`、`total_seconds`），
 **所有指标值完全一致**。
+
+---
+
+## 七、扫描区与基线隔离
+
+`poc/kbgovernance/` 是论文数字的唯一合法来源，**基线产物只读**。Web 后端做扫描时，
+产物必须写到独立目录：写回基线会覆盖 `metrics.json` 等文件，作废 `repro_check.json`
+的逐字节基线，并让 `sync_timings.py` 静默改写仓库文档。
+
+### 7.1 三个脚本的命令行
+
+| 脚本 | 参数 | 含义 | 默认值 |
+|---|---|---|---|
+| `gen_data.py` | `--work-dir` | 本次生成的语料与真值的落地位置 | 脚本所在目录 |
+| | `--out-dir` | 产物输出目录 | = `--work-dir` |
+| `embed.py` | `--work-dir` | 输入语料 `docs.csv` / `tickets.csv` 所在位置 | 脚本所在目录 |
+| | `--out-dir` | 产物输出目录 | = `--work-dir` |
+| `detect.py` | `--work-dir` | 输入语料、向量与 `ground_truth.json` 所在位置 | 脚本所在目录 |
+| | `--out-dir` | 产物输出目录 | = `--work-dir` |
+| | `--no-gt` | 无真值模式：固定阈值、不计算 P/R/F1，真值列留空 | 关 |
+
+规则：
+
+- **输入只从 `--work-dir` 读，产物只写到 `--out-dir`。** 两个参数都不给时，
+  读写目录都是脚本所在目录 `poc/kbgovernance/`，产物口径与现行基线完全一致。
+- `--out-dir` 省略时跟随 `--work-dir`，所以只给 `--work-dir` 不会把产物写回基线目录。
+- `embed.py` 的 `HF_HOME` 是模型缓存的环境变量，**不受** `--work-dir` / `--out-dir` 影响，
+  权重仍由 `HF_HOME`（默认 `D:/hf_cache`）决定。
+- `ground_truth.json` 只读不抄：真值文件不进 `--out-dir`，扫描产物里不出现真值文件。
+  Web 扫描不提供真值，用 `--no-gt` 跑，真值侧指标为 null（不可得），不是 0。
+
+### 7.2 扫描区目录约定
+
+```
+var/scan/<run_id>/
+├── work/    # 本次扫描的输入区：语料 + 向量 +（离线评测时）真值
+└── out/     # 本次扫描的产物区：detect.py 的 7 件产物
+```
+
+- `run_id` 取 `<yyyymmdd-HHMMSS>-<来源>`，例如 `20261025-150211-web-001`。
+  一次扫描一个目录，不复用、不覆盖。
+- `var/` 已在 `.gitignore` 里，扫描产物与中间向量不入库。
+- 基线目录 `poc/kbgovernance/` 对扫描只读：扫描不写它，`sync_timings.py` 也只认它。
+
+### 7.3 典型用法
+
+```bash
+# 离线复算（真值齐全，产物口径与基线一致）
+RUN=var/scan/20261025-150211-web-001
+python poc/kbgovernance/gen_data.py --work-dir $RUN/work --out-dir $RUN/work
+python poc/kbgovernance/embed.py    --work-dir $RUN/work --out-dir $RUN/work
+python poc/kbgovernance/detect.py   --work-dir $RUN/work --out-dir $RUN/out
+
+# Web 扫描（无真值）
+python poc/kbgovernance/detect.py --work-dir $RUN/work --out-dir $RUN/out --no-gt
+```
+
+### 7.4 隔离的不变量
+
+- 扫描跑完后，`poc/kbgovernance/` 下基线产物的 md5 **一个字节都不变**。
+- 隔离目录的 `metrics.json` 与基线 `metrics.json` 除计时字段
+  （`encode_seconds` / `seconds` / `total_seconds`）外完全一致。
+- 无真值模式（`--no-gt`）产物照产，真值侧计数与 P/R/F1 一律为 null，
+  `corrupt_docs.csv` 的 `in_control_sample` 列留空。

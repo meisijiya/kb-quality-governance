@@ -17,6 +17,8 @@
 *.py  text eol=lf
 *.md  text eol=lf
 *.html text eol=lf
+*.yaml text eol=lf
+*.sql  text eol=lf
 
 # ---- 必须逐字节保留：机读产物，是论文数字的溯源依据 ----
 # 禁止任何换行转换，保证仓库里的字节与脚本产出完全一致

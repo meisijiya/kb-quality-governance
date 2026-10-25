@@ -296,7 +296,7 @@
         <text x="444" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">段落级 τ=0.62</text>
         <rect x="533" y="168" width="152" height="50" rx="8" fill="#fff" stroke="#ecd8c2"/>
         <text x="609" y="189" text-anchor="middle" font-weight="600">腐化规则</text>
-        <text x="609" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">R1–R4 阈值 3</text>
+        <text x="609" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">两类口径 阈值 3</text>
         <rect x="698" y="168" width="152" height="50" rx="8" fill="#fff" stroke="#ecd8c2"/>
         <text x="774" y="189" text-anchor="middle" font-weight="600">重复检测</text>
         <text x="774" y="206" text-anchor="middle" fill="#7c7a72" font-size="11">余弦矩阵 0.95</text>
@@ -323,7 +323,7 @@
       <tr><td class="code col-c">M3</td><td>向量化引擎</td><td>段落切分 + 文本编码 + L2 归一化</td><td>文档 / 工单文本</td><td>向量矩阵</td><td class="code">EmbeddingEngine</td></tr>
       <tr><td class="code col-c">M4</td><td>聚类引擎</td><td>HDBSCAN 密度聚类</td><td>工单向量</td><td>簇标签</td><td class="code">TicketClusterer</td></tr>
       <tr><td class="code col-c">M5</td><td>缺口识别</td><td>段落级覆盖度计算 + 阈值判定 + 优先级排序</td><td>簇 + 文档向量</td><td>缺口清单</td><td class="code">GapDetector</td></tr>
-      <tr><td class="code col-c">M6</td><td>腐化规则引擎</td><td>4 条时效性规则匹配 + 加权打分</td><td>文档元数据 + 正文</td><td>腐化清单</td><td class="code">StaleRuleEngine</td></tr>
+      <tr><td class="code col-c">M6</td><td>腐化规则引擎</td><td>两类口径独立判定（R1+R3 / R2+R4）</td><td>文档元数据 + 正文</td><td>腐化清单</td><td class="code">StaleRuleEngine</td></tr>
       <tr><td class="code col-c">M7</td><td>重复检测</td><td>余弦矩阵 + 并查集 + 主文档选举</td><td>文档向量</td><td>重复分组</td><td class="code">DuplicateDetector</td></tr>
     </tbody>
   </table>
@@ -367,7 +367,7 @@
   <div class="mods">
     <div class="mod">
       <div class="mod-h"><span class="k">M5</span><h3>知识缺口识别</h3></div>
-      <p class="mod-p">工单 HDBSCAN 聚类 → 簇代表元 → 段落级覆盖度 → 阈值判定 → 按工单数排序</p>
+      <p class="mod-p">工单 HDBSCAN 聚类 → 簇代表元 → 段落级覆盖度 → 意图覆盖度取各簇最小值 → 阈值判定 → 意图级清单</p>
       <dl class="kv">
         <dt>threshold</dt><dd>0.62</dd>
         <dt>gap_clusters</dt><dd>7</dd>
@@ -375,19 +375,19 @@
         <dt>P / R / F1</dt><dd>0.8 / 0.8 / 0.8</dd>
         <dt>缺口工单占比</dt><dd>18.55%（371 / 2000）</dd>
       </dl>
-      <p class="mod-p" style="margin-top:11px;margin-bottom:0">聚类参数不敏感：mcs=5 与 10 的 F1 同为 0.800 → <b>消融重心放在打分函数而非聚类参数</b></p>
+      <p class="mod-p" style="margin-top:11px;margin-bottom:0">判定单元是<b>业务意图</b>，主清单按意图列出 5 个意图（对应 7 个缺口簇），簇级明细只作内部量与溯源；聚类参数不敏感：mcs=5 与 10 的 F1 同为 0.800 → <b>消融重心放在打分函数而非聚类参数</b></p>
     </div>
     <div class="mod">
       <div class="mod-h"><span class="k">M6</span><h3>内容腐化检测</h3></div>
-      <p class="mod-p">4 条时效性规则加权打分，R1 权重 3 / R2 权重 2 / R3 权重 2 / R4 权重 1，判定阈值 3</p>
+      <p class="mod-p">内容过期（R1 权重 3 + R3 权重 2）与维护周期（R2 权重 2 + R4 权重 1）两类口径各自加权，各自达到 3 即判为缺陷</p>
       <dl class="kv">
-        <dt>embedded / detected</dt><dd>62 / 69</dd>
-        <dt>TP / FP / FN</dt><dd>62 / 7 / 0</dd>
-        <dt>P / R / F1</dt><dd>0.8986 / 1.0 / 0.9466</dd>
-        <dt>耗时</dt><dd>0.42 秒</dd>
+        <dt>embedded / detected / covered</dt><dd>62 / 69 / 62</dd>
+        <dt>内容过期 P / R / F1</dt><dd>1.0000 / 1.0000 / 1.0000（TP 32 / FP 0 / FN 0）</dd>
+        <dt>维护周期 P / R / F1</dt><dd>0.8158 / 1.0000 / 0.8986（TP 31 / FP 7 / FN 0）</dd>
+        <dt>耗时</dt><dd>0.51 秒</dd>
         <dt>规则工程</dt><dd>R4 加两道约束后命中 88 篇</dd>
       </dl>
-      <p class="mod-p" style="margin-top:11px;margin-bottom:0">消融：去掉任一条都塌到 0.6809–0.6857；<b>drop_R3 的 ΔF1 = 0</b>（R3 冗余，主动报告）</p>
+      <p class="mod-p" style="margin-top:11px;margin-bottom:0">两类口径各自单独报指标，不合成单一 F1；合计只讲覆盖面（检出 69 篇、覆盖全部 62 篇埋设缺陷）。消融分口径进行、真值集固定：内容过期口径 <b>drop_R3 的 ΔF1 = 0</b>（R3 冗余，主动报告），drop_R1 与 only_R3 的 F1 为 0；维护周期口径 drop_R2 / drop_R4 / only_R2 / only_R4 的 F1 均为 0。内容过期的满分来自规则与自造语料埋设模板一致（循环验证）；7 篇误报全部属维护周期口径，与真缺陷的规则命中完全相同（有意保留的边界）</p>
     </div>
     <div class="mod">
       <div class="mod-h"><span class="k">M7</span><h3>重复冗余检测</h3></div>
@@ -407,11 +407,11 @@
       <dl class="kv">
         <dt>文档 / 工单 / 段落</dt><dd>300 / 2000 / 1852</dd>
         <dt>维度</dt><dd>512</dd>
-        <dt>encode_seconds</dt><dd>15.43 秒</dd>
-        <dt>total_seconds</dt><dd>2.85 秒</dd>
+        <dt>encode_seconds</dt><dd>14.61 秒</dd>
+        <dt>total_seconds</dt><dd>3.75 秒</dd>
         <dt>平均每篇段落</dt><dd>6.2 段</dd>
       </dl>
-      <p class="mod-p" style="margin-top:11px;margin-bottom:0">耗时按分项列：<b>向量化 15.43 + 检测 2.85</b>，不写合计秒数</p>
+      <p class="mod-p" style="margin-top:11px;margin-bottom:0">耗时按分项列：<b>向量化 14.61 秒 + 检测 3.75 秒</b>，不写合计秒数</p>
     </div>
   </div>
 </section>
@@ -427,7 +427,7 @@
       <tr><td class="code col-c">E2</td><td>段落级消融</td><td>段落级 / 整篇级 → 分离度</td><td>AUC（意图级 / 工单级）</td><td class="col-c"><span class="pill p-in">进论文</span></td><td class="code">granularity.csv</td></tr>
       <tr><td class="code col-c">E3</td><td>归一化对照</td><td>margin / max÷std / max÷top5 / max−min</td><td>AUC</td><td class="col-c"><span class="pill p-one">一句话 + 小表</span></td><td class="code">granularity.csv</td></tr>
       <tr><td class="code col-c">E4</td><td>聚类参数敏感性</td><td>mcs ∈ {3,5,10,15,20}</td><td>F1 / 簇数 / 噪声</td><td class="col-c"><span class="pill p-one">一句话</span></td><td class="code">gap_threshold.csv</td></tr>
-      <tr><td class="code col-c">E5</td><td>腐化规则消融</td><td>drop_Rn / only_Rn</td><td>P / R / F1</td><td class="col-c"><span class="pill p-in">进论文</span></td><td class="code">corrupt_rule_ablation.csv</td></tr>
+      <tr><td class="code col-c">E5</td><td>腐化规则消融（分口径）</td><td>各口径内 drop_Rn / only_Rn</td><td>P / R / F1</td><td class="col-c"><span class="pill p-in">进论文</span></td><td class="code">corrupt_rule_ablation_content_expiry.csv<br>corrupt_rule_ablation_maintenance.csv</td></tr>
       <tr><td class="code col-c">E6</td><td>重复阈值扫描</td><td>0.80–0.98 → 组级 P/R/F1</td><td>F1</td><td class="col-c"><span class="pill p-in">进论文</span></td><td class="code">dup_threshold.csv</td></tr>
       <tr><td class="code col-c">E7</td><td>阈值可迁移性</td><td>5 个自造场景 + banking77 双模型</td><td>F1 / AUC 衰减</td><td class="col-c"><span class="pill p-one">≤1 页边界表</span></td><td class="code">standardize/results_transfer.csv</td></tr>
       <tr><td class="code col-c">E8</td><td>单调等价性验证</td><td>8 种打分 → 与 cover 的秩相关</td><td>Spearman ρ / AUC</td><td class="col-c"><span class="pill p-one">≤1 页命题表</span></td><td class="code">standardize/mechanism.csv</td></tr>
@@ -558,7 +558,7 @@
     </details>
     <details>
       <summary><span class="n">Q7</span>腐化检测是规则匹配，会不会太简单 / 不通用？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
-      <div class="a">规则本身简单，但<b>规则工程是核心工作</b>。R4 加两道约束（对方领先 ≥ 365 天、标题包含度 ≥ 0.50）后命中数从全量收敛到 88 篇，这个修正过程本身是论文素材。四规则贡献度消融：F1 = 0.9466 来自四条联合，任一单规则都到不了（only_R2 / only_R3 / only_R4 的 F1 恒为 0，only_R1 也只有 0.6809）；去掉 R1 / R2 / R4 分别掉 0.2609 / 0.2657 / 0.2657，而<b>去掉 R3 一位不掉（ΔF1 = 0）</b>，说明 R3 在本语料上冗余，如实写进论文。</div>
+      <div class="a">规则本身简单，但<b>规则工程是核心工作</b>。R4 加两道约束（对方领先 ≥ 365 天、标题包含度 ≥ 0.50）后命中数从全量收敛到 88 篇，这个修正过程本身是论文素材。腐化检测分两类口径各自评估，消融也按口径分开，真值集固定不变：内容过期口径（R1 + R3）F1 = 1.0000，<b>去掉 R3 一位不掉（ΔF1 = 0）</b>，说明 R3 在本语料上冗余，如实写进论文，去掉 R1 则 F1 归 0；维护周期口径（R2 + R4）F1 = 0.8986，drop_R2 / drop_R4 / only_R2 / only_R4 的 F1 均为 0——R2（权重 2）+ R4（权重 1）恰等于阈值 3，去掉任一条即不足阈值。两类口径不合成单一 F1，合计只报覆盖面（检出 69 篇、覆盖 62 篇）。</div>
     </details>
     <details>
       <summary><span class="n">Q8</span>阈值 0.62 是不是过拟合到我的数据了？<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
@@ -631,7 +631,7 @@
 </section>
 
 <footer>
-  <div>数据来源：<code>poc/kbgovernance/metrics.json</code> + 同目录 CSV（<code>granularity.csv</code> / <code>gap_threshold.csv</code> / <code>corrupt_rule_ablation.csv</code> / <code>dup_threshold.csv</code> / <code>corrupt_docs.csv</code> / <code>top15_gaps.csv</code> / <code>dup_groups_best.csv</code> / <code>standardize/*.csv</code>）</div>
+  <div>数据来源：<code>poc/kbgovernance/metrics.json</code> + 同目录 CSV（<code>granularity.csv</code> / <code>gap_threshold.csv</code> / <code>corrupt_rule_ablation_content_expiry.csv</code> / <code>corrupt_rule_ablation_maintenance.csv</code> / <code>dup_threshold.csv</code> / <code>corrupt_docs.csv</code> / <code>gap_intents_best.csv</code> / <code>gap_clusters_best.csv</code> / <code>dup_groups_best.csv</code> / <code>standardize/*.csv</code>）</div>
   <div>源文档：<code>docs/技术方案/企业知识库质量治理系统技术方案.md</code>（8 章 + 4 附录）· <code>docs/技术方案/本科版实施方案.md</code></div>
 </footer>
 

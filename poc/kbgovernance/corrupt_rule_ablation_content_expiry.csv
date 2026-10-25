@@ -1,0 +1,6 @@
+﻿cause,setting,precision,recall,f1,detected,tp,fp,fn,truth,docs_with_hit,mean_risk,delta_f1
+content_expiry,all,1.0,1.0,1.0,32,32,0,0,32,32,0.5333,
+content_expiry,drop_R1,0.0,0.0,0.0,0,0,0,32,32,32,0.2133,-1.0
+content_expiry,drop_R3,1.0,1.0,1.0,32,32,0,0,32,32,0.32,0.0
+content_expiry,only_R1,1.0,1.0,1.0,32,32,0,0,32,32,0.32,0.0
+content_expiry,only_R3,0.0,0.0,0.0,0,0,0,32,32,32,0.2133,-1.0

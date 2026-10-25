@@ -4,12 +4,70 @@
     "scheme": "FlagEmbedding",
     "model": "BAAI/bge-small-zh-v1.5",
     "fallback": false,
+    "device": "cpu",
     "dim": 512,
-    "encode_seconds": 15.43,
+    "encode_seconds": 14.61,
     "n_docs": 300,
     "n_tickets": 2000,
     "n_passages": 1852,
     "model_download_mb": 95.8
+  },
+  "has_ground_truth": true,
+  "dup": {
+    "embedded_groups": 22,
+    "embedded_docs": 49,
+    "rows": [
+      {
+        "threshold": 0.85,
+        "dup_groups": 23,
+        "detected_docs": 223,
+        "group_precision": 0.1739,
+        "group_recall": 0.1818,
+        "group_f1": 0.1778,
+        "doc_precision": 0.2197,
+        "doc_recall": 1.0,
+        "doc_f1": 0.3603,
+        "seconds": 0.0
+      },
+      {
+        "threshold": 0.9,
+        "dup_groups": 32,
+        "detected_docs": 77,
+        "group_precision": 0.5938,
+        "group_recall": 0.8636,
+        "group_f1": 0.7037,
+        "doc_precision": 0.6364,
+        "doc_recall": 1.0,
+        "doc_f1": 0.7778,
+        "seconds": 0.0
+      },
+      {
+        "threshold": 0.95,
+        "dup_groups": 22,
+        "detected_docs": 49,
+        "group_precision": 1.0,
+        "group_recall": 1.0,
+        "group_f1": 1.0,
+        "doc_precision": 1.0,
+        "doc_recall": 1.0,
+        "doc_f1": 1.0,
+        "seconds": 0.0
+      }
+    ],
+    "best": {
+      "threshold": 0.95,
+      "dup_groups": 22,
+      "detected_docs": 49,
+      "group_precision": 1.0,
+      "group_recall": 1.0,
+      "group_f1": 1.0,
+      "doc_precision": 1.0,
+      "doc_recall": 1.0,
+      "doc_f1": 1.0,
+      "seconds": 0.0
+    },
+    "detected_groups": 22,
+    "duplicate_copies": 27
   },
   "gap": {
     "best": {
@@ -22,7 +80,15 @@
       "f1": 0.8
     },
     "n_gap_clusters": 7,
-    "cluster_rows": [
+    "n_gap_intents": 5,
+    "gap_intents": [
+      "公积金提取材料",
+      "海外出差报销标准",
+      "密码策略例外申请",
+      "社保转移办理",
+      "终端病毒处置"
+    ],
+    "threshold_rows": [
       {
         "min_cluster_size": 5,
         "threshold": 0.3,
@@ -221,17 +287,530 @@
         "recall": 1.0,
         "f1": 0.2857
       }
-    ]
+    ],
+    "intent_rows": [
+      {
+        "intent": "公积金提取材料",
+        "n_clusters": 3,
+        "min_cover_median": 0.5629,
+        "total_tickets": 76,
+        "is_gap": 1,
+        "is_true_gap": 1,
+        "rep_ticket": "TK00119",
+        "rep_text": "租房提取和购房提取材料一样吗，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "海外出差报销标准",
+        "n_clusters": 3,
+        "min_cover_median": 0.5712,
+        "total_tickets": 78,
+        "is_gap": 1,
+        "is_true_gap": 1,
+        "rep_ticket": "TK00004",
+        "rep_text": "去东南亚出差的住宿标准是多少，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "密码策略例外申请",
+        "n_clusters": 3,
+        "min_cover_median": 0.604,
+        "total_tickets": 62,
+        "is_gap": 1,
+        "is_true_gap": 1,
+        "rep_ticket": "TK00009",
+        "rep_text": "系统强制改密码和我的老密码冲突，能申请例外吗"
+      },
+      {
+        "intent": "社保转移办理",
+        "n_clusters": 3,
+        "min_cover_median": 0.6083,
+        "total_tickets": 85,
+        "is_gap": 1,
+        "is_true_gap": 1,
+        "rep_ticket": "TK00023",
+        "rep_text": "跨省社保转移多久能到账，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "终端病毒处置",
+        "n_clusters": 3,
+        "min_cover_median": 0.6179,
+        "total_tickets": 63,
+        "is_gap": 1,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00279",
+        "rep_text": "终端要隔离重装吗，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "考勤异常处理",
+        "n_clusters": 3,
+        "min_cover_median": 0.6278,
+        "total_tickets": 96,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00005",
+        "rep_text": "加班时长没记上，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "门禁权限申请",
+        "n_clusters": 3,
+        "min_cover_median": 0.6287,
+        "total_tickets": 64,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00006",
+        "rep_text": "门禁卡丢了怎么挂失，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "数据导出权限申请",
+        "n_clusters": 3,
+        "min_cover_median": 0.6342,
+        "total_tickets": 70,
+        "is_gap": 0,
+        "is_true_gap": 1,
+        "rep_ticket": "TK00143",
+        "rep_text": "想把后台数据导出成Excel需要什么权限"
+      },
+      {
+        "intent": "供应商准入申请",
+        "n_clusters": 3,
+        "min_cover_median": 0.6352,
+        "total_tickets": 63,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK01848",
+        "rep_text": "准入申请提交后没进度，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "采购比价流程",
+        "n_clusters": 3,
+        "min_cover_median": 0.6398,
+        "total_tickets": 36,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00021",
+        "rep_text": "只有一家报价可以吗，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "发票合规校验",
+        "n_clusters": 3,
+        "min_cover_median": 0.6481,
+        "total_tickets": 79,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00088",
+        "rep_text": "系统说这张票查验重复，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "VPN远程接入申请",
+        "n_clusters": 3,
+        "min_cover_median": 0.652,
+        "total_tickets": 68,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00186",
+        "rep_text": "出差在外连不上内网，VPN申请怎么走，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "数据分类分级",
+        "n_clusters": 3,
+        "min_cover_median": 0.6548,
+        "total_tickets": 48,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00100",
+        "rep_text": "业务数据算几级，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "入职材料办理",
+        "n_clusters": 3,
+        "min_cover_median": 0.6567,
+        "total_tickets": 77,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00056",
+        "rep_text": "背调报告什么时候能交，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "会议室预订规则",
+        "n_clusters": 3,
+        "min_cover_median": 0.658,
+        "total_tickets": 99,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00149",
+        "rep_text": "订了没人来要怎么处理，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "差旅费报销",
+        "n_clusters": 8,
+        "min_cover_median": 0.6583,
+        "total_tickets": 114,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00016",
+        "rep_text": "本周出差回来发票还没交，OA报销一直提交不上去"
+      },
+      {
+        "intent": "合同用印审批",
+        "n_clusters": 3,
+        "min_cover_median": 0.6626,
+        "total_tickets": 38,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK01685",
+        "rep_text": "电子签和盖章哪个优先，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "备用金管理",
+        "n_clusters": 3,
+        "min_cover_median": 0.6636,
+        "total_tickets": 60,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00298",
+        "rep_text": "借款单额度不够用能加吗，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "邮箱账号开通",
+        "n_clusters": 3,
+        "min_cover_median": 0.667,
+        "total_tickets": 66,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00174",
+        "rep_text": "新入职同事邮箱还没开通，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "办公用品领用",
+        "n_clusters": 3,
+        "min_cover_median": 0.669,
+        "total_tickets": 71,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00003",
+        "rep_text": "想领一箱打印纸怎么申请，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "服务等级协议赔付",
+        "n_clusters": 3,
+        "min_cover_median": 0.669,
+        "total_tickets": 39,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK01852",
+        "rep_text": "SLA故障造成损失怎么赔，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "离职交接手续",
+        "n_clusters": 3,
+        "min_cover_median": 0.6719,
+        "total_tickets": 60,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00020",
+        "rep_text": "交接清单谁签字，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "印章使用登记",
+        "n_clusters": 3,
+        "min_cover_median": 0.6723,
+        "total_tickets": 60,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00025",
+        "rep_text": "盖完章的复印件需要留存吗，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "客户信息查询授权",
+        "n_clusters": 3,
+        "min_cover_median": 0.6769,
+        "total_tickets": 51,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00099",
+        "rep_text": "查询事由怎么写，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "系统权限开通",
+        "n_clusters": 3,
+        "min_cover_median": 0.6928,
+        "total_tickets": 78,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00090",
+        "rep_text": "权限开通后还是看不到数据，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "合同条款审查",
+        "n_clusters": 3,
+        "min_cover_median": 0.695,
+        "total_tickets": 40,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00012",
+        "rep_text": "对方合同里有不利条款怎么办，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "保密协议签署",
+        "n_clusters": 3,
+        "min_cover_median": 0.703,
+        "total_tickets": 36,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00154",
+        "rep_text": "保密协议正本哪里交，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "投诉工单处理时限",
+        "n_clusters": 3,
+        "min_cover_median": 0.707,
+        "total_tickets": 79,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00052",
+        "rep_text": "客户投诉多久必须回访，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "打印机故障报修",
+        "n_clusters": 3,
+        "min_cover_median": 0.7105,
+        "total_tickets": 87,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK00274",
+        "rep_text": "打印机耗材不足怎么申请，麻烦帮忙确认一下流程"
+      },
+      {
+        "intent": "预算追加流程",
+        "n_clusters": 3,
+        "min_cover_median": 0.7179,
+        "total_tickets": 57,
+        "is_gap": 0,
+        "is_true_gap": 0,
+        "rep_ticket": "TK01816",
+        "rep_text": "预算追加申请被驳回，麻烦帮忙确认一下流程"
+      }
+    ],
+    "clusters": {
+      "5": {
+        "n_clusters": 95,
+        "n_noise": 0
+      },
+      "10": {
+        "n_clusters": 88,
+        "n_noise": 9
+      }
+    }
   },
   "corrupt": {
     "embedded": 62,
     "detected": 69,
-    "tp": 62,
-    "fp": 7,
+    "covered": 62,
     "fn": 0,
-    "precision": 0.8986,
-    "recall": 1.0,
-    "f1": 0.9466,
+    "fp": 7,
+    "by_cause": {
+      "content_expiry": {
+        "label": "内容过期",
+        "rules": [
+          "R1_正文过期日期",
+          "R3_正文含绝对过期年份"
+        ],
+        "truth_key": "stale_text",
+        "threshold": 3,
+        "planted_of_this_nature": 32,
+        "detected": 32,
+        "tp": 32,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "truth_doc_ids": [
+          "DOC0002",
+          "DOC0004",
+          "DOC0010",
+          "DOC0018",
+          "DOC0019",
+          "DOC0032",
+          "DOC0041",
+          "DOC0052",
+          "DOC0066",
+          "DOC0067",
+          "DOC0076",
+          "DOC0078",
+          "DOC0079",
+          "DOC0080",
+          "DOC0087",
+          "DOC0098",
+          "DOC0103",
+          "DOC0111",
+          "DOC0115",
+          "DOC0171",
+          "DOC0177",
+          "DOC0189",
+          "DOC0206",
+          "DOC0207",
+          "DOC0239",
+          "DOC0241",
+          "DOC0243",
+          "DOC0268",
+          "DOC0272",
+          "DOC0276",
+          "DOC0282",
+          "DOC0290"
+        ],
+        "tp_doc_ids": [
+          "DOC0002",
+          "DOC0004",
+          "DOC0010",
+          "DOC0018",
+          "DOC0019",
+          "DOC0032",
+          "DOC0041",
+          "DOC0052",
+          "DOC0066",
+          "DOC0067",
+          "DOC0076",
+          "DOC0078",
+          "DOC0079",
+          "DOC0080",
+          "DOC0087",
+          "DOC0098",
+          "DOC0103",
+          "DOC0111",
+          "DOC0115",
+          "DOC0171",
+          "DOC0177",
+          "DOC0189",
+          "DOC0206",
+          "DOC0207",
+          "DOC0239",
+          "DOC0241",
+          "DOC0243",
+          "DOC0268",
+          "DOC0272",
+          "DOC0276",
+          "DOC0282",
+          "DOC0290"
+        ],
+        "fp_doc_ids": [],
+        "fn_doc_ids": [],
+        "cross_class_doc_ids": [],
+        "fp_attribution": {}
+      },
+      "maintenance": {
+        "label": "维护周期",
+        "rules": [
+          "R2_更新时间超18个月",
+          "R4_同类存在更新文档"
+        ],
+        "truth_key": "stale_mtime",
+        "threshold": 3,
+        "planted_of_this_nature": 30,
+        "detected": 38,
+        "tp": 31,
+        "fp": 7,
+        "fn": 0,
+        "precision": 0.8158,
+        "recall": 1.0,
+        "f1": 0.8986,
+        "truth_doc_ids": [
+          "DOC0005",
+          "DOC0015",
+          "DOC0045",
+          "DOC0049",
+          "DOC0062",
+          "DOC0065",
+          "DOC0070",
+          "DOC0084",
+          "DOC0091",
+          "DOC0119",
+          "DOC0124",
+          "DOC0129",
+          "DOC0133",
+          "DOC0134",
+          "DOC0143",
+          "DOC0152",
+          "DOC0165",
+          "DOC0172",
+          "DOC0178",
+          "DOC0183",
+          "DOC0186",
+          "DOC0205",
+          "DOC0211",
+          "DOC0218",
+          "DOC0225",
+          "DOC0236",
+          "DOC0240",
+          "DOC0241",
+          "DOC0261",
+          "DOC0283",
+          "DOC0294"
+        ],
+        "tp_doc_ids": [
+          "DOC0005",
+          "DOC0015",
+          "DOC0045",
+          "DOC0049",
+          "DOC0062",
+          "DOC0065",
+          "DOC0070",
+          "DOC0084",
+          "DOC0091",
+          "DOC0119",
+          "DOC0124",
+          "DOC0129",
+          "DOC0133",
+          "DOC0134",
+          "DOC0143",
+          "DOC0152",
+          "DOC0165",
+          "DOC0172",
+          "DOC0178",
+          "DOC0183",
+          "DOC0186",
+          "DOC0205",
+          "DOC0211",
+          "DOC0218",
+          "DOC0225",
+          "DOC0236",
+          "DOC0240",
+          "DOC0241",
+          "DOC0261",
+          "DOC0283",
+          "DOC0294"
+        ],
+        "fp_doc_ids": [
+          "DOC0055",
+          "DOC0101",
+          "DOC0105",
+          "DOC0113",
+          "DOC0127",
+          "DOC0242",
+          "DOC0262"
+        ],
+        "fn_doc_ids": [],
+        "cross_class_doc_ids": [
+          "DOC0241"
+        ],
+        "fp_attribution": {
+          "control_stale": 6,
+          "dup_inherited_stale": 1
+        }
+      }
+    },
+    "control_sampled": 10,
+    "control_sampled_doc_ids": [
+      "DOC0055",
+      "DOC0074",
+      "DOC0101",
+      "DOC0105",
+      "DOC0113",
+      "DOC0127",
+      "DOC0186",
+      "DOC0241",
+      "DOC0262",
+      "DOC0283"
+    ],
     "rule_weight": {
       "R1_正文过期日期": 3,
       "R2_更新时间超18个月": 2,
@@ -253,61 +832,7 @@
       "6": 5,
       "8": 1
     },
-    "seconds": 0.42
+    "seconds": 0.51
   },
-  "dup": {
-    "embedded_groups": 22,
-    "embedded_docs": 49,
-    "rows": [
-      {
-        "threshold": 0.85,
-        "dup_groups": 23,
-        "detected_docs": 223,
-        "group_precision": 0.1739,
-        "group_recall": 0.1818,
-        "group_f1": 0.1778,
-        "doc_precision": 0.2197,
-        "doc_recall": 1.0,
-        "doc_f1": 0.3603,
-        "seconds": 0.0
-      },
-      {
-        "threshold": 0.9,
-        "dup_groups": 32,
-        "detected_docs": 77,
-        "group_precision": 0.5938,
-        "group_recall": 0.8636,
-        "group_f1": 0.7037,
-        "doc_precision": 0.6364,
-        "doc_recall": 1.0,
-        "doc_f1": 0.7778,
-        "seconds": 0.0
-      },
-      {
-        "threshold": 0.95,
-        "dup_groups": 22,
-        "detected_docs": 49,
-        "group_precision": 1.0,
-        "group_recall": 1.0,
-        "group_f1": 1.0,
-        "doc_precision": 1.0,
-        "doc_recall": 1.0,
-        "doc_f1": 1.0,
-        "seconds": 0.0
-      }
-    ],
-    "best": {
-      "threshold": 0.95,
-      "dup_groups": 22,
-      "detected_docs": 49,
-      "group_precision": 1.0,
-      "group_recall": 1.0,
-      "group_f1": 1.0,
-      "doc_precision": 1.0,
-      "doc_recall": 1.0,
-      "doc_f1": 1.0,
-      "seconds": 0.0
-    }
-  },
-  "total_seconds": 2.85
+  "total_seconds": 3.75
 }

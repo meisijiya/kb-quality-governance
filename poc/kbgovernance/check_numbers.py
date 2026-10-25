@@ -3,7 +3,7 @@
 check_numbers.py -- 论文/方案文档「实测数字」↔ 实测产物一致性门禁
 
 用法:
-  python check_numbers.py                        # 默认检查 docs/技术方案/ 下的三份文档
+  python check_numbers.py                        # 默认检查 docs/技术方案/ 下的四份文档
   python check_numbers.py a.md b.md               # 指定 0 到多个文档路径
   python check_numbers.py --report out.md         # 指定报告输出路径
   python check_numbers.py --selftest              # 只跑判定逻辑自证, 不碰任何文件
@@ -58,7 +58,7 @@ import sys
 sys.stdout.reconfigure(encoding="utf-8")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-# 三份受检文档随仓库归档移入 docs/技术方案/, DOC_ROOT 必须指到该目录,
+# 受检文档随仓库归档移入 docs/技术方案/, DOC_ROOT 必须指到该目录,
 # 否则默认调用会以「文档不存在」退出码 2 收场, 门禁形同虚设。
 DOC_ROOT = os.path.normpath(os.path.join(HERE, "..", "..", "docs", "技术方案"))
 # 默认受检文档集(不传位置参数时全扫)。刻意不收日志、不收 poc 下的产物、
@@ -66,21 +66,25 @@ DOC_ROOT = os.path.normpath(os.path.join(HERE, "..", "..", "docs", "技术方案
 DEFAULT_DOCS = [os.path.join(DOC_ROOT, n) for n in
                 ("企业知识库质量治理系统技术方案.md",
                  "本科版实施方案.md",
-                 "数字溯源审计.md")]
+                 "数字溯源审计.md",
+                 "开发前准备清单.md")]
 REPORT_NAME = "check_numbers_report.md"
 
 # --------------------------------------------------------------- 来源集合
 # JSON 产物(逐个列出, 目录里的 JSON 不自动收)
-SOURCES_JSON = ["metrics.json", "embeddings_meta.json", "ground_truth.json"]
+SOURCES_JSON = ["metrics.json", "embeddings_meta.json", "ground_truth.json",
+                "repro_check.json"]
 # CSV 产物(与 metrics.json 同级)
 SOURCES_CSV = ["granularity.csv",
                "granularity_dup.csv",
-               "corrupt_rule_ablation.csv",
+               "corrupt_rule_ablation_content_expiry.csv",
+               "corrupt_rule_ablation_maintenance.csv",
                "gap_threshold.csv",
                "dup_threshold.csv",
                "dup_groups_best.csv",
                "corrupt_docs.csv",
-               "top15_gaps.csv"]
+               "gap_intents_best.csv",
+               "gap_clusters_best.csv"]
 # 长表型来源: 逐行 (derived_key, value) 的派生指标表, 只能读 value 列。
 # 绝不能按宽表那套「把每格里的数字都抠出来」的办法处理——formula / inputs 列
 # 里全是公式与被代入的原始值, 收进来等于让文档里的任何数字都能「自己证明自己」。

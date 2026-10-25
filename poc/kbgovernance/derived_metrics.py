@@ -126,7 +126,11 @@ def load():
     abl = read_csv_sections(os.path.join(STD, "ablation.csv"))
     d["abl_head"] = as_dicts(abl[0][0], abl[0][1]) if abl else []
     d["gran"] = read_csv_rows(os.path.join(HERE, "granularity.csv"))
-    d["rule"] = read_csv_rows(os.path.join(HERE, "corrupt_rule_ablation.csv"))
+    # 规则消融按两类缺陷口径分表（联合表已删）：内容过期 R1+R3、维护周期 R2+R4
+    d["rule_expiry"] = read_csv_rows(
+        os.path.join(HERE, "corrupt_rule_ablation_content_expiry.csv"))
+    d["rule_maint"] = read_csv_rows(
+        os.path.join(HERE, "corrupt_rule_ablation_maintenance.csv"))
     d["scen"] = json.load(open(os.path.join(STD, "scenario_meta.json"), encoding="utf-8"))
     d["bk_en_meta"] = json.load(open(os.path.join(STD, "banking77_meta_en.json"), encoding="utf-8"))
     d["bk_zh_meta"] = json.load(open(os.path.join(STD, "banking77_meta_zh.json"), encoding="utf-8"))
@@ -360,25 +364,36 @@ def direction_a2(d):
 
 
 def rule_ablation_drops(d):
-    """规则消融的 ΔF1 幅度 (文档 0.2609 / 0.2657, 文档写正数, 产物为负)。"""
-    src = "corrupt_rule_ablation.csv"
-    base = pick_one(d["rule"], lambda r: r["setting"] == "all", "rule.all")
-    if base is None:
-        return
-    f1_all = num(base["f1"])
-    for st in ["drop_R1", "drop_R2", "drop_R3", "drop_R4", "only_R1", "only_R2"]:
-        r = pick_one(d["rule"], lambda r, s=st: r["setting"] == s, "rule.%s" % st)
-        if r is None:
+    """规则消融的 ΔF1 幅度 (产物 delta_f1 为负, 文档写正数幅度)。
+
+    两类缺陷口径各自一张表, 真值集固定:
+      内容过期 (R1+R3) → corrupt_rule_ablation_content_expiry.csv
+      维护周期 (R2+R4) → corrupt_rule_ablation_maintenance.csv
+    键名前缀 rule_ablation.<cause>.<setting>_f1_drop_magnitude。
+    """
+    for cause, rows, src in (
+            ("content_expiry", d["rule_expiry"],
+             "corrupt_rule_ablation_content_expiry.csv"),
+            ("maintenance", d["rule_maint"],
+             "corrupt_rule_ablation_maintenance.csv")):
+        base = pick_one(rows, lambda r: r["setting"] == "all", "rule.%s.all" % cause)
+        if base is None:
             continue
-        if r["delta_f1"].strip() == "":
-            continue
-        delta = num(r["delta_f1"])
-        direction = ("无变化 (F1({}) = F1(all))".format(st) if delta == 0 else
-                     "F1({}) 低于 F1(all)".format(st))
-        add("rule_ablation.%s_f1_drop_magnitude" % st, abs(delta),
-            "abs({}) ; 产物 delta_f1 为负表示 F1 下降, 此处取正数幅度, 方向 = {}".format(
-                delta, direction),
-            [("%s.f1" % st, num(r["f1"])), ("all.f1", f1_all)], [src])
+        f1_all = num(base["f1"])
+        for st in [r["setting"] for r in rows if r["setting"] != "all"]:
+            r = pick_one(rows, lambda r, s=st: r["setting"] == s,
+                         "rule.%s.%s" % (cause, st))
+            if r is None:
+                continue
+            if r["delta_f1"].strip() == "":
+                continue
+            delta = num(r["delta_f1"])
+            direction = ("无变化 (F1({}) = F1(all))".format(st) if delta == 0 else
+                         "F1({}) 低于 F1(all)".format(st))
+            add("rule_ablation.%s.%s_f1_drop_magnitude" % (cause, st), abs(delta),
+                "abs({}) ; 产物 delta_f1 为负表示 F1 下降, 此处取正数幅度, 方向 = {}".format(
+                    delta, direction),
+                [("%s.f1" % st, num(r["f1"])), ("all.f1", f1_all)], [src])
 
 
 def granularity_gain(d):

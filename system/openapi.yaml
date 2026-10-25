@@ -1,0 +1,2134 @@
+openapi: 3.0.3
+
+info:
+  title: 企业知识库质量治理系统 API
+  version: 0.1.0
+  description: |
+    W7–W9 Web 交付的机器可读接口契约。**本文件是草案，尚未定稿。**
+
+    状态（未拍板，不得当作已确认的接口契约）：
+      - Issue #3 已撤回为 `needs-triage`，其正文不再是已确认的规格来源；本文件
+        只是把该工单的接口描述转写为机器可读形式，供讨论用。
+      - 需求方已就三项给出口径并要求落进契约：P1「按推荐」、P2「按推荐且保证查询
+        性能」、P5「必要的 CRUD 要有」。本文件已按该口径改；凡仍需拍板的地方一律
+        在 description 里标【待拍板】，不得当作已确认的契约。
+      - 列排序（D1）已按实施口径砍掉：`docs/技术方案/本科版实施方案.md` §2.2 第 104 行
+        与 §3 第 120 行把「分页 / 排序 / 跳转详情」列为砍掉项，Issue #3 第 201 行的
+        排序参数要求不采纳。三个清单接口因此不再提供 `sort` 参数。
+      - 产品形态已定：前后端分离，且必须「一条命令启动前后端」（需求方 2026-10-24 P3 口径）。
+        UI 形态仍待定，见 `docs/技术方案/开发前准备清单.md` §4。
+
+    来源：
+      - GitHub Issue #3「前后端接口契约（技术方案未定义，此处补齐）」
+      - docs/技术方案/企业知识库质量治理系统技术方案.md §4.3 / §4.4
+      - 数据表定义见 system/schema.sql
+
+    字段映射（PoC 产物列 ↔ 本契约与数据库列，取值逐一对齐）：
+      | PoC 产物列 | 本契约 / 数据库列 | 说明 |
+      |---|---|---|
+      | docs.csv → doc_id | document.doc_code / DocumentUpload.doc_code | 取值相同，仅列名不同 |
+      | docs.csv → title / content | document.title / content | 一致 |
+      | docs.csv → category | document.domain / DocumentUpload.domain | 同一业务域，列名不同 |
+      | docs.csv → created_at / last_modified / effective_date | 同名列 | 一致 |
+      | docs.csv → status / ref_count | 同名列 | 一致；ref_count 缺省 0 |
+      | tickets.csv → ticket_id | ticket.ticket_code | 取值相同，仅列名不同 |
+      | tickets.csv → intent_label | ticket.intent_label | 一致 |
+      | tickets.csv → linked_doc_id | ticket.linked_doc_id → document(doc_code) | **是文档编码文本，不是行号** |
+      | gap_intents_best.csv → intent / n_clusters / min_cover_median / total_tickets / rep_ticket / rep_text | GapRow 同名列 ↔ knowledge_gap | 一致；判定单元 = 业务意图；真值标注列 is_true_gap 不透出 |
+      | gap_clusters_best.csv → cluster_id / intent / size / cover_median / rep_cover / rep_ticket / rep_text / purity / n_intent_members | 不进清单接口 | 簇级明细是内部量与溯源用，经下载接口取原始 CSV |
+      | corrupt_docs.csv → doc_id / title / category / last_modified / risk_score / rule_hits / reasons / cause_score_content_expiry / cause_score_maintenance | StaleRow 同名列 ↔ stale_document | 一致；两个口径各自独立判定；评测标注与归因列（fp_causes / fp_reason / in_control_sample / is_dup_copy / dup_source）不透出 |
+      | dup_groups_best.csv → group / size / primary_doc / member_docs / max_sim | DuplicateRow 同名列 ↔ duplicate_group | 一致；真值标注列不透出 |
+      | docs.csv → doc_id / title / category / created_at / last_modified / effective_date / status / ref_count | DocumentSummary 同名列 ↔ document | 取值一致；doc_id→doc_code、category→domain 见上两行；正文 content 不进列表 |
+      | tickets.csv → ticket_id / intent_label / channel / urgency / status / handling_minutes / linked_doc_id / created_at | TicketSummary 同名列 ↔ ticket | 取值一致；ticket_id→ticket_code 见上表；正文 content 不进列表 |
+      | metrics.json → gap.best / corrupt.by_cause.* / dup.best | 三个清单接口的 threshold / precision / recall / f1 / count | 一致；腐化按两个口径分列（content_expiry 与 maintenance），各自报 P/R/F1，不合成单一 F1；另加 has_ground_truth（是否有真值）与 row_order（行序定义）两个本文件自有的字段 |
+
+      源数据中 linked_doc_id 的实测分布：tickets.csv 2000 行中 1629 行非空，
+      全部能对上 docs.csv 的 doc_id（未匹配的 0 行）。
+
+    契约要点（Issue #3 的断言 + 2026-10-24 需求方口径 P1 / P2 / P5）：
+      - 全部接口返回 JSON；错误响应体统一为 {code, message, location}：机器可读错误码 + 中文说明 + 出错位置。
+        请求体结构不合法（缺必填字段 / 类型不匹配）返回 422 + VALIDATION_FAILED，
+        FastAPI 默认的 {"detail":[...]} 形状被显式收编进这个错误体。
+      - 错误码枚举里的每个取值都必须至少被一条路径引用；无路径引用的错误码不得留在枚举里。
+      - POST /api/scan 同步跑完「向量化 → 聚类 → 三模块检测 → 落库」，不引入任务队列。
+      - GET /api/gaps、/api/stale、/api/duplicates 返回「清单行 + 本次 threshold 与 P/R/F1」。
+        腐化的 P/R/F1 按两个口径分列（内容过期 / 维护周期），**各自报，不合成单一 F1**；
+        缺口清单的判定单元是业务意图，簇数不作主指标。
+      - 清单接口不支持列排序、不分页：行序 = 源 CSV 行序，由响应里的 row_order 字段声明，
+        每一档的行序都能按「文件路径 + 列名」复核。
+      - 阈值与主指标一律从本次扫描落盘的 metrics.json 读取，不在前端代码里硬编码。
+      - 清单行的字段名与取值与对应 CSV 的列一致（缺口 gap_intents_best.csv、腐化 corrupt_docs.csv、重复 dup_groups_best.csv）。
+      - 清单接口不返回真值标注列：源 CSV 的真值标注列不作为字段出现在任何响应里
+        （真值只留在产物文件与论文中，见开发前准备清单 §4.10 A14）；下载件则保留全量列。
+      - precision / recall / f1 可为 null：无真值语料时 has_ground_truth = false，
+        三个指标恒为 null（不是 0）；has_ground_truth = true 时才有值。
+      - count 是「本次命中数量」，三个清单的统计单元不同：缺口=意图、腐化=文档、重复=组。
+      - 文档与工单各自提供 POST（导入）/ GET（查询）/ DELETE（单条删除 + 整批清空，
+        清空是重导的前置动作）；三类缺陷清单只读。内容字段落库后只读，编辑语义等于
+        重新导入（在线编辑已按 `docs/技术方案/本科版实施方案.md` §3 第 135 行砍掉）。
+      - P3 形态：前后端分离 + 一条命令启动前后端——后端单进程（FastAPI + uvicorn）
+        挂载前端构建产物，SQLite 以 WAL 模式运行（PRAGMA journal_mode = WAL，见
+        system/schema.sql）；契约里 GET / 就是静态挂载点。
+      - 数字纪律：本文档里的每个数值都来自 poc/kbgovernance/metrics.json 或对应 CSV，不来自叙述性文本。
+
+    2026-10-23 评审结论对本契约的影响（技术方案评审团 + 架构评审，共 5 份报告；
+    逐条复现记录见 docs/技术方案/开发前准备清单.md §4.10 与 §6.2）：
+      - 已在本文件内修正的自相矛盾：sort 取值与清单行字段名不同名、错误码枚举不闭合
+        （工单 409 曾复用 DUPLICATE_DOC_CODE）、缺少 422 校验错误响应、真值列外泄、
+        /api/scan/status 把「各阶段耗时之和」写成需求阈值、/api/gaps 未说明 rows 上限。
+      - 已按 2026-10-24 需求方口径（P1 / P2 / P5）在本文件内继续修正：删除三个清单的
+        `sort` 参数并把行序写进响应；P/R/F1 改可空并新增 has_ground_truth；
+        count 写明统计单元；/api/scan 增加请求体区分复现模式与自有语料模式；
+        /api/downloads/{name} 的文件枚举对齐 poc/kbgovernance/ 实际产物；
+        补齐语料侧的查看与清空接口。
+      - 仍需需求方拍板、本文件不做单方面决定的（本文件中以【待拍板】标注）：
+        清单是否分页、是否另设独立详情端点、是否允许 DELETE 整批语料、
+        文档上传是否也收文件、两种上传形态是否统一、扫描是否清空语料表、
+        linked_doc_id 未命中是拒绝该行还是写 NULL（A17 与现行草案冲突）、
+        清单行字段与落库列的缺口（缺口清单改成意图级后，
+        knowledge_gap 的簇级行与意图级行不再一一对应：n_clusters 没有对应列，
+        cover_score 若复用则装的是意图级 min_cover_median）。
+        取舍见准备清单 §4.10 与 §4.11。
+
+servers:
+  - url: /
+    description: 同一后端进程，路径相对服务根（FastAPI + uvicorn，本地单进程）
+
+tags:
+  - name: system
+    description: 健康检查等系统级接口
+  - name: corpus
+    description: 语料录入（文档 / 工单）与语料统计
+  - name: scan
+    description: 治理扫描（同步执行）
+  - name: findings
+    description: 三类缺陷清单
+  - name: artifacts
+    description: 产物下载与指标读取
+
+paths:
+
+  /api/health:
+    get:
+      tags: [system]
+      summary: 健康检查
+      description: 前端启动时探活。响应体为 JSON，后端不返回任何 HTML 页面。
+      responses:
+        '200':
+          description: 服务可用
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+              example:
+                status: ok
+
+  /api/corpus/stats:
+    get:
+      tags: [corpus]
+      summary: 语料统计
+      description: 已录入的文档数 / 工单数 / 段落数，字段名与 metrics.json → embedding 的同名字段一致。
+      responses:
+        '200':
+          description: 当前库中语料规模
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorpusStats'
+              example:
+                n_docs: 300
+                n_tickets: 2000
+                n_passages: 1852
+
+  /api/documents:
+    post:
+      tags: [corpus]
+      summary: 上传知识文档
+      description: |
+        录入待治理的知识文档，整批在一次事务内提交：全成功或全回滚，不留半截数据（Issue #3 User Story 7）。
+
+        字段与 system/schema.sql 的 document 表列一一对应；
+        created_at 由服务端写入 ISO-8601 时间，ref_count 缺省 0、status 缺省「生效」。
+        doc_code 重复时整批拒绝并返回冲突的编码值（Issue #3 User Story 5）。
+
+        **必填口径**：必填字段取「检测器实际读取」的集合（doc_code / title /
+        content / domain / last_modified），不要求上传方填检测器不读的列
+        （effective_date / status / ref_count 可选；created_at 由服务端写）。
+        逐字段依据见 `DocumentUpload` 的字段口径表。
+
+        **【待拍板】上传形态**：本接口收 JSON 体（批量），/api/tickets 收文件上传
+        （multipart）。文档与工单是两个不同的数据对象（字段与校验规则不同：
+        文档有 doc_code / title / content / last_modified，工单有 ticket_id /
+        content / intent_label / created_at），按「不合并两个接口」的原则两者保持
+        独立。待拍板的是：① 文档上传是否也提供文件上传（multipart）形态；
+        ② 是否让两侧形态统一。
+        推荐：文档侧同时支持 JSON 体与 multipart 文件两种形态（JSON 体给程序化
+        批量导入，文件形态给人工上传），工单侧保持文件为主。
+        代价：每个导入接口要维护两套解析与两套错误定位口径（文件形态下
+        location 的 row / column 要重新定义），实现与测试量增加；不做则两侧
+        形态不对称，前端要写两套上传逻辑。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [documents]
+              properties:
+                documents:
+                  type: array
+                  minItems: 1
+                  description: 本批上传的文档列表
+                  items:
+                    $ref: '#/components/schemas/DocumentUpload'
+            example:
+              documents:
+                - doc_code: DOC0001
+                  title: 关于差旅费报销适用范围的说明（第1版）
+                  content: 正文内容……
+                  domain: 财务管理
+                  last_modified: '2025-07-15'
+                  effective_date: '2024-02-19'
+      responses:
+        '200':
+          description: 整批写入成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [inserted]
+                properties:
+                  inserted:
+                    type: integer
+                    description: 本次成功写入的文档条数
+              example:
+                inserted: 300
+        '400':
+          description: 文档字段不合法（缺字段 / 日期非 ISO-8601 等）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: INVALID_IMPORT_FILE
+                message: 文档 DOC0007 的 last_modified 不是 ISO-8601 日期
+                location:
+                  row: 7
+                  column: last_modified
+                  value: '2025/07/15'
+        '409':
+          description: 文档编码重复
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: DUPLICATE_DOC_CODE
+                message: 文档编码 DOC0001 已存在，整批导入已回滚
+                location:
+                  value: DOC0001
+        '422':
+          description: |
+            请求体结构不合法（缺必填字段 / 类型不匹配）。
+
+            **实现方必须把 FastAPI 默认的 RequestValidationError 响应转换成本错误体**：
+            FastAPI 默认返回 `{"detail":[...]}`，形状与本契约的统一错误体
+            `{code, message, location}` 不同；不装转换处理器时实际返回会与本契约
+            不一致。转换后的 location 至少给出出错的字段名。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: VALIDATION_FAILED
+                message: 请求体不合法：documents 必填，且每个文档必须含 doc_code / title / content / last_modified
+                location:
+                  column: documents
+
+    get:
+      tags: [corpus]
+      summary: 查看已录入的文档
+      description: |
+        语料侧的「可查看」：返回已录入文档的清单行。
+
+        行序 = 源 CSV 行序，本接口固定为 document.id 升序（导入写入顺序），
+        对应响应里的 row_order 字段。
+
+        正文 content 不进列表（300 篇文档的正文全量返回没有意义）；要正文时按
+        doc_code 过滤取单篇。
+
+        count 的统计单元是「文档」。
+      parameters:
+        - name: domain
+          in: query
+          required: false
+          description: 按业务域过滤（命中 idx_doc_domain）
+          schema:
+            type: string
+        - name: doc_code
+          in: query
+          required: false
+          description: 按文档编码精确取一篇（命中 document.doc_code 的唯一约束）
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 文档清单
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentList'
+              example:
+                count: 300
+                row_order: document.id 升序（导入写入顺序）
+                rows:
+                  - doc_code: DOC0001
+                    title: 关于差旅费报销适用范围的说明（第1版）
+                    domain: 财务管理
+                    created_at: '2024-02-07'
+                    last_modified: '2025-07-15'
+                    effective_date: '2024-02-19'
+                    status: 生效
+                    ref_count: 24
+
+    delete:
+      tags: [corpus]
+      summary: 清空已录入的文档
+      description: |
+        「清空重导」的前置动作：清空文档语料。一次事务内按外键依赖的子表 → 父表
+        顺序执行——先删 stale_document 与 duplicate_group（document 的子表），
+        再删 document。
+
+        ticket.linked_doc_id 指向 document(doc_code)，因此删文档前先把仍在引用被删
+        文档的工单外键置 NULL（未匹配到文档时写 NULL 是既定语义，见 system/schema.sql），
+        否则 SQLite 会报 FOREIGN KEY constraint failed；工单本身保留。
+
+        【待拍板】是否允许 DELETE 整批语料：需求方 P5 只说「文档与工单可清空重导」，
+        没明确是否提供显式的整批删除接口。本接口按推荐给出（清空是重导的前置动作），
+        代价是一次误调用即清掉整批文档且不可撤销，前端必须给二次确认与影响面提示；
+        若需求方要求「不开显式接口、清库只由扫描流程隐含完成」，则删掉本接口。
+      responses:
+        '200':
+          description: 已清空
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [deleted, tickets_unlinked]
+                properties:
+                  deleted:
+                    type: integer
+                    description: 本次删除的文档条数
+                  tickets_unlinked:
+                    type: integer
+                    description: 因文档被删而把 linked_doc_id 置 NULL 的工单条数
+              example:
+                deleted: 300
+                tickets_unlinked: 1629
+        '409':
+          description: 已有扫描在执行
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: SCAN_IN_PROGRESS
+                message: 已有扫描在执行，请等待当前扫描结束后再清空语料
+                location: {}
+
+  /api/documents/{doc_code}:
+    delete:
+      tags: [corpus]
+      summary: 删除单篇文档
+      description: |
+        「可删除（单条）」：按文档编码删一篇文档。
+
+        子表 → 父表顺序：先删引用该文档的 stale_document 与 duplicate_group 行，
+        再删 document；同时把仍引用它的 ticket.linked_doc_id 置 NULL（工单本身保留），
+        否则 SQLite 会报 FOREIGN KEY constraint failed。
+
+        命中 doc_code 唯一约束（document.doc_code），因此这条路径走唯一索引查找。
+
+        【待拍板】单条删除是否与整批清空并存：本接口按推荐给出（删除单篇是「重导前
+        局部订正」的最小能力）；代价是删除不可撤销，且需要前端对影响面（关联的腐化 /
+        重复行、被解绑的工单数）给出确认提示。
+      parameters:
+        - name: doc_code
+          in: path
+          required: true
+          description: 文档编码（命中 document.doc_code 的唯一约束）
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 已删除
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [deleted, tickets_unlinked]
+                properties:
+                  deleted:
+                    type: integer
+                    description: 本次删除的文档条数
+                  tickets_unlinked:
+                    type: integer
+                    description: 因文档被删而把 linked_doc_id 置 NULL 的工单条数
+              example:
+                deleted: 1
+                tickets_unlinked: 3
+        '404':
+          description: 文档不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: NOT_FOUND
+                message: 文档 DOC0001 不存在
+                location:
+                  value: DOC0001
+
+  /api/tickets:
+    post:
+      tags: [corpus]
+      summary: 批量导入客服工单
+      description: |
+        上传 CSV 或 JSON 文件批量导入工单，整批在一次事务内提交（Issue #3 User Story 2 / 7）。
+
+        CSV 的列名与 poc/kbgovernance/tickets.csv 一致：
+        ticket_id, created_at, channel, content, intent_label, urgency, status, handling_minutes, linked_doc_id
+        必填字段取「检测器实际读取」的集合：**ticket_id / content / intent_label**
+        （ticket_id 是工单身份；content 是被向量化、被检索的正文；intent_label 是
+        意图归属，缺口与重复两个模块都按它分组）。created_at / channel / urgency /
+        status / handling_minutes / linked_doc_id 检测器不读，属可选项，仅入库留档；
+        created_at 缺省由服务端写入导入时刻。缺必填列时错误体给出缺失列名与行号。
+
+        linked_doc_id 是**文档编码文本**（形如 DOC0001），对应 ticket.linked_doc_id →
+        document.doc_code 的外键，不是 document.id 的行号；空值与未匹配到文档时写 NULL，
+        不做「空串占位」（空串不是合法外键值，SQLite 会直接报 FOREIGN KEY constraint failed）。
+
+        JSON 文件为上述字段的数组。
+
+        上传的文件被原样保存，便于对比系统读到的与上传的是否一致（Issue #3 User Story 9）。
+
+        **【待拍板】上传形态**：本接口收文件上传（multipart），与 /api/documents 的
+        JSON 体形态不一致。文档与工单是两个不同的数据对象（字段与校验规则不同），
+        按「不合并两个接口」的原则两者保持独立；是否让两侧形态统一（文档侧也收
+        文件 / 工单侧也收 JSON 体）见 /api/documents 的【待拍板】标注，两处需一起
+        拍板。
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: 工单文件（CSV 或 JSON）
+      responses:
+        '200':
+          description: 整批写入成功
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [inserted]
+                properties:
+                  inserted:
+                    type: integer
+                    description: 本次成功写入的工单条数
+              example:
+                inserted: 2000
+        '400':
+          description: 文件格式不合法（缺列 / 行内取值非法 / 编码无法解析）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: INVALID_IMPORT_FILE
+                message: 工单文件缺少必填列 intent_label
+                location:
+                  row: 1
+                  column: intent_label
+        '409':
+          description: 工单编码重复
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: DUPLICATE_TICKET_CODE
+                message: 工单编码 TK00019 已存在，整批导入已回滚
+                location:
+                  value: TK00019
+        '422':
+          description: |
+            请求体结构不合法（缺必填字段 / 类型不匹配）。
+
+            **实现方必须把 FastAPI 默认的 RequestValidationError 响应转换成本错误体**：
+            FastAPI 默认返回 `{"detail":[...]}`，形状与本契约的统一错误体
+            `{code, message, location}` 不同；不装转换处理器时实际返回会与本契约
+            不一致。转换后的 location 至少给出出错的字段名。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: VALIDATION_FAILED
+                message: 请求体不合法：文件字段缺失或类型不匹配，工单行必须含 ticket_id / content / intent_label
+                location:
+                  column: file
+
+    get:
+      tags: [corpus]
+      summary: 查看已录入的工单
+      description: |
+        语料侧的「可查询」：返回已录入工单的清单行。
+
+        行序 = 源 CSV 行序，本接口固定为 ticket.id 升序（导入写入顺序），
+        对应响应里的 row_order 字段。
+
+        正文 content 不进列表（2000 条工单的正文全量返回没有意义）；要正文时按
+        ticket_code 过滤取单条。
+
+        count 的统计单元是「工单」。
+
+        过滤参数 intent_label 走 idx_ticket_intent，linked_doc_id 走 idx_ticket_linked_doc。
+      parameters:
+        - name: intent_label
+          in: query
+          required: false
+          description: 按意图标签过滤（命中 idx_ticket_intent）
+          schema:
+            type: string
+        - name: linked_doc_id
+          in: query
+          required: false
+          description: 按关联文档编码过滤（命中 idx_ticket_linked_doc）
+          schema:
+            type: string
+        - name: ticket_code
+          in: query
+          required: false
+          description: 按工单编码精确取一条（命中 ticket.ticket_code 的唯一约束）
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 工单清单
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketList'
+              example:
+                count: 2000
+                row_order: ticket.id 升序（导入写入顺序）
+                rows:
+                  - ticket_code: TK00001
+                    intent_label: 门禁权限申请
+                    channel: 电话
+                    urgency: 中
+                    status: 已解决
+                    handling_minutes: 42
+                    linked_doc_id: DOC0265
+                    created_at: '2026-09-18T17:00'
+
+    delete:
+      tags: [corpus]
+      summary: 清空已录入的工单
+      description: |
+        「可删除（批量）」：清空工单语料。ticket 没有子表，一次事务内直接删空；
+        外键方向是工单指向文档，因此删工单不影响文档。
+
+        【待拍板】是否允许 DELETE 整批语料：与 DELETE /api/documents 同一条待拍板项。
+        本接口按推荐给出，代价同前（一次误调用即清掉整批工单且不可撤销）。
+      responses:
+        '200':
+          description: 已清空
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [deleted]
+                properties:
+                  deleted:
+                    type: integer
+                    description: 本次删除的工单条数
+              example:
+                deleted: 2000
+        '409':
+          description: 已有扫描在执行
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: SCAN_IN_PROGRESS
+                message: 已有扫描在执行，请等待当前扫描结束后再清空语料
+                location: {}
+
+  /api/tickets/{ticket_code}:
+    delete:
+      tags: [corpus]
+      summary: 删除单条工单
+      description: |
+        「可删除（单条）」：按工单编码删一条工单。
+
+        ticket 没有子表，直接删即可；文档与其它工单不受影响（外键方向是工单指向文档）。
+
+        命中 ticket.ticket_code 的唯一约束。
+
+        【待拍板】单条删除是否与整批清空并存：同 DELETE /api/documents/{doc_code}，
+        按推荐给出，代价是删除不可撤销，前端需给确认提示。
+      parameters:
+        - name: ticket_code
+          in: path
+          required: true
+          description: 工单编码（命中 ticket.ticket_code 的唯一约束）
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 已删除
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [deleted]
+                properties:
+                  deleted:
+                    type: integer
+                    description: 本次删除的工单条数
+              example:
+                deleted: 1
+        '404':
+          description: 工单不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: NOT_FOUND
+                message: 工单 TK00001 不存在
+                location:
+                  value: TK00001
+
+  /api/scan:
+    post:
+      tags: [scan]
+      summary: 一键运行治理扫描（同步）
+      description: |
+        同步串行跑完「向量化 → 聚类 → 三模块检测 → 落库」，不引入任务队列（Issue #3）。
+
+        请求体里的 mode 决定语料来源与阈值口径：reproduce 用仓库自带的 PoC 语料与固定
+        阈值，custom 用 POST /api/documents 与 POST /api/tickets 录入的语料与请求里给的
+        阈值。两种模式的产物落盘位置相同、且与论文基线物理隔离；指标可得性不同
+        （见 ScanRequest 的 has_ground_truth 说明）。
+
+        扫描产物沿用 run_all.sh 的文件路径与文件名
+        （metrics.json / gap_intents_best.csv / gap_clusters_best.csv / corrupt_docs.csv /
+        dup_groups_best.csv 等），
+        因此「下载的 CSV 与源文件逐字节一致」与「Web 产物 vs run_all.sh 复跑产物逐字节一致」
+        是同一条性质的验证。
+
+        **产物落盘目录与论文基线物理隔离**（口径：docs/技术方案/开发前准备清单.md
+        §4.10 A10「扫描产物落盘目录 → 与论文基线物理隔离」）。Web 扫描写独立工作目录，
+        poc/kbgovernance/ 只读；若写回同一目录会覆盖仓库里的论文溯源基线，并连带作废
+        poc/kbgovernance/repro_check.json 的逐字节基线与 sync_timings.py 的同步目标。
+        契约只约定「落盘目录不与 poc/kbgovernance/ 重叠」，具体路径由实现确定。
+
+        **复现模式用固定阈值，不按真值择优**（口径：§4.10 A12「阈值选取策略」）。
+        poc/kbgovernance/detect.py 第 117–127 行与 第 403 行是拿真值择优取 best 的；
+        复现模式沿用其固定阈值（覆盖度 0.62 / 风险分 3 / 余弦 0.95，取自
+        poc/kbgovernance/metrics.json → gap.best.threshold、corrupt.score_threshold、
+        dup.best.threshold），不重新扫参择优。
+
+        每次扫描生成一个 scan_id（口径：§4.10 A16「扫描轮次标识与清库语义」），
+        重复扫描时旧结果被清空而不是叠加（Issue #3 User Story 15）；
+        清库只清结果表、不动语料表，且必须按外键依赖的子表 → 父表顺序执行：
+        先删 knowledge_gap / stale_document / duplicate_group → 再删 cluster_result；
+        保留 document / ticket 不动。否则 SQLite 会报 FOREIGN KEY constraint failed。
+        （2026-10-25 口径更正后 knowledge_gap 不再是 cluster_result 的子表，
+        它与 cluster_result 之间是 intent_name ↔ main_intent 的软链接。）
+        数据库侧还需在**每个连接**上设置 PRAGMA foreign_keys = ON（该开关按连接生效，
+        不随建表脚本持久化）。
+
+        【待拍板】扫描是否清空语料表：OPEN-1 问的是「扫描要不要连 document / ticket
+        一起清掉」。本契约按推荐只清结果表（语料保留，扫描可反复重跑），代价是扫描
+        前的语料快照要用户自己管；若要求扫描即清空，则 DELETE /api/documents 与
+        DELETE /api/tickets 的整批清空语义改由扫描隐含完成。
+        同一时刻只允许一个扫描在执行，重复请求返回「已有扫描在执行」（Issue #3 User Story 61）。
+        语料为空时返回明确的 4xx，不抛未捕获异常（Issue #3 User Story 53）。
+        模型权重缺失时返回明确的 HF_HOME 指引（Issue #3 User Story 17）。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanRequest'
+            example:
+              mode: reproduce
+      responses:
+        '200':
+          description: 扫描完成，返回本次的阶段耗时与三模块主指标
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanResult'
+              example:
+                status: completed
+                scan_id: scan-0001
+                mode: reproduce
+                artifacts_dir: 与 poc/kbgovernance/ 物理隔离的扫描工作目录（路径由实现确定）
+                seconds:
+                  encoding: 14.61
+                  gap: null
+                  corrupt: 0.51
+                  duplicate: 0.0
+                  total: 3.75
+                modules:
+                  gap:
+                    threshold: 0.62
+                    precision: 0.8
+                    recall: 0.8
+                    f1: 0.8
+                    count: 5
+                    has_ground_truth: true
+                  corrupt:
+                    threshold: 3
+                    has_ground_truth: true
+                    count: 69
+                    embedded: 62
+                    detected: 69
+                    covered: 62
+                    fp: 7
+                    by_cause:
+                      content_expiry:
+                        label: 内容过期
+                        rules:
+                          - R1_正文过期日期
+                          - R3_正文含绝对过期年份
+                        threshold: 3
+                        planted_of_this_nature: 32
+                        truth: 32
+                        detected: 32
+                        tp: 32
+                        fp: 0
+                        fn: 0
+                        precision: 1.0
+                        recall: 1.0
+                        f1: 1.0
+                        has_ground_truth: true
+                      maintenance:
+                        label: 维护周期
+                        rules:
+                          - R2_更新时间超18个月
+                          - R4_同类存在更新文档
+                        threshold: 3
+                        planted_of_this_nature: 30
+                        truth: 31
+                        detected: 38
+                        tp: 31
+                        fp: 7
+                        fn: 0
+                        precision: 0.8158
+                        recall: 1.0
+                        f1: 0.8986
+                        has_ground_truth: true
+                  duplicate:
+                    threshold: 0.95
+                    precision: 1.0
+                    recall: 1.0
+                    f1: 1.0
+                    count: 22
+                    has_ground_truth: true
+        '400':
+          description: 语料为空
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: EMPTY_CORPUS
+                message: 语料为空：请先通过 POST /api/documents 与 POST /api/tickets 录入文档和工单，再运行扫描
+                location: {}
+        '409':
+          description: 已有扫描在执行
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: SCAN_IN_PROGRESS
+                message: 已有扫描在执行，请等待当前扫描结束后重试
+                location: {}
+        '500':
+          description: 扫描失败（模型权重缺失或其他原因）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                model_weights_missing:
+                  summary: 模型权重缺失
+                  value:
+                    code: MODEL_WEIGHTS_MISSING
+                    message: 未找到 BAAI/bge-small-zh-v1.5 模型权重：请把 HF_HOME 设为 D:/hf_cache，避免权重落进 C 盘系统盘
+                    location: {}
+                scan_failed:
+                  summary: 扫描执行失败
+                  value:
+                    code: SCAN_FAILED
+                    message: 扫描执行失败：向量聚类阶段异常，未产出清单，请查看服务端日志
+                    location: {}
+
+  /api/scan/status:
+    get:
+      tags: [scan]
+      summary: 最近一次扫描的状态
+      description: |
+        返回最近一次扫描的状态、scan_id、落盘目录、各阶段耗时、三模块命中数与主指标。
+
+        60 秒需求阈值（Issue #3 断言清单第 6 条）比对的是 seconds.total
+        （对应 metrics.json → total_seconds，即检测环节的全流程墙钟，含聚类开销），
+        **不是各阶段耗时之和**：现产物中 corrupt.seconds = 0.4、dup.best.seconds = 0.0，
+        缺口阶段在产物里没有独立耗时字段——seconds.gap 恒为 null，表示**不可得**，
+        不是 0；三者相加也不等于 total。
+
+        从未扫描过时 status = never_scanned，scan_id / mode / artifacts_dir / seconds /
+        modules 均为 null。
+      responses:
+        '200':
+          description: 最近一次扫描的快照
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanStatus'
+              example:
+                status: completed
+                scan_id: scan-0001
+                mode: reproduce
+                artifacts_dir: 与 poc/kbgovernance/ 物理隔离的扫描工作目录（路径由实现确定）
+                seconds:
+                  encoding: 14.61
+                  gap: null
+                  corrupt: 0.51
+                  duplicate: 0.0
+                  total: 3.75
+                modules:
+                  gap:
+                    threshold: 0.62
+                    precision: 0.8
+                    recall: 0.8
+                    f1: 0.8
+                    count: 5
+                    has_ground_truth: true
+                  corrupt:
+                    threshold: 3
+                    has_ground_truth: true
+                    count: 69
+                    embedded: 62
+                    detected: 69
+                    covered: 62
+                    fp: 7
+                    by_cause:
+                      content_expiry:
+                        label: 内容过期
+                        rules:
+                          - R1_正文过期日期
+                          - R3_正文含绝对过期年份
+                        threshold: 3
+                        planted_of_this_nature: 32
+                        truth: 32
+                        detected: 32
+                        tp: 32
+                        fp: 0
+                        fn: 0
+                        precision: 1.0
+                        recall: 1.0
+                        f1: 1.0
+                        has_ground_truth: true
+                      maintenance:
+                        label: 维护周期
+                        rules:
+                          - R2_更新时间超18个月
+                          - R4_同类存在更新文档
+                        threshold: 3
+                        planted_of_this_nature: 30
+                        truth: 31
+                        detected: 38
+                        tp: 31
+                        fp: 7
+                        fn: 0
+                        precision: 0.8158
+                        recall: 1.0
+                        f1: 0.8986
+                        has_ground_truth: true
+                  duplicate:
+                    threshold: 0.95
+                    precision: 1.0
+                    recall: 1.0
+                    f1: 1.0
+                    count: 22
+                    has_ground_truth: true
+
+  /api/gaps:
+    get:
+      tags: [findings]
+      summary: 知识缺口清单（判定单元 = 业务意图）
+      description: |
+        返回「清单行 + 本次扫描的 threshold 与 P/R/F1」。
+
+        **判定单元 = 业务意图**：行来自 poc/kbgovernance/gap_intents_best.csv 中判定为缺口的
+        意图行（该文件只保留缺口意图行，5 行；哪些意图判为缺口见 metrics.json →
+        gap.intent_rows 的 is_gap 列），字段名与取值与该 CSV 的列一致。
+        意图级覆盖度 = 该意图下所有簇覆盖度的**最小值**（min 聚合，对应 CSV 的
+        min_cover_median 列）。本次阈值 0.62 时命中 5 个意图，与 metrics.json →
+        gap.best.detected_intents 一致。
+
+        **簇数不是主指标**：簇是算法中间量，一个意图可跨多个簇（本次 5 个意图共跨 7 个
+        缺口簇，对应 metrics.json → gap.best.gap_clusters）。簇数只出现在簇级明细里。
+
+        **统计单元与分母**：count 的统计单元 = **业务意图**；precision / recall / f1 的
+        分母 = **去重后的业务意图**（对应 metrics.json → gap.best.precision / recall /
+        f1），与 count 同一分母，可以直接换算；has_ground_truth=false 时三个指标恒为 null
+        （含义是「不可得」，不是 0）。
+
+        **簇级明细不在本接口**：需要簇级明细（cluster_id / intent / size / cover_median /
+        rep_cover / purity / n_intent_members 等）时，**通过下载
+        poc/kbgovernance/gap_clusters_best.csv 获得**（见 GET /api/downloads/{name}）。
+        【待拍板】是否另设 GET /api/gaps/clusters 只读入口：按推荐不设（簇是内部量，
+        页面主清单只到意图级）；若页面要做簇级下钻再开这个入口。
+
+        **rows 的行数可能少于 count**：源文件 gap_intents_best.csv 只保留本次固定阈值
+        （0.62）下的意图行；本次阈值下命中意图数超过源文件行数时 rows 少于 count，
+        页面需自己说明「rows 是可展示子集」。
+
+        **行序 = 源 CSV 行序**：rows 保持 poc/kbgovernance/gap_intents_best.csv 的原始行序
+        （该文件已按 min_cover_median 升序排好），可按「文件路径 + 列名」复核；落库时按
+        同一顺序写入，knowledge_gap.id 升序与之等价。
+
+        **不提供列排序、不分页**：docs/技术方案/本科版实施方案.md §2.2 第 104 行与 §3
+        第 120 行把「分页 / 排序 / 跳转详情」列为砍掉项。
+
+        【待拍板】是否分页：按推荐不设分页（count 与 rows 一次返回，rows 的行数上限由
+        源 CSV 的意图行数决定）；代价是命中意图数超过源文件行数时 rows 少于 count。
+      responses:
+        '200':
+          description: 缺口清单
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GapList'
+              example:
+                threshold: 0.62
+                has_ground_truth: true
+                precision: 0.8
+                recall: 0.8
+                f1: 0.8
+                count: 5
+                row_order: gap_intents_best.csv 原始行序（min_cover_median 升序）
+                rows:
+                  - intent: 公积金提取材料
+                    n_clusters: 3
+                    min_cover_median: 0.5629
+                    total_tickets: 76
+                    rep_ticket: TK00119
+                    rep_text: 租房提取和购房提取材料一样吗，麻烦帮忙确认一下流程
+
+  /api/stale:
+    get:
+      tags: [findings]
+      summary: 内容腐化清单（两个口径并列）
+      description: |
+        返回「清单行 + 本次扫描的 threshold + 两个口径各自的 P/R/F1 + 合计覆盖面」。
+
+        **两个口径各自独立判定、各自报 P/R/F1，不合成单一 F1**：
+          - 内容过期口径（R1_正文过期日期 + R3_正文含绝对过期年份）：真值 32 篇、
+            检出 32 篇、TP 32 / FP 0 / FN 0，P/R/F1 = 1.0000 / 1.0000 / 1.0000；
+          - 维护周期口径（R2_更新时间超18个月 + R4_同类存在更新文档）：真值 31 篇、
+            检出 38 篇、TP 31 / FP 7 / FN 0，P/R/F1 = 0.8158 / 1.0000 / 0.8986。
+        两类缺陷语义不同，合成一个分数没有意义，因此本接口**不提供单一的 precision /
+        recall / f1**，口径明细见响应体的 by_cause 字段。
+
+        **合计只作覆盖面说明，不报 F1**：埋设 62 篇、检出 69 篇、两口径合并覆盖 62 篇、
+        误报 7 篇（对应 metrics.json → corrupt.embedded / detected / covered / fp）。
+        注意 by_cause 里两个口径的 detected 之和为 70（32 + 38），与合计 detected 69
+        相差 1：DOC0241 埋设的成因是正文过期，但物理上同时满足维护周期口径，
+        在两个口径下都算真阳性。两口径命中行的并集为 69 篇（交集 1 篇），
+        与 risk_score >= 3 的行集一致。
+
+        行来自 poc/kbgovernance/corrupt_docs.csv（该文件是全量 300 篇逐篇打分表，不是命中清单）
+        中 risk_score >= 本次判定阈值的行，字段名与取值与该 CSV 的列一致。
+        本次阈值 3 时命中 69 行，与 metrics.json → corrupt.detected 一致。
+        行内给出两个口径各自的规则子集加权分（cause_score_content_expiry /
+        cause_score_maintenance），各自与本口径的阈值 3 比较。
+
+        源 CSV 还带有若干评测标注与归因列（fp_reason / in_control_sample / is_dup_copy /
+        dup_source），**本接口不透出这些列**；它们只留在产物文件与论文中，用于解释
+        维护周期口径的 7 篇误报（6 篇来自生成器刻意埋设的「4% 自然陈旧但不算缺陷」
+        对照集，1 篇是重复件继承了主文档的陈旧 last_modified，见 poc/kbgovernance/
+        metrics.json → corrupt.by_cause.maintenance.fp_attribution）。
+
+        **行序 = 源 CSV 行序**：rows 保持 poc/kbgovernance/corrupt_docs.csv 的原始行序
+        （该文件按 risk_score 降序存储），可按「文件路径 + 列名」复核；落库时按同一
+        顺序写入，stale_document.id 升序与之等价。
+
+        **不提供列排序、不分页**：docs/技术方案/本科版实施方案.md §2.2 第 104 行与 §3
+        第 120 行把「分页 / 排序 / 跳转详情」列为砍掉项。
+
+        【待拍板】是否分页：同 /api/gaps，按推荐不设分页；代价是 count 可以到 69 行
+        而 rows 一次返回。
+      responses:
+        '200':
+          description: 腐化清单
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaleList'
+              example:
+                threshold: 3
+                has_ground_truth: true
+                count: 69
+                embedded: 62
+                detected: 69
+                covered: 62
+                fp: 7
+                by_cause:
+                  content_expiry:
+                    label: 内容过期
+                    rules:
+                      - R1_正文过期日期
+                      - R3_正文含绝对过期年份
+                    threshold: 3
+                    planted_of_this_nature: 32
+                    truth: 32
+                    detected: 32
+                    tp: 32
+                    fp: 0
+                    fn: 0
+                    precision: 1.0
+                    recall: 1.0
+                    f1: 1.0
+                    has_ground_truth: true
+                  maintenance:
+                    label: 维护周期
+                    rules:
+                      - R2_更新时间超18个月
+                      - R4_同类存在更新文档
+                    threshold: 3
+                    planted_of_this_nature: 30
+                    truth: 31
+                    detected: 38
+                    tp: 31
+                    fp: 7
+                    fn: 0
+                    precision: 0.8158
+                    recall: 1.0
+                    f1: 0.8986
+                    has_ground_truth: true
+                row_order: corrupt_docs.csv 原始行序（risk_score 降序）
+                rows:
+                  - doc_id: DOC0241
+                    title: 关于客户信息查询授权适用范围的说明（第21版）
+                    category: 客户服务
+                    last_modified: '2024-05-26'
+                    risk_score: 8
+                    rule_hits: R1_正文过期日期|R2_更新时间超18个月|R3_正文含绝对过期年份|R4_同类存在更新文档
+                    reasons: 正文含早于2026年的日期表述+过期标记词; last_modified=2024-05-26, 距基准日超过18个月; 正文含绝对过期年份 [2024]; 同'客户服务'下有 9 篇更新且标题重合的文档
+                    cause_score_content_expiry: 5
+                    cause_score_maintenance: 3
+
+  /api/duplicates:
+    get:
+      tags: [findings]
+      summary: 重复冗余清单
+      description: |
+        返回「清单行 + 本次扫描的 threshold 与 P/R/F1」。
+
+        行来自 poc/kbgovernance/dup_groups_best.csv 的全部行（22 组，与 metrics.json →
+        dup.best.dup_groups 一致），字段名与取值与该 CSV 的列一致。
+        每组给出系统建议保留的主文档（primary_doc）与组内成员（member_docs）。
+
+        源 CSV 的 is_true_group 列（真值标注）**本接口不透出**。
+
+        **行序 = 源 CSV 行序**：rows 保持 poc/kbgovernance/dup_groups_best.csv 的原始行序
+        （group 升序，1..22），可按「文件路径 + 列名」复核；落库时按同一顺序写入，
+        duplicate_group.id 升序与之等价。
+
+        **不提供列排序、不分页**：docs/技术方案/本科版实施方案.md §2.2 第 104 行与 §3
+        第 120 行把「分页 / 排序 / 跳转详情」列为砍掉项。
+
+        【待拍板】是否分页：同 /api/gaps，按推荐不设分页。
+
+        **P/R/F1 的口径是组级**（对应 metrics.json → dup.best.group_precision /
+        group_recall / group_f1）；文档级口径（doc_precision / doc_recall / doc_f1）
+        见 OPEN-6，本接口只出组级。
+      responses:
+        '200':
+          description: 重复组清单
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DuplicateList'
+              example:
+                threshold: 0.95
+                has_ground_truth: true
+                precision: 1.0
+                recall: 1.0
+                f1: 1.0
+                count: 22
+                row_order: dup_groups_best.csv 原始行序（group 升序）
+                rows:
+                  - group: 1
+                    size: 3
+                    primary_doc: DOC0003
+                    member_docs: DOC0001|DOC0002|DOC0003
+                    max_sim: 0.9824
+
+  /api/metrics:
+    get:
+      tags: [artifacts]
+      summary: 读取 metrics.json
+      description: |
+        返回本次扫描落盘的 metrics.json 内容，供页面显示 threshold 与 P/R/F1。
+        页面上的每个数字都从这里读，不在前端代码里写死（Issue #3 User Story 52）。
+
+        字段与 poc/kbgovernance/metrics.json 的顶层键一一对应：
+        embedding / has_ground_truth / gap / corrupt / dup / total_seconds。
+
+        **has_ground_truth** 是全局开关：true 表示本次语料带真值标注，各模块的
+        precision / recall / f1 有意义；false 时这些指标为 null（含义是「不可得」，
+        不是 0），页面据此决定是否显示指标区。
+
+        **缺口段的判定单元 = 业务意图**：主指标是意图级——detected_intents 是检出的
+        缺口意图数，precision / recall / f1 的分母是去重后的业务意图。
+        gap_clusters（best 内）与 n_gap_clusters 是**簇数**，属于算法内部量与溯源用：
+        一个意图可跨多个簇，本次 5 个缺口意图共跨 7 个缺口簇。簇数不作为主指标，
+        页面主指标用意图级，簇数只用于溯源说明。
+
+        **腐化段按两个口径分别给指标**：内容过期（R1+R3）与维护周期（R2+R4）语义不同，
+        各自独立判定、各自报 P/R/F1，**不合成单一 F1**；顶层 embedded / detected /
+        covered / fp / fn 是两口径合计的覆盖面，不带综合 F1。
+
+        **真值派生字段不外露**（口径：docs/技术方案/开发前准备清单.md §4.10 A14
+        「真值列是否外泄 → 清单接口不返回真值列」，与 C7 一致）。metrics.json 的
+        corrupt 段含 control_sampled_doc_ids，以及 by_cause 下各口径的 truth_doc_ids /
+        tp_doc_ids / fp_doc_ids / fn_doc_ids / cross_class_doc_ids 与 fp_attribution，
+        它们直接指认哪些文档是防作弊对照集、哪些是误报及其归因，属真值信息；
+        本接口只透出阈值、比率、命中数与计时，这些 id 列表与归因明细不出现
+        （gap.intent_rows 的 is_true_gap 列同理）。自有语料模式（无真值）下它们本就无从计算。
+      responses:
+        '200':
+          description: metrics.json 的内容
+          content:
+            application/json:
+              schema:
+                type: object
+                description: metrics.json 的指标部分（字段与产物文件一一对应）
+                additionalProperties: true
+                properties:
+                  has_ground_truth:
+                    type: boolean
+                    description: 本次语料是否带真值标注；false 时各模块的 precision / recall / f1 为 null（不可得，不是 0）
+                  embedding:
+                    type: object
+                    additionalProperties: true
+                    description: 向量化引擎的实际级别、模型名、维度与条数（对应 embeddings_meta.json）
+                  gap:
+                    type: object
+                    additionalProperties: true
+                    description: |
+                      缺口识别结果，判定单元 = 业务意图。含 best（min_cluster_size / threshold /
+                      gap_clusters / detected_intents / precision / recall / f1）、n_gap_clusters、
+                      n_gap_intents、gap_intents（检出的缺口意图名数组）、threshold_rows 扫参曲线
+                      与 clusters（各 min_cluster_size 下的簇数与噪声条数）。
+                      主指标是意图级：detected_intents 与 precision / recall / f1 的分母都是去重后的
+                      业务意图；gap_clusters 与 n_gap_clusters 是簇数，属内部量与溯源用
+                      （本次 5 个缺口意图共跨 7 个缺口簇），不作为主指标。
+                  corrupt:
+                    type: object
+                    additionalProperties: true
+                    description: |
+                      腐化检测结果，按两个口径分别给指标。含 by_cause（内容过期 R1+R3 与
+                      维护周期 R2+R4 各自的 label / rules / threshold / planted_of_this_nature /
+                      detected / tp / fp / fn / precision / recall / f1）、合计 embedded / detected /
+                      covered / fp / fn、score_threshold、rule_weight、rule_hit_counts、score_hist
+                      与 control_sampled。两口径各自独立判定、各自报 P/R/F1，**不合成单一 F1**；
+                      合计字段只作覆盖面说明。
+                  dup:
+                    type: object
+                    additionalProperties: true
+                    description: 重复检测结果，含 best（threshold / dup_groups / detected_docs / group_precision / group_recall / group_f1）与 rows 扫参曲线
+                  total_seconds:
+                    type: number
+                    description: detect.py 全流程墙钟耗时（秒），含聚类开销与三模块检测；不等于各阶段耗时之和
+              example:
+                has_ground_truth: true
+                gap:
+                  best:
+                    min_cluster_size: 5
+                    threshold: 0.62
+                    gap_clusters: 7
+                    detected_intents: 5
+                    precision: 0.8
+                    recall: 0.8
+                    f1: 0.8
+                  n_gap_clusters: 7
+                  n_gap_intents: 5
+                  gap_intents:
+                    - 公积金提取材料
+                    - 海外出差报销标准
+                    - 密码策略例外申请
+                    - 社保转移办理
+                    - 终端病毒处置
+                corrupt:
+                  embedded: 62
+                  detected: 69
+                  covered: 62
+                  fp: 7
+                  fn: 0
+                  score_threshold: 3
+                  by_cause:
+                    content_expiry:
+                      label: 内容过期
+                      rules:
+                        - R1_正文过期日期
+                        - R3_正文含绝对过期年份
+                      threshold: 3
+                      planted_of_this_nature: 32
+                      truth: 32
+                      detected: 32
+                      tp: 32
+                      fp: 0
+                      fn: 0
+                      precision: 1.0
+                      recall: 1.0
+                      f1: 1.0
+                      has_ground_truth: true
+                    maintenance:
+                      label: 维护周期
+                      rules:
+                        - R2_更新时间超18个月
+                        - R4_同类存在更新文档
+                      threshold: 3
+                      planted_of_this_nature: 30
+                      truth: 31
+                      detected: 38
+                      tp: 31
+                      fp: 7
+                      fn: 0
+                      precision: 0.8158
+                      recall: 1.0
+                      f1: 0.8986
+                      has_ground_truth: true
+                dup:
+                  best:
+                    threshold: 0.95
+                    dup_groups: 22
+                    detected_docs: 49
+                    group_precision: 1.0
+                    group_recall: 1.0
+                    group_f1: 1.0
+                total_seconds: 3.82
+
+  /api/downloads/{name}:
+    get:
+      tags: [artifacts]
+      summary: 下载扫描产物
+      description: |
+        下载扫描产物：三类清单的原始 CSV、语料 CSV、指标文件与复跑一致性记录。
+
+        返回字节与磁盘上的源文件逐字节一致（Issue #3 断言清单第 10 条），
+        因此文件名与取值必须是扫描落盘时的原文件名，不得改写。
+
+        **枚举与 poc/kbgovernance/ 下实际存在的机读产物同名**，分两类：
+          - 页面清单的投影（三类清单的源文件，页面上看到的行就是这些文件里的行）：
+            gap_intents_best.csv、corrupt_docs.csv、dup_groups_best.csv；
+          - 全量明细与辅助产物（不直接投影到页面，用于复核与溯源）：
+            gap_clusters_best.csv（缺口簇级明细，页面不下钻时靠下载它获得）、
+            docs.csv、tickets.csv、metrics.json、gap_threshold.csv、dup_threshold.csv、
+            corrupt_rule_ablation_content_expiry.csv、
+            corrupt_rule_ablation_maintenance.csv、derived_metrics.csv、granularity.csv、
+            granularity_dup.csv、embeddings_meta.json、repro_check.json。
+
+        **消融产物按口径分文件**：原先的单张消融表已拆成
+        corrupt_rule_ablation_content_expiry.csv（内容过期口径）与
+        corrupt_rule_ablation_maintenance.csv（维护周期口径），两张表各自对应一个口径的
+        P/R/F1，不再有合并的单一 F1。
+
+        **下载件保留全量列**（含真值标注列与归因列），与清单接口相反：清单接口不返回
+        真值列（口径：§4.10 A14），下载件是论文溯源用的原始产物。
+
+        **为什么下载件不能裁剪**：`docs/技术方案/本科版实施方案.md` §2「M-系统·Web 交付」
+        的验收标准要求「直接下载 poc/kbgovernance/ 已产出的 CSV」，且 Issue #3 断言清单
+        第 10 条要求「下载的 CSV 与源文件逐字节一致」。裁剪视图会同时违反这两条，
+        且会让「逐字节一致」这条可机读复核的验收信号失效。
+
+        **代价与对应义务**：下载件因此会把评测依据（is_true_gap / is_true_group /
+        in_control_sample / is_dup_copy / dup_source / fp_reason）一并交给下载者。
+        因此下载区必须在按钮附近明示这一点——**「下载的是含评测标注列的原始产物，
+        仅用于论文溯源与复现」**，不得静默下载；清单页面本身仍不展示任何真值列
+        （同一份源文件在页面上被裁掉了这几列，下载区必须让这一区别可见）。
+
+        **逐字节一致的范围按文件分档**（见 poc/kbgovernance/repro_check.json）：
+        三个清单 CSV 与 gap_clusters_best.csv / docs.csv / tickets.csv /
+        gap_threshold.csv / corrupt_rule_ablation_content_expiry.csv /
+        corrupt_rule_ablation_maintenance.csv / granularity.csv / granularity_dup.csv /
+        derived_metrics.csv 是字节确定的，逐字节一致成立；metrics.json 含计时字段
+        （encode_seconds / total_seconds / corrupt.seconds）、embeddings_meta.json 含
+        encode_seconds、dup_threshold.csv 含 seconds，跨运行必然波动，只能
+        「剔除计时字段后一致」，不适用逐字节比对。
+
+        **不在允许列表内**：
+          - ground_truth.json —— 真值文件（评测依据），是否开放下载【待拍板】；
+            按 A14 的口径默认不开放。
+          - doc_emb.npy / ticket_emb.npy / ticket_cover.npy —— 向量化中间二进制，
+            不面向用户。
+          - 脚本与日志（*.py / *.sh / *.log）、说明文档（*.md）、figures/ —— 不是
+            扫描产物。
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: 产物文件名
+          schema:
+            type: string
+            enum:
+              - gap_intents_best.csv
+              - gap_clusters_best.csv
+              - corrupt_docs.csv
+              - dup_groups_best.csv
+              - docs.csv
+              - tickets.csv
+              - metrics.json
+              - gap_threshold.csv
+              - dup_threshold.csv
+              - corrupt_rule_ablation_content_expiry.csv
+              - corrupt_rule_ablation_maintenance.csv
+              - derived_metrics.csv
+              - granularity.csv
+              - granularity_dup.csv
+              - embeddings_meta.json
+              - repro_check.json
+      responses:
+        '200':
+          description: 文件字节（与磁盘源文件逐字节一致）
+          headers:
+            Content-Disposition:
+              description: 附件文件名
+              schema:
+                type: string
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: 产物不存在（尚未扫描，或文件名不在允许列表内）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: DOWNLOAD_NOT_FOUND
+                message: 未找到产物 gap_intents_best.csv：请先运行 POST /api/scan
+                location:
+                  value: gap_intents_best.csv
+
+  /docs:
+    get:
+      tags: [system]
+      summary: OpenAPI 契约
+      description: |
+        返回本 OpenAPI 契约文档（JSON）。
+
+        注意：按 Issue #3「后端全部响应体为 JSON，不含 HTML 页面」这条断言，
+        /docs 返回的是契约 JSON 而不是 Swagger UI 页面；
+        实现方若沿用 FastAPI 默认的 /docs（Swagger UI，HTML），需改挂 /openapi.json。
+      responses:
+        '200':
+          description: OpenAPI 契约文档
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /:
+    get:
+      tags: [system]
+      summary: 前端构建产物的静态入口
+      description: |
+        前端构建产物的静态入口（开发态由前端的开发服务器承担，不由本接口承担）。
+
+        本接口只做静态挂载，后端不渲染任何页面、不引入模板引擎；
+        契约正文见 system/openapi.yaml。
+
+        **产品形态已定（需求方 2026-10-24 P3 口径）**：前后端分离，且必须「一条命令
+        启动前后端」——由后端单进程（FastAPI + uvicorn）挂载前端构建产物，
+        SQLite 以 WAL 模式运行（PRAGMA journal_mode = WAL，见 system/schema.sql），
+        一条命令同时拉起后端与前端静态资源。本接口就是那条命令启动后的静态挂载点；
+        开发态的前端开发服务器仍可单独跑（此时本接口返回 404，见下方错误示例）。
+      responses:
+        '200':
+          description: 前端入口页（静态挂载提供，非后端渲染）
+          content:
+            text/html:
+              schema:
+                type: string
+        '404':
+          description: 前端构建产物未就位
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: NOT_FOUND
+                message: 前端构建产物未就位：开发态请用前端的开发服务器访问，开发前请先执行前端构建
+                location: {}
+
+components:
+
+  schemas:
+
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [ok]
+          description: 固定为 ok 表示服务可用
+
+    CorpusStats:
+      type: object
+      required: [n_docs, n_tickets, n_passages]
+      properties:
+        n_docs:
+          type: integer
+          description: 已录入文档数（对应 metrics.json → embedding.n_docs）
+        n_tickets:
+          type: integer
+          description: 已录入工单数（对应 metrics.json → embedding.n_tickets）
+        n_passages:
+          type: integer
+          description: 文档正文按段落切分后的段数（对应 metrics.json → embedding.n_passages）
+
+    DocumentUpload:
+      type: object
+      description: |
+        一篇待治理文档的录入体。**必填字段 = 检测器实际读取的字段集合**，
+        逐字段依据见 poc/kbgovernance/detect.py 与 embed.py 的读取点：
+
+        | 字段 | 谁读它、读它做什么 | 必填 |
+        |---|---|---|
+        | doc_code | 文档身份；corrupt_docs.csv 的 doc_id 列、重复组的成员键 | 是 |
+        | title | R4「同类存在更新文档」的标题包含度比较（embed.py 也拿它拼段落） | 是 |
+        | content | 正文；R1「正文过期日期」与 R3「正文含绝对过期年份」两条规则要读它 | 是 |
+        | domain | R4 的「同类」判据：先按业务域取同域文档，再比更新程度 | 是 |
+        | last_modified | R2「更新时间超 18 个月」的判据 | 是 |
+        | effective_date | 检测器不读；仅入库留档 | 否 |
+        | status | 检测器不读；仅入库留档 | 否 |
+        | ref_count | 重复组主文档选举的第一分量（ref_count 高者当主文档） | 否 |
+
+        **domain 必填的原因**：R4 要在「同业务域」里找更新文档。业务域缺失时
+        只能把空业务域的文档彼此比较，会把不同业务的文档错当成同类。
+        本地实测（自有语料，ref_count 全缺省 0）确认：全部文档业务域为空时
+        R4 仍会在空业务域之间比较，只是被标题包含度 ≥ 0.50 挡住一部分。
+      required: [doc_code, title, content, domain, last_modified]
+      properties:
+        doc_code:
+          type: string
+          description: 文档编码，全库唯一；重复即拒绝（对应 document.doc_code）
+        title:
+          type: string
+          description: 文档标题（对应 document.title）；检测器用它做 R4 的标题包含度比较
+        content:
+          type: string
+          description: 文档正文（对应 document.content）；检测器的 R1 / R3 两条规则要读正文
+        domain:
+          type: string
+          description: |
+            业务域（对应 document.domain；CSV 里同名列叫 category）。
+            检测器 R4「同类存在更新文档」按它取同域文档，必填。
+        last_modified:
+          type: string
+          description: 最后修改日期，ISO-8601（对应 document.last_modified）
+        effective_date:
+          type: string
+          nullable: true
+          description: 生效日期，ISO-8601（对应 document.effective_date）
+        status:
+          type: string
+          default: 生效
+          description: 文档状态（对应 document.status）
+        ref_count:
+          type: integer
+          default: 0
+          description: 被引用次数（对应 document.ref_count）
+
+    DocumentSummary:
+      type: object
+      description: |
+        文档清单的一行，字段名与取值与 poc/kbgovernance/docs.csv 的列一致
+        （doc_id → doc_code，category → domain）。
+
+        **正文 content 不进列表**，需要正文时按 doc_code 过滤取单篇
+        （命中 document.doc_code 的唯一约束）。
+
+        **真值派生列不出现**：docs.csv 的 corrupt / corrupt_reason 两列是评测真值
+        派生列，不进清单接口（口径：§4.10 A14）。
+      required: [doc_code, title, last_modified, status, ref_count]
+      properties:
+        doc_code:
+          type: string
+          description: 文档编码，全库唯一（对应 document.doc_code；CSV 里列名是 doc_id）
+        title:
+          type: string
+          description: 文档标题（对应 document.title）
+        domain:
+          type: string
+          nullable: true
+          description: 业务域（对应 document.domain；CSV 里列名是 category）
+        created_at:
+          type: string
+          description: 创建日期，ISO-8601 日期（YYYY-MM-DD，10 字符；对应 document.created_at）
+        last_modified:
+          type: string
+          description: 最后修改日期，ISO-8601 日期（YYYY-MM-DD，10 字符；对应 document.last_modified）
+        effective_date:
+          type: string
+          nullable: true
+          description: 生效日期，ISO-8601 日期（YYYY-MM-DD，10 字符；对应 document.effective_date）
+        status:
+          type: string
+          description: 文档状态（对应 document.status）
+        ref_count:
+          type: integer
+          description: 被引用次数（对应 document.ref_count）
+
+    DocumentList:
+      type: object
+      description: 文档清单：行 + 行序定义 + 计数。
+      required: [count, row_order, rows]
+      properties:
+        count:
+          type: integer
+          description: 统计单元 = 文档：本次返回的文档条数
+        row_order:
+          type: string
+          description: 行序定义：rows 固定为 document.id 升序（导入写入顺序），与源 CSV 行序一致
+        rows:
+          type: array
+          description: 文档清单行
+          items:
+            $ref: '#/components/schemas/DocumentSummary'
+
+    TicketSummary:
+      type: object
+      description: |
+        工单清单的一行，字段名与取值与 poc/kbgovernance/tickets.csv 的列一致
+        （ticket_id → ticket_code）。
+
+        **正文 content 不进列表**，需要正文时按 ticket_code 过滤取单条
+        （命中 ticket.ticket_code 的唯一约束）。
+      required: [ticket_code, created_at, channel, intent_label, urgency, status, handling_minutes]
+      properties:
+        ticket_code:
+          type: string
+          description: 工单编码，全库唯一（对应 ticket.ticket_code；CSV 里列名是 ticket_id）
+        created_at:
+          type: string
+          description: 工单创建时间，ISO-8601 截断到分钟（YYYY-MM-DDTHH:MM，16 字符；对应 ticket.created_at）
+        channel:
+          type: string
+          description: 工单来源渠道（对应 ticket.channel）
+        intent_label:
+          type: string
+          description: 意图标签（对应 ticket.intent_label）
+        urgency:
+          type: string
+          description: 紧急程度（对应 ticket.urgency）
+        status:
+          type: string
+          description: 工单状态（对应 ticket.status）
+        handling_minutes:
+          type: integer
+          description: 处理时长（分钟；对应 ticket.handling_minutes）
+        linked_doc_id:
+          type: string
+          nullable: true
+          description: 关联文档编码（对应 ticket.linked_doc_id，存 doc_code 文本；未匹配到文档时为 null）
+
+    TicketList:
+      type: object
+      description: 工单清单：行 + 行序定义 + 计数。
+      required: [count, row_order, rows]
+      properties:
+        count:
+          type: integer
+          description: 统计单元 = 工单：本次返回的工单条数
+        row_order:
+          type: string
+          description: 行序定义：rows 固定为 ticket.id 升序（导入写入顺序），与源 CSV 行序一致
+        rows:
+          type: array
+          description: 工单清单行
+          items:
+            $ref: '#/components/schemas/TicketSummary'
+
+    Error:
+      type: object
+      description: 统一的错误响应体：机器可读错误码 + 人可读的中文说明 + 出错位置。
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          description: 机器可读错误码
+          enum:
+            - INVALID_IMPORT_FILE
+            - VALIDATION_FAILED
+            - DUPLICATE_DOC_CODE
+            - DUPLICATE_TICKET_CODE
+            - EMPTY_CORPUS
+            - SCAN_IN_PROGRESS
+            - SCAN_FAILED
+            - MODEL_WEIGHTS_MISSING
+            - DOWNLOAD_NOT_FOUND
+            - NOT_FOUND
+        message:
+          type: string
+          description: 人可读的中文说明
+        location:
+          type: object
+          description: 出错位置（第几行、缺哪一列、冲突的编码值等）
+          additionalProperties: true
+          properties:
+            row:
+              type: integer
+              description: 出错行号（从 1 起）
+            column:
+              type: string
+              description: 缺失或非法的列名
+            value:
+              type: string
+              description: 冲突的编码值等具体取值
+
+    GapRow:
+      type: object
+      description: |
+        知识缺口清单的一行，**判定单元 = 业务意图**，字段名与取值与
+        poc/kbgovernance/gap_intents_best.csv 的列一致。
+
+        **落库形态（2026-10-25 口径更正后已定）**：knowledge_gap 一行 = 一个业务意图，
+        不再是簇级——cover_score 装意图覆盖度（该意图下各簇覆盖度的最小值），
+        ticket_count 对应 total_tickets，新增 n_clusters 存该意图下的簇数；
+        指向 cluster_result 的外键已取消，意图与簇的对应靠 intent_name ↔ main_intent
+        的软链接口径。簇级产物里原有的 rep_cover 在意图级产物中已不存在，
+        本接口也不再透出。
+      required: [intent, n_clusters, min_cover_median, total_tickets]
+      properties:
+        intent:
+          type: string
+          description: |
+            业务意图名，缺口判定的最小单元（对应 knowledge_gap.intent_name）。
+            一个意图可跨多个簇；行序按 min_cover_median 升序。
+        n_clusters:
+          type: integer
+          description: |
+            该意图下的簇数。**簇数是算法内部量与溯源用，不是主指标**；
+            本次 5 个缺口意图共跨 7 个缺口簇（metrics.json → gap.best.gap_clusters）。
+        min_cover_median:
+          type: number
+          description: |
+            意图级覆盖度 = 该意图下所有簇覆盖度的最小值（min 聚合），
+            低于本次 threshold 即判为缺口（对应 knowledge_gap.cover_score）。
+        total_tickets:
+          type: integer
+          description: 该意图涉及的工单总数（对应 knowledge_gap.ticket_count）
+        rep_ticket:
+          type: string
+          nullable: true
+          description: 代表工单号（对应 knowledge_gap.representative_ticket）
+        rep_text:
+          type: string
+          nullable: true
+          description: 代表工单原文（对应 knowledge_gap.representative_text）
+        # 行里不重复给 threshold：响应顶层已给本次阈值。
+        # 真值标注列 is_true_gap 不出现在本接口：它只留在产物 CSV 与论文中。
+        # 依据：docs/技术方案/开发前准备清单.md §4.10 A14（与 Issue #3 评审意见 C7 一致）。
+
+    StaleRow:
+      type: object
+      description: |
+        内容腐化清单的一行，字段名与取值与 poc/kbgovernance/corrupt_docs.csv 的列一致。
+        行内给出两个口径各自的规则子集加权分（cause_score_*），各自与本口径的阈值比较。
+      required: [doc_id, risk_score]
+      properties:
+        doc_id:
+          type: string
+          description: 文档编码（对应 document.doc_code）
+        title:
+          type: string
+          description: 文档标题（对应 document.title）
+        category:
+          type: string
+          description: 业务域（对应 document.domain）
+        last_modified:
+          type: string
+          description: 最后修改日期（对应 document.last_modified）
+        risk_score:
+          type: integer
+          description: 时效性风险分，四条规则的加权分之和（对应 stale_document.risk_score）
+        rule_hits:
+          type: string
+          nullable: true
+          description: 命中的规则集合，管道符分隔（对应 stale_document.rule_hits）
+        reasons:
+          type: string
+          nullable: true
+          description: 逐条规则的理由，分号分隔（对应 stale_document.reasons）
+        cause_score_content_expiry:
+          type: number
+          description: |
+            内容过期口径（R1 + R3）的规则加权分。该分 >= 本口径阈值 3 时，
+            本篇在内容过期口径下命中。
+        cause_score_maintenance:
+          type: number
+          description: |
+            维护周期口径（R2 + R4）的规则加权分。该分 >= 本口径阈值 3 时，
+            本篇在维护周期口径下命中。
+        # 评测标注与归因列 fp_causes / fp_reason / in_control_sample /
+        # is_dup_copy / dup_source 不出现在本接口：它们只留在产物 CSV 与论文中。
+        # fp_causes 尤其不能外露——它非空即等价于「这一行是误报」，与
+        # is_true_gap 同属真值派生列。
+        # 依据：docs/技术方案/开发前准备清单.md §4.10 A14（与 Issue #3 评审意见 C7 一致）。
+
+    DuplicateRow:
+      type: object
+      description: 重复组清单的一行，字段名与取值与 dup_groups_best.csv 的列一致。
+      required: [group, size, primary_doc]
+      properties:
+        group:
+          type: integer
+          description: 重复组编号
+        size:
+          type: integer
+          description: 组内文档数（对应 duplicate_group.group_size）
+        primary_doc:
+          type: string
+          description: 主文档编码（对应 duplicate_group.primary_doc_id）
+        member_docs:
+          type: string
+          description: 组内成员文档编码，管道符分隔（落库为 duplicate_group.member_doc_ids 的 JSON 数组）
+        max_sim:
+          type: number
+          nullable: true
+          description: 组内最大相似度（对应 duplicate_group.max_similarity）
+        # 真值标注列 is_true_group 不出现在本接口：它只留在产物 CSV 与论文中。
+        # 依据：docs/技术方案/开发前准备清单.md §4.10 A14（与 Issue #3 评审意见 C7 一致）。
+
+    GapList:
+      type: object
+      description: |
+        知识缺口清单：行 + 本次扫描的 threshold 与 P/R/F1。
+        判定单元 = 业务意图；count 与 P/R/F1 的分母都是去重后的业务意图。
+      required: [threshold, has_ground_truth, precision, recall, f1, count, row_order, rows]
+      properties:
+        threshold:
+          type: number
+          description: 本次扫描使用的覆盖度阈值（对应 metrics.json → gap.best.threshold）
+        has_ground_truth:
+          type: boolean
+          description: 本次扫描是否有评测真值。自有语料模式恒为 false（口径：§4.10 A13）
+        precision:
+          type: number
+          nullable: true
+          description: 本次扫描的精确率（对应 metrics.json → gap.best.precision）。**统计单元 = 去重后的业务意图**，与同对象的 count（缺口意图数）同一分母，两者可直接换算；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
+        recall:
+          type: number
+          nullable: true
+          description: 本次扫描的召回率（对应 metrics.json → gap.best.recall）；has_ground_truth=false 时为 null（不可得）。**统计单元 = 去重后的业务意图**，与同对象的 count 同一分母
+        f1:
+          type: number
+          nullable: true
+          description: 本次扫描的 F1（对应 metrics.json → gap.best.f1）；has_ground_truth=false 时为 null（不可得）
+        count:
+          type: integer
+          description: 统计单元 = 业务意图：本次命中的缺口意图数（对应 metrics.json → gap.best.detected_intents）。簇数不作为主指标（见 metrics.json → gap.best.gap_clusters）
+        row_order:
+          type: string
+          description: 行序定义：rows 保持源 CSV 行序（gap_intents_best.csv 原始行序，该文件已按 min_cover_median 升序排好），可按「文件路径 + 列名」复核；不提供列排序与分页
+        rows:
+          type: array
+          description: 清单行（未检出时为空数组）
+          items:
+            $ref: '#/components/schemas/GapRow'
+
+    StaleList:
+      type: object
+      description: |
+        内容腐化清单：行 + 本次扫描的 threshold + 两个口径各自的 P/R/F1 + 合计覆盖面。
+        **不提供单一的 precision / recall / f1**：两个口径语义不同、各自独立判定，
+        合成一个分数没有意义。
+      required: [threshold, has_ground_truth, count, embedded, detected, covered, fp, by_cause, row_order, rows]
+      properties:
+        threshold:
+          type: integer
+          description: 本次扫描使用的风险分判定阈值（对应 metrics.json → corrupt.score_threshold）
+        has_ground_truth:
+          type: boolean
+          description: 本次扫描是否有评测真值。自有语料模式恒为 false（口径：§4.10 A13）
+        count:
+          type: integer
+          description: 统计单元 = 文档：本次命中的腐化文档数（对应 metrics.json → corrupt.detected），与同对象的 detected 同一数值
+        embedded:
+          type: integer
+          description: 本次语料埋设的腐化文档总数（对应 metrics.json → corrupt.embedded）
+        detected:
+          type: integer
+          description: 本次检出的腐化文档数（对应 metrics.json → corrupt.detected）
+        covered:
+          type: integer
+          description: 两口径合并覆盖的埋设文档数（对应 metrics.json → corrupt.covered）
+        fp:
+          type: integer
+          description: 误报文档数（对应 metrics.json → corrupt.fp）
+        by_cause:
+          type: object
+          description: |
+            两个判定口径各自的指标：内容过期（R1 + R3）与维护周期（R2 + R4）。
+            键固定为 content_expiry 与 maintenance，各自独立判定、各自报 P/R/F1。
+            注意两口径的 detected 之和为 70（32 + 38），与合计 detected 69 相差 1：
+            有一篇跨类文档埋设的成因是正文过期，但物理上同时满足维护周期口径，
+            在两个口径下都算真阳性。
+          properties:
+            content_expiry:
+              $ref: '#/components/schemas/CorruptCauseMetrics'
+            maintenance:
+              $ref: '#/components/schemas/CorruptCauseMetrics'
+        row_order:
+          type: string
+          description: 行序定义：rows 保持源 CSV 行序（corrupt_docs.csv 原始行序，该文件按 risk_score 降序存储），可按「文件路径 + 列名」复核；不提供列排序与分页
+        rows:
+          type: array
+          description: 清单行（未检出时为空数组）
+          items:
+            $ref: '#/components/schemas/StaleRow'
+
+    CorruptCauseMetrics:
+      type: object
+      description: |
+        内容腐化的一个判定口径（成因类别）：规则、阈值与该口径自身的 P/R/F1。
+        两个口径各自独立判定、各自报 P/R/F1，**不合成单一 F1**；
+        合计（embedded / detected / covered / fp）只作覆盖面说明，不带综合 F1。
+      required: [label, rules, threshold, planted_of_this_nature, truth, detected, tp, fp, fn, precision, recall, f1, has_ground_truth]
+      properties:
+        label:
+          type: string
+          description: 口径名（内容过期 / 维护周期）
+        rules:
+          type: array
+          description: 该口径包含的规则编码
+          items:
+            type: string
+        threshold:
+          type: integer
+          description: 该口径的判定阈值（规则子集加权分 >= 此值即在该口径下命中）
+        planted_of_this_nature:
+          type: integer
+          description: |
+            生成器按此成因埋设的文档数（metrics.json → corrupt.by_cause.*.planted_of_this_nature）。
+            维护周期口径的埋设数小于该口径的真值数：跨类文档埋设的成因是正文过期，
+            但物理上同时满足维护周期口径，在两个口径下都算真阳性。
+        truth:
+          type: integer
+          description: |
+            该口径的真值文档数（metrics.json → corrupt.by_cause.*.truth_doc_ids 的条数，
+            与分口径消融表 corrupt_rule_ablation_content_expiry.csv /
+            corrupt_rule_ablation_maintenance.csv 的 truth 列一致）。
+        detected:
+          type: integer
+          description: 该口径下检出的文档数
+        tp:
+          type: integer
+          description: 该口径下的真阳性文档数
+        fp:
+          type: integer
+          description: 该口径下的误报文档数
+        fn:
+          type: integer
+          description: 该口径下的漏报文档数
+        precision:
+          type: number
+          nullable: true
+          description: 该口径的精确率；has_ground_truth=false 时为 null（不可得，不是 0）
+        recall:
+          type: number
+          nullable: true
+          description: 该口径的召回率；has_ground_truth=false 时为 null（不可得）
+        f1:
+          type: number
+          nullable: true
+          description: 该口径的 F1；has_ground_truth=false 时为 null（不可得）
+        has_ground_truth:
+          type: boolean
+          description: 该口径本次是否有评测真值；为 false 时上面三个指标恒为 null（不可得，不是 0）
+
+    DuplicateList:
+      type: object
+      description: 重复冗余清单：行 + 本次扫描的 threshold 与 P/R/F1（P/R/F1 为组级口径）。
+      required: [threshold, has_ground_truth, precision, recall, f1, count, row_order, rows]
+      properties:
+        threshold:
+          type: number
+          description: 本次扫描使用的余弦阈值（对应 metrics.json → dup.best.threshold）
+        has_ground_truth:
+          type: boolean
+          description: 本次扫描是否有评测真值。自有语料模式恒为 false（口径：§4.10 A13）
+        precision:
+          type: number
+          nullable: true
+          description: 组级精确率（对应 metrics.json → dup.best.group_precision）。**统计单元 = 重复组**；has_ground_truth=false 时为 null，含义是「不可得」，不是 0
+        recall:
+          type: number
+          nullable: true
+          description: 组级召回率（对应 metrics.json → dup.best.group_recall）；has_ground_truth=false 时为 null（不可得）。**统计单元 = 重复组**
+        f1:
+          type: number
+          nullable: true
+          description: 组级 F1（对应 metrics.json → dup.best.group_f1）；has_ground_truth=false 时为 null（不可得）
+        count:
+          type: integer
+          description: 统计单元 = 重复组：本次命中的重复组数（对应 metrics.json → dup.best.dup_groups）
+        row_order:
+          type: string
+          description: 行序定义：rows 保持源 CSV 行序（dup_groups_best.csv 原始行序，group 升序），可按「文件路径 + 列名」复核；不提供列排序与分页
+        rows:
+          type: array
+          description: 清单行（未检出时为空数组）
+          items:
+            $ref: '#/components/schemas/DuplicateRow'
+
+    ScanRequest:
+      type: object
+      description: |
+        扫描请求体。两种模式：
+
+        **reproduce（复现模式，默认）**：用仓库自带的 PoC 语料
+        （poc/kbgovernance/docs.csv、poc/kbgovernance/tickets.csv）与**固定阈值**，
+        不按真值择优选参（口径：§4.10 A12）。产物落到扫描工作目录（与
+        poc/kbgovernance/ 物理隔离，口径：§4.10 A10），不覆盖论文基线产物。
+        仓库自带 ground_truth.json，所以 has_ground_truth=true，P/R/F1 可得。
+
+        **custom（自有语料模式）**：用 POST /api/documents 与 POST /api/tickets 录入的
+        语料，阈值取本请求的 thresholds（三个阈值缺一不可）。产物同样落到扫描工作
+        目录。没有真值，所以 has_ground_truth=false，P/R/F1 恒为 null（口径：§4.10 A13）。
+
+        两种模式都不写入 poc/kbgovernance/ 目录。
+      required: [mode]
+      properties:
+        mode:
+          type: string
+          enum: [reproduce, custom]
+          default: reproduce
+          description: 扫描模式
+        thresholds:
+          type: object
+          description: |
+            custom 模式必填（三个阈值缺一不可）；reproduce 模式忽略本字段，改用固定
+            阈值：覆盖度 0.62（metrics.json → gap.best.threshold）、风险分 3
+            （metrics.json → corrupt.score_threshold）、余弦 0.95
+            （metrics.json → dup.best.threshold）。
+          properties:
+            gap_coverage_threshold:
+              type: number
+              description: 覆盖度阈值（意图级覆盖度 = 该意图下各簇覆盖度的最小值，低于此值判为知识缺口）
+            corrupt_score_threshold:
+              type: integer
+              description: 风险分判定阈值（规则加权分 ≥ 此值判为内容腐化；两个口径各用自己的规则子集加权分与阈值）
+            duplicate_similarity_threshold:
+              type: number
+              description: 余弦相似度阈值（组内最大相似度 ≥ 此值判为重复组）
+
+    ScanTiming:
+      type: object
+      description: 各阶段耗时（秒），字段与 metrics.json 的计时字段一一对应；total 是检测环节的全流程墙钟，不是各阶段之和。
+      properties:
+        encoding:
+          type: number
+          description: 向量化耗时（对应 metrics.json → embedding.encode_seconds）
+        gap:
+          type: number
+          nullable: true
+          description: 缺口检测耗时。**不可得**：metrics.json 的 gap 段没有耗时字段（只有阈值与 P/R/F1），本字段恒为 null；null 表示「不可得」，不是 0
+        corrupt:
+          type: number
+          description: 腐化检测耗时（对应 metrics.json → corrupt.seconds）
+        duplicate:
+          type: number
+          description: 重复检测耗时（对应 metrics.json → dup.best.seconds）。**口径窄**：该字段只包住阈值分组循环，不含 300×300 的余弦矩阵计算（那一段只 print 不落盘），因此前端不能用它推断重复检测的真实耗时
+        total:
+          type: number
+          description: 检测环节的全流程墙钟耗时（秒），对应 metrics.json → total_seconds。按 detect.py 的计时范围，它从读取语料与聚类开始算起，到三模块检测结束，不含向量化那一段（embedding.encode_seconds 单列，两者互不包含），也不等于各阶段耗时之和
+
+    GapModuleMetrics:
+      type: object
+      required: [threshold, has_ground_truth, precision, recall, f1, count]
+      properties:
+        threshold:
+          type: number
+          description: 覆盖度阈值
+        has_ground_truth:
+          type: boolean
+          description: 本模块本次是否有评测真值；为 false 时下面三个指标恒为 null（含义是「不可得」，不是 0）
+        precision:
+          type: number
+          nullable: true
+          description: 精确率；has_ground_truth=false 时为 null
+        recall:
+          type: number
+          nullable: true
+          description: 召回率；has_ground_truth=false 时为 null
+        f1:
+          type: number
+          nullable: true
+          description: F1；has_ground_truth=false 时为 null
+        count:
+          type: integer
+          description: 命中缺口意图数（统计单元 = 业务意图；簇数是内部量，不是主指标）
+
+    CorruptModuleMetrics:
+      type: object
+      description: |
+        内容腐化模块的主指标：两个口径各自报 P/R/F1，另给合计覆盖面。
+        **不提供单一的 precision / recall / f1**：两个口径语义不同、各自独立判定。
+      required: [threshold, has_ground_truth, count, embedded, detected, covered, fp, by_cause]
+      properties:
+        threshold:
+          type: integer
+          description: 风险分判定阈值
+        has_ground_truth:
+          type: boolean
+          description: 本模块本次是否有评测真值；为 false 时各口径的 precision / recall / f1 恒为 null（含义是「不可得」，不是 0）
+        count:
+          type: integer
+          description: 命中腐化文档数（统计单元 = 文档）
+        embedded:
+          type: integer
+          description: 本次语料埋设的腐化文档总数
+        detected:
+          type: integer
+          description: 本次检出的腐化文档数
+        covered:
+          type: integer
+          description: 两口径合并覆盖的埋设文档数
+        fp:
+          type: integer
+          description: 误报文档数
+        by_cause:
+          type: object
+          description: 两个判定口径各自的指标（内容过期 R1+R3 / 维护周期 R2+R4）
+          properties:
+            content_expiry:
+              $ref: '#/components/schemas/CorruptCauseMetrics'
+            maintenance:
+              $ref: '#/components/schemas/CorruptCauseMetrics'
+
+    DuplicateModuleMetrics:
+      type: object
+      required: [threshold, has_ground_truth, precision, recall, f1, count]
+      properties:
+        threshold:
+          type: number
+          description: 余弦阈值
+        has_ground_truth:
+          type: boolean
+          description: 本模块本次是否有评测真值；为 false 时下面三个指标恒为 null（含义是「不可得」，不是 0）
+        precision:
+          type: number
+          nullable: true
+          description: 组级精确率；has_ground_truth=false 时为 null
+        recall:
+          type: number
+          nullable: true
+          description: 组级召回率；has_ground_truth=false 时为 null
+        f1:
+          type: number
+          nullable: true
+          description: 组级 F1；has_ground_truth=false 时为 null
+        count:
+          type: integer
+          description: 命中重复组数（统计单元 = 组）
+
+    ScanModules:
+      type: object
+      description: 三模块主指标，阈值与 P/R/F1 一律取自本次扫描落盘的 metrics.json。
+      properties:
+        gap:
+          $ref: '#/components/schemas/GapModuleMetrics'
+        corrupt:
+          $ref: '#/components/schemas/CorruptModuleMetrics'
+        duplicate:
+          $ref: '#/components/schemas/DuplicateModuleMetrics'
+
+    ScanResult:
+      type: object
+      description: 本次扫描的结果快照：状态、各阶段耗时、三模块主指标。
+      required: [status, scan_id, mode, artifacts_dir, seconds, modules]
+      properties:
+        scan_id:
+          type: string
+          description: 本次扫描的标识（口径：§4.10 A16，每次扫描生成一个 scan_id）
+        mode:
+          type: string
+          enum: [reproduce, custom]
+          description: 扫描模式。reproduce = 复现模式（仓库自带 PoC 语料 + 固定阈值）；custom = 自有语料模式（POST 录入的语料 + 请求里给定的阈值）
+        artifacts_dir:
+          type: string
+          description: 本次扫描产物的落盘目录（与 poc/kbgovernance/ 物理隔离，口径：§4.10 A10）
+        status:
+          type: string
+          enum: [completed, failed]
+          description: 扫描状态
+        seconds:
+          $ref: '#/components/schemas/ScanTiming'
+        modules:
+          $ref: '#/components/schemas/ScanModules'
+
+    ScanStatus:
+      type: object
+      description: 最近一次扫描的快照；从未扫描过时 scan_id / mode / artifacts_dir / seconds / modules 均为 null。
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [never_scanned, running, completed, failed]
+          description: 扫描状态
+        scan_id:
+          type: string
+          nullable: true
+          description: 最近一次扫描的标识（口径：§4.10 A16）；从未扫描过时为 null
+        mode:
+          type: string
+          nullable: true
+          enum: [reproduce, custom]
+          description: 最近一次扫描的模式；从未扫描过时为 null
+        artifacts_dir:
+          type: string
+          nullable: true
+          description: 最近一次扫描产物的落盘目录；从未扫描过时为 null
+        seconds:
+          allOf:
+            - $ref: '#/components/schemas/ScanTiming'
+          nullable: true
+        modules:
+          allOf:
+            - $ref: '#/components/schemas/ScanModules'
+          nullable: true
