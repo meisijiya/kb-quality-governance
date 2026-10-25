@@ -45,7 +45,7 @@ cd D:/26code/毕设/poc/kbgovernance
 |---|---|---|
 | `gen_data.py` | 生成合成语料与 ground truth。`random.seed(42)` + `np.random.seed(42)` | `python gen_data.py` |
 | `embed.py` | 文档 / 工单 / 段落三级向量化，落盘 `doc_emb.npy`、`ticket_emb.npy`、`ticket_cover.npy`、`embeddings_meta.json` | `python embed.py` |
-| `detect.py` | 三模块检测与评测，写出 `gap_threshold.csv` / `dup_threshold.csv` / `corrupt_docs.csv` / `dup_groups_best.csv` / `top15_gaps.csv` / `metrics.json` | `python detect.py` |
+| `detect.py` | 三模块检测与评测，写出 `gap_threshold.csv` / `dup_threshold.csv` / `corrupt_docs.csv` / `dup_groups_best.csv` / `gap_intents_best.csv` / `gap_clusters_best.csv` / `metrics.json` | `python detect.py` |
 | `granularity_exp.py` | 检索粒度（整篇 / 段落）× 5 种打分方案对照，算工单级与意图级两种 AUC。段落切分与向量化直接复用 `embed.py` 的实现，并把重算的 cover 与 `ticket_cover.npy` 逐元素比对做自校验 | `python granularity_exp.py`（别名入口 `python granularity.py` 等价） |
 | `corrupt_rule_ablation.py` | 内容腐化 4 条规则的 leave-one-rule-out 与 only-Rn 消融。权重与判定阈值一律从 `metrics.json:corrupt` 读，不在本文件里硬编码第二份 | `python corrupt_rule_ablation.py` |
 | `check_numbers.py` | 数字纪律门禁：扫三份文档里的每个数值断言，判定它能否在本目录产物里找到出处 | `python check_numbers.py` |
@@ -64,12 +64,14 @@ cd D:/26code/毕设/poc/kbgovernance
 | `metrics.json` | 三模块主结果：embedding 规模与模型、gap 的 P/R/F1 与簇明细、corrupt 的 P/R/F1 与规则命中、dup 的 P/R/F1 与重复组明细、总耗时 |
 | `granularity.csv` | 检索粒度 × 打分方案：10 行（2 粒度 × 5 方案），列 `auc`（工单级）/ `auc_intent_median`（意图级）/ `n_tickets` / `n_labeled` |
 | `granularity_dup.csv` | 两种粒度下真实重复组的组内两两最大余弦：`n_groups` / `mean_max_sim` / `min_max_sim` / `max_max_sim` |
-| `corrupt_rule_ablation.csv` | 内容腐化规则消融：9 行设置，`all` 行必须与 `metrics.json:corrupt` 的 P/R/F1 逐位一致 |
+| `corrupt_rule_ablation_content_expiry.csv` | 内容过期口径（R1+R3）的规则消融：5 行设置，`all` 行必须与 `metrics.json:corrupt.by_cause.content_expiry` 的 P/R/F1 逐位一致 |
+| `corrupt_rule_ablation_maintenance.csv` | 维护周期口径（R2+R4）的规则消融：5 行设置，`all` 行必须与 `metrics.json:corrupt.by_cause.maintenance` 的 P/R/F1 逐位一致 |
 | `gap_threshold.csv` | 知识缺口扫参：min_cluster_size × threshold 的簇数、检出意图数、P/R/F1 |
 | `dup_threshold.csv` | 重复冗余扫参：threshold 的组级与文档级 P/R/F1、检出组数与篇数 |
 | `dup_groups_best.csv` | 逐重复组明细：`size` / `max_sim` / `is_true_group`（组内余弦区间的原始出处） |
 | `corrupt_docs.csv` | 逐篇腐化文档明细：`last_modified` / `risk_score` / `rule_hits` / `reasons` |
-| `top15_gaps.csv` | 疑似缺口 Top15：`intent` / `size` / `cover_median` / `rep_ticket` / `is_true_gap` |
+| `gap_intents_best.csv` | 知识缺口主清单（判定单元 = 业务意图）：`intent` / `n_clusters` / `min_cover_median` / `total_tickets` / `threshold` / `is_true_gap` / `rep_ticket` / `rep_text` |
+| `gap_clusters_best.csv` | 知识缺口簇级明细（溯源用）：`cluster_id` / `intent` / `size` / `cover_median` / `rep_cover` / `rep_ticket` / `rep_text` / `purity` / `n_intent_members` / `is_gap` / `is_true_gap` |
 | `ground_truth.json` | ground truth：缺口意图列表、腐化文档 ID 列表、重复组、`gap_ticket_count` / `gap_ticket_ratio` / `seed` / `base_date` |
 | `embeddings_meta.json` | 实际使用的 embedding 方案与模型、维度、`encode_seconds`、各语料条数、模型下载体积 |
 | `derived_metrics.csv` | **派生指标长表**（`derived_key,value,formula,inputs,source_files`，52 行）：跨场景极差与门槛带、跨语料/跨模型差值、F1 均值与标准差、消融下降幅度、覆盖度与吞吐等。每个值都由上表里的实测产物按 `formula` 算出，`inputs` 列给出被代入的原始键值，`source_files` 列给出上游产物。论文里的**每一个派生数字都必须在此表有对应行**；`formula` / `inputs` 两列只是公式文本，**不是**可引用的数值出处，门禁只读 `value` 列 |
@@ -123,7 +125,7 @@ cd D:/26code/毕设/poc/kbgovernance
 ## 四、数字纪律
 
 **论文与答辩里的任何数字，都必须能在 `metrics.json` / `granularity.csv` /
-`granularity_dup.csv` / `corrupt_rule_ablation.csv` / `standardize/*.csv` / `standardize/*.json` /
+`granularity_dup.csv` / `corrupt_rule_ablation_content_expiry.csv` / `corrupt_rule_ablation_maintenance.csv` / `standardize/*.csv` / `standardize/*.json` /
 `derived_metrics.csv` 中找到。** 其中派生数字（均值、标准差、极差、差值、消融幅度）
 统一登记到 `derived_metrics.csv`，并在 `formula` / `inputs` / `source_files` 三列
 留下「从哪些实测值按什么公式算出来」的自证链；门禁只把该表的 `value` 列当出处。
@@ -205,6 +207,6 @@ F1 / AUC / precision / recall / ROC / 阈值 / 秒 / ms / MB / 耗时 / 相似�
 ## 六、复现性实测
 
 已实测：连续跑第二遍后，`gap_threshold.csv` / `dup_threshold.csv` /
-`ground_truth.json` / `top15_gaps.csv` 与首跑**逐字节相同**；
+`ground_truth.json` / `gap_intents_best.csv` 与首跑**逐字节相同**；
 `metrics.json` 仅耗时字段抖动（`encode_seconds`、`seconds`、`total_seconds`），
 **所有指标值完全一致**。

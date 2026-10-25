@@ -78,7 +78,7 @@
 
 - `is_true_gap`、`is_true_group`——评测依据列，不外泄（`system/openapi.yaml` 字段映射表；`docs/技术方案/开发前准备清单.md` A14）。
 - `in_control_sample`、`is_dup_copy`、`dup_source`、`fp_reason`——腐化清单的对照集/误报归因列，同样不透出。
-- `rep_cover`——在 `top15_gaps.csv` 全 15 行中与 `cover_median` 数值完全相同，列表与展开详情合计只出现一次覆盖度（见第 5.1 节）。
+- `rep_cover`——簇级产物 `gap_clusters_best.csv` 里与 `cover_median` 数值相同，但意图级主清单 `gap_intents_best.csv` 根本没有这一列；界面只展示一次覆盖度，不重复（见第 8.1 节）。
 
 ---
 
@@ -152,13 +152,14 @@
 |---|---|---|
 | 缺陷类 | 固定 | 知识缺口 / 内容腐化 / 重复冗余 |
 | 阈值 | `modules.*.threshold` | `gap.best.threshold` = 0.62；`corrupt.score_threshold` = 3；`dup.best.threshold` = 0.95 |
-| 精确率 | `modules.*.precision` | 0.800 / 0.8986 / 1.0000 |
-| 召回率 | `modules.*.recall` | 0.800 / 1.0000 / 1.0000 |
-| F1 | `modules.*.f1` | 0.800 / 0.9466 / 1.0000 |
-| 命中数 | `modules.*.count` | 7（缺口簇）/ 69（文档）/ 22（组） |
-| 命中规模（补充） | 同上 | 缺口涉及业务意图 5 个；重复覆盖文档 49 篇；腐化埋入 62 篇 / 检出 69 篇 |
+| 精确率 | `modules.*.precision` | 0.800 / 0.8158（维护周期口径）/ 1.0000（内容过期口径）/ 1.0000 |
+| 召回率 | `modules.*.recall` | 0.800 / 1.0000 / 1.0000 / 1.0000 |
+| F1 | `modules.*.f1` | 0.800 / 0.8986（维护周期口径）/ 1.0000（内容过期口径）/ 1.0000 |
+| 命中数 | `modules.*.count` | 5（业务意图）/ 38（维护周期口径文档）/ 32（内容过期口径文档）/ 22（组） |
+| 命中规模（补充） | 同上 | 缺口涉及意图簇 7 个；重复覆盖文档 49 篇；腐化埋入 62 篇 / 检出 69 篇 |
 
-> **count 的统计单元不同**：缺口按簇、腐化按文档、重复按组（A15）。表头必须写明，否则三个数字不可横向比较。
+> **count 的统计单元不同**：缺口按业务意图、腐化按文档（且分两个口径各一个数）、重复按组（A15）。表头必须写明，否则这些数字不可横向比较。
+> **腐化的两口径不合成一个 F1**（2026-10-25 口径更正）：内容过期（R1+R3）与维护周期（R2+R4）是两种成因不同的问题，各自独立判定、各自报 P/R/F1，界面并列显示，不给合计 F1。
 > **重复类 F1 = 1.0000 是乐观值**（`docs/技术方案/企业知识库质量治理系统技术方案.md` 附录 D 已标注），界面需带脚注。
 > **腐化三项命中数**（含 TP/FP/FN 与误报来源）属评测统计，建议收进区块 7 的折叠说明，不占主表。
 
@@ -169,9 +170,9 @@
 | 向量化 | `embedding.encode_seconds` | 14.61 秒 |
 | 语义聚类 | — | **无产物字段**，显示「—」并注明「聚类耗时未落盘」 |
 | 知识缺口识别 | `corrupt` 同级无 gap 段 | **无产物字段**（契约 `seconds.gap` 暂为 null），显示「—」 |
-| 内容腐化检测 | `corrupt.seconds` | 0.4 秒 |
+| 内容腐化检测 | `corrupt.seconds` | 0.46 秒 |
 | 重复冗余检测 | `dup.best.seconds` | 0.0 秒 |
-| 三模块检测段合计 | `total_seconds` | 3.09 秒（**仅覆盖检测段**，不含向量化） |
+| 三模块检测段合计 | `total_seconds` | 3.82 秒（**仅覆盖检测段**，不含向量化） |
 
 需求阈值与实测值必须分栏显示：「单次全量扫描 ≤ 60 秒」「页面响应 ≤ 2 秒」标注为**需求阈值（非实测）**；实测值只来自上表。
 
@@ -187,7 +188,7 @@
 
 ### 4.6 扫描与语料的清库语义（需在 UI 上说明）
 
-契约规定：重复扫描**旧结果清空不叠加**，清库按外键子表→父表顺序（`knowledge_gap`→`cluster_result`、`stale_document`/`duplicate_group`→`document`）。因此一次扫描会清掉 `document` 表行 → 扫描后语料为空，下次扫描需重新上传。
+契约规定：重复扫描**旧结果清空不叠加**，清库按外键子表→父表顺序（`knowledge_gap`/`stale_document`/`duplicate_group` → `cluster_result` → `ticket` → `document`）。因此一次扫描会清掉 `document` 表行 → 扫描后语料为空，下次扫描需重新上传。
 
 - UI 处置：点「运行治理扫描」前弹 `el-message-box` 确认：「本次扫描将清空当前库中数据并重新计算，是否继续？」。
 - 扫描完成后在页面一顶部展示 el-alert「上次扫描已清空语料，如需再次扫描请重新上传」。
@@ -227,9 +228,12 @@
 
 | Tab | 阈值 | 精确率 | 召回率 | F1 | 命中数（count） | 统计单元 |
 |---|---|---|---|---|---|---|
-| 知识缺口 | 0.62 | 0.800 | 0.800 | 0.800 | 7 | 缺口簇（涉及业务意图 5 个） |
-| 内容腐化 | 3 | 0.8986 | 1.0000 | 0.9466 | 69 | 文档 |
+| 知识缺口 | 0.62 | 0.800 | 0.800 | 0.800 | 5 | 业务意图（涉及意图簇 7 个） |
+| 内容腐化 · 内容过期口径 | 3 | 1.0000 | 1.0000 | 1.0000 | 32 | 文档 |
+| 内容腐化 · 维护周期口径 | 3 | 0.8158 | 1.0000 | 0.8986 | 38 | 文档 |
 | 重复冗余 | 0.95 | 1.0000 | 1.0000 | 1.0000 | 22 | 重复组（覆盖文档 49 篇） |
+
+> 内容腐化 Tab 的指标条要同时给出**两个口径**的四项指标，标注各口径的规则集合（R1+R3 / R2+R4）。**不给合计 F1**——两条规则链的命中集合不重合，合成一个数没有解释力（2026-10-25 口径更正）。
 
 ---
 
@@ -283,34 +287,34 @@
 | 界面字段 | 接口字段 | 真实产物键 |
 |---|---|---|
 | 扫描状态 | `status` | `never_scanned / running / completed / failed`（枚举，非产物列） |
-| 各模块阈值/精确率/召回率/F1/命中数 | `modules.{gap,corrupt,duplicate}.{threshold,precision,recall,f1,count}` | `gap.best.*`、`corrupt.score_threshold`、`corrupt.{precision,recall,f1,detected}`、`dup.best.*` |
+| 各模块阈值/精确率/召回率/F1/命中数 | `modules.{gap,corrupt,duplicate}.{threshold,precision,recall,f1,count}`；腐化按 `modules.corrupt.by_cause.{content_expiry,maintenance}.*` 分两口径 | `gap.best.*`、`corrupt.by_cause.*`、`corrupt.score_threshold`、`dup.best.*` |
 | 向量化耗时 | `seconds.encoding` | `embedding.encode_seconds` = 14.61 |
 | 聚类耗时 | — | **无产物键** → 显示「—」 |
 | 知识缺口识别耗时 | `seconds.gap`（契约暂为 null） | **无产物键** → 显示「—」 |
-| 内容腐化耗时 | `seconds.corrupt` | `corrupt.seconds` = 0.4 |
+| 内容腐化耗时 | `seconds.corrupt` | `corrupt.seconds` = 0.46 |
 | 重复冗余耗时 | `seconds.duplicate` | `dup.best.seconds` = 0.0 |
-| 检测段合计 | `seconds.total` | `total_seconds` = 3.09（口径：仅三模块检测段） |
-| 缺口簇总数 | `modules.gap.count` | `gap.best.gap_clusters` = 7 |
-| 涉及业务意图数 | `modules.gap.count` 同源补充 | `gap.best.detected_intents` = 5 |
+| 检测段合计 | `seconds.total` | `total_seconds` = 3.82（口径：仅三模块检测段） |
+| 缺口命中意图数 | `modules.gap.count` | `gap.best.gap_clusters` = 7（簇级，溯源用）；**判定单元是业务意图，清单行数 = `gap.n_gap_intents` = 5** |
 | 聚类参数 | — | `gap.best.min_cluster_size` = 5；`gap.clusters["5"]` = 95 簇 / 0 噪声（说明"簇"的来源） |
 | 腐化规则权重 | — | `corrupt.rule_weight` = R1 3 / R2 2 / R3 2 / R4 1 |
 | 腐化规则命中数 | — | `corrupt.rule_hit_counts` = R1 32 / R2 38 / R3 32 / R4 88（口径：全部 300 篇文档） |
 
 ## 8. 页面三字段映射（三个 Tab 各自的真实列）
 
-### 8.1 知识缺口 Tab（源 `poc/kbgovernance/top15_gaps.csv`）
+### 8.1 知识缺口 Tab（源 `poc/kbgovernance/gap_intents_best.csv`，判定单元 = 业务意图）
 
 | 界面列 | 真实产物列 | 展示位置 | 说明 |
 |---|---|---|---|
-| 排名 | `rank` | 列表 | 源文件全局名次；本轮命中行为 rank 1–7 |
 | 业务意图 | `intent` | 列表 + 展开 | 例：公积金提取材料、海外出差报销标准、密码策略例外申请、社保转移办理、终端病毒处置 |
-| 簇内工单数 | `size` | 列表 + 展开 | 本轮命中行区间 18–29；固定降序即为"最严重在前"的默认口径 |
-| 覆盖度（中位数） | `cover_median` | 列表 + 展开 | 段落级语义覆盖度；本轮命中行区间 0.5629–0.6179 |
+| 意图下的簇数 | `n_clusters` | 列表 + 展开 | 本轮 5 行均为 3；这是实现细节（一个意图可切成多个簇），不参与判定 |
+| 意图覆盖度 | `min_cover_median` | 列表 + 展开 | 段落级语义覆盖度，取该意图下**各簇覆盖度的最小值**；本轮区间 0.5629–0.6179 |
+| 意图下的工单总数 | `total_tickets` | 列表 + 展开 | 本轮区间 62–85 |
+| 判定阈值 | `threshold` | 展开 | 0.62（判定线：意图覆盖度低于它即入选） |
 | 代表工单号 | `rep_ticket` | 展开 | 形如 `TK00119`（`TK` + 5 位数字） |
 | 代表工单文本 | `rep_text` | 展开 | 工单正文样例 |
-| 代表工单覆盖度 | `rep_cover` | 展开 | **全 15 行与 `cover_median` 数值完全相同**；界面只展示一次覆盖度，展开区不再重复显示该值 |
 
-> ⚠️ 同一业务意图可能对应多个缺口簇（本轮「海外出差报销标准」rank 2/3、「社保转移办理」rank 5/6 各 2 行）。列表按 `rank` 展示，**不要按 `intent` 去重**，否则行数会少于命中数 7。
+> **判定单元是业务意图，不是簇**（2026-10-25 口径更正）：意图覆盖度 = 该意图下各簇覆盖度的最小值，「存在一个簇低于阈值」与「意图覆盖度低于阈值」等价，所以意图级与簇级检出集合一致，差别只在展示粒度。界面一行 = 一个业务意图，本轮 5 行；簇级明细（95 行）只作溯源，不进列表。
+> 列表不设「排名」列：意图级产物没有全局名次这一列（`gap_intents_best.csv` 无 `rank`）。顺序按 `min_cover_median` 升序（覆盖度最低在前），该顺序由后端给定，界面不提供切换。
 
 ### 8.2 内容腐化 Tab（源 `poc/kbgovernance/corrupt_docs.csv`）
 
@@ -320,11 +324,14 @@
 | 标题 | `title` | 列表 + 展开 | — |
 | 业务域 | `category` | 列表 + 展开 | — |
 | 最后修改时间 | `last_modified` | 列表 + 展开 | — |
-| 风险分 | `risk_score` | 列表 + 展开 + 严重度色标 | 判定阈值 `risk_score ≥ 3` |
+| 内容过期口径分 | `cause_score_content_expiry` | 列表 + 展开 | 规则 R1 + R3 加权；≥ 3 即在该口径下命中 |
+| 维护周期口径分 | `cause_score_maintenance` | 列表 + 展开 | 规则 R2 + R4 加权；≥ 3 即在该口径下命中 |
+| 四规则合并分 | `risk_score` | 展开 | 只作溯源与对照，**不再用于任何判定**；严重度色标改按两口径分别给 |
 | 命中规则 | `rule_hits` | 列表 + 展开 | 原值形如 `R1_正文过期日期｜R2_更新时间超18个月｜R3_正文含绝对过期年份｜R4_同类存在更新文档`（**规则编号 + 下划线 + 规则说明**，管道符分隔）；列表只取规则编号摘要，展开展示原值全文 |
 | 判定理由 | `reasons` | 展开 | 分号分隔的逐条理由 |
 
 > 不透出：`in_control_sample`、`is_dup_copy`、`dup_source`、`fp_reason`。
+> **判定按两口径各自独立进行**（2026-10-25 口径更正）：内容过期（R1+R3）与维护周期（R2+R4）各自打分、各自判阈值 ≥ 3。同一篇文档可能两个口径都命中（如 DOC0241 得分 5 / 3），也可能一个都不命中。`risk_score` 只是四规则合并分，保留在展开区作溯源。
 
 ### 8.3 重复冗余 Tab（源 `poc/kbgovernance/dup_groups_best.csv`）
 
@@ -349,18 +356,18 @@
 
 | 项 | 规格 |
 |---|---|
-| 列表列 | 排名 `rank` ｜ 业务意图 `intent` ｜ 簇内工单数 `size` ｜ 覆盖度 `cover_median`（含进度条） ｜ 严重度标（见 9.4） |
+| 列表列 | 业务意图 `intent` ｜ 意图下的簇数 `n_clusters` ｜ 意图覆盖度 `min_cover_median`（含进度条） ｜ 意图下的工单总数 `total_tickets` ｜ 严重度标（见 9.4） |
 | 行操作 | 展开按钮（el-table `type="expand"` 的箭头列） |
-| 展开详情 | ① 代表工单卡：工单号 `rep_ticket` + 正文 `rep_text`（可复制）；② 覆盖度卡：`cover_median` 精确值 + 阈值 0.62 对比（低于阈值才入选，说明文字）；③ 规模卡：簇内工单数 `size` + 该意图在语料中的说明；④ 口径提示 el-alert(info)：「判定基于段落级语义覆盖度；同一业务意图可能对应多个缺口簇」 |
+| 展开详情 | ① 代表工单卡：工单号 `rep_ticket` + 正文 `rep_text`（可复制）；② 覆盖度卡：`min_cover_median` 精确值 + 阈值 0.62 对比（低于阈值才入选，说明文字）；③ 规模卡：意图下的簇数 `n_clusters` + 意图下的工单总数 `total_tickets`；④ 口径提示 el-alert(info)：「判定单元是业务意图，覆盖度取该意图下各簇的最小值；同一意图可能包含多个簇」 |
 | 展开区布局 | el-descriptions `:column="2"` `size="small"` + 下方单卡片承载代表工单正文 |
 
 ### 9.2 内容腐化清单
 
 | 项 | 规格 |
 |---|---|
-| 列表列 | 文档编码 `doc_id` ｜ 标题 `title` ｜ 业务域 `category` ｜ 最后修改时间 `last_modified` ｜ 风险分 `risk_score`（+ 严重度标） ｜ 命中规则 `rule_hits` |
+| 列表列 | 文档编码 `doc_id` ｜ 标题 `title` ｜ 业务域 `category` ｜ 最后修改时间 `last_modified` ｜ 内容过期口径分 `cause_score_content_expiry` ｜ 维护周期口径分 `cause_score_maintenance` ｜ 命中规则 `rule_hits` |
 | 行操作 | 展开按钮 |
-| 展开详情 | ① 判定理由卡：`reasons` 逐条拆成 el-descriptions 或列表，逐条对应到 `rule_hits` 中的规则；② 命中规则卡：`rule_hits` 原值（规则编号 + 规则说明）逐条列出，附规则权重（`corrupt.rule_weight`：R1 3 / R2 2 / R3 2 / R4 1）；③ 文档信息卡：`doc_id`/`title`/`category`/`last_modified`；④ 严重度说明 el-alert(warning)：阈值 `risk_score ≥ 3`，命中规则越多分值越高 |
+| 展开详情 | ① 判定理由卡：`reasons` 逐条拆成 el-descriptions 或列表，逐条对应到 `rule_hits` 中的规则；② 命中规则卡：`rule_hits` 原值（规则编号 + 规则说明）逐条列出，并标出该规则属于哪个口径（R1/R3 → 内容过期；R2/R4 → 维护周期），附规则权重（`corrupt.rule_weight`：R1 3 / R2 2 / R3 2 / R4 1）；③ 两口径判定卡：内容过期口径 `cause_score_content_expiry` ≥ 3 / 维护周期口径 `cause_score_maintenance` ≥ 3，各自给命中与否；④ 文档信息卡：`doc_id`/`title`/`category`/`last_modified`；⑤ 口径说明 el-alert(warning)：两类成因分别判定，不合成单一分数 |
 | 展开区布局 | 上：理由卡（整宽）；下：左规则卡 / 右文档信息卡（el-row `:gutter="16"` 两列各 50%） |
 
 ### 9.3 重复冗余清单
@@ -378,28 +385,35 @@
 
 | 缺陷类 | 严重度数据来源 | 视觉手段 | 分档与否及理由 |
 |---|---|---|---|
-| **内容腐化** | `risk_score`（取值 3/5/6/8，与 `corrupt.score_hist` 一致） | 风险分 el-tag 分级 + 行左侧 4px 色条 + 数值常显 | **分四档**：有真实分值锚点 |
-| **知识缺口** | `cover_median`（连续值 0.5629–0.6179） | 覆盖度进度条（连续）+ 距阈值差值 + 簇内工单数 tag | **不分档**：产物中没有严重度字段，离散分档需自造切点（见下） |
+| **内容腐化** | `cause_score_content_expiry`（0 / 3 / 5）与 `cause_score_maintenance`（0 / 1 / 3） | 两个口径分各一个 el-tag + 行左侧 4px 色条 + 数值常显 | **按口径分别分档**：每个口径的取值就是产物里的真实分值，不合并 |
+| **知识缺口** | `min_cover_median`（连续值 0.5629–0.6179） | 覆盖度进度条（连续）+ 距阈值差值 + 意图下工单总数 tag | **不分档**：产物中没有严重度字段，离散分档需自造切点（见下） |
 | **重复冗余** | `size`（2 或 3）与 `max_sim`（0.9545–0.9845） | 组规模 tag（3 篇 = 强调档）+ 相似度条（连续）+ 数值常显 | **规模分两档**（仅两个真实取值）；相似度连续化 |
 
-**内容腐化的四档（每档锚定真实分值与真实规则组合；篇数 = `corrupt.score_hist`）：**
+**内容腐化的分档按口径分别给（每档锚定真实分值与真实规则组合）：**
 
-| 风险分 | 命中规则组合（按编号概括；`rule_hits` 原值含规则说明） | 篇数 | 视觉 |
+内容过期口径（规则 R1 + R3，权重 3 / 2，阈值 3）：
+
+| 口径分 | 命中规则组合 | 篇数 | 视觉 |
 |---|---|---|---|
-| 8 | R1+R2+R3+R4 | 1 | el-tag `type="danger"` 实心 + 「最高风险」文案 + 行左红条加粗 |
-| 6 | R1+R3+R4 | 5 | el-tag `type="danger"` 浅底 + 行左红条 |
-| 5 | R1+R3 | 26 | el-tag `type="warning"` + 行左橙条 |
-| 3 | R2+R4 | 37 | el-tag `type="info"` + 行左灰条 |
+| 5 | R1+R3 | 32 | el-tag `type="danger"` 浅底 + 行左红条 |
+| 0 | 未达阈值 | 268 | 无标（该口径未命中） |
 
-> 篇数合计 69 = `corrupt.detected`。**风险分与规则组合两两一一对应**（权重 R1 3 / R2 2 / R3 2 / R4 1），因此规则编号组合即等价于分值档，界面可只显示其中之一，但分值必须常显。
-> **无障碍**：颜色不是唯一编码——每行同时给出 `risk_score` 数值与规则组合文本，色觉障碍用户可只读数字与文字分辨（WCAG 1.4.1）。
+维护周期口径（规则 R2 + R4，权重 2 / 1，阈值 3）：
+
+| 口径分 | 命中规则组合 | 篇数 | 视觉 |
+|---|---|---|---|
+| 3 | R2+R4 | 38 | el-tag `type="warning"` + 行左橙条 |
+| 1 | 仅 R4（未达阈值） | 45 | el-tag `type="info"` 浅底 + 行左灰条 |
+| 0 | 未命中 | 217 | 无标 |
+
+> 两个口径的命中集合不重合（内容过期 32 篇、维护周期 38 篇、并集 69 篇、有 1 篇同时属两类），所以**同一行可能两个标都亮，也可能只亮一个**。界面按「该口径命中 / 未命中」给两枚标；颜色不是唯一编码——每行同时给出两个口径分值与规则组合文本，色觉障碍用户可只读数字与文字分辨（WCAG 1.4.1）。
 
 **知识缺口为什么不分档（重要取舍）：**
 
-`top15_gaps.csv` 没有严重度列。切成「严重/中等/轻微」需要自造覆盖度切点（如 0.58、0.61），这些数字在产物中不存在，违反数字纪律。推荐做法：
+`gap_intents_best.csv` 没有严重度列。切成「严重/中等/轻微」需要自造覆盖度切点（如 0.58、0.61），这些数字在产物中不存在，违反数字纪律。推荐做法：
 
-- 只用**连续编码**：覆盖度进度条（条越短 = 覆盖越低 = 越严重）+ 「低于阈值 0.62 约 0.00X」差值（派生值，差值由两个产物值相减得到）+ 簇内工单数 tag 表示影响面。
-- 固定排序（后端默认 `size` 降序）承担"最严重在前"的表达。
+- 只用**连续编码**：覆盖度进度条（条越短 = 覆盖越低 = 越严重）+ 「低于阈值 0.62 约 0.00X」差值（派生值，差值由两个产物值相减得到）+ 意图下工单总数 tag 表示影响面。
+- 固定排序（后端默认 `min_cover_median` 升序）承担"最严重在前"的表达。
 - 若需求方坚持离散分档，切点必须先拍板并登记进「派生指标登记表」（`docs/技术方案/开发前准备清单.md` N1），才能进页面。
 
 **重复冗余的两档：**
@@ -524,14 +538,15 @@
 | 缺口命中簇 | 7 | `metrics.json` → `gap.best.gap_clusters`（= `gap.n_gap_clusters`） |
 | 缺口涉及业务意图 | 5 | `metrics.json` → `gap.best.detected_intents` |
 | 缺口 P / R / F1 | 0.800 / 0.800 / 0.800 | `metrics.json` → `gap.best.precision/recall/f1` |
-| 缺口覆盖度区间 | 0.5629–0.6179 | `top15_gaps.csv` → `cover_median`（命中行） |
-| 缺口簇内工单数区间 | 18–29 | `top15_gaps.csv` → `size`（命中行） |
-| 缺口命中行名次 | 1–7 | `top15_gaps.csv` → `rank` |
+| 缺口意图覆盖度区间 | 0.5629–0.6179 | `gap_intents_best.csv` → `min_cover_median` |
+| 缺口意图工单总数区间 | 62–85 | `gap_intents_best.csv` → `total_tickets` |
+| 缺口意图簇数 | 3（5 个意图均为 3） | `gap_intents_best.csv` → `n_clusters` |
 | 腐化阈值 | 3 | `metrics.json` → `corrupt.score_threshold` |
 | 腐化检出文档 | 69 | `metrics.json` → `corrupt.detected` |
 | 腐化埋入文档 | 62 | `metrics.json` → `corrupt.embedded` |
 | 腐化 TP / FP / FN | 62 / 7 / 0 | `metrics.json` → `corrupt.tp/fp/fn` |
-| 腐化 P / R / F1 | 0.8986 / 1.0000 / 0.9466 | `metrics.json` → `corrupt.precision/recall/f1` |
+| 腐化 · 内容过期口径 P / R / F1 | 1.0000 / 1.0000 / 1.0000 | `metrics.json` → `corrupt.by_cause.content_expiry.{precision,recall,f1}` |
+| 腐化 · 维护周期口径 P / R / F1 | 0.8158 / 1.0000 / 0.8986 | `metrics.json` → `corrupt.by_cause.maintenance.{precision,recall,f1}` |
 | 腐化规则权重 | R1 3 / R2 2 / R3 2 / R4 1 | `metrics.json` → `corrupt.rule_weight` |
 | 腐化规则命中数 | R1 32 / R2 38 / R3 32 / R4 88 | `metrics.json` → `corrupt.rule_hit_counts`（口径：全部 300 篇） |
 | 腐化风险分分布 | 0:186 / 1:45 / 3:37 / 5:26 / 6:5 / 8:1 | `metrics.json` → `corrupt.score_hist`（与 `corrupt_docs.csv` 实测一致） |
@@ -566,7 +581,7 @@
 
 # 附录 B · 原型样例数据（直接取自产物，供 Open Design 填充）
 
-**知识缺口**（`top15_gaps.csv` 命中行 7 行，全部 7 行都进列表）：
+**知识缺口**（`gap_intents_best.csv` 全 5 行，全部 5 行都进列表；判定单元是业务意图）：
 
 | rank | intent | size | cover_median | rep_ticket | rep_text |
 |---|---|---|---|---|---|
