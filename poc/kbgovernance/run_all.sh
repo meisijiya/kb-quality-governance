@@ -112,9 +112,11 @@ echo
 echo ">>> [7/7] 产物核对"
 for f in docs.csv tickets.csv ground_truth.json \
          doc_emb.npy ticket_emb.npy ticket_cover.npy embeddings_meta.json \
-         gap_threshold.csv dup_threshold.csv corrupt_docs.csv \
-         dup_groups_best.csv top15_gaps.csv metrics.json \
-         derived_metrics.csv repro_check.json; do
+         gap_threshold.csv gap_intents_best.csv gap_clusters_best.csv \
+         dup_threshold.csv corrupt_docs.csv dup_groups_best.csv \
+         corrupt_rule_ablation_content_expiry.csv \
+         corrupt_rule_ablation_maintenance.csv \
+         metrics.json derived_metrics.csv repro_check.json; do
   if [ -f "$f" ]; then
     printf '  [OK]   %-24s %s bytes\n' "$f" "$(wc -c < "$f" | tr -d ' ')"
   else

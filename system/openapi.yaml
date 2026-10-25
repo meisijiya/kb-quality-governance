@@ -151,6 +151,11 @@ paths:
         created_at 由服务端写入 ISO-8601 时间，ref_count 缺省 0、status 缺省「生效」。
         doc_code 重复时整批拒绝并返回冲突的编码值（Issue #3 User Story 5）。
 
+        **必填口径**：必填字段取「检测器实际读取」的集合（doc_code / title /
+        content / domain / last_modified），不要求上传方填检测器不读的列
+        （effective_date / status / ref_count 可选；created_at 由服务端写）。
+        逐字段依据见 `DocumentUpload` 的字段口径表。
+
         **【待拍板】上传形态**：本接口收 JSON 体（批量），/api/tickets 收文件上传
         （multipart）。文档与工单是两个不同的数据对象（字段与校验规则不同：
         文档有 doc_code / title / content / last_modified，工单有 ticket_id /
@@ -393,7 +398,11 @@ paths:
 
         CSV 的列名与 poc/kbgovernance/tickets.csv 一致：
         ticket_id, created_at, channel, content, intent_label, urgency, status, handling_minutes, linked_doc_id
-        其中 ticket_id / content / intent_label / created_at 为必填，缺列时错误体给出缺失列名与行号。
+        必填字段取「检测器实际读取」的集合：**ticket_id / content / intent_label**
+        （ticket_id 是工单身份；content 是被向量化、被检索的正文；intent_label 是
+        意图归属，缺口与重复两个模块都按它分组）。created_at / channel / urgency /
+        status / handling_minutes / linked_doc_id 检测器不读，属可选项，仅入库留档；
+        created_at 缺省由服务端写入导入时刻。缺必填列时错误体给出缺失列名与行号。
 
         linked_doc_id 是**文档编码文本**（形如 DOC0001），对应 ticket.linked_doc_id →
         document.doc_code 的外键，不是 document.id 的行号；空值与未匹配到文档时写 NULL，
@@ -471,7 +480,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 code: VALIDATION_FAILED
-                message: 请求体不合法：文件字段缺失或类型不匹配，工单行必须含 ticket_id / content / intent_label / created_at
+                message: 请求体不合法：文件字段缺失或类型不匹配，工单行必须含 ticket_id / content / intent_label
                 location:
                   column: file
 
@@ -679,9 +688,9 @@ paths:
                 seconds:
                   encoding: 14.61
                   gap: null
-                  corrupt: 0.45
+                  corrupt: 0.51
                   duplicate: 0.0
-                  total: 3.46
+                  total: 3.75
                 modules:
                   gap:
                     threshold: 0.62
@@ -808,9 +817,9 @@ paths:
                 seconds:
                   encoding: 14.61
                   gap: null
-                  corrupt: 0.45
+                  corrupt: 0.51
                   duplicate: 0.0
-                  total: 3.46
+                  total: 3.75
                 modules:
                   gap:
                     threshold: 0.62
@@ -1413,21 +1422,41 @@ components:
 
     DocumentUpload:
       type: object
-      required: [doc_code, title, content, last_modified]
+      description: |
+        一篇待治理文档的录入体。**必填字段 = 检测器实际读取的字段集合**，
+        逐字段依据见 poc/kbgovernance/detect.py 与 embed.py 的读取点：
+
+        | 字段 | 谁读它、读它做什么 | 必填 |
+        |---|---|---|
+        | doc_code | 文档身份；corrupt_docs.csv 的 doc_id 列、重复组的成员键 | 是 |
+        | title | R4「同类存在更新文档」的标题包含度比较（embed.py 也拿它拼段落） | 是 |
+        | content | 正文；R1「正文过期日期」与 R3「正文含绝对过期年份」两条规则要读它 | 是 |
+        | domain | R4 的「同类」判据：先按业务域取同域文档，再比更新程度 | 是 |
+        | last_modified | R2「更新时间超 18 个月」的判据 | 是 |
+        | effective_date | 检测器不读；仅入库留档 | 否 |
+        | status | 检测器不读；仅入库留档 | 否 |
+        | ref_count | 重复组主文档选举的第一分量（ref_count 高者当主文档） | 否 |
+
+        **domain 必填的原因**：R4 要在「同业务域」里找更新文档。业务域缺失时
+        只能把空业务域的文档彼此比较，会把不同业务的文档错当成同类。
+        本地实测（自有语料，ref_count 全缺省 0）确认：全部文档业务域为空时
+        R4 仍会在空业务域之间比较，只是被标题包含度 ≥ 0.50 挡住一部分。
+      required: [doc_code, title, content, domain, last_modified]
       properties:
         doc_code:
           type: string
           description: 文档编码，全库唯一；重复即拒绝（对应 document.doc_code）
         title:
           type: string
-          description: 文档标题（对应 document.title）
+          description: 文档标题（对应 document.title）；检测器用它做 R4 的标题包含度比较
         content:
           type: string
-          description: 文档正文（对应 document.content）
+          description: 文档正文（对应 document.content）；检测器的 R1 / R3 两条规则要读正文
         domain:
           type: string
-          nullable: true
-          description: 业务域（对应 document.domain；CSV 里同名列叫 category）
+          description: |
+            业务域（对应 document.domain；CSV 里同名列叫 category）。
+            检测器 R4「同类存在更新文档」按它取同域文档，必填。
         last_modified:
           type: string
           description: 最后修改日期，ISO-8601（对应 document.last_modified）
