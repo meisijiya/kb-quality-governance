@@ -3620,7 +3620,7 @@
 | 479 | \| 7 个误报中 **6 篇来自刻意埋设的「4% 自然陈旧」文档**，第 7 篇为重复件继承主文档… | `7 (×3)` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 479 | \| 7 个误报中 **6 篇来自刻意埋设的「4% 自然陈旧」文档**，第 7 篇为重复件继承主文档陈旧 `last_… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 479 | \| 7 个误报中 **6 篇来自刻意埋设的「4% 自然陈旧」文档**，第 7 篇为重复件继承主文档陈旧 `last_modified` \|… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 479 | …_control` = 6、`corrupt.fp_from_dup_inherit` = 1；逐篇见 `corrupt_docs.csv` → `fp_reason` 列 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 479 | …` = `control_stale` 6 + `dup_inherited_stale` 1；逐篇见 `corrupt_docs.csv` → `fp_reason` 列 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 480 | \| 段落切片规则：**丢弃长度 < 8 字的片段** \| `embed.py` 代码常量，受审集合内无参数字段 \| | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
 | 481 | \| Table 4-6「分组标准化消融（**14 变体**）」 \| 可核验：`ablation.csv` 前段… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 481 | \| Table 4-6「分组标准化消融（**14 变体**）」 \| 可核验：`ablation.csv` 前段 `变体` 行数为 14 \| | `14 (×2)` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
@@ -4444,15 +4444,15 @@
 | 618 | ## 5. 验收信号汇总 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 624 | \| 1 \| 语料重跑产物齐备 \| `poc/kbgovernance/` 下 `docs.csv`… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 625 | \| 2 \| 两次运行一致性有记录 \| `poc/kbgovernance/repro_check.… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 625 | …ro_check.json` → `two_run_verify.n_identical`=13 且 `identical`=true \| 具备 \| | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
+| 625 | …ro_check.json` → `two_run_verify.n_identical`=14 且 `identical`=true \| 具备 \| | `14` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
 | 626 | \| 3 \| 对照集可机读 \| `poc/kbgovernance/ground_truth.jso… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 626 | …rnance/ground_truth.json` → `control_doc_ids`（10 篇）、`n_control_docs`=10 \| 具备 \| | `10 (×2)` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
 | 627 | \| 4 \| 误报逐篇归因 \| `poc/kbgovernance/corrupt_docs.csv… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 627 | …vernance/corrupt_docs.csv` → `fp_reason` 覆盖全部 7 篇误报 \| 具备 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 628 | \| 5 \| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 628 | …\| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=7 与明细表误报行数相等；`fp_from_control`=6、`fp_from_dup_i… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 628 | …→ `corrupt.fp`=7 与明细表误报行数相等；`fp_from_control`=6、`fp_from_dup_inherit`=1 \| 具备 \| | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 628 | …数相等；`fp_from_control`=6、`fp_from_dup_inherit`=1 \| 具备 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 628 | …\| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=7 与明细表误报行数相等；`corrupt.by_cause.maintenance.fp_a… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 628 | …maintenance.fp_attribution` = `control_stale` 6 篇 + `dup_inherited_stale` 1 篇 \| 具备 \| | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 628 | …= `control_stale` 6 篇 + `dup_inherited_stale` 1 篇 \| 具备 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 629 | \| 6 \| 数字溯源审计同步 \| `docs/技术方案/数字溯源审计.md` 第 5 行 受审集合… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 630 | \| 7 \| 耗时值与产物一致 \| `python poc/kbgovernance/sync_ti… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 630 | …poc/kbgovernance/sync_timings.py --check` 退出码 0 \| 具备 \| | `0` | `metrics.json:dup.rows[0].seconds` | `0` |

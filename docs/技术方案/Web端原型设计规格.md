@@ -550,7 +550,7 @@
 | 腐化规则权重 | R1 3 / R2 2 / R3 2 / R4 1 | `metrics.json` → `corrupt.rule_weight` |
 | 腐化规则命中数 | R1 32 / R2 38 / R3 32 / R4 88 | `metrics.json` → `corrupt.rule_hit_counts`（口径：全部 300 篇） |
 | 腐化风险分分布 | 0:186 / 1:45 / 3:37 / 5:26 / 6:5 / 8:1 | `metrics.json` → `corrupt.score_hist`（与 `corrupt_docs.csv` 实测一致） |
-| 腐化误报来源 | 对照 6 / 重复继承 1 / 其他 0 | `metrics.json` → `corrupt.fp_from_control/fp_from_dup_inherit/fp_other` |
+| 腐化误报来源 | 对照 6 / 重复继承 1 | `metrics.json` → `corrupt.by_cause.maintenance.fp_attribution`（`control_stale`=6 / `dup_inherited_stale`=1） |
 | 重复阈值 | 0.95 | `metrics.json` → `dup.best.threshold` |
 | 重复组数 | 22 | `metrics.json` → `dup.best.dup_groups` |
 | 重复覆盖文档 | 49 | `metrics.json` → `dup.best.detected_docs` |
