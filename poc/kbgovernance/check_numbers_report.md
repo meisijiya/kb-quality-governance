@@ -16,11 +16,11 @@
 
 | 文档 | 断言数 | OK | ROUNDED | STRUCTURAL | EXTERNAL | CITED | ALLOWED | UNSOURCED | 指标类 UNSOURCED（致命） |
 |---|---|---|---|---|---|---|---|---|---|
-| `企业知识库质量治理系统技术方案.md` | 1459 | 1076 | 30 | 196 | 144 | 0 | 1 | 12 | **0** |
-| `本科版实施方案.md` | 667 | 540 | 7 | 101 | 0 | 0 | 0 | 19 | **0** |
+| `企业知识库质量治理系统技术方案.md` | 1464 | 1076 | 30 | 201 | 144 | 0 | 1 | 12 | **0** |
+| `本科版实施方案.md` | 667 | 540 | 6 | 101 | 0 | 0 | 0 | 20 | **0** |
 | `数字溯源审计.md` | 1329 | 953 | 35 | 296 | 0 | 43 | 0 | 2 | **0** |
-| `开发前准备清单.md` | 848 | 529 | 0 | 269 | 0 | 5 | 0 | 45 | **0** |
-| **合计** | **4303** | 3098 | 72 | 862 | 144 | 48 | 1 | 78 | **0** |
+| `开发前准备清单.md` | 886 | 547 | 0 | 289 | 0 | 5 | 0 | 45 | **0** |
+| **合计** | **4346** | 3116 | 71 | 887 | 144 | 48 | 1 | 79 | **0** |
 
 - 总退出码：**0**（没有指标类数字缺出处）
 
@@ -29,8 +29,8 @@
 ## 文档 1 / 4：`企业知识库质量治理系统技术方案.md`
 
 - 完整路径：`D:\26code\毕设\docs\技术方案\企业知识库质量治理系统技术方案.md`
-- 抽到的数值断言：**1459** 处
-- 判定统计：OK=**1076**　ROUNDED=**30**　STRUCTURAL=**196**　EXTERNAL=**144**　CITED=**0**　ALLOWED=**1**　UNSOURCED=**12**
+- 抽到的数值断言：**1464** 处
+- 判定统计：OK=**1076**　ROUNDED=**30**　STRUCTURAL=**201**　EXTERNAL=**144**　CITED=**0**　ALLOWED=**1**　UNSOURCED=**12**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
 
 ### 1.1 指标类 UNSOURCED —— 致命项，必须为空或逐条补出处
@@ -135,15 +135,15 @@
 | 103 | ### 2.4 研究现状 | `2.4` | `章节号` | `` |
 | 112 | ### 3.1 可行性分析 | `3.1` | `章节号` | `` |
 | 114 | …链路在目标硬件上跑通。实测：生成数据秒级完成；向量化 4152 条文本（300 篇文档 + 2000 条工单 + 1852 个文档段落，三项与 `metrics.json:embedding`… | `2000` | `年份/日期` | `` |
-| 114 | …_docs` / `n_tickets` / `n_passages` 逐项对齐）耗时 **14.61 秒**；三模块检测合计 **3.46 秒**。全程 CPU，无 GPU 训练，无 7B 以… | `14.61` | `章节号` | `` |
-| 114 | …/ `n_passages` 逐项对齐）耗时 **14.61 秒**；三模块检测合计 **3.46 秒**。全程 CPU，无 GPU 训练，无 7B 以上模型。耗时取自当前 `metrics… | `3.46` | `章节号` | `` |
+| 114 | …_docs` / `n_tickets` / `n_passages` 逐项对齐）耗时 **14.61 秒**；三模块检测合计 **3.75 秒**。全程 CPU，无 GPU 训练，无 7B 以… | `14.61` | `章节号` | `` |
+| 114 | …/ `n_passages` 逐项对齐）耗时 **14.61 秒**；三模块检测合计 **3.75 秒**。全程 CPU，无 GPU 训练，无 7B 以上模型。耗时取自当前 `metrics… | `3.75` | `章节号` | `` |
 | 116 | **数据可行性（已实测验证）**：原型已构造 300 篇文档 / 2000 条工单 / 8 业务域 / 30 意图的语料，三类缺陷均已按可公开说明的规则埋入并被检出—… | `2000` | `年份/日期` | `` |
 | 116 | …rics.json` 的 `corrupt.by_cause`，不合成单一 F1）、重复在 0.95 阈值下组级 F1=1.0000，缺口与重复两值取自 `gap.best` / `dup.b… | `0.95` | `章节号` | `` |
 | 122 | ### 3.2 用例图 | `3.2` | `章节号` | `` |
 | 146 | ### 3.3 用例说明表 | `3.3` | `章节号` | `` |
 | 156 | ### 3.4 角色功能矩阵 | `3.4` | `章节号` | `` |
 | 168 | ### 3.5 非功能需求 | `3.5` | `章节号` | `` |
-| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.46 秒，向量化 14.61 秒，留足余量 \| | `2000` | `年份/日期` | `` |
+| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.75 秒，向量化 14.61 秒，留足余量 \| | `2000` | `年份/日期` | `` |
 | 174 | \| 数据规模支持 \| 2000 条工单 / 300 篇文档（已实测口径） \| **本系统面向中小型企业单个知识域**；进一… | `2000` | `年份/日期` | `` |
 | 175 | ….seconds` 为 0.0 秒；本课题以本地跑通为准，不要求线上部署，部署形态的取舍见 8.5 节 \| | `8.5` | `章节号` | `` |
 | 185 | ### 4.1 系统架构 | `4.1` | `章节号` | `` |
@@ -152,6 +152,11 @@
 | 301 | 两张表的形态按现行口径做过更正（详见 §5.2.2.1 与 §5.4）： | `5.2` | `章节号(§引用)` | `` |
 | 301 | 两张表的形态按现行口径做过更正（详见 §5.2.2.1 与 §5.4）： | `5.4` | `章节号(§引用)` | `` |
 | 400 | ### 4.4 技术选型对比 | `4.4` | `章节号` | `` |
+| 405 | …`） \| 组件成熟，国内资料多；已实测可安装、可构建、可渲染 `el-table`（Vue 3.5.44 / Element Plus 2.14.7 / Vite 8.3.5，Node 24… | `3.5` | `版本号` | `` |
+| 405 | …、可构建、可渲染 `el-table`（Vue 3.5.44 / Element Plus 2.14.7 / Vite 8.3.5，Node 24.4.0 + npm 11.6.0，`npm… | `2.14` | `版本号` | `` |
+| 405 | …able`（Vue 3.5.44 / Element Plus 2.14.7 / Vite 8.3.5，Node 24.4.0 + npm 11.6.0，`npm ci` 从 lock 重装… | `8.3` | `版本号` | `` |
+| 405 | ….5.44 / Element Plus 2.14.7 / Vite 8.3.5，Node 24.4.0 + npm 11.6.0，`npm ci` 从 lock 重装后构建字节一致），**但… | `24.4` | `版本号` | `` |
+| 405 | …nt Plus 2.14.7 / Vite 8.3.5，Node 24.4.0 + npm 11.6.0，`npm ci` 从 lock 重装后构建字节一致），**但尚未做后端联调与建库写入读… | `11.6` | `版本号` | `` |
 | 407 | …务，与数据层 6 张表的轻量口径一致。**「什么规模、什么需求下才该上向量库」的边界论证见 5.5.1 节。** \| | `5.5` | `章节号` | `` |
 | 408 | …arge-zh \| **bge-small-zh-v1.5**（已实测） \| 本文主链路（§5.1 / §5.2 / §5.4 / §5.5 四个算法模块及系统实现）的**唯一向量模型**，… | `5.1` | `章节号(§引用)` | `` |
 | 408 | …\| **bge-small-zh-v1.5**（已实测） \| 本文主链路（§5.1 / §5.2 / §5.4 / §5.5 四个算法模块及系统实现）的**唯一向量模型**，模型冻结口径（… | `5.2` | `章节号(§引用)` | `` |
@@ -473,10 +478,10 @@
 | 39 | 2. **三模块治理系统（已实测）**：知识缺口 F1=**0.800**、内容腐化按两类口径分别报告——内容过期（R1 + R3）F1=**1.0000**、维… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
 | 39 | …F1=**0.800**、内容腐化按两类口径分别报告——内容过期（R1 + R3）F1=**1.0000**、维护周期（R2 + R4）F1=**0.8986**，不合成单一 F1、重复冗余组级… | `1.0000 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 39 | …—内容过期（R1 + R3）F1=**1.0000**、维护周期（R2 + R4）F1=**0.8986**，不合成单一 F1、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0… | `0.8986` | `metrics.json:corrupt.by_cause.maintenance.f1` | `0.8986` |
-| 39 | …周期（R2 + R4）F1=**0.8986**，不合成单一 F1、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.46 秒（… | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 39 | …4）F1=**0.8986**，不合成单一 F1、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.46 秒（`metric… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 39 | …合成单一 F1、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.46 秒（`metrics.json:total_seco… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 39 | …*0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.46 秒（`metrics.json:total_seconds`）。 | `3.46` | `metrics.json:total_seconds` | `3.46` |
+| 39 | …周期（R2 + R4）F1=**0.8986**，不合成单一 F1、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.75 秒（… | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 39 | …4）F1=**0.8986**，不合成单一 F1、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.75 秒（`metric… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 39 | …合成单一 F1、重复冗余组级 F1=**0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.75 秒（`metrics.json:total_seco… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
+| 39 | …*0.7037**（0.90 阈值）/ 1.0000（0.95 阈值，乐观值）。三模块合计 3.75 秒（`metrics.json:total_seconds`）。 | `3.75` | `metrics.json:total_seconds` | `3.75` |
 | 40 | …验指标，Web 侧提供上传、一键扫描与三类清单（详见 5.2 / 5.4 / 5.5 与第 4 章）。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 44 | …「换刻度」方案**在数学上不可能**改进任何排序类指标；实测 Spearman ρ = **-1.000000** 佐证。 | `-1.000000` | `corrupt_rule_ablation_content_expiry.csv:delta_f1[row=2][0]` | `-1` |
 | 45 | …*：绝对阈值锚定的是「模型 × 语言」的刻度——同模型同语言内的**阈值刻度**极差仅 **0.0264**（很稳，但换语料 / 换规模后召回仍需重新核对，见 5.3.3 边界一），跨模型/跨语言… | `0.0264` | `derived_metrics.csv:threshold.abs_5scenario_range` | `0.0264` |
@@ -523,7 +528,7 @@
 | 114 | …技术可行性（已实测验证）**：三模块全链路在目标硬件上跑通。实测：生成数据秒级完成；向量化 4152 条文本（300 篇文档 + 2000 条工单 + 1852 个文档段落，三项与 `metr… | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
 | 114 | …验证）**：三模块全链路在目标硬件上跑通。实测：生成数据秒级完成；向量化 4152 条文本（300 篇文档 + 2000 条工单 + 1852 个文档段落，三项与 `metrics.json… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 114 | …实测：生成数据秒级完成；向量化 4152 条文本（300 篇文档 + 2000 条工单 + 1852 个文档段落，三项与 `metrics.json:embedding` 的 `n_docs`… | `1852` | `metrics.json:embedding.n_passages` | `1852` |
-| 114 | …4.61 秒**；三模块检测合计 **3.46 秒**。全程 CPU，无 GPU 训练，无 7B 以上模型。耗时取自当前 `metrics.json`，跨机器必然波动，此处只描述本次实测… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 114 | …4.61 秒**；三模块检测合计 **3.75 秒**。全程 CPU，无 GPU 训练，无 7B 以上模型。耗时取自当前 `metrics.json`，跨机器必然波动，此处只描述本次实测… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 116 | **数据可行性（已实测验证）**：原型已构造 300 篇文档 / 2000 条工单 / 8 业务域 / 30 意图的语料，三类缺陷均已按可公开说… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 116 | **数据可行性（已实测验证）**：原型已构造 300 篇文档 / 2000 条工单 / 8 业务域 / 30 意图的语料，三类缺陷均已按可公开说明的规则埋入并被检出——缺口 F1=0… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
 | 116 | …性（已实测验证）**：原型已构造 300 篇文档 / 2000 条工单 / 8 业务域 / 30 意图的语料，三类缺陷均已按可公开说明的规则埋入并被检出——缺口 F1=0.800（阈值 0… | `30` | `metrics.json:gap.threshold_rows[9].detected_intents` | `30` |
@@ -556,9 +561,9 @@
 | 153 | …标与命中规则组合 2) 在重复页查看各重复分组与主文档选举结果 3) 展开条目查看完整字段 4) 下载 `corrupt_docs.csv` 与 `dup_groups_best.csv… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 154 | \| UC5 \| 下载结果数据 \| 知识库管理员 / 客服主管 \| 已有扫描结果 \| 1) 在三类清单页点击下载 2) 系统直接返回扫描时已落盘的 CSV 原始文件 \| ① 产物文… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 154 | …结果数据 \| 知识库管理员 / 客服主管 \| 已有扫描结果 \| 1) 在三类清单页点击下载 2) 系统直接返回扫描时已落盘的 CSV 原始文件 \| ① 产物文件缺失则提示重新运行扫描 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.46 秒，向量化 14.61 秒，留足… | `60` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
-| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.46 秒，向量化 14.61 秒，留足余量 \| | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 172 | …描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.46 秒，向量化 14.61 秒，留足余量 \| | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.75 秒，向量化 14.61 秒，留足… | `60` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
+| 172 | \| 单次全量扫描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.75 秒，向量化 14.61 秒，留足余量 \| | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 172 | …描耗时 \| ≤ 60 秒（2000 工单规模） \| 本次实测检测环节 3.75 秒，向量化 14.61 秒，留足余量 \| | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 173 | \| 页面响应时间 \| ≤ 2 秒 \| 纯查询与聚合，无大模型推理 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
 | 174 | \| 数据规模支持 \| 2000 条工单 / 300 篇文档（已实测口径） \| **本系统面向中小型企业单个知识域**；进一步扩量不属于本文范围… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 175 | \| 部署依赖 \| **本地单机**：单进程 + SQLite，无外部服务 \| 存储层为 6 张表加向量文件，检测环节实测 `dup.seconds` 为 0.0 秒；本课题以本地跑通… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
@@ -575,9 +580,9 @@
 | 366 | …riority INTEGER NOT NULL DEFAULT 0, | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
 | 376 | …score_content_expiry INTEGER NOT NULL DEFAULT 0, | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
 | 377 | …_score_maintenance INTEGER NOT NULL DEFAULT 0, | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 406 | …/ 嵌入式数据库 \| **SQLite**（设计值，尚未实测） \| 系统是单用户、单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.46 秒，向量化 14.61… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 406 | …） \| 系统是单用户、单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.46 秒，向量化 14.61 秒），不存在多连接写入压力；SQLite 免安装、免部署、零外部依… | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 406 | …单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.46 秒，向量化 14.61 秒），不存在多连接写入压力；SQLite 免安装、免部署、零外部依赖，答辩现场可直接复制… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 406 | …/ 嵌入式数据库 \| **SQLite**（设计值，尚未实测） \| 系统是单用户、单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.75 秒，向量化 14.61… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 406 | …） \| 系统是单用户、单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.75 秒，向量化 14.61 秒），不存在多连接写入压力；SQLite 免安装、免部署、零外部依… | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 406 | …单进程、6 张表的内部工具，全量扫描在请求内同步跑完（实测三模块检测 3.75 秒，向量化 14.61 秒），不存在多连接写入压力；SQLite 免安装、免部署、零外部依赖，答辩现场可直接复制… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 407 | …ilvus / 直接 numpy \| **直接 numpy**（已实测） \| 文档数实测为 300 篇（`metrics.json` → `embedding.n_docs`），300×30… | `300 (×3)` | `metrics.json:embedding.n_docs` | `300` |
 | 407 | …0.01 秒（`metrics.json` → `dup.best.seconds` 记为 0.0，运行日志记为 0.00s），此规模下引入 Faiss/Milvus 只会增加部署依赖而不带… | `0.0` | `metrics.json:dup.rows[0].seconds` | `0` |
 | 407 | …rics.json` → `dup.best.seconds` 记为 0.0，运行日志记为 0.00s），此规模下引入 Faiss/Milvus 只会增加部署依赖而不带来任何检索收益；向量以… | `0.00` | `metrics.json:dup.rows[0].seconds` | `0` |
@@ -1327,7 +1332,7 @@
 | 1217 | …1.0000 / 0.8986**（真值 31 / 检出 38，TP=31 FP=7 FN=0） \| | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
 | 1218 | \| 内容腐化合计覆盖面 \| 埋 62 / 检出 69 / 覆盖 62（`metrics.json:corrupt.covered… | `62 (×3)` | `metrics.json:gap.intent_rows[2].total_tickets` | `62` |
 | 1218 | \| 内容腐化合计覆盖面 \| 埋 62 / 检出 69 / 覆盖 62（`metrics.json:corrupt.covered` = 62）；… | `69` | `metrics.json:corrupt.detected` | `69` |
-| 1219 | \| 腐化耗时 \| 0.45 秒（`metrics.json:corrupt.seconds`） \| | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
+| 1219 | \| 腐化耗时 \| 0.51 秒（`metrics.json:corrupt.seconds`） \| | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
 | 1220 | …rupt_rule_ablation_content_expiry.csv`） \| all 1.0000 / drop_R1 0.0 / **drop_R3 1.0000（ΔF1 = 0.0）**… | `1.0000 (×3)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 1220 | …n_content_expiry.csv`） \| all 1.0000 / drop_R1 0.0 / **drop_R3 1.0000（ΔF1 = 0.0）** / only_R1 1.0… | `0.0 (×3)` | `metrics.json:dup.rows[0].seconds` | `0` |
 | 1221 | …corrupt_rule_ablation_maintenance.csv`） \| all 0.8986 / drop_R2 0.0 / drop_R4 0.0 / only_R2 0.0 / o… | `0.8986` | `metrics.json:corrupt.by_cause.maintenance.f1` | `0.8986` |
@@ -1355,7 +1360,7 @@
 | 1226 | …CAN 聚类数 / 噪声条数 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声（`metrics.json` → `gap.clusters`） \| | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
 | 1226 | …/ 噪声条数 \| mcs=5 → 95 簇 / 0 噪声；mcs=10 → 88 簇 / 9 噪声（`metrics.json` → `gap.clusters`） \| | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
 | 1227 | \| HDBSCAN 聚类耗时 \| 约 1 秒级（该值未落盘到 `metrics.json`，只报量级） \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 1228 | \| 三模块检测总耗时 \| 3.46 秒（`metrics.json:total_seconds`） \| | `3.46` | `metrics.json:total_seconds` | `3.46` |
+| 1228 | \| 三模块检测总耗时 \| 3.75 秒（`metrics.json:total_seconds`） \| | `3.75` | `metrics.json:total_seconds` | `3.75` |
 | 1229 | \| 标准化实验耗时 \| 26.2 秒（`standardize/run_std.log`，随环境波动） \| | `26.2` | `standardize/scenario_meta.json:total_seconds` | `26.2` |
 | 1233 | ### 检索粒度 × 打分方案对照（`granularity.csv`，2000 工单 / 300 文档 / 371 条已标注） | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 1233 | …× 打分方案对照（`granularity.csv`，2000 工单 / 300 文档 / 371 条已标注） | `371` | `ground_truth.json:gap_ticket_count` | `371` |
@@ -1539,7 +1544,7 @@
 
 - 完整路径：`D:\26code\毕设\docs\技术方案\本科版实施方案.md`
 - 抽到的数值断言：**667** 处
-- 判定统计：OK=**540**　ROUNDED=**7**　STRUCTURAL=**101**　EXTERNAL=**0**　CITED=**0**　ALLOWED=**0**　UNSOURCED=**19**
+- 判定统计：OK=**540**　ROUNDED=**6**　STRUCTURAL=**101**　EXTERNAL=**0**　CITED=**0**　ALLOWED=**0**　UNSOURCED=**20**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
 
 ### 2.1 指标类 UNSOURCED —— 致命项，必须为空或逐条补出处
@@ -1558,10 +1563,11 @@
 | 127 | …判定结果，近似误差会直接污染指标。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量扫描将慢到不可用。10000 是按当前规模线性外推的规划容量，而实测语料只有 30… | `10000 (×2)` | `` | `` |
 | 129 | …77 轨道）** \| banking77 在原方案中只用于验证方法泛化性、不追求 SOTA（8.4 明示）。变体 C 题目不含跨语言主张，因此整条英文轨道在本科版中**不作为独立实验**，只… | `8.4` | `` | `` |
 | 130 | \| **LLM 判断** \| 原方案 7.5 第 5 问已判定：成本高、输出不确定、无法给出稳定的 P/R/F1。本科版判定逻辑全程为「… | `7.5` | `` | `` |
-| 133 | …，全量扫描 3.46 秒，无需增量。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量扫描将慢到不可用。10000 是按当前规模线性外推的规划容量，而实测语料只有 30… | `10000 (×2)` | `` | `` |
+| 133 | …，全量扫描 3.75 秒，无需增量。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量扫描将慢到不可用。10000 是按当前规模线性外推的规划容量，而实测语料只有 30… | `10000 (×2)` | `` | `` |
 | 187 | …*裁剪后图表总数：8 张图（含 3 张非数据图）+ 3 张表 = 11 项**，对照原方案 6.4 的 10 图 6 表共 16 项，净减 5 项。 | `6.4` | `` | `` |
 | 201 | …1-03 \| **人工标注（关键路径）** \| 300 条人工标注（见 §7.3）；其中 ≥100 条双人独立标注；Cohen's Kappa 计算结果与混淆矩阵 \| 第 2 章（定稿）+… | `100` | `` | `` |
 | 222 | - **不可压缩**：§7.3 的 290 条（取整 300 条预算）是双人对齐所需的最小量，再减则 Kappa 的置信区间宽到无法支… | `290` | `` | `` |
+| 242 | 合计可压缩约 3.5 周，落到 13.5 周。**§2.1 的四项不可砍在任何压缩档位下都保留**；E2（段落级… | `3.5` | `` | `` |
 | 242 | 合计可压缩约 3.5 周，落到 13.5 周。**§2.1 的四项不可砍在任何压缩档位下都保留**；E2（段落级消融）与三模块检测是… | `13.5` | `` | `` |
 | 294 | \| 工单内容合理性复核 \| 200 条（10% × 2000 条） \| 抽检工单是否自然、意图标签是否正确 \| | `200` | `` | `` |
 | 298 | \| **合计** \| **290 条（取整为 300 条预算）** \| 剩余 10 条余量用于标注过程中发现的问题追溯 \| | `290` | `` | `` |
@@ -1582,7 +1588,6 @@
 | 146 | …osine` 打分下，下沉粒度能提升意图级与工单级分离度，且提升幅度有限（+0.080 / +0.035）」。正向与反向数据同表并列，本身就是评审会问的问题，提前写清比被追问后再解释好。 \| **… | `+0.035` | `derived_metrics.csv:granularity.ticket_auc_passage_minus_doc` | `0.0352` |
 | 150 | \| **E6** \| 重复阈值扫描（0.80–0.98，组级 P/R/F1） \| **保留** \| `dup_threshold.csv` 已有… | `0.98 (×2)` | `granularity_dup.csv:mean_max_sim[row=2][0]` | `0.9803` |
 | 176 | …`max-min` 也从 0.968 掉到 0.880。正向（粒度下沉 +0.080 / +0.035）与反向（打分形式会翻转排序）同图呈现，主张收敛为「**在同一 `max-cosine` 打… | `+0.035` | `derived_metrics.csv:granularity.ticket_auc_passage_minus_doc` | `0.0352` |
-| 242 | 合计可压缩约 3.5 周，落到 13.5 周。**§2.1 的四项不可砍在任何压缩档位下都保留**；E2（段落级… | `3.5` | `metrics.json:total_seconds` | `3.46` |
 
 ### 2.4 STRUCTURAL —— 结构性编号（章节号/外部文件行号/年份/序号/SQL 长度/模型维度参数量/版本号/端口号）
 
@@ -1634,7 +1639,7 @@
 | 180 | …张表交代三模块最终指标：缺口 P/R/F1 = 0.8/0.8/0.8（threshold=0.62，gap_clusters=7，detected_intents=5）；腐化分两口径——内容… | `0.62` | `章节号(枚举)` | `` |
 | 180 | …ected_intents=5）；腐化分两口径——内容过期 P/R/F1 = 1.0000/1.0/1.0000（真值 32，检出 32）、维护周期 = 0.8158/1.0/0.8986（… | `1.0 (×3)` | `章节号(枚举)` | `` |
 | 180 | …2，detected_docs=49）。**表下必须加注：0.95 处为乐观值，真实预期见 0.90 组级 F1=0.7037；内容过期口径的满分属循环验证。** \| | `0.90` | `章节号` | `` |
-| 182 | …0 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.45 秒、三模块检测合计 3.46 秒。答辩现场… | `2000` | `年份/日期` | `` |
+| 182 | …0 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.51 秒、三模块检测合计 3.75 秒。答辩现场… | `2000` | `年份/日期` | `` |
 | 191 | ## 6. 倒排时间表（W1–W17，2026-10-14 → 2027-02-09） | `2026` | `年份/日期` | `` |
 | 191 | ## 6. 倒排时间表（W1–W17，2026-10-14 → 2027-02-09） | `2027` | `年份/日期` | `` |
 | 193 | > **开发交付窗口 = W1–W10（2026-10-14 → 2026-12-22）**；论文写作自 W1 起逐章并行，W11–W14… | `2026 (×2)` | `年份/日期` | `` |
@@ -1716,8 +1721,8 @@
 | 16 | …窗口 \| **17 周，2026-10-14 → 2027-02-09**（落在用户给定的 3–4 个月内，取上界） \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 16 | …\| **17 周，2026-10-14 → 2027-02-09**（落在用户给定的 3–4 个月内，取上界） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 22 | ### 0.2 为什么开发窗口只有 10 周，且论文必须并行 | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 26 | …PU 推理，没有 GPU 也没有多机，所有实验耗时由一台机器串行承担（当前有效实测：向量化 14.61 秒、三模块检测合计 3.46 秒，均来自 `metrics.json`）。这意味着开发期一… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 26 | …多机，所有实验耗时由一台机器串行承担（当前有效实测：向量化 14.61 秒、三模块检测合计 3.46 秒，均来自 `metrics.json`）。这意味着开发期一旦拖期，**没有任何富余算力去… | `3.46` | `metrics.json:total_seconds` | `3.46` |
+| 26 | …PU 推理，没有 GPU 也没有多机，所有实验耗时由一台机器串行承担（当前有效实测：向量化 14.61 秒、三模块检测合计 3.75 秒，均来自 `metrics.json`）。这意味着开发期一… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 26 | …多机，所有实验耗时由一台机器串行承担（当前有效实测：向量化 14.61 秒、三模块检测合计 3.75 秒，均来自 `metrics.json`）。这意味着开发期一旦拖期，**没有任何富余算力去… | `3.75` | `metrics.json:total_seconds` | `3.75` |
 | 26 | …期，**没有任何富余算力去并行补跑**。若采用「先做完系统再开始写论文」的串行排法，论文的 6 章全部压在最后 4 周，任何一次导师改稿或查重超标都会把全文顶到答辩周，而答辩周不可压缩。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 26 | …算力去并行补跑**。若采用「先做完系统再开始写论文」的串行排法，论文的 6 章全部压在最后 4 周，任何一次导师改稿或查重超标都会把全文顶到答辩周，而答辩周不可压缩。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 27 | 2. **时间随时可能缩水。** 用户给定的是 3–4 个月区间，本文件取上界 17 周。若实际可用时间只有 13 周，被砍掉的必须是**排在… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
@@ -1777,9 +1782,9 @@
 | 81 | …2 / P/R/F1 = 1.0000/1.0/1.0000，维护周期真值 31 / 检出 38 / P/R/F1 = 0.8158/1.0/0.8986；合计 embedded=62、d… | `38` | `metrics.json:gap.intent_rows[16].total_tickets` | `38` |
 | 81 | ….0000/1.0/1.0000，维护周期真值 31 / 检出 38 / P/R/F1 = 0.8158/1.0/0.8986；合计 embedded=62、detected=69、covered… | `0.8158` | `metrics.json:corrupt.by_cause.maintenance.precision` | `0.8158` |
 | 81 | ….0000，维护周期真值 31 / 检出 38 / P/R/F1 = 0.8158/1.0/0.8986；合计 embedded=62、detected=69、covered=62、seconds… | `0.8986` | `metrics.json:corrupt.by_cause.maintenance.f1` | `0.8986` |
-| 81 | …出 38 / P/R/F1 = 0.8158/1.0/0.8986；合计 embedded=62、detected=69、covered=62、seconds=0.45，**两类口径不合成… | `62 (×2)` | `metrics.json:gap.intent_rows[2].total_tickets` | `62` |
-| 81 | …1 = 0.8158/1.0/0.8986；合计 embedded=62、detected=69、covered=62、seconds=0.45，**两类口径不合成单一 F1**。**防作… | `69` | `metrics.json:corrupt.detected` | `69` |
-| 81 | …合计 embedded=62、detected=69、covered=62、seconds=0.45，**两类口径不合成单一 F1**。**防作弊对照文档的判定结果必须逐篇落盘并在正文如实报告… | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
+| 81 | …出 38 / P/R/F1 = 0.8158/1.0/0.8986；合计 embedded=62、detected=69、covered=62、seconds=0.51，**两类口径不合成… | `62 (×2)` | `metrics.json:gap.intent_rows[2].total_tickets` | `62` |
+| 81 | …1 = 0.8158/1.0/0.8986；合计 embedded=62、detected=69、covered=62、seconds=0.51，**两类口径不合成单一 F1**。**防作… | `69` | `metrics.json:corrupt.detected` | `69` |
+| 81 | …合计 embedded=62、detected=69、covered=62、seconds=0.51，**两类口径不合成单一 F1**。**防作弊对照文档的判定结果必须逐篇落盘并在正文如实报告… | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
 | 81 | …F1**。**防作弊对照文档的判定结果必须逐篇落盘并在正文如实报告**——维护周期口径的 7 篇误报全部只由 R2 + R4 触发，其中 6 篇来自防作弊对照集，第 7 篇是重复件继承… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 81 | …落盘并在正文如实报告**——维护周期口径的 7 篇误报全部只由 R2 + R4 触发，其中 6 篇来自防作弊对照集，第 7 篇是重复件继承了主文档的陈旧 `last_modified`；… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 81 | …内容过期口径的满分属循环验证**（R1 判据与埋设模板一致），须在正文如实声明 \| 论文第 5 章（时效性规则引擎） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
@@ -1805,11 +1810,11 @@
 | 85 | …置（drop_R2 / drop_R4 / only_R2 / only_R4）F1 均为 0.0 \| 论文第 6 章（实验·E5） \| | `0.0` | `metrics.json:dup.rows[0].seconds` | `0` |
 | 85 | …/ drop_R4 / only_R2 / only_R4）F1 均为 0.0 \| 论文第 6 章（实验·E5） \| | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 86 | …命令启动；走通「上传 → 扫描 → 看三类清单 → 下载 CSV」全链路；单次全量扫描 ≤ 60 秒（**该 60 秒为需求阈值，非实测**；实测分项见 `metrics.json`：`e… | `60 (×2)` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
-| 86 | …测分项见 `metrics.json`：`embedding.encode_seconds=14.61`、`total_seconds=3.46`、`corrupt.seconds=0.45`，… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 86 | …mbedding.encode_seconds=14.61`、`total_seconds=3.46`、`corrupt.seconds=0.45`，余量充足）；页面响应 ≤ 2 秒（同为需求… | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 86 | …=14.61`、`total_seconds=3.46`、`corrupt.seconds=0.45`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构… | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
-| 86 | …nds=3.46`、`corrupt.seconds=0.45`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 86 | ….seconds=0.45`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图 3 张） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 86 | …测分项见 `metrics.json`：`embedding.encode_seconds=14.61`、`total_seconds=3.75`、`corrupt.seconds=0.51`，… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 86 | …mbedding.encode_seconds=14.61`、`total_seconds=3.75`、`corrupt.seconds=0.51`，余量充足）；页面响应 ≤ 2 秒（同为需求… | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 86 | …=14.61`、`total_seconds=3.75`、`corrupt.seconds=0.51`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构… | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
+| 86 | …nds=3.75`、`corrupt.seconds=0.51`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 86 | ….seconds=0.51`，余量充足）；页面响应 ≤ 2 秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图 3 张） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 86 | …秒（同为需求阈值） \| 论文第 4 章（系统总体设计·架构图、模块图、ER 图、界面截图 3 张） \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 87 | …些文件生成 \| 论文中每一个数字都能用「文件名 + 字段名」指出出处；手工填入的数字数量为 0 \| 贯穿全文，见 §7 数字纪律条款 \| | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
 | 87 | …一个数字都能用「文件名 + 字段名」指出出处；手工填入的数字数量为 0 \| 贯穿全文，见 §7 数字纪律条款 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
@@ -1829,20 +1834,20 @@
 | 108 | \| 界面截图 4 张 \| **界面截图 3 张**（上传页 / 扫描结果总览页 / 三类缺陷清单页） \| 「界面截图第 4 张与导出页… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 112 | ## 3. 主动砍掉表 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 115 | > 本表前六行为**为 17 周排期而砍**，与 §2.2 的收缩表逐条对应；其余各行为立论层面的裁剪，与时间长短无关。 | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
-| 119 | …00 工单规模上已完整成立（`metrics.json` 中 `total_seconds=3.46`、`embedding.encode_seconds=14.61`）。 \| W1–W10… | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 119 | …total_seconds=3.46`、`embedding.encode_seconds=14.61`）。 \| W1–W10 全部验收关卡提前通过，且导师明确要求展示规模适应性 \| | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 119 | …00 工单规模上已完整成立（`metrics.json` 中 `total_seconds=3.75`、`embedding.encode_seconds=14.61`）。 \| W1–W10… | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 119 | …total_seconds=3.75`、`embedding.encode_seconds=14.61`）。 \| W1–W10 全部验收关卡提前通过，且导师明确要求展示规模适应性 \| | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 120 | …分页 / 排序 / 跳转详情** \| 原形态是「分页 + 列排序 + 点击跳转独立详情页」。17 周排期下这三项合计约占 W8 的一半，而三类清单总共只有 49 / 69 / 22 条量级… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 120 | …+ 点击跳转独立详情页」。17 周排期下这三项合计约占 W8 的一半，而三类清单总共只有 49 / 69 / 22 条量级的行数（`metrics.json` 的 `dup.best`… | `49` | `metrics.json:dup.embedded_docs` | `49` |
 | 120 | …跳转独立详情页」。17 周排期下这三项合计约占 W8 的一半，而三类清单总共只有 49 / 69 / 22 条量级的行数（`metrics.json` 的 `dup.best` / `co… | `69` | `metrics.json:corrupt.detected` | `69` |
 | 120 | …情页」。17 周排期下这三项合计约占 W8 的一半，而三类清单总共只有 49 / 69 / 22 条量级的行数（`metrics.json` 的 `dup.best` / `corrupt… | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 122 | …户下无瓶颈」——这与 `metrics.json` 已给出的 `total_seconds=3.46` / `embedding.encode_seconds=14.61` 是同一句话。**1… | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 122 | …tal_seconds=3.46` / `embedding.encode_seconds=14.61` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 122 | …6` / `embedding.encode_seconds=14.61` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
+| 122 | …户下无瓶颈」——这与 `metrics.json` 已给出的 `total_seconds=3.75` / `embedding.encode_seconds=14.61` 是同一句话。**1… | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 122 | …tal_seconds=3.75` / `embedding.encode_seconds=14.61` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 122 | …5` / `embedding.encode_seconds=14.61` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 122 | …` 是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的粗测，不做完整压测报告） \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 122 | …是同一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的粗测，不做完整压测报告） \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
 | 122 | …一句话。**17 周排期内压测零产出。** \| 导师要求给出并发能力数字（此时只做 1/5/10 并发三点的粗测，不做完整压测报告） \| | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 123 | …跑出来的不一致，反而成为被追问的把柄。**降级为答辩现场直接跑系统**（当前实测端到端 ≈ 3.46 秒检测 + 14.61 秒向量化，现场跑得动）。 \| 学院强制要求提交演示视频（此时录一段… | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 123 | …为被追问的把柄。**降级为答辩现场直接跑系统**（当前实测端到端 ≈ 3.46 秒检测 + 14.61 秒向量化，现场跑得动）。 \| 学院强制要求提交演示视频（此时录一段不剪辑的屏幕录制即可）… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 123 | …跑出来的不一致，反而成为被追问的把柄。**降级为答辩现场直接跑系统**（当前实测端到端 ≈ 3.75 秒检测 + 14.61 秒向量化，现场跑得动）。 \| 学院强制要求提交演示视频（此时录一段… | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 123 | …为被追问的把柄。**降级为答辩现场直接跑系统**（当前实测端到端 ≈ 3.75 秒检测 + 14.61 秒向量化，现场跑得动）。 \| 学院强制要求提交演示视频（此时录一段不剪辑的屏幕录制即可）… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 124 | \| **界面截图第 4 张与导出页截图** \| 报告导出功能已按上一行砍掉，「导出页」因此不存在。第 4 张截图降… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 124 | …已按上一行砍掉，「导出页」因此不存在。第 4 张截图降级为「三类缺陷清单页」截图，最终 **3 张**：上传页 / 扫描结果总览页 / 三类缺陷清单页。这 3 张已覆盖老师红线要求的界面… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 126 | …案含 `user` / `audit_log` 两张表与三类角色的完整功能矩阵（3.4 节 8 行权限）。原方案 8.4 已判定「做完整权限系统是纯粹的工程堆砌，无学术价值」，本科版进一… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
@@ -1857,7 +1862,7 @@
 | 132 | \| **聚类参数敏感性全扫描（mcs ∈ {3,5,10,15,20}）** \| 原 E4 设计为五点折线。实测 `gap_threshold.csv`… | `15 (×2)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
 | 132 | \| **聚类参数敏感性全扫描（mcs ∈ {3,5,10,15,20}）** \| 原 E4 设计为五点折线。实测 `gap_threshold.csv` 已含… | `20 (×2)` | `dup_groups_best.csv:group[row=20][0]` | `20` |
 | 132 | …` 已含 mcs=5 与 mcs=10 两组完整结果，两组在 0.62 阈值下 F1 同为 0.8，足以支撑「F1 对聚类粒度不敏感」这一句结论。 \| 导师要求完整敏感性曲线（此时补 mcs… | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 133 | …量扫描（UC5）** \| 需要外部数据源与调度器。本科版改为「手动点击重新扫描」，全量扫描 3.46 秒，无需增量。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量… | `3.46` | `metrics.json:total_seconds` | `3.46` |
+| 133 | …量扫描（UC5）** \| 需要外部数据源与调度器。本科版改为「手动点击重新扫描」，全量扫描 3.75 秒，无需增量。 \| 触发条件（**规划口径，非实测**）：文档数 > 10000 后，全量… | `3.75` | `metrics.json:total_seconds` | `3.75` |
 | 133 | …00 后，全量扫描将慢到不可用。10000 是按当前规模线性外推的规划容量，而实测语料只有 300 篇（`metrics.json` → `embedding.n_docs`），故这是一个未… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 133 | …onds` / `corrupt.seconds`），不含任何合计秒数，详见 §7.2 的 3b \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 135 | \| **在线文档编辑（UC1 全文 CRUD）** \| 原方案降级条件 3 已写明「砍掉在线编辑，只保留上传 + 扫描 + 报告」。 \| 无（本项已由原方案判定为降级… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
@@ -1991,11 +1996,11 @@
 | 182 | \| 表4-3 \| 全链路耗时表 \| `metrics.json`（`embedding.encode… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 182 | …econds` / `total_seconds`） \| 对照非功能需求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 30… | `60 (×2)` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
 | 182 | …\| 对照非功能需求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 182 | …求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.45 秒… | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
-| 182 | …60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.45 秒、三模块检测合计 3… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 182 | …实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.45 秒、三模块检测合计 3.46 秒。答辩现场可当场复跑验证。 \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
-| 182 | …秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.45 秒、三模块检测合计 3.46 秒。答辩现场可当场复跑验证。 \| | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
-| 182 | …0 文档 + 2000 工单 + 1852 段落）、腐化检测 0.45 秒、三模块检测合计 3.46 秒。答辩现场可当场复跑验证。 \| | `3.46` | `metrics.json:total_seconds` | `3.46` |
+| 182 | …求「单次全量扫描 ≤ 60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.51 秒… | `4152` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
+| 182 | …60 秒」（该 60 秒为需求阈值，非实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.51 秒、三模块检测合计 3… | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 182 | …实测）：向量化 14.61 秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.51 秒、三模块检测合计 3.75 秒。答辩现场可当场复跑验证。 \| | `1852` | `metrics.json:embedding.n_passages` | `1852` |
+| 182 | …秒（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落）、腐化检测 0.51 秒、三模块检测合计 3.75 秒。答辩现场可当场复跑验证。 \| | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
+| 182 | …0 文档 + 2000 工单 + 1852 段落）、腐化检测 0.51 秒、三模块检测合计 3.75 秒。答辩现场可当场复跑验证。 \| | `3.75` | `metrics.json:total_seconds` | `3.75` |
 | 183 | \| 图3-6 \| 系统架构图 \| 不适用（非数据图表） \| 三层架构：展示层（FastAPI 轻量看… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 184 | \| 图3-7 \| ER 图 \| 不适用（非数据图表） \| 裁剪后实体：`document`、`tic… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 185 | \| 图3-8 \| 系统界面截图（**3 张**） \| 不适用（运行截图） \| 上传页 / 扫描结果总… | `3 (×3)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
@@ -2050,12 +2055,12 @@
 | 206 | …e/` 下现成文件，不做报告生成） \| 第 6 章实验与结果（初稿，图 3-1~3-5、表 4-1~4-3 进稿） \| **G8：三页数字与 `metrics.json` 一致**（页面… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 206 | …hreshold 与 F1）；**下载的 CSV 与源文件逐字节一致**。**W8 末为 §8 风险四的判断点**：骨架未通则降级为「CLI + 一页静态报告」 \| 输入 W7 的落库结… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
 | 207 | \| **W9** \| 12-09 → 12-15 \| 联调与可复现性验证 \| 全链路跑通计时记录（对照 `metric… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 207 | …全链路跑通计时记录（对照 `metrics.json` 的 `total_seconds=3.46` / `embedding.encode_seconds=14.61`）；界面截图 3 张… | `3.46 (×2)` | `metrics.json:total_seconds` | `3.46` |
-| 207 | …tal_seconds=3.46` / `embedding.encode_seconds=14.61`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与… | `14.61 (×2)` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 207 | ….46` / `embedding.encode_seconds=14.61`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与展望）初稿 \| *… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 207 | …全链路跑通计时记录（对照 `metrics.json` 的 `total_seconds=3.75` / `embedding.encode_seconds=14.61`）；界面截图 3 张… | `3.75 (×2)` | `metrics.json:total_seconds` | `3.75` |
+| 207 | …tal_seconds=3.75` / `embedding.encode_seconds=14.61`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与… | `14.61 (×2)` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 207 | ….75` / `embedding.encode_seconds=14.61`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与展望）初稿 \| *… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 207 | …s=14.61`）；界面截图 3 张；`run_all.sh` 复跑产物逐字节比对 \| 第 7 章（结论与展望）初稿 \| **G9：实测分项耗时达标（`metrics.json` 的 `… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 207 | …61` / `total_seconds=3.46` / `corrupt.seconds=0.45`，对照 60 秒需求阈值余量充足），且复跑产物与 W4 首跑逐字节一致**（只允许耗时字段… | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
-| 207 | …tal_seconds=3.46` / `corrupt.seconds=0.45`，对照 60 秒需求阈值余量充足），且复跑产物与 W4 首跑逐字节一致**（只允许耗时字段抖动）。**不… | `60` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
+| 207 | …61` / `total_seconds=3.75` / `corrupt.seconds=0.51`，对照 60 秒需求阈值余量充足），且复跑产物与 W4 首跑逐字节一致**（只允许耗时字段… | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
+| 207 | …tal_seconds=3.75` / `corrupt.seconds=0.51`，对照 60 秒需求阈值余量充足），且复跑产物与 W4 首跑逐字节一致**（只允许耗时字段抖动）。**不… | `60` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
 | 208 | \| **W10** \| 12-16 → 12-22 \| **系统冻结 + 开发交付窗口关闭** \| 冻结基线（打 tag… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
 | 208 | …关闭** \| 冻结基线（打 tag / 归档目录）；遗留 bug 清单（只修不加） \| 第 1–7 章齐稿 \| **G10：系统冻结，此后只修 bug 不加功能、不加实验**——W11… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 208 | …** \| 冻结基线（打 tag / 归档目录）；遗留 bug 清单（只修不加） \| 第 1–7 章齐稿 \| **G10：系统冻结，此后只修 bug 不加功能、不加实验**——W11 之后… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
@@ -2129,13 +2134,13 @@
 | 279 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 14.61 秒 \| `metrics.… | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 279 | \| 向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 14.61 秒 \| `metrics.json` → `embedding.e… | `1852` | `metrics.json:embedding.n_passages` | `1852` |
 | 279 | …向量化（4152 条文本 = 300 文档 + 2000 工单 + 1852 段落） \| 14.61 秒 \| `metrics.json` → `embedding.encode_second… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 280 | \| 三模块检测 \| 3.46 秒 \| `metrics.json` → `total_seconds` \| | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 281 | \| 其中腐化模块 \| 0.45 秒 \| `metrics.json` → `corrupt.seconds` \| | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
+| 280 | \| 三模块检测 \| 3.75 秒 \| `metrics.json` → `total_seconds` \| | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 281 | \| 其中腐化模块 \| 0.51 秒 \| `metrics.json` → `corrupt.seconds` \| | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
 | 285 | 已落盘的数字（如整篇级意图级 AUC 0.8880）一律从 `granularity.csv` 引用，不再回退到叙述性文档。 | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
 | 287 | 3b. **耗时值只认复跑值**：`metrics.json` 中的耗时字段在每次复跑时会有小… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 287 | …一采用**当前 `metrics.json` 中的复跑值**：`total_seconds=3.46`、`embedding.encode_seconds=14.61`、`corrupt.se… | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 287 | …total_seconds=3.46`、`embedding.encode_seconds=14.61`、`corrupt.seconds=0.45`。首次 PoC 运行记录在 `run_all… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 287 | …edding.encode_seconds=14.61`、`corrupt.seconds=0.45`。首次 PoC 运行记录在 `run_all.log` 中的旧值不再被任何章节引用；若论文… | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
+| 287 | …一采用**当前 `metrics.json` 中的复跑值**：`total_seconds=3.75`、`embedding.encode_seconds=14.61`、`corrupt.se… | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 287 | …total_seconds=3.75`、`embedding.encode_seconds=14.61`、`corrupt.seconds=0.51`。首次 PoC 运行记录在 `run_all… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 287 | …edding.encode_seconds=14.61`、`corrupt.seconds=0.51`。首次 PoC 运行记录在 `run_all.log` 中的旧值不再被任何章节引用；若论文… | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
 | 293 | \| 文档内容合理性复核 \| 30 条（10% × 300 篇） \| 抽检文档是否语义通顺、领域归属是否正确 \| | `30` | `metrics.json:gap.threshold_rows[9].detected_intents` | `30` |
 | 293 | \| 文档内容合理性复核 \| 30 条（10% × 300 篇） \| 抽检文档是否语义通顺、领域归属是否正确 \| | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
 | 293 | \| 文档内容合理性复核 \| 30 条（10% × 300 篇） \| 抽检文档是否语义通顺、领域归属是否正确 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
@@ -2220,7 +2225,7 @@
 | 370 | …与实验窗口只有 W1–W10。Web 看板在排期里只占 W7–W9 三周，其中 W8 是 §6 的 G8 判断点。这个背景决定了答辩时必须主动交代降级路径，而不是等评审问「你这怎么没做完… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 374 | …**：开发 W1–W10、论文全程并行写作、W15–W16 留了两周缓冲，W17 答辩。这 17 周里排掉的是范围，不是质量——被砍的每一项都在 §3 有理由，砍掉的是演示视频、压测、分页… | `17` | `dup_groups_best.csv:group[row=17][0]` | `17` |
 | 374 | …6 留了两周缓冲，W17 答辩。这 17 周里排掉的是范围，不是质量——被砍的每一项都在 §3 有理由，砍掉的是演示视频、压测、分页排序、报告排版这类**不产生结论**的东西。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 375 | …测结论必然是「无瓶颈」，与 `metrics.json` 的 `total_seconds=3.46` 是同一句话）、报告排版（改为直接下载已产出的 CSV）。**这三项砍掉不影响论文的任何一… | `3.46` | `metrics.json:total_seconds` | `3.46` |
+| 375 | …测结论必然是「无瓶颈」，与 `metrics.json` 的 `total_seconds=3.75` 是同一句话）、报告排版（改为直接下载已产出的 CSV）。**这三项砍掉不影响论文的任何一… | `3.75` | `metrics.json:total_seconds` | `3.75` |
 | 376 | …为「CLI 工具 + 一页静态报告」，不再做 Web。** 理由要讲清楚——**在只有 3–4 个月的情况下，一个能跑的三层分报告页远胜于一个做不完的看板**。评审看的是「这个系统能不能… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 388 | \| §0 排期口径与并行理由 \| 第 7.1 节（原方案无并行安排） \| 新增 \| | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
 | 389 | \| §1 题目定稿 \| 附录 A（选变体 C 而非推荐的 A） \| 立论收窄 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
@@ -2378,7 +2383,7 @@
 | 221 | …iry.f1` / `corrupt.by_cause.maintenance.f1` \| 1.0 / 0.8986 \| 一致 \| | `1.0` | `章节号(枚举)` | `` |
 | 222 | \| §1.3 贡献 2 \| 冗余 0.90 组级 F1 = 0.7037 \| `dup_threshol… | `1.3` | `章节号(§引用)` | `` |
 | 223 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshol… | `1.3` | `章节号(§引用)` | `` |
-| 224 | \| §1.3 贡献 2 \| 三模块合计 3.46 秒 \| `metrics.json` → `total… | `1.3` | `章节号(§引用)` | `` |
+| 224 | \| §1.3 贡献 2 \| 三模块合计 3.75 秒 \| `metrics.json` → `total… | `1.3` | `章节号(§引用)` | `` |
 | 225 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.cs… | `1.3` | `章节号(§引用)` | `` |
 | 226 | \| §1.3 贡献 4 \| 跨场景极差 0.0264 \| `results_auc.csv` ABS 5… | `1.3` | `章节号(§引用)` | `` |
 | 227 | \| §1.3 贡献 4 \| 中文 0.6463 \| `standardize/ablation.csv`… | `1.3` | `章节号(§引用)` | `` |
@@ -2402,11 +2407,11 @@
 | 240 | \| §3.1 技术可行性 \| 生成数据约 1 秒 \| 受审集合内无生成耗时字段 \| — \| 【无出处】… | `3.1` | `章节号(§引用)` | `` |
 | 241 | \| §3.1 技术可行性 \| 4152 条文本 \| `embedding.n_docs+n_ticket… | `3.1` | `章节号(§引用)` | `` |
 | 242 | \| §3.1 技术可行性 \| 向量化 14.61 秒 \| `metrics.json` → `embed… | `3.1` | `章节号(§引用)` | `` |
-| 243 | \| §3.1 技术可行性 \| 三模块 3.46 秒 \| `metrics.json` → `total_… | `3.1` | `章节号(§引用)` | `` |
+| 243 | \| §3.1 技术可行性 \| 三模块 3.75 秒 \| `metrics.json` → `total_… | `3.1` | `章节号(§引用)` | `` |
 | 244 | \| §3.1 技术可行性 \| 全程 CPU，无 GPU 训练 \| `metrics.json` → `e… | `3.1` | `章节号(§引用)` | `` |
 | 245 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项… | `3.1` | `章节号(§引用)` | `` |
 | 245 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_… | `2000 (×2)` | `年份/日期` | `` |
-| 246 | \| §3.5 非功能需求 \| 检测环节 3.46 秒 \| `metrics.json` → `total… | `3.5` | `章节号(§引用)` | `` |
+| 246 | \| §3.5 非功能需求 \| 检测环节 3.75 秒 \| `metrics.json` → `total… | `3.5` | `章节号(§引用)` | `` |
 | 247 | \| §3.5 非功能需求 \| 向量化 14.61 秒 \| `metrics.json` → `embed… | `3.5` | `章节号(§引用)` | `` |
 | 248 | \| §5.1 段落切分动机 \| 300 篇平均 140 字 \| 受审集合内无正文字数字段 \| — \| 【… | `5.1` | `章节号(§引用)` | `` |
 | 249 | \| §5.1 段落切分动机 \| 约 6.2 句/篇 \| 受审集合内无记录 \| — \| 【无出处】 \| | `5.1` | `章节号(§引用)` | `` |
@@ -2488,7 +2493,7 @@
 | 318 | \| §5.4 实测结果（内容过期口径） \| 1.0000 / 1.0 / 1.0000 \| `metrics.json` → `corrupt.by_cause… | `1.0` | `章节号(枚举)` | `` |
 | 319 | \| §5.4 实测结果（维护周期口径） \| 0.8158 / 1.0 / 0.8986 \| `metri… | `5.4` | `章节号(§引用)` | `` |
 | 319 | \| §5.4 实测结果（维护周期口径） \| 0.8158 / 1.0 / 0.8986 \| `metrics.json` → `corrupt.by_cause… | `1.0` | `章节号(枚举)` | `` |
-| 320 | \| §5.4 实测结果 \| 耗时 0.45 秒 \| `metrics.json` → `corrupt.… | `5.4` | `章节号(§引用)` | `` |
+| 320 | \| §5.4 实测结果 \| 耗时 0.51 秒 \| `metrics.json` → `corrupt.… | `5.4` | `章节号(§引用)` | `` |
 | 321 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈… | `5.4` | `章节号(§引用)` | `` |
 | 322 | \| §5.4.1 规则消融整表·内容过期口径 \| 5 行的 P/R/F1/检出/TP/FP/FN/命中文… | `5.4` | `章节号(§引用)` | `` |
 | 323 | \| §5.4.1 规则消融整表·维护周期口径 \| 5 行的 P/R/F1/检出/TP/FP/FN/命中文… | `5.4` | `章节号(§引用)` | `` |
@@ -2674,9 +2679,9 @@
 | 10 | …kbgovernance/granularity.csv`（检索粒度 × 打分方案 AUC，10 行）、`poc/kbgovernance/granularity_dup.csv`（两种粒… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
 | 10 | …kbgovernance/granularity_dup.csv`（两种粒度下的组内相似度，2 行）、`poc/kbgovernance/corrupt_rule_ablation_co… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
 | 10 | …pt_rule_ablation_maintenance.csv`（腐化规则消融，两口径各 5 行）。这三份产物此前不存在，文档中的整篇级 AUC、三种失败归一化 AUC、组内余弦区间因… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 16 | …新为当前 `metrics.json`（`embedding.encode_seconds=14.61`、`total_seconds=3.46`、`corrupt.seconds=0.45`）… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 16 | …mbedding.encode_seconds=14.61`、`total_seconds=3.46`、`corrupt.seconds=0.45`），本报告的判定行随之同步；技术方案中已删除… | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 16 | …=14.61`、`total_seconds=3.46`、`corrupt.seconds=0.45`），本报告的判定行随之同步；技术方案中已删除的旧断言在本报告中一并删除，不并列已作废的旧条… | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
+| 16 | …新为当前 `metrics.json`（`embedding.encode_seconds=14.61`、`total_seconds=3.75`、`corrupt.seconds=0.51`）… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 16 | …mbedding.encode_seconds=14.61`、`total_seconds=3.75`、`corrupt.seconds=0.51`），本报告的判定行随之同步；技术方案中已删除… | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 16 | …=14.61`、`total_seconds=3.75`、`corrupt.seconds=0.51`），本报告的判定行随之同步；技术方案中已删除的旧断言在本报告中一并删除，不并列已作废的旧条… | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
 | 18 | …——§1.2「商业对标」整节删除并重编号、E7/E8 由「不进论文」降级为正文两小节（各 ≤1 页）、§6.4 图表清单随之调整。**这三处均未改变原子声明集合**：删除的 §1.2 商… | `1 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 18 | …ptEdge / Ravenna 两条定性描述），新增内容（§5.3 定位框、图表清单中的表4-7、页数归属说明）不含任何可核验的实测数值，§6.3 / §6.4 的表号调整不改变数值本… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 18 | …值，§6.3 / §6.4 的表号调整不改变数值本身。因此 §1 的统计（附录 D 一致率 90 / 104、正文 150 条与各判定计数）与 §2 的判定行**保持不变**，本轮只需同步… | `90` | `gap_clusters_best.csv:cluster_id[row=36][0]` | `90` |
@@ -2814,7 +2819,7 @@
 | 99 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `… | `62 (×2)` | `metrics.json:gap.intent_rows[2].total_tickets` | `62` |
 | 99 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `corru… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 99 | \| 附录D 主表「内容腐化 P/R/F1」 \| TP=62 FP=7 FN=0 \| `metrics.json` → `corrupt.tp` / `corrupt.fp… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 100 | \| 附录D 主表「腐化耗时」 \| 0.45 秒 \| `metrics.json` → `corrupt.seconds` \| 0.45… | `0.45 (×2)` | `metrics.json:corrupt.seconds` | `0.45` |
+| 100 | \| 附录D 主表「腐化耗时」 \| 0.51 秒 \| `metrics.json` → `corrupt.seconds` \| 0.51… | `0.51 (×2)` | `metrics.json:corrupt.seconds` | `0.51` |
 | 101 | \| 附录D 主表「重复冗余（0.90 阈值）组级 F1」 \| 0.7037 \| `poc/kbgovernance/dup_threshold.csv` 第 3 数据… | `0.7037 (×2)` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
 | 101 | …ernance/dup_threshold.csv` 第 3 数据行（`threshold=0.9`）列 `group_f1`；`metrics.json` → `dup.rows[1].g… | `0.9` | `metrics.json:dup.rows[1].threshold` | `0.9` |
 | 101 | …=0.9`）列 `group_f1`；`metrics.json` → `dup.rows[1].group_f1` \| 0.7037 \| 一致 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
@@ -2824,7 +2829,7 @@
 | 103 | \| 附录D 主表「重复冗余（0.95 阈值）组级 F1」 \| 1.0 \| `dup_threshold.csv` `threshold=0.95` 行列 `gr… | `1.0 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 104 | \| 附录D 主表「重复冗余（0.95 阈值）」 \| 22 组 / 49 篇 \| `dup_threshold.csv` `threshold=0.9… | `22 (×2)` | `metrics.json:dup.embedded_groups` | `22` |
 | 104 | \| 附录D 主表「重复冗余（0.95 阈值）」 \| 22 组 / 49 篇 \| `dup_threshold.csv` `threshold=0.95` 行 `d… | `49 (×2)` | `metrics.json:dup.embedded_docs` | `49` |
-| 105 | \| 附录D 主表「三模块检测总耗时」 \| 3.46 秒 \| `metrics.json` → `total_seconds` \| 3.46 \|… | `3.46 (×2)` | `metrics.json:total_seconds` | `3.46` |
+| 105 | \| 附录D 主表「三模块检测总耗时」 \| 3.75 秒 \| `metrics.json` → `total_seconds` \| 3.75 \|… | `3.75 (×2)` | `metrics.json:total_seconds` | `3.75` |
 | 107 | ### 2.2 附录 D · 标准化实验实测小节（69 条） | `69` | `metrics.json:corrupt.detected` | `69` |
 | 113 | \| 附录D AUC 表 · ABS α \| 0.968 \| `standardize/results_auc.csv` `场景=alpha, 方法… | `0.968 (×2)` | `granularity.csv:auc_intent_median[row=6][0]` | `0.968` |
 | 114 | \| 附录D AUC 表 · ABS 英文 \| 0.9538 \| `standardize/results_banking77_en.csv` 第 2… | `0.9538 (×2)` | `standardize/results_banking77_en.csv:AUC[row=1][0]` | `0.9538` |
@@ -3025,8 +3030,8 @@
 | 223 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshold.csv` `thresho… | `0.95 (×2)` | `metrics.json:dup.rows[2].threshold` | `0.95` |
 | 223 | \| §1.3 贡献 2 \| 冗余 0.95 组级 F1 = 1.0000 \| `dup_threshold.csv` `threshold=0.95, group_… | `1.0000` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 223 | …p_threshold.csv` `threshold=0.95, group_f1` \| 1.0 \| 一致 \| | `1.0` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 224 | \| §1.3 贡献 2 \| 三模块合计 3.46 秒 \| `metrics.json` → `total_seco… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 224 | \| §1.3 贡献 2 \| 三模块合计 3.46 秒 \| `metrics.json` → `total_seconds` \| 3.46 \|… | `3.46 (×2)` | `metrics.json:total_seconds` | `3.46` |
+| 224 | \| §1.3 贡献 2 \| 三模块合计 3.75 秒 \| `metrics.json` → `total_seco… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 224 | \| §1.3 贡献 2 \| 三模块合计 3.75 秒 \| `metrics.json` → `total_seconds` \| 3.75 \|… | `3.75 (×2)` | `metrics.json:total_seconds` | `3.75` |
 | 225 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.csv` `s… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 225 | \| §1.3 贡献 3 \| Spearman ρ = -1.000000 \| `mechanism.csv` `spearman_与cover`（ABS/S1/S2… | `-1.000000` | `corrupt_rule_ablation_content_expiry.csv:delta_f1[row=2][0]` | `-1` |
 | 225 | …hanism.csv` `spearman_与cover`（ABS/S1/S2 三行） \| -1.0 \| 一致（精度） \| | `-1.0` | `corrupt_rule_ablation_content_expiry.csv:delta_f1[row=2][0]` | `-1` |
@@ -3063,11 +3068,11 @@
 | 240 | \| §3.1 技术可行性 \| 生成数据约 1 秒 \| 受审集合内无生成耗时字段 \| — \| 【无出处】 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 241 | \| §3.1 技术可行性 \| 4152 条文本 \| `embedding.n_docs+n_tickets+n_passages`… | `4152 (×2)` | `derived_metrics.csv:embedding.total_texts_vectorized` | `4152` |
 | 242 | \| §3.1 技术可行性 \| 向量化 14.61 秒 \| `metrics.json` → `embedding.encode_second… | `14.61 (×2)` | `metrics.json:embedding.encode_seconds` | `14.61` |
-| 243 | \| §3.1 技术可行性 \| 三模块 3.46 秒 \| `metrics.json` → `total_seconds` \| 3.46 \|… | `3.46 (×2)` | `metrics.json:total_seconds` | `3.46` |
+| 243 | \| §3.1 技术可行性 \| 三模块 3.75 秒 \| `metrics.json` → `total_seconds` \| 3.75 \|… | `3.75 (×2)` | `metrics.json:total_seconds` | `3.75` |
 | 245 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
 | 245 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_tickets… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
 | 245 | \| §3.1 数据可行性 \| 300 文档 / 2000 工单 / 8 域 / 30 意图 \| 前两项 `embedding.n_docs`/`n_tickets` 一致；后两… | `30` | `metrics.json:gap.threshold_rows[9].detected_intents` | `30` |
-| 246 | \| §3.5 非功能需求 \| 检测环节 3.46 秒 \| `metrics.json` → `total_seconds` \| 3.46 \|… | `3.46 (×2)` | `metrics.json:total_seconds` | `3.46` |
+| 246 | \| §3.5 非功能需求 \| 检测环节 3.75 秒 \| `metrics.json` → `total_seconds` \| 3.75 \|… | `3.75 (×2)` | `metrics.json:total_seconds` | `3.75` |
 | 247 | \| §3.5 非功能需求 \| 向量化 14.61 秒 \| `metrics.json` → `embedding.encode_second… | `14.61 (×2)` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 248 | \| §5.1 段落切分动机 \| 300 篇平均 140 字 \| 受审集合内无正文字数字段 \| — \| 【无出处】 \| | `300` | `metrics.json:embedding.n_docs` | `300` |
 | 250 | \| §5.1 段落切分动机 \| 整篇级 AUC 0.8880（工单级 0.8307） \| `granularity.csv` `doc_level, m… | `0.8880` | `granularity.csv:auc_intent_median[row=1][0]` | `0.888` |
@@ -3298,7 +3303,7 @@
 | 318 | \| §5.4 实测结果（内容过期口径） \| 1.0000 / 1.0 / 1.0000 \| `metrics.json` → `corrupt.by… | `1.0000 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 319 | \| §5.4 实测结果（维护周期口径） \| 0.8158 / 1.0 / 0.8986 \| `metrics.json` → `corrupt.by… | `0.8158` | `metrics.json:corrupt.by_cause.maintenance.precision` | `0.8158` |
 | 319 | \| §5.4 实测结果（维护周期口径） \| 0.8158 / 1.0 / 0.8986 \| `metrics.json` → `corrupt.by_cause.maintena… | `0.8986` | `metrics.json:corrupt.by_cause.maintenance.f1` | `0.8986` |
-| 320 | \| §5.4 实测结果 \| 耗时 0.45 秒 \| `metrics.json` → `corrupt.seconds` \| 0.45… | `0.45 (×2)` | `metrics.json:corrupt.seconds` | `0.45` |
+| 320 | \| §5.4 实测结果 \| 耗时 0.51 秒 \| `metrics.json` → `corrupt.seconds` \| 0.51… | `0.51 (×2)` | `metrics.json:corrupt.seconds` | `0.51` |
 | 321 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈旧 `last_m… | `7 (×4)` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 321 | \| §5.4 实测结果 \| 7 个误报中 6 篇来自「自然陈旧」对照文档，第 7 篇为重复件继承主文档陈旧 `last_modified… | `6 (×3)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 321 | …cs.csv` → `fp_reason` 列（6 行 `control_stale` + 1 行 `dup_inherited_stale`），计数见 `metrics.json` →… | `1 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
@@ -3631,8 +3636,8 @@
 ## 文档 4 / 4：`开发前准备清单.md`
 
 - 完整路径：`D:\26code\毕设\docs\技术方案\开发前准备清单.md`
-- 抽到的数值断言：**848** 处
-- 判定统计：OK=**529**　ROUNDED=**0**　STRUCTURAL=**269**　EXTERNAL=**0**　CITED=**5**　ALLOWED=**0**　UNSOURCED=**45**
+- 抽到的数值断言：**886** 处
+- 判定统计：OK=**547**　ROUNDED=**0**　STRUCTURAL=**289**　EXTERNAL=**0**　CITED=**5**　ALLOWED=**0**　UNSOURCED=**45**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
 
 ### 4.1 指标类 UNSOURCED —— 致命项，必须为空或逐条补出处
@@ -3645,49 +3650,49 @@
 |---|---|---|---|---|
 | 24 | …空并新增 `has_ground_truth`、错误码枚举 10 个且每个都有路径引用、补 422 + `VALIDATION_FAILED` \| `system/openapi.yaml`… | `422` | `` | `` |
 | 120 | …口移除真值标注列（`is_true_gap` / `is_true_group`）；② 补 422 + `VALIDATION_FAILED`，使错误体形状闭合；③ `sort` 取值改为与… | `422` | `` | `` |
-| 295 | …校验脚本 + 五张整页截图）；设计依据 `docs/技术方案/Web端原型设计规格.md`（607 行，含 Element Plus 组件选型、布局尺寸规范、数字溯源表）。校验实跑：`pyt… | `607` | `` | `` |
-| 333 | …实测：上传页主 CTA 在 `y=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px… | `1248` | `` | `` |
-| 333 | …页主 CTA 在 `y=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px；扫描页… | `949` | `` | `` |
-| 333 | …=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px；扫描页 CTA 在 `y=20… | `2.28` | `` | `` |
-| 333 | …（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px；扫描页 CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，… | `441` | `` | `` |
-| 333 | …占掉 441px；扫描页 CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `in… | `1335` | `` | `` |
-| 333 | …CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `innerText` 为空且… | `1024` | `` | `` |
-| 333 | …在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `innerText` 为空且无 `ti… | `1439` | `` | `` |
-| 334 | - **验收信号**：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439p… | `949` | `` | `` |
-| 334 | - **验收信号**：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439px 下三个导航… | `1440` | `` | `` |
-| 334 | - **验收信号**：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439px 下三个导航按钮都有… | `900` | `` | `` |
-| 334 | …*：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439px 下三个导航按钮都有可访问名。 | `1024` | `` | `` |
-| 334 | …8×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439px 下三个导航按钮都有可访问名。 | `1439` | `` | `` |
-| 335 | …title`，可访问名不丢。`acceptance_check.py` 的 H2 四项通过（1248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、120… | `1248` | `` | `` |
-| 335 | …`，可访问名不丢。`acceptance_check.py` 的 H2 四项通过（1248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、1200px… | `949` | `` | `` |
-| 335 | …不丢。`acceptance_check.py` 的 H2 四项通过（1248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、1200px 下三个导航按钮… | `1440` | `` | `` |
-| 335 | …cceptance_check.py` 的 H2 四项通过（1248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、1200px 下三个导航按钮均有可访… | `900` | `` | `` |
-| 335 | …248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、1200px 下三个导航按钮均有可访问名）。 | `1200` | `` | `` |
-| 351 | - **验收信号**：正文与辅助文字对比度 ≥ 4.5:1；最小字号 ≥ 12px；数字列右对齐且启用 `tabular-nums`；切页后焦点落… | `4.5` | `` | `` |
-| 352 | …化（`展开第 N 行：…` / `收起第 N 行：…`）；导航激活态与辅助文字对比度已提到 4.5:1 以上。`acceptance_check.py` 的 H4 八项通过。 | `4.5` | `` | `` |
-| 354 | - **说明**：WCAG 2.1 AA 是本项目的自定基线，不是外部要求；对照 `design-taste-frontend… | `2.1` | `` | `` |
-| 370 | …列**（阻塞）：界面承诺「下载的是源 CSV 原文，不做二次加工」（`index.html:767-776`、`app.js:613-622`），而这些源文件表头本身含 `is_true_g… | `767` | `` | `` |
-| 370 | …源 CSV 原文，不做二次加工」（`index.html:767-776`、`app.js:613-622`），而这些源文件表头本身含 `is_true_gap`（`gap_intents_… | `613` | `` | `` |
-| 371 | …明**（阻塞）：缺口 P/R/F1 的分母是去重后的 5 个业务意图（`detect.py:117-125`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与… | `117` | `` | `` |
-| 375 | …该合计；「重复冗余检测 0.0 秒」只包住阈值分组循环（`detect.py` 第 373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364 行 只… | `375` | `` | `` |
-| 375 | …373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364 行 只 print 不落盘）。 | `364` | `` | `` |
-| 429 | - **事项**：HTML 里的静态兜底文本与 `copy.js` 运行时文案有 150 余处措辞差异，其中一处与新口径矛盾（「无命中」态的静态文本写「指标条显示的是上一轮取值」，… | `150` | `` | `` |
-| 430 | …arser 逐元素比对（此前用正则把含子节点的元素也当叶子比，结论不成立，已修正）。叶子键 184 个、含子节点的死键 7 个。 | `184` | `` | `` |
-| 439 | …79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第… | `290` | `` | `` |
-| 442 | - `annotation_rules.md`（321 行）：五类判定标准、盲化要求、评分口径、已知限制 6 条（含循环论证、7 篇误报归因、判据… | `321` | `` | `` |
-| 444 | - `worklist_A.csv`（300 条）/ `worklist_B.csv`（100 条，B 是 A 的子集，重叠 100 条的材料与判断问题逐字一致，判定列全空）。 | `100 (×2)` | `` | `` |
-| 574 | …值，不按真值择优 \| `poc/kbgovernance/detect.py` 第 117–127 行与 第 403 行按真值择优取 `best`；无真值语料下无法择优 \| 维护者 \| C5… | `127` | `` | `` |
-| 579 | …kets.csv` 的 `linked_doc_id` 实测全是 `DOCxxxx` 文本（1629/2000 非空） \| 维护者 \| C2、C8 \| | `1629` | `` | `` |
-| 589 | …}`、清单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 s… | `199` | `` | `` |
-| 589 | …单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schem… | `201` | `` | `` |
-| 589 | …实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误… | `203` | `` | `` |
-| 589 | …19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条路径引用；补 422 + `VALIDATION_FAILED`；清单接口删掉 `sort` 参数、行序改由 `… | `422` | `` | `` |
-| 593 | …SV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前提下按推荐：文档与工单各自提供… | `134` | `` | `` |
-| 670 | …无任何行序映射字段；`poc/kbgovernance/detect.py` 第 212–214 行靠行号隐式对应 \| 删除或回滚语料后，向量与文档会静默错配，检测结果无提示地变错 \| 随… | `214` | `` | `` |
-| 681 | …kets.csv` 的 `linked_doc_id` 实测全是 `DOCxxxx` 文本（1629/2000 非空，1629 个全部能对上 `docs.csv` 的 `doc_id`） \|… | `1629 (×2)` | `` | `` |
-| 688 | \| 请求体校验失败时的错误体形状 \| 契约原先没有 422，而必填字段校验失败会返回框架默认的 `{"detail":[...]}`，与「统一错误体… | `422 (×2)` | `` | `` |
-| 692 | …tal_seconds` 被标成「三模块检测段合计」口径不实** \| `detect.py:209` 的 `t_all` 在 `main()` 首行，实为读 CSV + 聚类 + 三检测全程… | `209` | `` | `` |
-| 692 | …seconds` 只包住阈值分组循环，不含 300×300 余弦矩阵（`detect.py:361-364` 只 print 不落盘） \| 契约的 `ScanTiming` 需按实际计时范围… | `361` | `` | `` |
+| 314 | …校验脚本 + 五张整页截图）；设计依据 `docs/技术方案/Web端原型设计规格.md`（607 行，含 Element Plus 组件选型、布局尺寸规范、数字溯源表）。校验实跑：`pyt… | `607` | `` | `` |
+| 352 | …实测：上传页主 CTA 在 `y=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px… | `1248` | `` | `` |
+| 352 | …页主 CTA 在 `y=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px；扫描页… | `949` | `` | `` |
+| 352 | …=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px；扫描页 CTA 在 `y=20… | `2.28` | `` | `` |
+| 352 | …（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px；扫描页 CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，… | `441` | `` | `` |
+| 352 | …占掉 441px；扫描页 CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `in… | `1335` | `` | `` |
+| 352 | …CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `innerText` 为空且… | `1024` | `` | `` |
+| 352 | …在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `innerText` 为空且无 `ti… | `1439` | `` | `` |
+| 353 | - **验收信号**：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439p… | `949` | `` | `` |
+| 353 | - **验收信号**：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439px 下三个导航… | `1440` | `` | `` |
+| 353 | - **验收信号**：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439px 下三个导航按钮都有… | `900` | `` | `` |
+| 353 | …*：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439px 下三个导航按钮都有可访问名。 | `1024` | `` | `` |
+| 353 | …8×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1439px 下三个导航按钮都有可访问名。 | `1439` | `` | `` |
+| 354 | …title`，可访问名不丢。`acceptance_check.py` 的 H2 四项通过（1248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、120… | `1248` | `` | `` |
+| 354 | …`，可访问名不丢。`acceptance_check.py` 的 H2 四项通过（1248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、1200px… | `949` | `` | `` |
+| 354 | …不丢。`acceptance_check.py` 的 H2 四项通过（1248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、1200px 下三个导航按钮… | `1440` | `` | `` |
+| 354 | …cceptance_check.py` 的 H2 四项通过（1248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、1200px 下三个导航按钮均有可访… | `900` | `` | `` |
+| 354 | …248×949 与 1440×900 的上传页 CTA 首屏可见、扫描页 CTA 首屏可见、1200px 下三个导航按钮均有可访问名）。 | `1200` | `` | `` |
+| 370 | - **验收信号**：正文与辅助文字对比度 ≥ 4.5:1；最小字号 ≥ 12px；数字列右对齐且启用 `tabular-nums`；切页后焦点落… | `4.5` | `` | `` |
+| 371 | …化（`展开第 N 行：…` / `收起第 N 行：…`）；导航激活态与辅助文字对比度已提到 4.5:1 以上。`acceptance_check.py` 的 H4 八项通过。 | `4.5` | `` | `` |
+| 373 | - **说明**：WCAG 2.1 AA 是本项目的自定基线，不是外部要求；对照 `design-taste-frontend… | `2.1` | `` | `` |
+| 389 | …列**（阻塞）：界面承诺「下载的是源 CSV 原文，不做二次加工」（`index.html:767-776`、`app.js:613-622`），而这些源文件表头本身含 `is_true_g… | `767` | `` | `` |
+| 389 | …源 CSV 原文，不做二次加工」（`index.html:767-776`、`app.js:613-622`），而这些源文件表头本身含 `is_true_gap`（`gap_intents_… | `613` | `` | `` |
+| 390 | …明**（阻塞）：缺口 P/R/F1 的分母是去重后的 5 个业务意图（`detect.py:117-125`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与… | `117` | `` | `` |
+| 394 | …该合计；「重复冗余检测 0.0 秒」只包住阈值分组循环（`detect.py` 第 373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364 行 只… | `375` | `` | `` |
+| 394 | …373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364 行 只 print 不落盘）。 | `364` | `` | `` |
+| 448 | - **事项**：HTML 里的静态兜底文本与 `copy.js` 运行时文案有 150 余处措辞差异，其中一处与新口径矛盾（「无命中」态的静态文本写「指标条显示的是上一轮取值」，… | `150` | `` | `` |
+| 449 | …arser 逐元素比对（此前用正则把含子节点的元素也当叶子比，结论不成立，已修正）。叶子键 184 个、含子节点的死键 7 个。 | `184` | `` | `` |
+| 458 | …79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第… | `290` | `` | `` |
+| 461 | - `annotation_rules.md`（321 行）：五类判定标准、盲化要求、评分口径、已知限制 6 条（含循环论证、7 篇误报归因、判据… | `321` | `` | `` |
+| 463 | - `worklist_A.csv`（300 条）/ `worklist_B.csv`（100 条，B 是 A 的子集，重叠 100 条的材料与判断问题逐字一致，判定列全空）。 | `100 (×2)` | `` | `` |
+| 593 | …值，不按真值择优 \| `poc/kbgovernance/detect.py` 第 117–127 行与 第 403 行按真值择优取 `best`；无真值语料下无法择优 \| 维护者 \| C5… | `127` | `` | `` |
+| 598 | …kets.csv` 的 `linked_doc_id` 实测全是 `DOCxxxx` 文本（1629/2000 非空） \| 维护者 \| C2、C8 \| | `1629` | `` | `` |
+| 608 | …}`、清单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 s… | `199` | `` | `` |
+| 608 | …单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schem… | `201` | `` | `` |
+| 608 | …实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误… | `203` | `` | `` |
+| 608 | …19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条路径引用；补 422 + `VALIDATION_FAILED`；清单接口删掉 `sort` 参数、行序改由 `… | `422` | `` | `` |
+| 612 | …SV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前提下按推荐：文档与工单各自提供… | `134` | `` | `` |
+| 689 | …无任何行序映射字段；`poc/kbgovernance/detect.py` 第 212–214 行靠行号隐式对应 \| 删除或回滚语料后，向量与文档会静默错配，检测结果无提示地变错 \| C… | `214` | `` | `` |
+| 700 | …kets.csv` 的 `linked_doc_id` 实测全是 `DOCxxxx` 文本（1629/2000 非空，1629 个全部能对上 `docs.csv` 的 `doc_id`） \|… | `1629 (×2)` | `` | `` |
+| 707 | \| 请求体校验失败时的错误体形状 \| 契约原先没有 422，而必填字段校验失败会返回框架默认的 `{"detail":[...]}`，与「统一错误体… | `422 (×2)` | `` | `` |
+| 711 | …tal_seconds` 被标成「三模块检测段合计」口径不实** \| `detect.py:209` 的 `t_all` 在 `main()` 首行，实为读 CSV + 聚类 + 三检测全程… | `209` | `` | `` |
+| 711 | …seconds` 只包住阈值分组循环，不含 300×300 余弦矩阵（`detect.py:361-364` 只 print 不落盘） \| 契约的 `ScanTiming` 需按实际计时范围… | `361` | `` | `` |
 
 ### 4.3 ROUNDED —— 产物值四舍五入后等于文档写法（需人工确认语义一致）
 
@@ -3769,205 +3774,225 @@
 | 133 | …迁移最大的坑，用版本位堵住。主键维持 `INTEGER PRIMARY KEY`（不回到 §4.3 原文的 `AUTOINCREMENT`），理由与代价写在 `schema.sql` 头部。 | `4.3` | `章节号(§引用)` | `` |
 | 134 | - **状态**：**P2 已拍板，表结构定稿**，仅剩一处待办：确认是否回改技术方案 §4.3 正文的主键写法与外键类型，使两份文件一致（§6.2 对应行）。 | `4.3` | `章节号(§引用)` | `` |
 | 134 | …，仅剩一处待办：确认是否回改技术方案 §4.3 正文的主键写法与外键类型，使两份文件一致（§6.2 对应行）。 | `6.2` | `章节号(§引用)` | `` |
+| 136 | #### C3 PoC 脚本参数化 —— 已完成（2026-10-25） | `2026` | `年份/日期` | `` |
 | 139 | - **依据**：`poc/kbgovernance/embed.py` 第 28 行（`HERE`）、第 29 行（模型缓存默认路径）、第 31 行（模型名）；`poc/k… | `28 (×2)` | `外部文件行号引用` | `` |
 | 139 | …：`poc/kbgovernance/embed.py` 第 28 行（`HERE`）、第 29 行（模型缓存默认路径）、第 31 行（模型名）；`poc/kbgovernance/det… | `29` | `外部文件行号引用` | `` |
 | 139 | …e/embed.py` 第 28 行（`HERE`）、第 29 行（模型缓存默认路径）、第 31 行（模型名）；`poc/kbgovernance/detect.py` 第 28 行、第… | `31` | `外部文件行号引用` | `` |
 | 139 | …行（模型名）；`poc/kbgovernance/detect.py` 第 28 行、第 33 行（基准日期）、第 216 行（读 `ground_truth.json`）；Issue… | `33` | `外部文件行号引用` | `` |
 | 139 | …kbgovernance/detect.py` 第 28 行、第 33 行（基准日期）、第 216 行（读 `ground_truth.json`）；Issue #3 正文要求直接复用已验证… | `216` | `外部文件行号引用` | `` |
-| 147 | - **依据**：与 C3 同源；实施方案 §2.1 第 98 行（指标可复现是三个答辩风险的共同底牌）。 | `2.1` | `章节号(§引用)` | `` |
-| 147 | - **依据**：与 C3 同源；实施方案 §2.1 第 98 行（指标可复现是三个答辩风险的共同底牌）。 | `98` | `外部文件行号引用` | `` |
-| 152 | #### C5 ground truth 可选化 —— 已完成（2026-10-25） | `2026` | `年份/日期` | `` |
-| 155 | - **依据**：`poc/kbgovernance/detect.py` 第 216 行；技术方案 §4.4（SQLite 定位为设计值、尚未实测，说明系统要跑自己的语料）。 | `216` | `外部文件行号引用` | `` |
-| 155 | …**：`poc/kbgovernance/detect.py` 第 216 行；技术方案 §4.4（SQLite 定位为设计值、尚未实测，说明系统要跑自己的语料）。 | `4.4` | `章节号(§引用)` | `` |
-| 161 | #### C6 缺口清单口径统一 —— 已完成（2026-10-25 口径更正） | `2026` | `年份/日期` | `` |
-| 165 | - **依据**：实施方案 §2 第 80 行（`metrics.json` 的 `gap.best` 为 threshold=0.6… | `80` | `外部文件行号引用` | `` |
-| 175 | - **补充口径（2026-10-24，来自 §2.8 H6）**：**下载通道单独定口径**。`GET /api/d… | `2026` | `年份/日期` | `` |
-| 175 | - **补充口径（2026-10-24，来自 §2.8 H6）**：**下载通道单独定口径**。`GET /api/downloads/{name… | `2.8 (×2)` | `章节号(§引用)` | `` |
-| 180 | - **依据**：`poc/kbgovernance/detect.py` 第 134 行（`last_modified` 参与判定）；技术方案 §4.3 的 `document… | `134` | `外部文件行号引用` | `` |
-| 180 | …etect.py` 第 134 行（`last_modified` 参与判定）；技术方案 §4.3 的 `document` 表字段（`last_modified` 与 `effective… | `4.3` | `章节号(§引用)` | `` |
-| 187 | - **依据**：UX 评审必做项；Issue #3 正文 第 199 行（错误响应体结构统一）。 | `199` | `外部文件行号引用` | `` |
-| 194 | - **依据**：技术方案 §4.4 第 391 行（Vue3 + Element Plus 标注为「设计值，尚未实测」）、第… | `4.4` | `章节号(§引用)` | `` |
-| 194 | - **依据**：技术方案 §4.4 第 391 行（Vue3 + Element Plus 标注为「设计值，尚未实测」）、第 392 行（… | `391` | `外部文件行号引用` | `` |
-| 194 | …第 391 行（Vue3 + Element Plus 标注为「设计值，尚未实测」）、第 392 行（SQLite 同样未实测）。 | `392` | `外部文件行号引用` | `` |
-| 201 | - **依据**：实施方案 §6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3（报告生成已… | `205` | `外部文件行号引用` | `` |
-| 204 | - **P3 拍板后的形态（2026-10-24）**：前后端彻底分离，但**现场只有一条命令**——后端单进程（FastAPI… | `2026` | `年份/日期` | `` |
-| 210 | - **依据**：技术方案 §4.4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 20… | `4.4` | `章节号(§引用)` | `` |
-| 210 | - **依据**：技术方案 §4.4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 205 行（W7… | `391` | `外部文件行号引用` | `` |
-| 210 | - **依据**：技术方案 §4.4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 205 行（W7 上传与扫描）。 | `392` | `外部文件行号引用` | `` |
-| 210 | ….4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 205 行（W7 上传与扫描）。 | `205` | `外部文件行号引用` | `` |
-| 214 | ### 2.4 数字治理 | `2.4` | `章节号` | `` |
-| 227 | …**依据**：`poc/kbgovernance/check_numbers.py` 第 63 行（受检文档根目录指向 `docs/技术方案`）、第 66 行（默认受检三份文档）；`do… | `63` | `外部文件行号引用` | `` |
-| 227 | …k_numbers.py` 第 63 行（受检文档根目录指向 `docs/技术方案`）、第 66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行… | `66` | `外部文件行号引用` | `` |
-| 227 | …方案`）、第 66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `5` | `外部文件行号引用` | `` |
-| 227 | …66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `6` | `外部文件行号引用` | `` |
-| 234 | …X 评审必做项；`poc/kbgovernance/check_numbers.py` 第 66 行（当前只覆盖 md 文档）。 | `66` | `外部文件行号引用` | `` |
-| 241 | - **依据**：`docs/技术方案/数字溯源审计.md` §5.2（聚类耗时判 `【无出处】`）；`poc/kbgovernance/metrics.json… | `5.2` | `章节号(§引用)` | `` |
-| 245 | ### 2.5 论文与答辩 | `2.5` | `章节号` | `` |
-| 250 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7… | `199` | `外部文件行号引用` | `` |
-| 250 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `200` | `外部文件行号引用` | `` |
-| 265 | - **依据**：Issue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险）；UX 评审必做… | `420` | `外部文件行号引用` | `` |
-| 269 | ### 2.6 图稿口径对齐 | `2.6` | `章节号` | `` |
-| 274 | - **依据**：实施方案 §5 第 168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/` 8 份图… | `168` | `外部文件行号引用` | `` |
-| 283 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图… | `170` | `外部文件行号引用` | `` |
-| 283 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11… | `171` | `外部文件行号引用` | `` |
-| 283 | …依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `187` | `外部文件行号引用` | `` |
-| 287 | ### 2.7 前端原型与视觉方案（2026-10-24 新增，供 P4 / P7 拍板） | `2.7` | `章节号` | `` |
-| 287 | ### 2.7 前端原型与视觉方案（2026-10-24 新增，供 P4 / P7 拍板） | `2026` | `年份/日期` | `` |
-| 292 | - **依据**：实施方案 §2 第 86 行（三个功能面）；§4.11 的 P4 / P6 / P7 三项待拍板决策。 | `86` | `外部文件行号引用` | `` |
-| 292 | - **依据**：实施方案 §2 第 86 行（三个功能面）；§4.11 的 P4 / P6 / P7 三项待拍板决策。 | `4.11` | `章节号(§引用)` | `` |
-| 295 | …system/prototype/acceptance_check.py` 退出码 0（§2.8 H1 ~ H7 的 25 项验收信号逐条成立）。 | `2.8` | `章节号(§引用)` | `` |
-| 296 | - **视觉基调**：已随 P7 选定 A｜学术清朗（见 §2.7 G2）。 | `2.7` | `章节号(§引用)` | `` |
-| 303 | - **验收信号**：拍板结论写回 §4.11 的 P7 与规格书第五部分；论文三张截图与答辩演示页各自对应哪一套有明确记录。 | `4.11` | `章节号(§引用)` | `` |
-| 305 | - **拍板结论（2026-10-24）**：**选 A｜学术清朗**。三套都已出图可复核——`system/prot… | `2026` | `年份/日期` | `` |
-| 307 | #### G3 交互细节拍板 —— 已由子代理交叉评估（见 P6 / §2.8） | `2.8` | `章节号` | `` |
-| 313 | …0 条、操作效率 24 条、可用性与对比度 48 项），互不参考、各自独立走查；结论转入 §2.8 整改项，H1 ~ H7 已全部整改并由 `system/prototype/accepta… | `2.8 (×2)` | `章节号(§引用)` | `` |
-| 315 | ### 2.8 原型交互整改（2026-10-24 新增，来自三份 ego-browser 独立评审） | `2.8` | `章节号` | `` |
-| 315 | ### 2.8 原型交互整改（2026-10-24 新增，来自三份 ego-browser 独立评审） | `2026` | `年份/日期` | `` |
-| 333 | …率 #2（阻断）、#9（高）、#18（中）；可用性 M4。实测：上传页主 CTA 在 `y=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28… | `2036` | `年份/日期` | `` |
-| 333 | …用性 M4。实测：上传页主 CTA 在 `y=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉… | `2118` | `端口号` | `` |
-| 333 | …28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px；扫描页 CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间… | `2006` | `年份/日期` | `` |
-| 333 | …头对照表」占掉 441px；扫描页 CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按… | `1258` | `端口号` | `` |
-| 334 | - **验收信号**：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1… | `1248` | `端口号` | `` |
-| 370 | 1. **下载泄露真值列**（阻塞）：界面承诺「下载的是源 CSV 原文，不做二次加工」（`i… | `1` | `列表序号` | `` |
-| 370 | …api/downloads/{name}` 返回原始 CSV 即等于对外提供评测答案，见 §2.3 C7 的补充口径。 | `2.3` | `章节号(§引用)` | `` |
-| 371 | 2. **统计单元未声明**（阻塞）：缺口 P/R/F1 的分母是去重后的 5 个业务意图（`… | `2` | `列表序号` | `` |
-| 372 | 3. **溯源指针失效**（高）：页面写「本页所有数字均取自 `data/` 下的真实产物」，… | `3` | `列表序号` | `` |
-| 373 | 4. **关键数字缺列级溯源**（高）：只有三张口径表带「产物键」列；总览表的 P/R/F1… | `4` | `列表序号` | `` |
-| 374 | 5. **反向点缺席**（高）：阈值 0.62 在 `gap_threshold.csv` 里… | `5` | `列表序号` | `` |
-| 375 | 6. **耗时口径不实**（高）：把 `metrics.json` 的 `total_seco… | `6` | `列表序号` | `` |
-| 375 | …法复算出该合计；「重复冗余检测 0.0 秒」只包住阈值分组循环（`detect.py` 第 373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364… | `373` | `外部文件行号引用` | `` |
-| 375 | …y` 第 373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364 行 只 print 不落盘）。 | `361` | `外部文件行号引用` | `` |
-| 377 | - **下载口径已定（2026-10-24）**：**保留全量列 + 下载区明示**「下载的是含评测标注列的原始产物，仅用… | `2026` | `年份/日期` | `` |
-| 390 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全… | `1` | `外部文件行号引用` | `` |
-| 390 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行… | `33` | `外部文件行号引用` | `` |
-| 395 | ### 2.9 第二轮原型整改（2026-10-25，来自口径更正与键覆盖核查） | `2.9` | `章节号` | `` |
-| 395 | ### 2.9 第二轮原型整改（2026-10-25，来自口径更正与键覆盖核查） | `2026` | `年份/日期` | `` |
-| 397 | 口径更正（2026-10-25）落地后原型要跟着变：缺口清单从簇级改成意图级、腐化拆两个口径各报 P/R/F1… | `2026` | `年份/日期` | `` |
-| 402 | …本轮实跑复现。`repro_check.json` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10… | `2026 (×2)` | `年份/日期` | `` |
-| 434 | ### 2.10 人工标注材料 —— 已交付 | `2.10` | `章节号` | `` |
-| 439 | - **依据**：实施方案 §2 第 79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290… | `79` | `外部文件行号引用` | `` |
-| 439 | …实施方案 §2 第 79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issu… | `7.3` | `章节号(§引用)` | `` |
-| 439 | …容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依… | `7.4` | `章节号(§引用)` | `` |
-| 439 | …三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依赖）。202… | `303` | `外部文件行号引用` | `` |
-| 439 | …条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依赖）。2026-10-25 的口径更正连带改动了标注对象：缺口类从簇… | `64` | `外部文件行号引用` | `` |
-| 439 | …303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依赖）。2026-10-25 的口径更正连带改动了标注对象：缺口类从簇级 Top-15 改为全部 30 个业… | `2026` | `年份/日期` | `` |
-| 443 | - `make_worklist.py`（可复现，`SEED=42`，两次运行 md5 一致）。 | `42` | `随机种子` | `` |
-| 455 | \| CI 六 job 全量落地 \| 实施方案 §6 第 207 行（W9 复跑）；仓库当前无 CI 流水线，`AGENTS.md` 记 status ch… | `207` | `外部文件行号引用` | `` |
-| 456 | …单元测试层与前端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验） \| 不做 \| 人工核验清单覆盖全部交互路径 \|… | `357` | `外部文件行号引用` | `` |
-| 456 | …端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验） \| 不做 \| 人工核验清单覆盖全部交互路径 \| 回归靠人工，界面… | `391` | `外部文件行号引用` | `` |
-| 457 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7… | `203` | `外部文件行号引用` | `` |
-| 459 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单… | `106` | `外部文件行号引用` | `` |
-| 467 | ### 4.1 决策项总览 | `4.1` | `章节号` | `` |
-| 471 | \| D1 \| 清单页是否支持列排序 \| 导师（范围签字） \| 2026-10-27 前 \| 不分页、不做列排序 \| | `2026` | `年份/日期` | `` |
-| 472 | \| D2 \| 数字门禁受检范围 \| 导师 / 评审老师 \| 2026-10-27 前 \| 先按收缩范围止血，不改门禁逻辑 \| | `2026` | `年份/日期` | `` |
-| 475 | \| D5 \| 第二标注者未落实的判据时点 \| 导师 / TA \| 2026-10-27 前 \| 到期未落实即转单人标注 \| | `2026` | `年份/日期` | `` |
-| 482 | > 2026-10-24 需求方已逐条拍板（原文见 §4.11 各行「拍板结论」列）。下表的「拍板前的默… | `2026` | `年份/日期` | `` |
-| 482 | > 2026-10-24 需求方已逐条拍板（原文见 §4.11 各行「拍板结论」列）。下表的「拍板前的默认口径」列保留为**回退口径**，不再是当前口径。 | `4.11` | `章节号(§引用)` | `` |
-| 484 | \| 编号 \| 决策点 \| 需要的输入 \| 拍板前的默认口径 \| 2026-10-24 拍板结果 \| | `2026` | `年份/日期` | `` |
-| 487 | \| P2 \| 数据形态 \| 单库单表还是分表、字段是否够用 \| 按 §4.3 六表草案 \| 按推荐 + 保证查询性能 → 六表定稿、外键按编码、索引 15 个、迁移位… | `4.3` | `章节号(§引用)` | `` |
-| 490 | …\| 上传 / 扫描 / 三类清单 / 下载 CSV 之外还要什么 \| 按实施方案 §2 第 86 行的三个功能面 \| 必要的 CRUD 要有，保证项目功能完整 \| | `86` | `外部文件行号引用` | `` |
-| 494 | ### 4.2 D1 清单页是否支持列排序 | `4.2` | `章节号` | `` |
-| 496 | - **冲突双方出处**：Issue #3 正文 第 201 行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度）且不实现分页，第… | `201` | `外部文件行号引用` | `` |
-| 496 | …行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「… | `66` | `外部文件行号引用` | `` |
-| 496 | …组内最大相似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路… | `2.2` | `章节号(§引用)` | `` |
-| 496 | …似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路由跳转）」，… | `104` | `外部文件行号引用` | `` |
-| 496 | …为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路由跳转）」，§3 砍掉表 第 120 行 同样把「列排序」列为砍掉项。 | `120` | `外部文件行号引用` | `` |
-| 501 | - **当前状态（2026-10-24 P1 拍板已收敛）**：P1「按推荐」= 沿用实施方案口径，即**清单接口不提… | `2026` | `年份/日期` | `` |
-| 501 | …3 的 US25 与「最小排序参数」表述随该工单关闭作废，不再需要回改——但**实施方案 §2.2 第 104 行 与 §3 第 120 行 的「不做列排序」口径保持原样**，两份文档现在一… | `2.2` | `章节号(§引用)` | `` |
-| 501 | …25 与「最小排序参数」表述随该工单关闭作废，不再需要回改——但**实施方案 §2.2 第 104 行 与 §3 第 120 行 的「不做列排序」口径保持原样**，两份文档现在一致，无需在… | `104` | `外部文件行号引用` | `` |
-| 501 | …述随该工单关闭作废，不再需要回改——但**实施方案 §2.2 第 104 行 与 §3 第 120 行 的「不做列排序」口径保持原样**，两份文档现在一致，无需在 B1 的签字中额外处理。 | `120` | `外部文件行号引用` | `` |
-| 503 | ### 4.3 D2 数字门禁受检范围 | `4.3` | `章节号` | `` |
-| 505 | …确门禁受检范围；`poc/kbgovernance/check_numbers.py` 第 66 行 的默认受检集合是 `docs/技术方案/` 下三份文档，而 `docs/技术方案/数字… | `66` | `外部文件行号引用` | `` |
-| 505 | …`docs/技术方案/` 下三份文档，而 `docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行 规定受审集合只含机读产物、叙述性文本不是数据源。 | `5` | `外部文件行号引用` | `` |
-| 505 | …/技术方案/` 下三份文档，而 `docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行 规定受审集合只含机读产物、叙述性文本不是数据源。 | `6` | `外部文件行号引用` | `` |
-| 511 | ### 4.4 D3 图稿旧口径如何处理 | `4.4` | `章节号` | `` |
-| 513 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合是 `poc… | `170` | `外部文件行号引用` | `` |
-| 513 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合是 `poc/kbgover… | `171` | `外部文件行号引用` | `` |
-| 519 | ### 4.5 D4 G1 签字记录的载体 | `4.5` | `章节号` | `` |
-| 521 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项… | `9` | `外部文件行号引用` | `` |
-| 521 | …#4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库当前没有任何签字载体文件。 | `199` | `外部文件行号引用` | `` |
-| 527 | ### 4.6 D5 第二标注者未落实的判据时点 | `4.6` | `章节号` | `` |
-| 529 | - **冲突双方出处**：实施方案 §6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关… | `223` | `外部文件行号引用` | `` |
-| 529 | …6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA… | `201` | `外部文件行号引用` | `` |
-| 529 | …触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二… | `10` | `外部文件行号引用` | `` |
-| 529 | …ssue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二标注者。三处之间缺一个「本周内」的判据。 | `64` | `外部文件行号引用` | `` |
-| 530 | …拖住，但放弃双人一致性证据；B 等到 W3 末——可能保住双人标注，风险是 G3 关卡与 §7.4 的 Kappa 目标一起落空。 | `7.4` | `章节号(§引用)` | `` |
-| 535 | ### 4.7 D6 三张界面截图的拍摄周次 | `4.7` | `章节号` | `` |
-| 537 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截… | `205` | `外部文件行号引用` | `` |
-| 537 | …：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Is… | `207` | `外部文件行号引用` | `` |
-| 537 | …截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求在答辩环境人… | `185` | `外部文件行号引用` | `` |
-| 537 | …放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求在答辩环境人工核验 3 个界面截图、第 435 行 已砍掉第 4 张与导出页截图。 | `420` | `外部文件行号引用` | `` |
-| 537 | …张截图；Issue #3 正文 第 420 行 要求在答辩环境人工核验 3 个界面截图、第 435 行 已砍掉第 4 张与导出页截图。 | `435` | `外部文件行号引用` | `` |
-| 538 | …*：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `205` | `外部文件行号引用` | `` |
-| 541 | - **未决默认口径**：按 B，截图拍摄随 §6 第 207 行 一起执行。 | `207` | `外部文件行号引用` | `` |
-| 543 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `4.8` | `章节号` | `` |
-| 545 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2… | `199` | `外部文件行号引用` | `` |
-| 545 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文列为验收项；PM 评审指出… | `200` | `外部文件行号引用` | `` |
-| 551 | ### 4.9 D8 是否补可用性证据 | `4.9` | `章节号` | `` |
-| 553 | …描 → 三类缺陷清单列表 + 展开详情），但仓库内没有任何一手用户材料；实施方案 §2 第 86 行 只写功能面，角色来源无处可查；UX 评审把「用户证据的诚实替代」列为必做。 | `86` | `外部文件行号引用` | `` |
-| 559 | ### 4.10 架构评审侧决策点（编号 A1–A17，与 PM 侧 D1–D8 不同源，勿混用） | `4.10` | `章节号` | `` |
-| 574 | …用固定阈值，不按真值择优 \| `poc/kbgovernance/detect.py` 第 117–127 行与 第 403 行按真值择优取 `best`；无真值语料下无法择优 \| 维护者… | `117` | `外部文件行号引用` | `` |
-| 574 | …\| `poc/kbgovernance/detect.py` 第 117–127 行与 第 403 行按真值择优取 `best`；无真值语料下无法择优 \| 维护者 \| C5、A3 \| | `403` | `外部文件行号引用` | `` |
-| 576 | …返回真值列；下载件保留全量列但**下载区必须明示「含评测标注列，仅用于论文溯源与复现」**（2026-10-24 定） \| `is_true_gap` / `is_true_group` 等是… | `2026` | `年份/日期` | `` |
-| 576 | …单页面；下载件因「逐字节一致」的硬要求不能裁剪，代价由明示承担 \| 维护者 \| C7 / §2.8 H6 \| | `2.8` | `章节号(§引用)` | `` |
-| 579 | …csv` 的 `linked_doc_id` 实测全是 `DOCxxxx` 文本（1629/2000 非空） \| 维护者 \| C2、C8 \| | `2000` | `年份/日期` | `` |
-| 581 | ### 4.11 产品形态类决策（P1–P7，需求方拍板） | `4.11` | `章节号` | `` |
-| 587 | \| 编号 \| 决策点 \| 当前草案口径（来源） \| 需求方拍板结论（2026-10-24） \| 落地位置 \| | `2026` | `年份/日期` | `` |
-| 590 | …e_group`，ISO-8601 存 TEXT，重复组成员存 JSON 数组（技术方案 §4.3 第 221 行；`system/schema.sql`） \| **按推荐，保证查询性能**… | `4.3 (×2)` | `章节号(§引用)` | `` |
-| 590 | …p`，ISO-8601 存 TEXT，重复组成员存 JSON 数组（技术方案 §4.3 第 221 行；`system/schema.sql`） \| **按推荐，保证查询性能**：指向文档的… | `221` | `外部文件行号引用` | `` |
-| 592 | …陷清单页；清单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/pro… | `86` | `外部文件行号引用` | `` |
-| 592 | …单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/prototype/… | `2.2` | `章节号(§引用)` | `` |
-| 592 | …+ 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/prototype/`） \| *… | `104` | `外部文件行号引用` | `` |
-| 593 | …展开详情 / 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前… | `86` | `外部文件行号引用` | `` |
-| 593 | …现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前提下按推荐：文档与工单… | `117` | `外部文件行号引用` | `` |
-| 594 | …rowser` 体验原型来评估，多个子代理交叉验证** \| 三份独立评审结论已出并固化在 §2.8 H1 ~ H7 \| | `2.8` | `章节号(§引用)` | `` |
-| 595 | …（`system/prototype/variants/`） \| **选 A｜学术清朗**（2026-10-24 需求方选定）：白底 + 近黑强调、无彩色 chrome、数值与文字同权重。理由… | `2026 (×2)` | `年份/日期` | `` |
-| 595 | …v3-framed-sheet.html`；原型已按 2026-10-25 口径更正重做（§2.9） \| | `2.9` | `章节号(§引用)` | `` |
-| 599 | …4 / 中 7 / 低 5 + 键盘走查）。评审报告属临时记录，任务结束前删除；结论转入 §2.8 整改项与原型重做。 | `2.8` | `章节号(§引用)` | `` |
-| 601 | **原型现状（2026-10-24 补记）**：P4 / P7 已有可看可驳的实物——`system/protot… | `2026` | `年份/日期` | `` |
-| 601 | …em/prototype/shots/variants/`。**需求方已选定 A**（见 §4.11 P7 行），原型默认变体即 `data-variant="v1"`。规格书附录 C 另列… | `4.11` | `章节号(§引用)` | `` |
-| 622 | ### 5.1 W2 关卡 G2 通过条件 | `5.1` | `章节号` | `` |
-| 631 | \| 6 \| 数字溯源审计同步 \| `docs/技术方案/数字溯源审计.md` 第 5 行 受审集合含 `repro_check.json`，新增产物有字段级出处行 \| 具备 \| | `5` | `外部文件行号引用` | `` |
-| 634 | ### 5.2 W7 开工门槛七项（与本清单条目的对应） | `5.2` | `章节号` | `` |
-| 638 | …后端形态 / UI 形态 / 功能范围 / 交互 / 视觉） \| **P1–P7** \| §4.11 每项都有需求方的明确结论 \| **部分满足（2026-10-24）**：P1 / P2 /… | `4.11` | `章节号(§引用)` | `` |
-| 638 | …视觉） \| **P1–P7** \| §4.11 每项都有需求方的明确结论 \| **部分满足（2026-10-24）**：P1 / P2 / P3 / P5 已拍板并落到 `system/ope… | `2026` | `年份/日期` | `` |
-| 638 | …效率至上」，原型重做中；P6 已由三份 ego-browser 独立评审替代拍板（结论转 §2.8 H1 ~ H7）；P7 待原型重做后出三套变体由需求方选。**第 3 项的契约可判定性已恢… | `2.8` | `章节号(§引用)` | `` |
-| 651 | ### 6.1 证据缺口（按类别） | `6.1` | `章节号` | `` |
-| 656 | \| 前后端工具链「可装可构建」未实测 \| 未实测 \| 技术方案 §4.4 第 391 行/第 392 行 自标「设计值，尚未实测」 \| W7 门槛第 4 项无法判定… | `4.4` | `章节号(§引用)` | `` |
-| 656 | \| 前后端工具链「可装可构建」未实测 \| 未实测 \| 技术方案 §4.4 第 391 行/第 392 行 自标「设计值，尚未实测」 \| W7 门槛第 4 项无法判定 \| C10… | `391` | `外部文件行号引用` | `` |
-| 656 | …前后端工具链「可装可构建」未实测 \| 未实测 \| 技术方案 §4.4 第 391 行/第 392 行 自标「设计值，尚未实测」 \| W7 门槛第 4 项无法判定 \| C10 \| | `392` | `外部文件行号引用` | `` |
-| 657 | …\| 未实测 \| `poc/kbgovernance/check_numbers.py` 第 66 行 只覆盖 md 文档 \| 前端页面数字可能漂移无人发现 \| N3 \| | `66` | `外部文件行号引用` | `` |
-| 659 | \| 缺口聚类耗时无产物 \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.2 判 `【无出处】`；`metrics.json` 的 `gap` 节无耗时字段 \| 附录… | `5.2` | `章节号(§引用)` | `` |
-| 660 | …各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关… | `79` | `外部文件行号引用` | `` |
-| 660 | …、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `7.3` | `章节号(§引用)` | `` |
-| 660 | …a 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `7.4` | `章节号(§引用)` | `` |
-| 660 | …0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `303` | `外部文件行号引用` | `` |
-| 661 | …实测 \| `poc/kbgovernance/gen_data.py` 抽样点；技术方案 §6.1 第 816 行 只登记命中篇数 \| 对照集规模口径可能被追问 \| 随 A1 的登记动作补齐… | `6.1` | `章节号(§引用)` | `` |
-| 661 | …poc/kbgovernance/gen_data.py` 抽样点；技术方案 §6.1 第 816 行 只登记命中篇数 \| 对照集规模口径可能被追问 \| 随 A1 的登记动作补齐 \| | `816` | `外部文件行号引用` | `` |
-| 662 | …在审计中仍为 `【无出处】` \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.4 \| 跨语料迁移章节的相关数字暂不可引用 \| 暂缓引用该组数字 \| | `5.4` | `章节号(§引用)` | `` |
-| 665 | …缓存命中未实测 \| 未实测 \| `poc/kbgovernance/embed.py` 第 29 行（模型缓存默认路径）；仓库无 CI 流水线 \| CI 落地前不可承诺自动门禁 \| 延后到… | `29` | `外部文件行号引用` | `` |
-| 668 | …在审计中仍为 `【无出处】` \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.4 \| 论文不得直接引用这两个数 \| 随标注 / 统计补齐 \| | `5.4` | `章节号(§引用)` | `` |
-| 670 | …son` 无任何行序映射字段；`poc/kbgovernance/detect.py` 第 212–214 行靠行号隐式对应 \| 删除或回滚语料后，向量与文档会静默错配，检测结果无提示地变错… | `212` | `外部文件行号引用` | `` |
-| 673 | ### 6.2 冲突与待统一项（先报告，不自行选一方当真） | `6.2` | `章节号` | `` |
-| 677 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 1… | `66` | `外部文件行号引用` | `` |
-| 677 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列… | `201` | `外部文件行号引用` | `` |
-| 677 | …径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| **已按 P1 收敛**：清单接… | `2.2` | `章节号(§引用)` | `` |
-| 677 | …sue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| **已按 P1 收敛**：清单接口不提供 `… | `104` | `外部文件行号引用` | `` |
-| 677 | …6 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| **已按 P1 收敛**：清单接口不提供 `sort`、不实现分页，行… | `120` | `外部文件行号引用` | `` |
-| 678 | \| 实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保… | `390` | `外部文件行号引用` | `` |
-| 679 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写 §6 对应行… | `205` | `外部文件行号引用` | `` |
-| 679 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写 §6 对应行 \| | `207` | `外部文件行号引用` | `` |
-| 680 | \| 技术方案 §4.3 主键写法与落地 DDL \| 技术方案 §4.3 写 `INTEGER PRIMARY KE… | `4.3 (×2)` | `章节号(§引用)` | `` |
-| 681 | …csv` 的 `linked_doc_id` 实测全是 `DOCxxxx` 文本（1629/2000 非空，1629 个全部能对上 `docs.csv` 的 `doc_id`） \| **已按… | `2000` | `年份/日期` | `` |
-| 683 | \| 排序参数取值与清单行字段不同名 \| Issue #3 第 201 行的 `ticket_count` / `max_similarity`；CSV 实际列名… | `201` | `外部文件行号引用` | `` |
-| 684 | \| 「逐字节一致」的适用范围 \| 实施方案 §2 第 86 行 与 Issue #3 称 Web 产物与 `run_all.sh` 复跑产物逐字节一致… | `86` | `外部文件行号引用` | `` |
-| 686 | …已写明「为什么不能裁剪 + 明示义务」；界面侧下载区必须明示（原型重做中） \| C7 / §2.8 H6 \| | `2.8` | `章节号(§引用)` | `` |
-| 687 | …到用户硬盘 \| 界面层未泄露（DOM 全量扫描 0 泄漏），破口只在下载通道 \| **已定（2026-10-24）**：保留全量列 + 下载区明示「含评测标注列，仅用于论文溯源与复现」；不裁剪… | `2026` | `年份/日期` | `` |
-| 691 | \| 缺口 P/R/F1 的统计单元从未声明 \| `detect.py` 第 117 行 至第 125 行 的 P/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」… | `117` | `外部文件行号引用` | `` |
-| 691 | …缺口 P/R/F1 的统计单元从未声明 \| `detect.py` 第 117 行 至第 125 行 的 P/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按… | `125` | `外部文件行号引用` | `` |
-| 693 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/k… | `7.2` | `章节号(§引用)` | `` |
-| 693 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/kbgover… | `272` | `外部文件行号引用` | `` |
-| 693 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/kbgovernance/sy… | `285` | `外部文件行号引用` | `` |
+| 146 | #### C4 扫描区与基线物理隔离 —— 已完成（2026-10-25） | `2026` | `年份/日期` | `` |
+| 149 | - **依据**：与 C3 同源；实施方案 §2.1 第 98 行（指标可复现是三个答辩风险的共同底牌）。 | `2.1` | `章节号(§引用)` | `` |
+| 149 | - **依据**：与 C3 同源；实施方案 §2.1 第 98 行（指标可复现是三个答辩风险的共同底牌）。 | `98` | `外部文件行号引用` | `` |
+| 155 | #### C5 ground truth 可选化 —— 已完成（2026-10-25） | `2026` | `年份/日期` | `` |
+| 158 | - **依据**：`poc/kbgovernance/detect.py` 第 216 行；技术方案 §4.4（SQLite 定位为设计值、尚未实测，说明系统要跑自己的语料）。 | `216` | `外部文件行号引用` | `` |
+| 158 | …**：`poc/kbgovernance/detect.py` 第 216 行；技术方案 §4.4（SQLite 定位为设计值、尚未实测，说明系统要跑自己的语料）。 | `4.4` | `章节号(§引用)` | `` |
+| 164 | #### C6 缺口清单口径统一 —— 已完成（2026-10-25 口径更正） | `2026` | `年份/日期` | `` |
+| 168 | - **依据**：实施方案 §2 第 80 行（`metrics.json` 的 `gap.best` 为 threshold=0.6… | `80` | `外部文件行号引用` | `` |
+| 178 | - **补充口径（2026-10-24，来自 §2.8 H6）**：**下载通道单独定口径**。`GET /api/d… | `2026` | `年份/日期` | `` |
+| 178 | - **补充口径（2026-10-24，来自 §2.8 H6）**：**下载通道单独定口径**。`GET /api/downloads/{name… | `2.8 (×2)` | `章节号(§引用)` | `` |
+| 180 | #### C8 上传表单字段口径定死 —— 已完成（2026-10-25） | `2026` | `年份/日期` | `` |
+| 183 | …+`content`、工单 `content`+`intent_label`）；技术方案 §4.3 的 `document` 表字段。 | `4.3` | `章节号(§引用)` | `` |
+| 194 | - **依据**：UX 评审必做项；Issue #3 正文 第 199 行（错误响应体结构统一）。 | `199` | `外部文件行号引用` | `` |
+| 198 | #### C10 前端工具链烟测与依赖锁定 —— 已完成（2026-10-25） | `2026` | `年份/日期` | `` |
+| 201 | - **依据**：技术方案 §4.4 第 405 行（Vue3 + Element Plus 原标注为「设计值，尚未实测」）、第… | `4.4` | `章节号(§引用)` | `` |
+| 201 | - **依据**：技术方案 §4.4 第 405 行（Vue3 + Element Plus 原标注为「设计值，尚未实测」）、第 406 行… | `405` | `外部文件行号引用` | `` |
+| 201 | …第 405 行（Vue3 + Element Plus 原标注为「设计值，尚未实测」）、第 406 行（SQLite 仍标注未实测，本项不动它）。 | `406` | `外部文件行号引用` | `` |
+| 204 | - `npm run build` → 退出码 0，vite 8.3.5 构建成功（模块数、构建耗时与产物体积随本机与依赖版本变动，逐条原始输出记在 `syst… | `8.3` | `版本号` | `` |
+| 206 | …ackage-lock.json`（lockfileVersion 3，81 条）：vue 3.5.44、element-plus 2.14.7、vite 8.3.5、@vitejs/plu… | `3.5` | `版本号` | `` |
+| 206 | …ckfileVersion 3，81 条）：vue 3.5.44、element-plus 2.14.7、vite 8.3.5、@vitejs/plugin-vue 6.0.10。 | `2.14` | `版本号` | `` |
+| 206 | …n 3，81 条）：vue 3.5.44、element-plus 2.14.7、vite 8.3.5、@vitejs/plugin-vue 6.0.10。 | `8.3` | `版本号` | `` |
+| 206 | …ent-plus 2.14.7、vite 8.3.5、@vitejs/plugin-vue 6.0.10。 | `6.0` | `版本号` | `` |
+| 208 | - **同步改动**：技术方案 §4.4 第 405 行的前端一行已改为「已实测，见 `system/frontend-smoke/… | `4.4` | `章节号(§引用)` | `` |
+| 208 | - **同步改动**：技术方案 §4.4 第 405 行的前端一行已改为「已实测，见 `system/frontend-smoke/`」，括注保… | `405` | `外部文件行号引用` | `` |
+| 218 | - **依据**：实施方案 §6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3（报告生成已… | `205` | `外部文件行号引用` | `` |
+| 221 | - **P3 拍板后的形态（2026-10-24）**：前后端彻底分离，但**现场只有一条命令**——后端单进程（FastAPI… | `2026` | `年份/日期` | `` |
+| 227 | - **依据**：技术方案 §4.4 第 405 行/第 406 行（第 405 行前端一项已于 2026-10-25 实测并改… | `4.4` | `章节号(§引用)` | `` |
+| 227 | - **依据**：技术方案 §4.4 第 405 行/第 406 行（第 405 行前端一项已于 2026-10-25 实测并改写，第 40… | `405 (×2)` | `外部文件行号引用` | `` |
+| 227 | - **依据**：技术方案 §4.4 第 405 行/第 406 行（第 405 行前端一项已于 2026-10-25 实测并改写，第 406 行 SQLi… | `406 (×2)` | `外部文件行号引用` | `` |
+| 227 | …*依据**：技术方案 §4.4 第 405 行/第 406 行（第 405 行前端一项已于 2026-10-25 实测并改写，第 406 行 SQLite 仍未实测）；实施方案 §6 第 20… | `2026` | `年份/日期` | `` |
+| 227 | …26-10-25 实测并改写，第 406 行 SQLite 仍未实测）；实施方案 §6 第 205 行（W7 上传与扫描）。 | `205` | `外部文件行号引用` | `` |
+| 229 | - **已完成的子项（2026-10-25，证据在 `system/frontend-smoke/`）**：`el-tab… | `2026` | `年份/日期` | `` |
+| 229 | …）**：`el-table` 能渲染出真实的 `gap_intents_best.csv` 5 行，截图 `system/frontend-smoke/smoke.png`，断言脚本退出… | `5` | `外部文件行号引用` | `` |
+| 230 | …*未做的子项**：**6 张表尚未建库写入并读回**（SQLite 仍完全没碰，技术方案 §4.4 第 406 行仍是「设计值，尚未实测」）；三类清单只渲染了缺口一类，腐化与重复两类未用 E… | `4.4` | `章节号(§引用)` | `` |
+| 230 | …**：**6 张表尚未建库写入并读回**（SQLite 仍完全没碰，技术方案 §4.4 第 406 行仍是「设计值，尚未实测」）；三类清单只渲染了缺口一类，腐化与重复两类未用 Element… | `406` | `外部文件行号引用` | `` |
+| 233 | ### 2.4 数字治理 | `2.4` | `章节号` | `` |
+| 246 | …**依据**：`poc/kbgovernance/check_numbers.py` 第 63 行（受检文档根目录指向 `docs/技术方案`）、第 66 行（默认受检三份文档）；`do… | `63` | `外部文件行号引用` | `` |
+| 246 | …k_numbers.py` 第 63 行（受检文档根目录指向 `docs/技术方案`）、第 66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行… | `66` | `外部文件行号引用` | `` |
+| 246 | …方案`）、第 66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `5` | `外部文件行号引用` | `` |
+| 246 | …66 行（默认受检三份文档）；`docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `6` | `外部文件行号引用` | `` |
+| 253 | …X 评审必做项；`poc/kbgovernance/check_numbers.py` 第 66 行（当前只覆盖 md 文档）。 | `66` | `外部文件行号引用` | `` |
+| 260 | - **依据**：`docs/技术方案/数字溯源审计.md` §5.2（聚类耗时判 `【无出处】`）；`poc/kbgovernance/metrics.json… | `5.2` | `章节号(§引用)` | `` |
+| 264 | ### 2.5 论文与答辩 | `2.5` | `章节号` | `` |
+| 269 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7… | `199` | `外部文件行号引用` | `` |
+| 269 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `200` | `外部文件行号引用` | `` |
+| 284 | - **依据**：Issue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险）；UX 评审必做… | `420` | `外部文件行号引用` | `` |
+| 288 | ### 2.6 图稿口径对齐 | `2.6` | `章节号` | `` |
+| 293 | - **依据**：实施方案 §5 第 168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/` 8 份图… | `168` | `外部文件行号引用` | `` |
+| 302 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图… | `170` | `外部文件行号引用` | `` |
+| 302 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11… | `171` | `外部文件行号引用` | `` |
+| 302 | …依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `187` | `外部文件行号引用` | `` |
+| 306 | ### 2.7 前端原型与视觉方案（2026-10-24 新增，供 P4 / P7 拍板） | `2.7` | `章节号` | `` |
+| 306 | ### 2.7 前端原型与视觉方案（2026-10-24 新增，供 P4 / P7 拍板） | `2026` | `年份/日期` | `` |
+| 311 | - **依据**：实施方案 §2 第 86 行（三个功能面）；§4.11 的 P4 / P6 / P7 三项待拍板决策。 | `86` | `外部文件行号引用` | `` |
+| 311 | - **依据**：实施方案 §2 第 86 行（三个功能面）；§4.11 的 P4 / P6 / P7 三项待拍板决策。 | `4.11` | `章节号(§引用)` | `` |
+| 314 | …system/prototype/acceptance_check.py` 退出码 0（§2.8 H1 ~ H7 的 25 项验收信号逐条成立）。 | `2.8` | `章节号(§引用)` | `` |
+| 315 | - **视觉基调**：已随 P7 选定 A｜学术清朗（见 §2.7 G2）。 | `2.7` | `章节号(§引用)` | `` |
+| 322 | - **验收信号**：拍板结论写回 §4.11 的 P7 与规格书第五部分；论文三张截图与答辩演示页各自对应哪一套有明确记录。 | `4.11` | `章节号(§引用)` | `` |
+| 324 | - **拍板结论（2026-10-24）**：**选 A｜学术清朗**。三套都已出图可复核——`system/prot… | `2026` | `年份/日期` | `` |
+| 326 | #### G3 交互细节拍板 —— 已由子代理交叉评估（见 P6 / §2.8） | `2.8` | `章节号` | `` |
+| 332 | …0 条、操作效率 24 条、可用性与对比度 48 项），互不参考、各自独立走查；结论转入 §2.8 整改项，H1 ~ H7 已全部整改并由 `system/prototype/accepta… | `2.8 (×2)` | `章节号(§引用)` | `` |
+| 334 | ### 2.8 原型交互整改（2026-10-24 新增，来自三份 ego-browser 独立评审） | `2.8` | `章节号` | `` |
+| 334 | ### 2.8 原型交互整改（2026-10-24 新增，来自三份 ego-browser 独立评审） | `2026` | `年份/日期` | `` |
+| 352 | …率 #2（阻断）、#9（高）、#18（中）；可用性 M4。实测：上传页主 CTA 在 `y=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28… | `2036` | `年份/日期` | `` |
+| 352 | …用性 M4。实测：上传页主 CTA 在 `y=2036`、页面 `scrollHeight=2118`（1248×949 视口下需滚动 2.28 屏才可见），被常驻展开的「文档列头对照表」占掉… | `2118` | `端口号` | `` |
+| 352 | …28 屏才可见），被常驻展开的「文档列头对照表」占掉 441px；扫描页 CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间… | `2006` | `年份/日期` | `` |
+| 352 | …头对照表」占掉 441px；扫描页 CTA 在 `y=2006`；三个下载按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按… | `1258` | `端口号` | `` |
+| 353 | - **验收信号**：1248×949 与 1440×900 两个视口下，主 CTA 与下载入口均在首屏可见；1024–1… | `1248` | `端口号` | `` |
+| 389 | 1. **下载泄露真值列**（阻塞）：界面承诺「下载的是源 CSV 原文，不做二次加工」（`i… | `1` | `列表序号` | `` |
+| 389 | …api/downloads/{name}` 返回原始 CSV 即等于对外提供评测答案，见 §2.3 C7 的补充口径。 | `2.3` | `章节号(§引用)` | `` |
+| 390 | 2. **统计单元未声明**（阻塞）：缺口 P/R/F1 的分母是去重后的 5 个业务意图（`… | `2` | `列表序号` | `` |
+| 391 | 3. **溯源指针失效**（高）：页面写「本页所有数字均取自 `data/` 下的真实产物」，… | `3` | `列表序号` | `` |
+| 392 | 4. **关键数字缺列级溯源**（高）：只有三张口径表带「产物键」列；总览表的 P/R/F1… | `4` | `列表序号` | `` |
+| 393 | 5. **反向点缺席**（高）：阈值 0.62 在 `gap_threshold.csv` 里… | `5` | `列表序号` | `` |
+| 394 | 6. **耗时口径不实**（高）：把 `metrics.json` 的 `total_seco… | `6` | `列表序号` | `` |
+| 394 | …法复算出该合计；「重复冗余检测 0.0 秒」只包住阈值分组循环（`detect.py` 第 373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364… | `373` | `外部文件行号引用` | `` |
+| 394 | …y` 第 373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364 行 只 print 不落盘）。 | `361` | `外部文件行号引用` | `` |
+| 396 | - **下载口径已定（2026-10-24）**：**保留全量列 + 下载区明示**「下载的是含评测标注列的原始产物，仅用… | `2026` | `年份/日期` | `` |
+| 409 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全… | `1` | `外部文件行号引用` | `` |
+| 409 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行… | `33` | `外部文件行号引用` | `` |
+| 414 | ### 2.9 第二轮原型整改（2026-10-25，来自口径更正与键覆盖核查） | `2.9` | `章节号` | `` |
+| 414 | ### 2.9 第二轮原型整改（2026-10-25，来自口径更正与键覆盖核查） | `2026` | `年份/日期` | `` |
+| 416 | 口径更正（2026-10-25）落地后原型要跟着变：缺口清单从簇级改成意图级、腐化拆两个口径各报 P/R/F1… | `2026` | `年份/日期` | `` |
+| 421 | …本轮实跑复现。`repro_check.json` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10… | `2026 (×2)` | `年份/日期` | `` |
+| 453 | ### 2.10 人工标注材料 —— 已交付 | `2.10` | `章节号` | `` |
+| 458 | - **依据**：实施方案 §2 第 79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290… | `79` | `外部文件行号引用` | `` |
+| 458 | …实施方案 §2 第 79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issu… | `7.3` | `章节号(§引用)` | `` |
+| 458 | …容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依… | `7.4` | `章节号(§引用)` | `` |
+| 458 | …三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依赖）。202… | `303` | `外部文件行号引用` | `` |
+| 458 | …条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依赖）。2026-10-25 的口径更正连带改动了标注对象：缺口类从簇… | `64` | `外部文件行号引用` | `` |
+| 458 | …303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依赖）。2026-10-25 的口径更正连带改动了标注对象：缺口类从簇级 Top-15 改为全部 30 个业… | `2026` | `年份/日期` | `` |
+| 462 | - `make_worklist.py`（可复现，`SEED=42`，两次运行 md5 一致）。 | `42` | `随机种子` | `` |
+| 474 | \| CI 六 job 全量落地 \| 实施方案 §6 第 207 行（W9 复跑）；仓库当前无 CI 流水线，`AGENTS.md` 记 status ch… | `207` | `外部文件行号引用` | `` |
+| 475 | …单元测试层与前端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验） \| 不做 \| 人工核验清单覆盖全部交互路径 \|… | `357` | `外部文件行号引用` | `` |
+| 475 | …端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验） \| 不做 \| 人工核验清单覆盖全部交互路径 \| 回归靠人工，界面… | `391` | `外部文件行号引用` | `` |
+| 476 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7… | `203` | `外部文件行号引用` | `` |
+| 478 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单… | `106` | `外部文件行号引用` | `` |
+| 486 | ### 4.1 决策项总览 | `4.1` | `章节号` | `` |
+| 490 | \| D1 \| 清单页是否支持列排序 \| 导师（范围签字） \| 2026-10-27 前 \| 不分页、不做列排序 \| | `2026` | `年份/日期` | `` |
+| 491 | \| D2 \| 数字门禁受检范围 \| 导师 / 评审老师 \| 2026-10-27 前 \| 先按收缩范围止血，不改门禁逻辑 \| | `2026` | `年份/日期` | `` |
+| 494 | \| D5 \| 第二标注者未落实的判据时点 \| 导师 / TA \| 2026-10-27 前 \| 到期未落实即转单人标注 \| | `2026` | `年份/日期` | `` |
+| 501 | > 2026-10-24 需求方已逐条拍板（原文见 §4.11 各行「拍板结论」列）。下表的「拍板前的默… | `2026` | `年份/日期` | `` |
+| 501 | > 2026-10-24 需求方已逐条拍板（原文见 §4.11 各行「拍板结论」列）。下表的「拍板前的默认口径」列保留为**回退口径**，不再是当前口径。 | `4.11` | `章节号(§引用)` | `` |
+| 503 | \| 编号 \| 决策点 \| 需要的输入 \| 拍板前的默认口径 \| 2026-10-24 拍板结果 \| | `2026` | `年份/日期` | `` |
+| 506 | \| P2 \| 数据形态 \| 单库单表还是分表、字段是否够用 \| 按 §4.3 六表草案 \| 按推荐 + 保证查询性能 → 六表定稿、外键按编码、索引 15 个、迁移位… | `4.3` | `章节号(§引用)` | `` |
+| 509 | …\| 上传 / 扫描 / 三类清单 / 下载 CSV 之外还要什么 \| 按实施方案 §2 第 86 行的三个功能面 \| 必要的 CRUD 要有，保证项目功能完整 \| | `86` | `外部文件行号引用` | `` |
+| 513 | ### 4.2 D1 清单页是否支持列排序 | `4.2` | `章节号` | `` |
+| 515 | - **冲突双方出处**：Issue #3 正文 第 201 行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度）且不实现分页，第… | `201` | `外部文件行号引用` | `` |
+| 515 | …行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「… | `66` | `外部文件行号引用` | `` |
+| 515 | …组内最大相似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路… | `2.2` | `章节号(§引用)` | `` |
+| 515 | …似度）且不实现分页，第 66 行 的 US25 同样要求排序能力；而实施方案 §2.2 第 104 行 把清单页收敛为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路由跳转）」，… | `104` | `外部文件行号引用` | `` |
+| 515 | …为「列表 + 展开详情（不分页、不做列排序、不做独立详情页与路由跳转）」，§3 砍掉表 第 120 行 同样把「列排序」列为砍掉项。 | `120` | `外部文件行号引用` | `` |
+| 520 | - **当前状态（2026-10-24 P1 拍板已收敛）**：P1「按推荐」= 沿用实施方案口径，即**清单接口不提… | `2026` | `年份/日期` | `` |
+| 520 | …3 的 US25 与「最小排序参数」表述随该工单关闭作废，不再需要回改——但**实施方案 §2.2 第 104 行 与 §3 第 120 行 的「不做列排序」口径保持原样**，两份文档现在一… | `2.2` | `章节号(§引用)` | `` |
+| 520 | …25 与「最小排序参数」表述随该工单关闭作废，不再需要回改——但**实施方案 §2.2 第 104 行 与 §3 第 120 行 的「不做列排序」口径保持原样**，两份文档现在一致，无需在… | `104` | `外部文件行号引用` | `` |
+| 520 | …述随该工单关闭作废，不再需要回改——但**实施方案 §2.2 第 104 行 与 §3 第 120 行 的「不做列排序」口径保持原样**，两份文档现在一致，无需在 B1 的签字中额外处理。 | `120` | `外部文件行号引用` | `` |
+| 522 | ### 4.3 D2 数字门禁受检范围 | `4.3` | `章节号` | `` |
+| 524 | …确门禁受检范围；`poc/kbgovernance/check_numbers.py` 第 66 行 的默认受检集合是 `docs/技术方案/` 下三份文档，而 `docs/技术方案/数字… | `66` | `外部文件行号引用` | `` |
+| 524 | …`docs/技术方案/` 下三份文档，而 `docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行 规定受审集合只含机读产物、叙述性文本不是数据源。 | `5` | `外部文件行号引用` | `` |
+| 524 | …/技术方案/` 下三份文档，而 `docs/技术方案/数字溯源审计.md` 第 5 行至第 6 行 规定受审集合只含机读产物、叙述性文本不是数据源。 | `6` | `外部文件行号引用` | `` |
+| 530 | ### 4.4 D3 图稿旧口径如何处理 | `4.4` | `章节号` | `` |
+| 532 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合是 `poc… | `170` | `外部文件行号引用` | `` |
+| 532 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合是 `poc/kbgover… | `171` | `外部文件行号引用` | `` |
+| 538 | ### 4.5 D4 G1 签字记录的载体 | `4.5` | `章节号` | `` |
+| 540 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项… | `9` | `外部文件行号引用` | `` |
+| 540 | …#4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库当前没有任何签字载体文件。 | `199` | `外部文件行号引用` | `` |
+| 546 | ### 4.6 D5 第二标注者未落实的判据时点 | `4.6` | `章节号` | `` |
+| 548 | - **冲突双方出处**：实施方案 §6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关… | `223` | `外部文件行号引用` | `` |
+| 548 | …6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA… | `201` | `外部文件行号引用` | `` |
+| 548 | …触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二… | `10` | `外部文件行号引用` | `` |
+| 548 | …ssue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二标注者。三处之间缺一个「本周内」的判据。 | `64` | `外部文件行号引用` | `` |
+| 549 | …拖住，但放弃双人一致性证据；B 等到 W3 末——可能保住双人标注，风险是 G3 关卡与 §7.4 的 Kappa 目标一起落空。 | `7.4` | `章节号(§引用)` | `` |
+| 554 | ### 4.7 D6 三张界面截图的拍摄周次 | `4.7` | `章节号` | `` |
+| 556 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截… | `205` | `外部文件行号引用` | `` |
+| 556 | …：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Is… | `207` | `外部文件行号引用` | `` |
+| 556 | …截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求在答辩环境人… | `185` | `外部文件行号引用` | `` |
+| 556 | …放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求在答辩环境人工核验 3 个界面截图、第 435 行 已砍掉第 4 张与导出页截图。 | `420` | `外部文件行号引用` | `` |
+| 556 | …张截图；Issue #3 正文 第 420 行 要求在答辩环境人工核验 3 个界面截图、第 435 行 已砍掉第 4 张与导出页截图。 | `435` | `外部文件行号引用` | `` |
+| 557 | …*：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `205` | `外部文件行号引用` | `` |
+| 560 | - **未决默认口径**：按 B，截图拍摄随 §6 第 207 行 一起执行。 | `207` | `外部文件行号引用` | `` |
+| 562 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `4.8` | `章节号` | `` |
+| 564 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2… | `199` | `外部文件行号引用` | `` |
+| 564 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文列为验收项；PM 评审指出… | `200` | `外部文件行号引用` | `` |
+| 570 | ### 4.9 D8 是否补可用性证据 | `4.9` | `章节号` | `` |
+| 572 | …描 → 三类缺陷清单列表 + 展开详情），但仓库内没有任何一手用户材料；实施方案 §2 第 86 行 只写功能面，角色来源无处可查；UX 评审把「用户证据的诚实替代」列为必做。 | `86` | `外部文件行号引用` | `` |
+| 578 | ### 4.10 架构评审侧决策点（编号 A1–A17，与 PM 侧 D1–D8 不同源，勿混用） | `4.10` | `章节号` | `` |
+| 593 | …用固定阈值，不按真值择优 \| `poc/kbgovernance/detect.py` 第 117–127 行与 第 403 行按真值择优取 `best`；无真值语料下无法择优 \| 维护者… | `117` | `外部文件行号引用` | `` |
+| 593 | …\| `poc/kbgovernance/detect.py` 第 117–127 行与 第 403 行按真值择优取 `best`；无真值语料下无法择优 \| 维护者 \| C5、A3 \| | `403` | `外部文件行号引用` | `` |
+| 595 | …返回真值列；下载件保留全量列但**下载区必须明示「含评测标注列，仅用于论文溯源与复现」**（2026-10-24 定） \| `is_true_gap` / `is_true_group` 等是… | `2026` | `年份/日期` | `` |
+| 595 | …单页面；下载件因「逐字节一致」的硬要求不能裁剪，代价由明示承担 \| 维护者 \| C7 / §2.8 H6 \| | `2.8` | `章节号(§引用)` | `` |
+| 598 | …csv` 的 `linked_doc_id` 实测全是 `DOCxxxx` 文本（1629/2000 非空） \| 维护者 \| C2、C8 \| | `2000` | `年份/日期` | `` |
+| 600 | ### 4.11 产品形态类决策（P1–P7，需求方拍板） | `4.11` | `章节号` | `` |
+| 606 | \| 编号 \| 决策点 \| 当前草案口径（来源） \| 需求方拍板结论（2026-10-24） \| 落地位置 \| | `2026` | `年份/日期` | `` |
+| 609 | …e_group`，ISO-8601 存 TEXT，重复组成员存 JSON 数组（技术方案 §4.3 第 221 行；`system/schema.sql`） \| **按推荐，保证查询性能**… | `4.3 (×2)` | `章节号(§引用)` | `` |
+| 609 | …p`，ISO-8601 存 TEXT，重复组成员存 JSON 数组（技术方案 §4.3 第 221 行；`system/schema.sql`） \| **按推荐，保证查询性能**：指向文档的… | `221` | `外部文件行号引用` | `` |
+| 611 | …陷清单页；清单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/pro… | `86` | `外部文件行号引用` | `` |
+| 611 | …单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/prototype/… | `2.2` | `章节号(§引用)` | `` |
+| 611 | …+ 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/prototype/`） \| *… | `104` | `外部文件行号引用` | `` |
+| 612 | …展开详情 / 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前… | `86` | `外部文件行号引用` | `` |
+| 612 | …现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前提下按推荐：文档与工单… | `117` | `外部文件行号引用` | `` |
+| 613 | …rowser` 体验原型来评估，多个子代理交叉验证** \| 三份独立评审结论已出并固化在 §2.8 H1 ~ H7 \| | `2.8` | `章节号(§引用)` | `` |
+| 614 | …（`system/prototype/variants/`） \| **选 A｜学术清朗**（2026-10-24 需求方选定）：白底 + 近黑强调、无彩色 chrome、数值与文字同权重。理由… | `2026 (×2)` | `年份/日期` | `` |
+| 614 | …v3-framed-sheet.html`；原型已按 2026-10-25 口径更正重做（§2.9） \| | `2.9` | `章节号(§引用)` | `` |
+| 618 | …4 / 中 7 / 低 5 + 键盘走查）。评审报告属临时记录，任务结束前删除；结论转入 §2.8 整改项与原型重做。 | `2.8` | `章节号(§引用)` | `` |
+| 620 | **原型现状（2026-10-24 补记）**：P4 / P7 已有可看可驳的实物——`system/protot… | `2026` | `年份/日期` | `` |
+| 620 | …em/prototype/shots/variants/`。**需求方已选定 A**（见 §4.11 P7 行），原型默认变体即 `data-variant="v1"`。规格书附录 C 另列… | `4.11` | `章节号(§引用)` | `` |
+| 641 | ### 5.1 W2 关卡 G2 通过条件 | `5.1` | `章节号` | `` |
+| 650 | \| 6 \| 数字溯源审计同步 \| `docs/技术方案/数字溯源审计.md` 第 5 行 受审集合含 `repro_check.json`，新增产物有字段级出处行 \| 具备 \| | `5` | `外部文件行号引用` | `` |
+| 653 | ### 5.2 W7 开工门槛七项（与本清单条目的对应） | `5.2` | `章节号` | `` |
+| 657 | …后端形态 / UI 形态 / 功能范围 / 交互 / 视觉） \| **P1–P7** \| §4.11 每项都有需求方的明确结论 \| **部分满足（2026-10-24）**：P1 / P2 /… | `4.11` | `章节号(§引用)` | `` |
+| 657 | …视觉） \| **P1–P7** \| §4.11 每项都有需求方的明确结论 \| **部分满足（2026-10-24）**：P1 / P2 / P3 / P5 已拍板并落到 `system/ope… | `2026` | `年份/日期` | `` |
+| 657 | …效率至上」，原型重做中；P6 已由三份 ego-browser 独立评审替代拍板（结论转 §2.8 H1 ~ H7）；P7 待原型重做后出三套变体由需求方选。**第 3 项的契约可判定性已恢… | `2.8` | `章节号(§引用)` | `` |
+| 661 | …建 \| C10、C11、P3 \| 两条命令各自可独立执行并输出可判定结果 \| **部分满足（2026-10-25）**：前端侧已实测（C10）——`npm install` / `npm ru… | `2026` | `年份/日期` | `` |
+| 662 | …实测通过 \| C12、P4 \| 建库写入读回通过，三类清单表格有渲染留痕 \| **部分满足（2026-10-25）**：Element Plus 表格渲染子项已过（C12 的表格部分）——`s… | `2026` | `年份/日期` | `` |
+| 662 | …本在库，渲染不依赖真值列；**建库写入读回子项未做**（SQLite 完全没碰，技术方案 §4.4 第 406 行仍是「设计值，尚未实测」），且只渲染了缺口一类，腐化与重复两类未用 Elem… | `4.4` | `章节号(§引用)` | `` |
+| 662 | …不依赖真值列；**建库写入读回子项未做**（SQLite 完全没碰，技术方案 §4.4 第 406 行仍是「设计值，尚未实测」），且只渲染了缺口一类，腐化与重复两类未用 Element Pl… | `406` | `外部文件行号引用` | `` |
+| 670 | ### 6.1 证据缺口（按类别） | `6.1` | `章节号` | `` |
+| 675 | \| 前端工具链「可装可构建」未实测 \| **已实测（2026-10-25）** \| `system/frontend-smoke/`：安装 / 构建 /… | `2026` | `年份/日期` | `` |
+| 675 | …安装 / 构建 / `el-table` 渲染三条命令退出码 0，依赖版本已锁；技术方案 §4.4 第 405 行已改写 \| 已消解（W7 门槛第 4 项的「可装可构建」可判定；SQLite… | `4.4` | `章节号(§引用)` | `` |
+| 675 | …建 / `el-table` 渲染三条命令退出码 0，依赖版本已锁；技术方案 §4.4 第 405 行已改写 \| 已消解（W7 门槛第 4 项的「可装可构建」可判定；SQLite 仍待实测）… | `405` | `外部文件行号引用` | `` |
+| 676 | …\| 未实测 \| `poc/kbgovernance/check_numbers.py` 第 66 行 只覆盖 md 文档 \| 前端页面数字可能漂移无人发现 \| N3 \| | `66` | `外部文件行号引用` | `` |
+| 678 | \| 缺口聚类耗时无产物 \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.2 判 `【无出处】`；`metrics.json` 的 `gap` 节无耗时字段 \| 附录… | `5.2` | `章节号(§引用)` | `` |
+| 679 | …各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关… | `79` | `外部文件行号引用` | `` |
+| 679 | …、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `7.3` | `章节号(§引用)` | `` |
+| 679 | …a 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `7.4` | `章节号(§引用)` | `` |
+| 679 | …0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303 行 \| 标注完成前不能作为结论引用 \| B2、W3 关卡 \| | `303` | `外部文件行号引用` | `` |
+| 680 | …实测 \| `poc/kbgovernance/gen_data.py` 抽样点；技术方案 §6.1 第 816 行 只登记命中篇数 \| 对照集规模口径可能被追问 \| 随 A1 的登记动作补齐… | `6.1` | `章节号(§引用)` | `` |
+| 680 | …poc/kbgovernance/gen_data.py` 抽样点；技术方案 §6.1 第 816 行 只登记命中篇数 \| 对照集规模口径可能被追问 \| 随 A1 的登记动作补齐 \| | `816` | `外部文件行号引用` | `` |
+| 681 | …在审计中仍为 `【无出处】` \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.4 \| 跨语料迁移章节的相关数字暂不可引用 \| 暂缓引用该组数字 \| | `5.4` | `章节号(§引用)` | `` |
+| 684 | …缓存命中未实测 \| 未实测 \| `poc/kbgovernance/embed.py` 第 29 行（模型缓存默认路径）；仓库无 CI 流水线 \| CI 落地前不可承诺自动门禁 \| 延后到… | `29` | `外部文件行号引用` | `` |
+| 687 | …在审计中仍为 `【无出处】` \| 未实测 \| `docs/技术方案/数字溯源审计.md` §5.4 \| 论文不得直接引用这两个数 \| 随标注 / 统计补齐 \| | `5.4` | `章节号(§引用)` | `` |
+| 689 | …son` 无任何行序映射字段；`poc/kbgovernance/detect.py` 第 212–214 行靠行号隐式对应 \| 删除或回滚语料后，向量与文档会静默错配，检测结果无提示地变错… | `212` | `外部文件行号引用` | `` |
+| 689 | …\| 删除或回滚语料后，向量与文档会静默错配，检测结果无提示地变错 \| C3 参数化已完成（2026-10-25），但行序映射**未随 C3 落盘**：落盘要改 `embeddings_met… | `2026` | `年份/日期` | `` |
+| 692 | ### 6.2 冲突与待统一项（先报告，不自行选一方当真） | `6.2` | `章节号` | `` |
+| 696 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 1… | `66` | `外部文件行号引用` | `` |
+| 696 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列… | `201` | `外部文件行号引用` | `` |
+| 696 | …径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| **已按 P1 收敛**：清单接… | `2.2` | `章节号(§引用)` | `` |
+| 696 | …sue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| **已按 P1 收敛**：清单接口不提供 `… | `104` | `外部文件行号引用` | `` |
+| 696 | …6 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行 与 §3 第 120 行 砍掉列排序 \| **已按 P1 收敛**：清单接口不提供 `sort`、不实现分页，行… | `120` | `外部文件行号引用` | `` |
+| 697 | \| 实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保… | `390` | `外部文件行号引用` | `` |
+| 698 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写 §6 对应行… | `205` | `外部文件行号引用` | `` |
+| 698 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写 §6 对应行 \| | `207` | `外部文件行号引用` | `` |
+| 699 | \| 技术方案 §4.3 主键写法与落地 DDL \| 技术方案 §4.3 写 `INTEGER PRIMARY KE… | `4.3 (×2)` | `章节号(§引用)` | `` |
+| 700 | …csv` 的 `linked_doc_id` 实测全是 `DOCxxxx` 文本（1629/2000 非空，1629 个全部能对上 `docs.csv` 的 `doc_id`） \| **已按… | `2000` | `年份/日期` | `` |
+| 702 | \| 排序参数取值与清单行字段不同名 \| Issue #3 第 201 行的 `ticket_count` / `max_similarity`；CSV 实际列名… | `201` | `外部文件行号引用` | `` |
+| 703 | \| 「逐字节一致」的适用范围 \| 实施方案 §2 第 86 行 与 Issue #3 称 Web 产物与 `run_all.sh` 复跑产物逐字节一致… | `86` | `外部文件行号引用` | `` |
+| 705 | …已写明「为什么不能裁剪 + 明示义务」；界面侧下载区必须明示（原型重做中） \| C7 / §2.8 H6 \| | `2.8` | `章节号(§引用)` | `` |
+| 706 | …到用户硬盘 \| 界面层未泄露（DOM 全量扫描 0 泄漏），破口只在下载通道 \| **已定（2026-10-24）**：保留全量列 + 下载区明示「含评测标注列，仅用于论文溯源与复现」；不裁剪… | `2026` | `年份/日期` | `` |
+| 710 | \| 缺口 P/R/F1 的统计单元从未声明 \| `detect.py` 第 117 行 至第 125 行 的 P/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」… | `117` | `外部文件行号引用` | `` |
+| 710 | …缺口 P/R/F1 的统计单元从未声明 \| `detect.py` 第 117 行 至第 125 行 的 P/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按… | `125` | `外部文件行号引用` | `` |
+| 712 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/k… | `7.2` | `章节号(§引用)` | `` |
+| 712 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/kbgover… | `272` | `外部文件行号引用` | `` |
+| 712 | \| 耗时字段随复跑漂移 \| 实施方案 §7.2 第 272 行/第 285 行 规定只认复跑值；产物侧耗时逐次变化 \| 已由 `poc/kbgovernance/sy… | `285` | `外部文件行号引用` | `` |
 
 ### 4.5 EXTERNAL —— 引用他人文献或外部标准的数字
 
@@ -4080,9 +4105,9 @@
 | 75 | …e.json`。同步已挂进 `poc/kbgovernance/run_all.sh` 第 6 步（`[6/7] 同步文档耗时值`），派生指标重算挂在第 4 步（`[4/7] 派生指标`… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 75 | …同步已挂进 `poc/kbgovernance/run_all.sh` 第 6 步（`[6/7] 同步文档耗时值`），派生指标重算挂在第 4 步（`[4/7] 派生指标`），因此「跑一次… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
 | 75 | …/run_all.sh` 第 6 步（`[6/7] 同步文档耗时值`），派生指标重算挂在第 4 步（`[4/7] 派生指标`），因此「跑一次流水线 → 文档耗时值与产物自动对齐」不再依赖… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 75 | …线 → 文档耗时值与产物自动对齐」不再依赖人工。当前复跑值：`total_seconds`=3.46 秒、`corrupt.seconds`=0.45 秒、`embedding.encode_… | `3.46` | `metrics.json:total_seconds` | `3.46` |
-| 75 | …前复跑值：`total_seconds`=3.46 秒、`corrupt.seconds`=0.45 秒、`embedding.encode_seconds`=14.61 秒（`poc/kbg… | `0.45` | `metrics.json:corrupt.seconds` | `0.45` |
-| 75 | …pt.seconds`=0.45 秒、`embedding.encode_seconds`=14.61 秒（`poc/kbgovernance/metrics.json` / `poc/kbgo… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
+| 75 | …线 → 文档耗时值与产物自动对齐」不再依赖人工。当前复跑值：`total_seconds`=3.75 秒、`corrupt.seconds`=0.51 秒、`embedding.encode_… | `3.75` | `metrics.json:total_seconds` | `3.75` |
+| 75 | …前复跑值：`total_seconds`=3.75 秒、`corrupt.seconds`=0.51 秒、`embedding.encode_seconds`=14.61 秒（`poc/kbg… | `0.51` | `metrics.json:corrupt.seconds` | `0.51` |
+| 75 | …pt.seconds`=0.51 秒、`embedding.encode_seconds`=14.61 秒（`poc/kbgovernance/metrics.json` / `poc/kbgo… | `14.61` | `metrics.json:embedding.encode_seconds` | `14.61` |
 | 80 | - **依据**：实施方案 §6 第 200 行（W2 关卡 G2）、§6 硬关卡表；`AGENTS.md` 里程碑 tag… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
 | 87 | #### B1 §2 / §3 逐项签字确认 —— 未完成 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
 | 87 | #### B1 §2 / §3 逐项签字确认 —— 未完成 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
@@ -4131,393 +4156,411 @@
 | 133 | …三列复合键；索引 8 → **12 个**（补齐四个外键列）；新增「查询路径 → 索引对照」9 条；新增 `PRAGMA user_version` 迁移位（版本 1）——`IF NOT… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
 | 133 | …路径 → 索引对照」9 条；新增 `PRAGMA user_version` 迁移位（版本 1）——`IF NOT EXISTS` 静默不改结构是迁移最大的坑，用版本位堵住。主键维持 `… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 139 | …行（基准日期）、第 216 行（读 `ground_truth.json`）；Issue #3 正文要求直接复用已验证脚本。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 157 | - **已完成**：`detect.py --no-gt` 走通全链路（固定阈值 0.62 / 3 / 0.95，不按真值择优）。**修掉了一处会编造指标的缺陷**：原实现在无真值时… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 157 | …**已完成**：`detect.py --no-gt` 走通全链路（固定阈值 0.62 / 3 / 0.95，不按真值择优）。**修掉了一处会编造指标的缺陷**：原实现在无真值时仍套公式… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 157 | …成**：`detect.py --no-gt` 走通全链路（固定阈值 0.62 / 3 / 0.95，不按真值择优）。**修掉了一处会编造指标的缺陷**：原实现在无真值时仍套公式计算，等于把「… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 157 | …ed_docs`、缺口与重复的 P/R/F1 全部为 `null`（含义是「不可得」，不是 0）；`corrupt_docs.csv` 的 `in_control_sample` 列留空… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 158 | …：`python poc/kbgovernance/check_no_gt.py` 退出码 0，7 项断言全过（流程跑通 / `has_ground_truth=false` / 真值侧… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 158 | …python poc/kbgovernance/check_no_gt.py` 退出码 0，7 项断言全过（流程跑通 / `has_ground_truth=false` / 真值侧计数… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 164 | …主清单 = `poc/kbgovernance/gap_intents_best.csv`（5 行）**，簇级明细降为 `poc/kbgovernance/gap_clusters_be… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 164 | …明细降为 `poc/kbgovernance/gap_clusters_best.csv`（95 行，溯源用）。原 `top15_gaps.csv` 已删除。 | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
-| 165 | - **依据**：实施方案 §2 第 80 行（`metrics.json` 的 `gap.best` 为 threshol… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 165 | …80 行（`metrics.json` 的 `gap.best` 为 threshold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/k… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 165 | …的 `gap.best` 为 threshold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/kbgovernance/gap_i… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 165 | …hold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/kbgovernance/gap_intents_best.csv`；`poc… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 166 | …单页行数 = `metrics.json` → `gap.n_gap_intents` = 5，与主指标同源可对账；页面明示「本轮展示 5 个业务意图，涉及 7 个意图簇」。**已通过*… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 166 | …p_intents` = 5，与主指标同源可对账；页面明示「本轮展示 5 个业务意图，涉及 7 个意图簇」。**已通过**：原型 `acceptance_check.py` 25 条全过… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 166 | …图，涉及 7 个意图簇」。**已通过**：原型 `acceptance_check.py` 25 条全过、`check_prototype.py` 逐行对账通过。 | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 172 | …_group`；`poc/kbgovernance/corrupt_docs.csv` 为 300 行全量表（含归因列）。 | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 175 | …测标注列，仅用于论文溯源与复现」，不得静默下载。** 不采用裁剪视图：裁剪会违反实施方案 §2「直接下载 poc/kbgovernance/ 已产出的 CSV」与 Issue #3 断言… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 175 | …案 §2「直接下载 poc/kbgovernance/ 已产出的 CSV」与 Issue #3 断言第 10 条「下载的 CSV 与源文件逐字节一致」，并让这条可机读验收信号失效。落地位… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 175 | …接下载 poc/kbgovernance/ 已产出的 CSV」与 Issue #3 断言第 10 条「下载的 CSV 与源文件逐字节一致」，并让这条可机读验收信号失效。落地位置：`syst… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 175 | …downloads/{name}` 描述、`system/README.md` 已知歧义第 13 条、§2.8 H6 的验收信号第 1 条。 | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
-| 175 | …、`system/README.md` 已知歧义第 13 条、§2.8 H6 的验收信号第 1 条。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 187 | - **依据**：UX 评审必做项；Issue #3 正文 第 199 行（错误响应体结构统一）。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 201 | - **依据**：实施方案 §6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 201 | …6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3（报告生成已砍，不新增导出链路）；`poc/kbgovernance/run_all.sh`… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 205 | - **当前缺口**：后端实现尚未开工（实施排在 W7–W9，见 §3 可延后清单），现在写启动脚本只能是空壳，因此本项在准备阶段**只定形态、不落脚本**。脚本… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 210 | …案 §4.4 第 391 行/第 392 行（两项均自标「设计值，尚未实测」）；实施方案 §6 第 205 行（W7 上传与扫描）。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 211 | - **验收信号**：6 张表可写入并读回；三类清单表格有渲染截图或录屏留痕；渲染行为不依赖真值列。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 219 | …**依据**：`poc/kbgovernance/derived_metrics.csv`（5 列：`derived_key` / `value` / `formula` / `inpu… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 219 | …alue` / `formula` / `inputs` / `source_files`；52 条登记行）；`docs/技术方案/数字溯源审计.md` §1（正文无出处条目）。 | `52` | `gap_clusters_best.csv:cluster_id[row=87][0]` | `52` |
-| 219 | …source_files`；52 条登记行）；`docs/技术方案/数字溯源审计.md` §1（正文无出处条目）。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 227 | …md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
-| 228 | - **验收信号**：门禁退出码为 0，且受检集合清单有书面口径。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 247 | #### E1 论文第 1、2 章初稿 —— 未完成 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 247 | #### E1 论文第 1、2 章初稿 —— 未完成 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 249 | - **事项**：把第 1 章绪论与第 2 章相关技术写出来，形成可读初稿。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 249 | - **事项**：把第 1 章绪论与第 2 章相关技术写出来，形成可读初稿。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 250 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 250 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 250 | …：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 250 | …交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 253 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 253 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 253 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 258 | - **依据**：`docs/技术方案/数字溯源审计.md` §4（未被引用的产物清单）；实施方案 §7（唯一数字来源）。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 258 | …据**：`docs/技术方案/数字溯源审计.md` §4（未被引用的产物清单）；实施方案 §7（唯一数字来源）。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 265 | - **依据**：Issue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 265 | …sue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险）；UX 评审必做项。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 271 | #### F1 8 份图稿口径 —— 已完成 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 274 | - **依据**：实施方案 §5 第 168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 274 | …168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/` 8 份图稿。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 277 | - **证据**：`poc/kbgovernance/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数… | `01` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 277 | …据**：`poc/kbgovernance/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、… | `08` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 277 | …nce/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 277 | …架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时呈现）。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 277 | …~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时呈现）。 | `512` | `metrics.json:embedding.dim` | `512` |
-| 278 | - **限定**：本项只修**数值与结构口径**，不动**产品与 UI 形态**。其中 `01-系统架构图.md` 画的是「Vue 3 + Element Plus 独立前端 + Fas… | `01` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 278 | …口径**，不动**产品与 UI 形态**。其中 `01-系统架构图.md` 画的是「Vue 3 + Element Plus 独立前端 + FastAPI 单进程」的四层架构，`08-A… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 278 | …ue 3 + Element Plus 独立前端 + FastAPI 单进程」的四层架构，`08-ASCII演示图.md` 画的是三个功能面的页面草图——这两处隐含了 P3（前后端是否分离… | `08` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 282 | - **事项**：按 §5 白名单复核 11 项图表的数据源文件是否都存在、字段是否对得上。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 282 | - **事项**：按 §5 白名单复核 11 项图表的数据源文件是否都存在、字段是否对得上。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 283 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 283 | …170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 283 | …行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 283 | …71 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 284 | - **验收信号**：11 项图表各有可解析的数据源路径，且脚本可从对应产物重新生成。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 292 | - **依据**：实施方案 §2 第 86 行（三个功能面）；§4.11 的 P4 / P6 / P7 三项待拍板决策。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 295 | …thon system/prototype/check_prototype.py` 退出码 0（逐条核对 data.js 的每个取值与产物一致，且未出现 `is_true_gap` /… | `0 (×3)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 295 | …ype/acceptance_check.py` 退出码 0（§2.8 H1 ~ H7 的 25 项验收信号逐条成立）。 | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 309 | - **事项**：把规格书附录 C 列出的 8 项交互待定项逐项定下来。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 311 | - **验收信号**：8 项各有明确结论，并同步回 `system/openapi.yaml` 的字段说明与 `sy… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 313 | - **当前状态**：三份独立评审已出（交互规范 20 条、操作效率 24 条、可用性与对比度 48 项），互不参考、各自独立走查；结论转入 §2… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 313 | - **当前状态**：三份独立评审已出（交互规范 20 条、操作效率 24 条、可用性与对比度 48 项），互不参考、各自独立走查；结论转入 §2.8 整改项，H1… | `24` | `metrics.json:gap.threshold_rows[8].detected_intents` | `24` |
-| 313 | …**当前状态**：三份独立评审已出（交互规范 20 条、操作效率 24 条、可用性与对比度 48 项），互不参考、各自独立走查；结论转入 §2.8 整改项，H1 ~ H7 已全部整改并由… | `48` | `metrics.json:gap.intent_rows[12].total_tickets` | `48` |
-| 317 | …er 独立走查原型（互不参考），分别按交互规范、操作效率、可用性与对比度三个视角出报告，共 20 + 24 + 48 项发现。评审报告是临时记录，任务结束前删除；结论固化在本节 H1 ~… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 317 | …走查原型（互不参考），分别按交互规范、操作效率、可用性与对比度三个视角出报告，共 20 + 24 + 48 项发现。评审报告是临时记录，任务结束前删除；结论固化在本节 H1 ~ H7，每条… | `24` | `metrics.json:gap.threshold_rows[8].detected_intents` | `24` |
-| 317 | …互不参考），分别按交互规范、操作效率、可用性与对比度三个视角出报告，共 20 + 24 + 48 项发现。评审报告是临时记录，任务结束前删除；结论固化在本节 H1 ~ H7，每条都带可复核… | `48` | `metrics.json:gap.intent_rows[12].total_tickets` | `48` |
-| 319 | …本 `system/prototype/acceptance_check.py` 逐条核验（25 项验收信号，退出码 0 即全部成立）。该脚本不是一次性核验：这些信号是原型的长期约束，只靠… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 319 | …totype/acceptance_check.py` 逐条核验（25 项验收信号，退出码 0 即全部成立）。该脚本不是一次性核验：这些信号是原型的长期约束，只靠一次人工核验挡不住后续改… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 324 | - **依据**：交互规范 A1（阻塞）；操作效率 #1（阻断）。实测：DOM 内 `input[type=file]` 数量为 0，点击未触发文件… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 324 | …）；操作效率 #1（阻断）。实测：DOM 内 `input[type=file]` 数量为 0，点击未触发文件选择器，`Enter` / `Space` 无反馈，页面文本长度不变；元素却… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 333 | - **依据**：操作效率 #2（阻断）、#9（高）、#18（中）；可用性 M4。实测：上传页主 CTA 在 `y=2036… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 333 | - **依据**：操作效率 #2（阻断）、#9（高）、#18（中）；可用性 M4。实测：上传页主 CTA 在 `y=2036`、页面 `s… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
-| 333 | - **依据**：操作效率 #2（阻断）、#9（高）、#18（中）；可用性 M4。实测：上传页主 CTA 在 `y=2036`、页面 `scrollHe… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
-| 333 | …按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `innerText` 为空且无 `title` / `aria-… | `68` | `metrics.json:gap.intent_rows[11].total_tickets` | `68` |
-| 333 | …y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `innerText` 为空且无 `title` / `aria-label`… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 340 | - **事项**：同一屏内「无命中」文案与「命中 69 篇文档 / 维护周期口径 F1 0.8986」并存；未扫描时仍显示 7/69/22 徽标且… | `69 (×2)` | `metrics.json:corrupt.detected` | `69` |
-| 340 | - **事项**：同一屏内「无命中」文案与「命中 69 篇文档 / 维护周期口径 F1 0.8986」并存；未扫描时仍显示 7/69/22 徽标且可点开旧表；加载态是纯白无字；错误态唯一恢复动… | `0.8986` | `metrics.json:corrupt.by_cause.maintenance.f1` | `0.8986` |
-| 340 | …中」文案与「命中 69 篇文档 / 维护周期口径 F1 0.8986」并存；未扫描时仍显示 7/69/22 徽标且可点开旧表；加载态是纯白无字；错误态唯一恢复动作是破坏性全量重扫。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 340 | …「命中 69 篇文档 / 维护周期口径 F1 0.8986」并存；未扫描时仍显示 7/69/22 徽标且可点开旧表；加载态是纯白无字；错误态唯一恢复动作是破坏性全量重扫。 | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 341 | - **依据**：交互规范 A6 / A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 341 | …**依据**：交互规范 A6 / A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 341 | …**：交互规范 A6 / A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 341 | …规范 A6 / A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 341 | …/ A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 345 | …时显示真数；其余状态按 design-taste-frontend 的「数据状态诚实」规则（0 打印 0，缺失打印灰破折号）。 | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 349 | - **事项**：导航激活态与辅助文字对比度不足；11px 小字；数字未右对齐；可访问名与可见文案不一致；`role="tab"` 无 ARIA… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 351 | - **验收信号**：正文与辅助文字对比度 ≥ 4.5:1；最小字号 ≥ 12px；数字列右对齐且启用 `tabular-nums`；切页后焦点落在新… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 351 | - **验收信号**：正文与辅助文字对比度 ≥ 4.5:1；最小字号 ≥ 12px；数字列右对齐且启用 `tabular-nums`；切页后焦点落在新页 `h1`；`Ta… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 352 | …（读屏会念出新页标题）；数值单元格右对齐并启用 `tabular-nums`；最小字号 ≥ 12px（内联 `code` 由 `0.92em` 改为 `max(12px, 0.92em)`… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 352 | …对齐并启用 `tabular-nums`；最小字号 ≥ 12px（内联 `code` 由 `0.92em` 改为 `max(12px, 0.92em)`）；`role=tab` 支持方向键与… | `0.92 (×2)` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
-| 352 | …开第 N 行：…` / `收起第 N 行：…`）；导航激活态与辅助文字对比度已提到 4.5:1 以上。`acceptance_check.py` 的 H4 八项通过。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 360 | - **验收信号**：缺口页声明「本次仅显示 15 个意图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 360 | - **验收信号**：缺口页声明「本次仅显示 15 个意图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级 F1 0.7037… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 360 | - **验收信号**：缺口页声明「本次仅显示 15 个意图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级 F1 0.7037 的对比并标注后者为真实预期基线… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 360 | …明「本次仅显示 15 个意图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级 F1 0.7037 的对比并标注后者为真实预期基线；风险分档改为「规则命中组合」… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 360 | …图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级 F1 0.7037 的对比并标注后者为真实预期基线；风险分档改为「规则命中组合」表述（风险分档位无产物出处）；… | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
-| 361 | - **整改结果**：已落地。缺口页声明「15 个意图簇中的 7 个」；「距阈值差值」在列头上标为页面派生值；风险分改为「规则命中组合」表… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 361 | - **整改结果**：已落地。缺口页声明「15 个意图簇中的 7 个」；「距阈值差值」在列头上标为页面派生值；风险分改为「规则命中组合」表述；重复页同时给出… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 361 | …个」；「距阈值差值」在列头上标为页面派生值；风险分改为「规则命中组合」表述；重复页同时给出 0.95 与 0.90 两档阈值对比并注明后者更接近真实预期基线；单位统一为篇 / 条 / 簇 /… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 361 | …差值」在列头上标为页面派生值；风险分改为「规则命中组合」表述；重复页同时给出 0.95 与 0.90 两档阈值对比并注明后者更接近真实预期基线；单位统一为篇 / 条 / 簇 / 组。界面不透出… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 367 | - **事项**：第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、… | `26` | `metrics.json:gap.threshold_rows[4].detected_intents` | `26` |
-| 367 | - **事项**：第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、缺口 P/R/F1… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 367 | - **事项**：第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、缺口 P/R/F1 的统计单元… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
-| 367 | …**事项**：第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、缺口 P/R/F1 的统计单元从未声明、溯源… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 367 | …第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、缺口 P/R/F1 的统计单元从未声明、溯源指针指向不存… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 371 | 2. **统计单元未声明**（阻塞）：缺口 P/R/F1 的分母是去重后的 5 个业务意图（`detect.py:117-125`），却与簇级「命中数 7」并排成一行；读… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 371 | …分母是去重后的 5 个业务意图（`detect.py:117-125`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与页面 0.800 对不上。 | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 371 | …etect.py:117-125`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与页面 0.800 对不上。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 371 | …t.py:117-125`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与页面 0.800 对不上。 | `0.8571` | `standardize/results_banking77_en.csv:F1[row=13][0]` | `0.8571` |
-| 371 | …5`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与页面 0.800 对不上。 | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
-| 373 | …只有三张口径表带「产物键」列；总览表的 P/R/F1 与命中数、命中规模表、腐化评测统计表（15 个数）、清单页 15 个指标格全无出处标记（实测扫描页 `<code>` 唯一键仅 16… | `15 (×2)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 373 | …（15 个数）、清单页 15 个指标格全无出处标记（实测扫描页 `<code>` 唯一键仅 16 个）。 | `16` | `metrics.json:gap.threshold_rows[7].detected_intents` | `16` |
-| 374 | 5. **反向点缺席**（高）：阈值 0.62 在 `gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 374 | …点缺席**（高）：阈值 0.62 在 `gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏… | `0.60` | `metrics.json:gap.threshold_rows[3].threshold` | `0.6` |
-| 374 | …：阈值 0.62 在 `gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出… | `0.5714` | `metrics.json:gap.threshold_rows[3].f1` | `0.5714` |
-| 374 | …2 在 `gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」… | `0.64` | `metrics.json:gap.threshold_rows[6].threshold` | `0.64` |
-| 374 | …gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」（cover… | `0.6667` | `metrics.json:gap.threshold_rows[6].f1` | `0.6667` |
-| 374 | …eshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」（cover 0.634… | `0.66` | `metrics.json:gap.threshold_rows[7].threshold` | `0.66` |
-| 374 | …d.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」（cover 0.6342）与混进的误… | `0.4762` | `metrics.json:gap.threshold_rows[7].f1` | `0.4762` |
-| 374 | …、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」（cover 0.6342）与混进的误报簇「终端病毒处置」（0.6179）也未披露，与 ADR-0002 第 4 条冲… | `0.6342` | `metrics.json:gap.intent_rows[7].min_cover_median` | `0.6342` |
-| 374 | …漏报的真意图「数据导出权限申请」（cover 0.6342）与混进的误报簇「终端病毒处置」（0.6179）也未披露，与 ADR-0002 第 4 条冲突。 | `0.6179` | `metrics.json:gap.intent_rows[4].min_cover_median` | `0.6179` |
-| 374 | …6342）与混进的误报簇「终端病毒处置」（0.6179）也未披露，与 ADR-0002 第 4 条冲突。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 375 | …SV + 聚类 + 三检测全程（只不含向量化），且页面分项无法复算出该合计；「重复冗余检测 0.0 秒」只包住阈值分组循环（`detect.py` 第 373–375 行），不含 300×3… | `0.0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 375 | …测 0.0 秒」只包住阈值分组循环（`detect.py` 第 373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364 行 只 print 不落盘）… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
-| 377 | …，仅用于论文溯源与复现」，不裁剪视图。理由：`docs/技术方案/本科版实施方案.md` §2「M-系统·Web 交付」要求「直接下载 poc/kbgovernance/ 已产出的 CS… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 377 | …交付」要求「直接下载 poc/kbgovernance/ 已产出的 CSV」，Issue #3 断言清单第 10 条要求「下载的 CSV 与源文件逐字节一致」——裁剪会同时违反这两条，并… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 377 | …下载 poc/kbgovernance/ 已产出的 CSV」，Issue #3 断言清单第 10 条要求「下载的 CSV 与源文件逐字节一致」——裁剪会同时违反这两条，并让「逐字节一致」这… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 377 | …ownloads/{name}` 描述与 `system/README.md` 已知歧义第 13 条。 | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
-| 378 | - 缺口页写成「7 缺口簇 / 5 个业务意图」，P/R/F1 加「（意图级）」后缀；三类清单的 count… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 378 | - 缺口页写成「7 缺口簇 / 5 个业务意图」，P/R/F1 加「（意图级）」后缀；三类清单的 count 单位统一显式标注… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 380 | - 每个指标格都能指到「文件 + 列」；扫描页 `<code>` 唯一键从 16 个补到覆盖全部主指标。 | `16` | `metrics.json:gap.threshold_rows[7].detected_intents` | `16` |
-| 381 | - 缺口页补阈值敏感性（0.60 / 0.62 / 0.64 / 0.66 四档 F1）与反向点披露。 | `0.60` | `metrics.json:gap.threshold_rows[3].threshold` | `0.6` |
-| 381 | - 缺口页补阈值敏感性（0.60 / 0.62 / 0.64 / 0.66 四档 F1）与反向点披露。 | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 381 | - 缺口页补阈值敏感性（0.60 / 0.62 / 0.64 / 0.66 四档 F1）与反向点披露。 | `0.64` | `metrics.json:gap.threshold_rows[6].threshold` | `0.64` |
-| 381 | - 缺口页补阈值敏感性（0.60 / 0.62 / 0.64 / 0.66 四档 F1）与反向点披露。 | `0.66` | `metrics.json:gap.threshold_rows[7].threshold` | `0.66` |
-| 383 | …nce/…`；下载区明示「下载的是含评测标注列的原始产物，仅用于论文溯源与复现」；缺口页补 0.60 / 0.62 / 0.64 / 0.66 四档阈值敏感性对比与反向点披露；耗时按 `det… | `0.60` | `metrics.json:gap.threshold_rows[3].threshold` | `0.6` |
-| 383 | …下载区明示「下载的是含评测标注列的原始产物，仅用于论文溯源与复现」；缺口页补 0.60 / 0.62 / 0.64 / 0.66 四档阈值敏感性对比与反向点披露；耗时按 `detect.py`… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 383 | …载的是含评测标注列的原始产物，仅用于论文溯源与复现」；缺口页补 0.60 / 0.62 / 0.64 / 0.66 四档阈值敏感性对比与反向点披露；耗时按 `detect.py` 的实际计时范… | `0.64` | `metrics.json:gap.threshold_rows[6].threshold` | `0.64` |
-| 383 | …注列的原始产物，仅用于论文溯源与复现」；缺口页补 0.60 / 0.62 / 0.64 / 0.66 四档阈值敏感性对比与反向点披露；耗时按 `detect.py` 的实际计时范围表述，产物没… | `0.66` | `metrics.json:gap.threshold_rows[7].threshold` | `0.66` |
-| 385 | - **通过项（同轮核对成立，不必重复查）**：真值列在 DOM 全量扫描 0 泄漏；F1=1.0000 乐观值提醒 4 处都在；三类统计单元不可横比的提示在位；无评测基… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 385 | - **通过项（同轮核对成立，不必重复查）**：真值列在 DOM 全量扫描 0 泄漏；F1=1.0000 乐观值提醒 4 处都在；三类统计单元不可横比的提示在位；无评测基线显示「—」且明写不补数；… | `1.0000` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 385 | …立，不必重复查）**：真值列在 DOM 全量扫描 0 泄漏；F1=1.0000 乐观值提醒 4 处都在；三类统计单元不可横比的提示在位；无评测基线显示「—」且明写不补数；缺失耗时用「—」… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 385 | …示在位；无评测基线显示「—」且明写不补数；缺失耗时用「—」+「未落盘」而非填 0；需求阈值 60 秒 / 2 秒已标「非实测」；覆盖度百分比与原始值并列并有刻度线标阈值；风险分与规则组合一… | `60` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
-| 385 | …基线显示「—」且明写不补数；缺失耗时用「—」+「未落盘」而非填 0；需求阈值 60 秒 / 2 秒已标「非实测」；覆盖度百分比与原始值并列并有刻度线标阈值；风险分与规则组合一一对应且不以… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 385 | …与规则组合一一对应且不以颜色为唯一编码；主文档选举只给定性表述；腐化 Tab 主动交代「共 69 / 已加载 12 / 代表行」；重复清单 22 行与产物逐行一致且下载 = 展示。 | `69` | `metrics.json:corrupt.detected` | `69` |
-| 385 | …且不以颜色为唯一编码；主文档选举只给定性表述；腐化 Tab 主动交代「共 69 / 已加载 12 / 代表行」；重复清单 22 行与产物逐行一致且下载 = 展示。 | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 385 | …举只给定性表述；腐化 Tab 主动交代「共 69 / 已加载 12 / 代表行」；重复清单 22 行与产物逐行一致且下载 = 展示。 | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 390 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 390 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
-| 390 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载… | `35` | `gap_clusters_best.csv:cluster_id[row=29][0]` | `35` |
-| 390 | …**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 390 | …同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 ran… | `32` | `metrics.json:dup.rows[1].dup_groups` | `32` |
-| 390 | …页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的… | `69` | `metrics.json:corrupt.detected` | `69` |
-| 390 | …SV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 390 | …33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0.6398 均未命中。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 390 | …行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0.6398 均未命中。 | `15 (×2)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 390 | …载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0.6398 均未命中。 | `0.624` | `gap_clusters_best.csv:cover_median[row=8][0]` | `0.624` |
-| 390 | …0 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0.6398 均未命中。 | `0.6398` | `metrics.json:gap.intent_rows[9].min_cover_median` | `0.6398` |
-| 392 | - **整改结果**：已落地。腐化页交代「判定总数 69 篇 / 本页展示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15… | `69` | `metrics.json:corrupt.detected` | `69` |
-| 392 | - **整改结果**：已落地。腐化页交代「判定总数 69 篇 / 本页展示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 392 | …整改结果**：已落地。腐化页交代「判定总数 69 篇 / 本页展示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」与「阈值附近未入选的… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 392 | …69 篇 / 本页展示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」与「阈值附近未入选的 8 个业务意图」副表；下载区写明下载的是全量产… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 392 | …示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」与「阈值附近未入选的 8 个业务意图」副表；下载区写明下载的是全量产物、页面不展示评测… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 392 | …种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」与「阈值附近未入选的 8 个业务意图」副表；下载区写明下载的是全量产物、页面不展示评测标注列。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 402 | …check.json` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
-| 402 | …ck.json` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25+08… | `52` | `gap_clusters_best.csv:cluster_id[row=87][0]` | `52` |
-| 402 | …json` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25+08:00… | `08 (×2)` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 402 | …n` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25+08:00`，两… | `00 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 402 | …13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25+08:00`，两者内容指纹相同（`byte_deterministic` 的 md5… | `25 (×2)` | `corrupt_docs.csv:title[row=8][0]` | `25` |
-| 404 | …repro_check.json` 的字节确定产物 md5 集合排序后取 sha256 前 16 位）；`check_prototype.py` 改为比对指纹。判定依据是内容而非时间。 | `16` | `metrics.json:gap.threshold_rows[7].detected_intents` | `16` |
-| 409 | - **依据**：本轮静态核查发现 `copy.js` 里有 7 个死键（`app.source` / `app.foot` / `lists.calib.… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 411 | - **整改结果**：已落地。7 个死键从 `copy.js` 三变体删除（共 21 行），显示文本只以 HTML 为准；`… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 411 | - **整改结果**：已落地。7 个死键从 `copy.js` 三变体删除（共 21 行），显示文本只以 HTML 为准；`check_prototype.py` 新增文案键覆… | `21` | `dup_groups_best.csv:group[row=21][0]` | `21` |
-| 411 | …用键全覆盖）。已做反向验证：向 `index.html` 注入一个不存在的键后校验以退出码 1 报出该键，还原后退出码 0。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 411 | …向 `index.html` 注入一个不存在的键后校验以退出码 1 报出该键，还原后退出码 0。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 418 | …`demo.state.scan.*` / `demo.state.lists.*`，共 15 键 × 3 变体），四个 HTML 的 21 处引用同步改键。 | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 418 | …state.scan.*` / `demo.state.lists.*`，共 15 键 × 3 变体），四个 HTML 的 21 处引用同步改键。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 418 | …`demo.state.lists.*`，共 15 键 × 3 变体），四个 HTML 的 21 处引用同步改键。 | `21` | `dup_groups_best.csv:group[row=21][0]` | `21` |
-| 422 | - **事项**：缺口页的「阈值附近未入选的业务意图」副表原按 88 个簇逐行列出，页面被拉到接近渲染校验的视口上限。 | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
-| 423 | …p_near_miss` = `gap_clusters_best.csv` 中覆盖度 ≥ 0.62 的行，实测 88 行。 | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
-| 423 | …` = `gap_clusters_best.csv` 中覆盖度 ≥ 0.62 的行，实测 88 行。 | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
-| 424 | - **验收信号**：副表不超过 10 行且标明候选总数。 | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 425 | - **整改结果**：已落地。`data.js` 只留覆盖度最接近阈值的 10 个簇，新增 `gap_near_miss_total` = 88 记录候选总数；`copy… | `10 (×2)` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 425 | …只留覆盖度最接近阈值的 10 个簇，新增 `gap_near_miss_total` = 88 记录候选总数；`copy.js` 的说明文案带 `{near_miss_total}` 占… | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
-| 430 | …用正则把含子节点的元素也当叶子比，结论不成立，已修正）。叶子键 184 个、含子节点的死键 7 个。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 439 | - **依据**：实施方案 §2 第 79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 439 | …**依据**：实施方案 §2 第 79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 439 | …文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 439 | …预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依赖）。2026-10-25 的口径更正连带改动了标注对… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 439 | …。2026-10-25 的口径更正连带改动了标注对象：缺口类从簇级 Top-15 改为全部 30 个业务意图，腐化类从单标签改为双标签。 | `30` | `metrics.json:gap.threshold_rows[9].detected_intents` | `30` |
-| 442 | …tation_rules.md`（321 行）：五类判定标准、盲化要求、评分口径、已知限制 6 条（含循环论证、7 篇误报归因、判据公开导致人工判定与系统趋同、一致率表述待定）。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 442 | …es.md`（321 行）：五类判定标准、盲化要求、评分口径、已知限制 6 条（含循环论证、7 篇误报归因、判据公开导致人工判定与系统趋同、一致率表述待定）。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 444 | - `worklist_A.csv`（300 条）/ `worklist_B.csv`（100 条，B 是 A 的子集，重叠 100 条… | `300` | `metrics.json:embedding.n_docs` | `300` |
-| 445 | - 缺口清单 30 条 = 30 个业务意图全量；腐化清单 20 条采用双标签（内容过期 / 维护状态各一问，… | `30 (×2)` | `metrics.json:gap.threshold_rows[9].detected_intents` | `30` |
-| 445 | - 缺口清单 30 条 = 30 个业务意图全量；腐化清单 20 条采用双标签（内容过期 / 维护状态各一问，互不影响）并已盲化——材料只给文档编号、标题、… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 451 | ## 3. 可延后清单 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 455 | \| CI 六 job 全量落地 \| 实施方案 §6 第 207 行（W9 复跑）；仓库当前无 CI 流水线，`AGENTS.md` 记 sta… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 456 | \| 单元测试层与前端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 457 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 457 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 457 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 457 | …实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7 界面截图已能定稿 \| 论文图稿与实际产物脱节，答辩时被追问数据一… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 457 | …案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7 界面截图已能定稿 \| 论文图稿与实际产物脱节，答辩时被追问数据一致性 \| | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 458 | \| 答辩 PPT 与 E7/E8 小节 \| Issue #10（答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 458 | \| 答辩 PPT 与 E7/E8 小节 \| Issue #10（答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 458 | …答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 458 | …PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 458 | …施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
-| 459 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 459 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \|… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 459 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \| 性能叙… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 459 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \| 性能叙述只能给需求阈… | `60` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
-| 465 | ## 4. 待拍板清单 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 477 | \| D7 \| 论文第 1、2 章是否现在开写 \| 导师 \| W3 内 \| 现在写，至少建目录与可读初稿 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 477 | \| D7 \| 论文第 1、2 章是否现在开写 \| 导师 \| W3 内 \| 现在写，至少建目录与可读初稿 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 486 | \| P1 \| API 契约范围 \| 13 条接口是否全留、哪些合并或砍 \| 按 `system/openapi.yaml` 草案 1… | `13 (×2)` | `dup_groups_best.csv:group[row=13][0]` | `13` |
-| 486 | …`system/openapi.yaml` 草案 13 条，但标注未拍板 \| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 486 | …openapi.yaml` 草案 13 条，但标注未拍板 \| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
-| 486 | …aml` 草案 13 条，但标注未拍板 \| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
-| 486 | …\| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 487 | …\| 按 §4.3 六表草案 \| 按推荐 + 保证查询性能 → 六表定稿、外键按编码、索引 15 个、迁移位 `user_version` \| | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 490 | …能范围 \| 上传 / 扫描 / 三类清单 / 下载 CSV 之外还要什么 \| 按实施方案 §2 第 86 行的三个功能面 \| 必要的 CRUD 要有，保证项目功能完整 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 496 | - **冲突双方出处**：Issue #3 正文 第 201 行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 497 | …——需同步改实施方案两处口径，改动面小、与契约一致；B 完全不做排序——需从 Issue #3 删 US25 与契约要点，后续若加回要重开契约。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 498 | - **PM 建议**：A（与 #3 契约要点已写的一致）。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 501 | …不实现分页**，行序由响应里的 `row_order` 字段声明（契约已改）。Issue #3 的 US25 与「最小排序参数」表述随该工单关闭作废，不再需要回改——但**实施方案 §2… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 505 | - **冲突双方出处**：Issue #18 要求明确门禁受检范围；`poc/kbgovernance/check_numbers.py… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
-| 509 | - **未决默认口径**：先按 B 收缩受检范围，「指标类致命 0」作为 W7 门槛守住。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 513 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 517 | - **当前状态**：已按「保留并改口径」执行，8 份图稿见 F1；本项不再需要额外拍板，除非要求把图稿纳入门禁。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 521 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 19… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 521 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 521 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 521 | …sue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库当前没有任何签字载体文件。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 525 | - **未决默认口径**：Issue #4 评论 + 仓库 md 双留。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 529 | - **冲突双方出处**：实施方案 §6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 2… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 529 | …实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 529 | …放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二标注者。三处之间缺一个「本周内」的判据。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 530 | - **选项与代价**：A 10-27 前未落实即转单人——保住 W3 关卡不被拖住，但放弃双人一致性证据；B 等到 W3… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 537 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 537 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 537 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185… | `3 (×5)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 537 | …章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 538 | - **选项与代价**：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 538 | …与代价**：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 539 | - **PM 建议**：B，并把 §6 W7 栏回写为不含截图。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 541 | - **未决默认口径**：按 B，截图拍摄随 §6 第 207 行 一起执行。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 543 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 543 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 545 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 545 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 545 | …：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文列为验收项；PM 评审指出论文与开发并行是排期… | `2 (×2)` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 549 | - **未决默认口径**：A，至少建目录并产出可读初稿；这也是 W7 开工门槛的第 7 项。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 553 | - **冲突双方出处**：Issue #3 正文按真实用户角色组织功能面（上传 → 一键扫描 → 三类缺陷清单列表 + 展开详情），但… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 553 | …一键扫描 → 三类缺陷清单列表 + 展开详情），但仓库内没有任何一手用户材料；实施方案 §2 第 86 行 只写功能面，角色来源无处可查；UX 评审把「用户证据的诚实替代」列为必做。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 554 | - **选项与代价**：A 组织 3–5 人走查——约半天到一天，能把角色与流程从推演变成实证；B 不做并在第 3 章声明角色为… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 554 | - **选项与代价**：A 组织 3–5 人走查——约半天到一天，能把角色与流程从推演变成实证；B 不做并在第 3 章声明角色为推演… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 557 | - **未决默认口径**：B，但一旦能组织走查就补，且走查结论须写进论文第 3 章。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 563 | \| A1 \| 扫描复用方式 \| 参数化复用 PoC 脚本 \| Issue #3 要求直接调用已验证脚本，而脚本写死了工作目录 \| 维护者 \| C3、C4 \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 564 | …口径 \| `metrics.json` → `gap.best.gap_clusters`=7 与 Top15 行数不是一回事 \| 维护者 \| C6 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 573 | …投影 \| `metrics.json` → `gap.best.gap_clusters`=7 与 `gap_intents_best.csv` 的 5 行不是一回事（前者是簇数、后者是… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 573 | …st.gap_clusters`=7 与 `gap_intents_best.csv` 的 5 行不是一回事（前者是簇数、后者是意图数，判定单元已定）；六表若只写不读，页面与产物会不一致… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 589 | \| P1 \| API 契约范围 \| 13 条接口、错误体 `{code, message, location}`、清单接口不实现分页… | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
-| 589 | …tion}`、清单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 /… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 589 | …api.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 589 | …；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条路径引用；补 42… | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
-| 589 | …第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条路径引用；补 422 + `VALI… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
-| 589 | …\| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条路径引用；补 422 + `VALIDATION_FAILED`；清单接… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 590 | …ranularity, min_cluster_size, cluster_id)`；索引 8 → **12 个**（补齐四个外键列的索引）；`schema.sql` 内新增「查询路径… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 590 | …rity, min_cluster_size, cluster_id)`；索引 8 → **12 个**（补齐四个外键列的索引）；`schema.sql` 内新增「查询路径 → 索引对照」… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 590 | …个**（补齐四个外键列的索引）；`schema.sql` 内新增「查询路径 → 索引对照」9 条与 `PRAGMA user_version` 迁移位。**主键仍用 `INTEGER… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
-| 591 | …端独立 Vue3 + Element Plus 工程、构建产物由后端静态挂载（Issue #3「前后端分离」小节） \| **前后端分离，且答辩现场只有一条命令启动前后端**：后端单进程（… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 592 | …三类缺陷清单页；清单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`syste… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 592 | …nt Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/prototype/`） \| **用 design-t… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 593 | …列表 + 展开详情 / 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 593 | …/ 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前提下按推荐… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 597 | …/openapi.yaml` 可被 `yaml.safe_load` 解析，`paths`=15、`components.schemas`=23；`system/schema.sql` 在… | `15 (×2)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 597 | …safe_load` 解析，`paths`=15、`components.schemas`=23；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 15… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
-| 597 | …schemas`=23；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 15 个、`PRAGMA user_version`=1、连接内 `PRAG… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 597 | …续执行两次，表名恰 6 张、显式索引 15 个、`PRAGMA user_version`=1、连接内 `PRAGMA foreign_keys`=1。验证命令见 `system/REA… | `1 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 599 | **P6 的三份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 599 | …*P6 的三份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 599 | …份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 599 | …回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与… | `8 (×3)` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 599 | …，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 /… | `24` | `metrics.json:gap.threshold_rows[8].detected_intents` | `24` |
-| 599 | …互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 /… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 599 | …条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 /… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
-| 599 | …3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 / 低 5 + 键盘走查）。… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 599 | …8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 / 低 5 + 键盘走查）。评审报告属临时记录，任务… | `48` | `metrics.json:gap.intent_rows[12].total_tickets` | `48` |
-| 599 | …阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 / 低 5 + 键盘走查）。评审报告属临时记录，任务结束前删除；结论转入 §2… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 599 | …高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 / 低 5 + 键盘走查）。评审报告属临时记录，任务结束前删除；结论转入 §2.8 整改项… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 601 | …ta-variant="v1"`。规格书附录 C 另列 OPEN-1 ~ OPEN-8 共 8 项交互待拍板项，与本节的 P1–P7 互不重叠： | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 607 | \| OPEN-3 \| 重复检测阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
-| 607 | \| OPEN-3 \| 重复检测阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
-| 607 | …PEN-3 \| 重复检测阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次扫描实际采用值为准，界面显示接口返回的… | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 607 | …\| 重复检测阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次扫描实际采用值为准，界面显示接口返回的 `thre… | `49` | `metrics.json:dup.embedded_docs` | `49` |
-| 607 | …阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次扫描实际采用值为准，界面显示接口返回的 `threshold`，… | `32` | `metrics.json:dup.rows[1].dup_groups` | `32` |
-| 607 | ….95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次扫描实际采用值为准，界面显示接口返回的 `threshold`，不写死 \| | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
-| 608 | \| OPEN-4 \| 缺口清单是否允许按意图去重 \| 同轮命中 7 簇但仅 5 个业务意图，是否分组展示 \| 建议不去重（保持 rank 顺序），在展开区提示… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 608 | \| OPEN-4 \| 缺口清单是否允许按意图去重 \| 同轮命中 7 簇但仅 5 个业务意图，是否分组展示 \| 建议不去重（保持 rank 顺序），在展开区提示 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 610 | …PEN-6 \| 重复清单 P/R/F1 用组级还是文档级 \| 指标条数值 \| 本轮两者同为 1.0，建议标注「组级口径」 \| | `1.0` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 614 | …system/prototype/check_prototype.py` 逐条核对（退出码 0）；`system/prototype/render_check.py` 实际渲染三个页面与… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 616 | …/P5 任一未决，`system/` 下的三份草案就只能停在「讨论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Eleme… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 616 | …system/` 下的三份草案就只能停在「讨论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 616 | …论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格渲染实测）全部无法判定。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 616 | …；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格渲染实测）全部无法判定。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 620 | ## 5. 验收信号汇总 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 626 | \| 1 \| 语料重跑产物齐备 \| `poc/kbgovernance/` 下 `docs.csv`… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 627 | \| 2 \| 两次运行一致性有记录 \| `poc/kbgovernance/repro_check.… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 627 | …ro_check.json` → `two_run_verify.n_identical`=14 且 `identical`=true \| 具备 \| | `14` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
-| 628 | \| 3 \| 对照集可机读 \| `poc/kbgovernance/ground_truth.jso… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 628 | …rnance/ground_truth.json` → `control_doc_ids`（10 篇）、`n_control_docs`=10 \| 具备 \| | `10 (×2)` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 629 | \| 4 \| 误报逐篇归因 \| `poc/kbgovernance/corrupt_docs.csv… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 629 | …vernance/corrupt_docs.csv` → `fp_reason` 覆盖全部 7 篇误报 \| 具备 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 630 | \| 5 \| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 630 | …\| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=7 与明细表误报行数相等；`corrupt.by_cause.maintenance.fp_a… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 630 | …maintenance.fp_attribution` = `control_stale` 6 篇 + `dup_inherited_stale` 1 篇 \| 具备 \| | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 630 | …= `control_stale` 6 篇 + `dup_inherited_stale` 1 篇 \| 具备 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 631 | \| 6 \| 数字溯源审计同步 \| `docs/技术方案/数字溯源审计.md` 第 5 行 受审集合… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 632 | \| 7 \| 耗时值与产物一致 \| `python poc/kbgovernance/sync_ti… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 632 | …poc/kbgovernance/sync_timings.py --check` 退出码 0 \| 具备 \| | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 638 | \| 0 \| **产品形态已拍板**（API 范围 / 数据形态 / 前后端形态 / UI 形态 /… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 638 | …代拍板（结论转 §2.8 H1 ~ H7）；P7 待原型重做后出三套变体由需求方选。**第 3 项的契约可判定性已恢复，第 4、5 项仍依赖实现开工** \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 638 | …~ H7）；P7 待原型重做后出三套变体由需求方选。**第 3 项的契约可判定性已恢复，第 4、5 项仍依赖实现开工** \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 638 | …H7）；P7 待原型重做后出三套变体由需求方选。**第 3 项的契约可判定性已恢复，第 4、5 项仍依赖实现开工** \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 639 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 639 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \|… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 639 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \| 未满足（Iss… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 639 | …逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \| 未满足（Issue #4 仍 OPEN） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 640 | \| 2 \| `ground_truth.json` 带 `control_doc_ids`，两次运… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 640 | …rol_doc_ids` 存在且 `two_run_verify.n_identical`=14 \| 具备 \| | `14` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
-| 641 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 641 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P2 \| `… | `15 (×4)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 641 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P2 \| `system/openap… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 641 | …ma.sql` 空库两次执行后的表清单 \| 草案已落盘，P1/P2 已拍板（15 路径 / 19 操作 / 23 schema / 6 表 / 15 索引 / `user_version`… | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
-| 641 | …空库两次执行后的表清单 \| 草案已落盘，P1/P2 已拍板（15 路径 / 19 操作 / 23 schema / 6 表 / 15 索引 / `user_version`=1），**待定… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
-| 641 | …操作 / 23 schema / 6 表 / 15 索引 / `user_version`=1），**待定稿**——`system/README.md` 仍留 15 条已知歧义待拍板 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 642 | \| 4 \| 前后端各一条命令可起 / 可构建 \| C10、C11、P3 \| 两条命令各自可独立执行… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 643 | \| 5 \| 6 表 + Element Plus 表格渲染实测通过 \| C12、P4 \| 建库写入… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 643 | \| 5 \| 6 表 + Element Plus 表格渲染实测通过 \| C12、P4 \| 建库写入读回通过… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 643 | …先验通过**（`system/prototype/render_check.py` 退出码 0，五个状态整页截图落在 `system/prototype/shots/`），但那是静态讨论… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 644 | \| 6 \| `check_numbers.py` 受检集指标类致命 0 \| N2、N3 \| 门禁退… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 644 | \| 6 \| `check_numbers.py` 受检集指标类致命 0 \| N2、N3 \| 门禁退出码 0，且受检范围有书面口径 \| 具备（当前退出码 0） \| | `0 (×3)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 645 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 645 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物字段 \| 未开始… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
-| 645 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物字段 \| 未开始 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 649 | ## 6. 风险与未知 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 655 | \| 无一手用户研究，角色与流程来源均为推演 \| 假设 \| Issue #3 正文按角色组织功能面，但无用户材料 \| 论文第 3 章的可用性叙述缺证据 \| D8：走查或… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 656 | …方案 §4.4 第 391 行/第 392 行 自标「设计值，尚未实测」 \| W7 门槛第 4 项无法判定 \| C10 \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 660 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 660 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
-| 660 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303… | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
-| 661 | \| 对照集抽样率 4% 属代码常量，命中篇数已落盘、抽样率本身未登记为产物字段 \| 计划值非实测 \| `poc/… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 669 | \| 六表中 4 列在 PoC 产物里零命中：`cluster_result.centroid_sim` /… | `4 (×3)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 669 | …/kbgovernance/` 全部 CSV 与 JSON 对这 4 列名 grep 命中 0；`purity` 依赖真值，`priority` 现恒为 0 \| 这 4 列要么补落盘、要… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 671 | \| 六表 4 列无出处 + 行序映射缺失 + 编码外键，都是「表结构与数据形态未对齐」的表征 \| 未实测… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 677 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行… | `3 (×3)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 678 | \| 实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 678 | …实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
-| 678 | …条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几条 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 678 | …\| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几条 \| | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 679 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 683 | \| 排序参数取值与清单行字段不同名 \| Issue #3 第 201 行的 `ticket_count` / `max_similarity`；CS… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 684 | \| 「逐字节一致」的适用范围 \| 实施方案 §2 第 86 行 与 Issue #3 称 Web 产物与 `run_all.sh` 复跑产物… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 684 | \| 「逐字节一致」的适用范围 \| 实施方案 §2 第 86 行 与 Issue #3 称 Web 产物与 `run_all.sh` 复跑产物逐字节一致；但 `metrics.j… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 684 | …md5 ≠ 剔除计时字段后的 md5 \| 已在 `system/README.md` 第 8 条分档写明：三个清单 CSV 逐字节、`metrics.json` 剔除计时字段后一致 \|… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
-| 687 | …`；原型层已实测：界面藏住的真值下载一次就落到用户硬盘 \| 界面层未泄露（DOM 全量扫描 0 泄漏），破口只在下载通道 \| **已定（2026-10-24）**：保留全量列 + 下载区… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 687 | …全量列 + 下载区明示「含评测标注列，仅用于论文溯源与复现」；不裁剪（裁剪会违反实施方案 §2「直接下载已产出的 CSV」与 Issue #3 断言第 10 条「逐字节一致」） \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 687 | …溯源与复现」；不裁剪（裁剪会违反实施方案 §2「直接下载已产出的 CSV」与 Issue #3 断言第 10 条「逐字节一致」） \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 687 | …；不裁剪（裁剪会违反实施方案 §2「直接下载已产出的 CSV」与 Issue #3 断言第 10 条「逐字节一致」） \| | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 689 | …`PRAGMA foreign_keys` 只对执行它的那个连接生效；实测新建连接默认为 `0` \| 已在 `system/README.md` 第 9 条写明「每个连接都要设」 \| 实… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
-| 689 | …个连接生效；实测新建连接默认为 `0` \| 已在 `system/README.md` 第 9 条写明「每个连接都要设」 \| 实现须知，无需拍板 \| | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
-| 691 | …`detect.py` 第 117 行 至第 125 行 的 P/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
-| 691 | …` 第 117 行 至第 125 行 的 P/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面 0.800 \| 契… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
-| 691 | …/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面 0.800 \| 契约的三个 `count` 字段已标「统计单元… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 691 | …1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面 0.800 \| 契约的三个 `count` 字段已标「统计单元 = 缺口簇 /… | `0.8571` | `standardize/results_banking77_en.csv:F1[row=13][0]` | `0.8571` |
-| 691 | …个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面 0.800 \| 契约的三个 `count` 字段已标「统计单元 = 缺口簇 / 腐化文档 / 重复组」… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
-| 691 | …stem/openapi.yaml` + `system/README.md` 已知歧义第 14 条） \| | `14` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
-| 692 | …三检测全程（不含向量化）；`dup.best.seconds` 只包住阈值分组循环，不含 300×300 余弦矩阵（`detect.py:361-364` 只 print 不落盘） \| 契… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
+| 151 | …nance/README.md` §七，`system/README.md` §实现须知第 10 条同步指向该约定。 | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 160 | - **已完成**：`detect.py --no-gt` 走通全链路（固定阈值 0.62 / 3 / 0.95，不按真值择优）。**修掉了一处会编造指标的缺陷**：原实现在无真值时… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 160 | …**已完成**：`detect.py --no-gt` 走通全链路（固定阈值 0.62 / 3 / 0.95，不按真值择优）。**修掉了一处会编造指标的缺陷**：原实现在无真值时仍套公式… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 160 | …成**：`detect.py --no-gt` 走通全链路（固定阈值 0.62 / 3 / 0.95，不按真值择优）。**修掉了一处会编造指标的缺陷**：原实现在无真值时仍套公式计算，等于把「… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
+| 160 | …ed_docs`、缺口与重复的 P/R/F1 全部为 `null`（含义是「不可得」，不是 0）；`corrupt_docs.csv` 的 `in_control_sample` 列留空… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 161 | …：`python poc/kbgovernance/check_no_gt.py` 退出码 0，7 项断言全过（流程跑通 / `has_ground_truth=false` / 真值侧… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 161 | …python poc/kbgovernance/check_no_gt.py` 退出码 0，7 项断言全过（流程跑通 / `has_ground_truth=false` / 真值侧计数… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 167 | …主清单 = `poc/kbgovernance/gap_intents_best.csv`（5 行）**，簇级明细降为 `poc/kbgovernance/gap_clusters_be… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 167 | …明细降为 `poc/kbgovernance/gap_clusters_best.csv`（95 行，溯源用）。原 `top15_gaps.csv` 已删除。 | `95` | `metrics.json:gap.clusters.5.n_clusters` | `95` |
+| 168 | - **依据**：实施方案 §2 第 80 行（`metrics.json` 的 `gap.best` 为 threshol… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 168 | …80 行（`metrics.json` 的 `gap.best` 为 threshold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/k… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 168 | …的 `gap.best` 为 threshold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/kbgovernance/gap_i… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 168 | …hold=0.62、`gap_clusters`=7、`detected_intents`=5）；`poc/kbgovernance/gap_intents_best.csv`；`poc… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 169 | …单页行数 = `metrics.json` → `gap.n_gap_intents` = 5，与主指标同源可对账；页面明示「本轮展示 5 个业务意图，涉及 7 个意图簇」。**已通过*… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 169 | …p_intents` = 5，与主指标同源可对账；页面明示「本轮展示 5 个业务意图，涉及 7 个意图簇」。**已通过**：原型 `acceptance_check.py` 25 条全过… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 169 | …图，涉及 7 个意图簇」。**已通过**：原型 `acceptance_check.py` 25 条全过、`check_prototype.py` 逐行对账通过。 | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 175 | …_group`；`poc/kbgovernance/corrupt_docs.csv` 为 300 行全量表（含归因列）。 | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 178 | …测标注列，仅用于论文溯源与复现」，不得静默下载。** 不采用裁剪视图：裁剪会违反实施方案 §2「直接下载 poc/kbgovernance/ 已产出的 CSV」与 Issue #3 断言… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 178 | …案 §2「直接下载 poc/kbgovernance/ 已产出的 CSV」与 Issue #3 断言第 10 条「下载的 CSV 与源文件逐字节一致」，并让这条可机读验收信号失效。落地位… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 178 | …接下载 poc/kbgovernance/ 已产出的 CSV」与 Issue #3 断言第 10 条「下载的 CSV 与源文件逐字节一致」，并让这条可机读验收信号失效。落地位置：`syst… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 178 | …downloads/{name}` 描述、`system/README.md` 已知歧义第 13 条、§2.8 H6 的验收信号第 1 条。 | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
+| 178 | …、`system/README.md` 已知歧义第 13 条、§2.8 H6 的验收信号第 1 条。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 194 | - **依据**：UX 评审必做项；Issue #3 正文 第 199 行（错误响应体结构统一）。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 203 | …`npm install --save-exact vue element-plus` → 44 包 19 秒；`npm install --save-exact -D vite @vit… | `44` | `gap_clusters_best.csv:cluster_id[row=77][0]` | `44` |
+| 203 | …install --save-exact vue element-plus` → 44 包 19 秒；`npm install --save-exact -D vite @vitejs/p… | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
+| 203 | …ll --save-exact -D vite @vitejs/plugin-vue` → 37 包 8 秒；两次退出码 0、无 WARN。 | `37` | `metrics.json:corrupt.score_hist.3` | `37` |
+| 203 | …save-exact -D vite @vitejs/plugin-vue` → 37 包 8 秒；两次退出码 0、无 WARN。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 203 | …-D vite @vitejs/plugin-vue` → 37 包 8 秒；两次退出码 0、无 WARN。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 204 | - `npm run build` → 退出码 0，vite 8.3.5 构建成功（模块数、构建耗时与产物体积随本机与依赖版本变动，逐条原始输… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 205 | - `npm ci` 从 lock 重装 81 包 18 秒后重建，产物与重截图字节一致。 | `81` | `gap_clusters_best.csv:cluster_id[row=35][0]` | `81` |
+| 205 | - `npm ci` 从 lock 重装 81 包 18 秒后重建，产物与重截图字节一致。 | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
+| 206 | …- 依赖版本已锁进 `package-lock.json`（lockfileVersion 3，81 条）：vue 3.5.44、element-plus 2.14.7、vite 8.3… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 206 | …依赖版本已锁进 `package-lock.json`（lockfileVersion 3，81 条）：vue 3.5.44、element-plus 2.14.7、vite 8.3.5、… | `81` | `gap_clusters_best.csv:cluster_id[row=35][0]` | `81` |
+| 207 | - `el-table` 渲染实测：表头「业务意图 / 簇数 / 意图覆盖度」，5 行数据与 `poc/kbgovernance/gap_intents_best.csv`… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 207 | …本 `system/frontend-smoke/render_smoke.py` 退出码 0。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 210 | 1. `poc/kbgovernance/*.csv` 带 UTF-8 BOM（`gen_da… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 211 | 2. Windows 上重装前端依赖前必须先停掉 vite/node 进程：被占用的原生绑定会… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 218 | - **依据**：实施方案 §6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 218 | …6 第 205 行（W7：FastAPI 项目骨架 + `run_all.sh` 接入）、§3（报告生成已砍，不新增导出链路）；`poc/kbgovernance/run_all.sh`… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 222 | - **当前缺口**：后端实现尚未开工（实施排在 W7–W9，见 §3 可延后清单），现在写启动脚本只能是空壳，因此本项在准备阶段**只定形态、不落脚本**。脚本… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 227 | …于 2026-10-25 实测并改写，第 406 行 SQLite 仍未实测）；实施方案 §6 第 205 行（W7 上传与扫描）。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 228 | - **验收信号**：6 张表可写入并读回；三类清单表格有渲染截图或录屏留痕；渲染行为不依赖真值列。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 229 | …，截图 `system/frontend-smoke/smoke.png`，断言脚本退出码 0，渲染行为不依赖真值列（正文不含 `is_true_gap` / NaN / undefin… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 230 | - **未做的子项**：**6 张表尚未建库写入并读回**（SQLite 仍完全没碰，技术方案 §4.4 第 406 行仍… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 238 | …**依据**：`poc/kbgovernance/derived_metrics.csv`（5 列：`derived_key` / `value` / `formula` / `inpu… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 238 | …alue` / `formula` / `inputs` / `source_files`；52 条登记行）；`docs/技术方案/数字溯源审计.md` §1（正文无出处条目）。 | `52` | `gap_clusters_best.csv:cluster_id[row=87][0]` | `52` |
+| 238 | …source_files`；52 条登记行）；`docs/技术方案/数字溯源审计.md` §1（正文无出处条目）。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 246 | …md` 第 5 行至第 6 行（受审集合只含机读产物，叙述性文本不是数据源）；Issue #18。 | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
+| 247 | - **验收信号**：门禁退出码为 0，且受检集合清单有书面口径。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 266 | #### E1 论文第 1、2 章初稿 —— 未完成 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 266 | #### E1 论文第 1、2 章初稿 —— 未完成 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 268 | - **事项**：把第 1 章绪论与第 2 章相关技术写出来，形成可读初稿。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 268 | - **事项**：把第 1 章绪论与第 2 章相关技术写出来，形成可读初稿。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 269 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 269 | - **依据**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 269 | …：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 269 | …交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）；W7 开工门槛第 7 项。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 272 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 272 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 272 | - **当前缺口**：论文第 1、2 章草稿 0 章。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 277 | - **依据**：`docs/技术方案/数字溯源审计.md` §4（未被引用的产物清单）；实施方案 §7（唯一数字来源）。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 277 | …据**：`docs/技术方案/数字溯源审计.md` §4（未被引用的产物清单）；实施方案 §7（唯一数字来源）。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 284 | - **依据**：Issue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 284 | …sue #3 正文 第 420 行（部署到答辩环境后人工核验 3 个界面截图）；实施方案 §8（时间风险）；UX 评审必做项。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 290 | #### F1 8 份图稿口径 —— 已完成 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 293 | - **依据**：实施方案 §5 第 168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 293 | …168 行（图稿与数据源白名单）；`poc/kbgovernance/figures/` 8 份图稿。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 296 | - **证据**：`poc/kbgovernance/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数… | `01` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 296 | …据**：`poc/kbgovernance/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、… | `08` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 296 | …nce/figures/01-系统架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 296 | …架构图.md` ~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时呈现）。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 296 | …~ `08-ASCII演示图.md` 共 8 份，已按现行口径改写（数据表 6 张、向量 512 维、段落级与整篇级指标并列、反向点同时呈现）。 | `512` | `metrics.json:embedding.dim` | `512` |
+| 297 | - **限定**：本项只修**数值与结构口径**，不动**产品与 UI 形态**。其中 `01-系统架构图.md` 画的是「Vue 3 + Element Plus 独立前端 + Fas… | `01` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 297 | …口径**，不动**产品与 UI 形态**。其中 `01-系统架构图.md` 画的是「Vue 3 + Element Plus 独立前端 + FastAPI 单进程」的四层架构，`08-A… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 297 | …ue 3 + Element Plus 独立前端 + FastAPI 单进程」的四层架构，`08-ASCII演示图.md` 画的是三个功能面的页面草图——这两处隐含了 P3（前后端是否分离… | `08` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 301 | - **事项**：按 §5 白名单复核 11 项图表的数据源文件是否都存在、字段是否对得上。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 301 | - **事项**：按 §5 白名单复核 11 项图表的数据源文件是否都存在、字段是否对得上。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 302 | - **依据**：实施方案 §5 第 170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 302 | …170 行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 302 | …行至第 171 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 302 | …71 行（数据源白名单与逐项核对要求）、第 187 行（裁剪后图表总数 8 图 3 表 = 11 项）。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 303 | - **验收信号**：11 项图表各有可解析的数据源路径，且脚本可从对应产物重新生成。 | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 311 | - **依据**：实施方案 §2 第 86 行（三个功能面）；§4.11 的 P4 / P6 / P7 三项待拍板决策。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 314 | …thon system/prototype/check_prototype.py` 退出码 0（逐条核对 data.js 的每个取值与产物一致，且未出现 `is_true_gap` /… | `0 (×3)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 314 | …ype/acceptance_check.py` 退出码 0（§2.8 H1 ~ H7 的 25 项验收信号逐条成立）。 | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 328 | - **事项**：把规格书附录 C 列出的 8 项交互待定项逐项定下来。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 330 | - **验收信号**：8 项各有明确结论，并同步回 `system/openapi.yaml` 的字段说明与 `sy… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 332 | - **当前状态**：三份独立评审已出（交互规范 20 条、操作效率 24 条、可用性与对比度 48 项），互不参考、各自独立走查；结论转入 §2… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 332 | - **当前状态**：三份独立评审已出（交互规范 20 条、操作效率 24 条、可用性与对比度 48 项），互不参考、各自独立走查；结论转入 §2.8 整改项，H1… | `24` | `metrics.json:gap.threshold_rows[8].detected_intents` | `24` |
+| 332 | …**当前状态**：三份独立评审已出（交互规范 20 条、操作效率 24 条、可用性与对比度 48 项），互不参考、各自独立走查；结论转入 §2.8 整改项，H1 ~ H7 已全部整改并由… | `48` | `metrics.json:gap.intent_rows[12].total_tickets` | `48` |
+| 336 | …er 独立走查原型（互不参考），分别按交互规范、操作效率、可用性与对比度三个视角出报告，共 20 + 24 + 48 项发现。评审报告是临时记录，任务结束前删除；结论固化在本节 H1 ~… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 336 | …走查原型（互不参考），分别按交互规范、操作效率、可用性与对比度三个视角出报告，共 20 + 24 + 48 项发现。评审报告是临时记录，任务结束前删除；结论固化在本节 H1 ~ H7，每条… | `24` | `metrics.json:gap.threshold_rows[8].detected_intents` | `24` |
+| 336 | …互不参考），分别按交互规范、操作效率、可用性与对比度三个视角出报告，共 20 + 24 + 48 项发现。评审报告是临时记录，任务结束前删除；结论固化在本节 H1 ~ H7，每条都带可复核… | `48` | `metrics.json:gap.intent_rows[12].total_tickets` | `48` |
+| 338 | …本 `system/prototype/acceptance_check.py` 逐条核验（25 项验收信号，退出码 0 即全部成立）。该脚本不是一次性核验：这些信号是原型的长期约束，只靠… | `25` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 338 | …totype/acceptance_check.py` 逐条核验（25 项验收信号，退出码 0 即全部成立）。该脚本不是一次性核验：这些信号是原型的长期约束，只靠一次人工核验挡不住后续改… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 343 | - **依据**：交互规范 A1（阻塞）；操作效率 #1（阻断）。实测：DOM 内 `input[type=file]` 数量为 0，点击未触发文件… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 343 | …）；操作效率 #1（阻断）。实测：DOM 内 `input[type=file]` 数量为 0，点击未触发文件选择器，`Enter` / `Space` 无反馈，页面文本长度不变；元素却… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 352 | - **依据**：操作效率 #2（阻断）、#9（高）、#18（中）；可用性 M4。实测：上传页主 CTA 在 `y=2036… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 352 | - **依据**：操作效率 #2（阻断）、#9（高）、#18（中）；可用性 M4。实测：上传页主 CTA 在 `y=2036`、页面 `s… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
+| 352 | - **依据**：操作效率 #2（阻断）、#9（高）、#18（中）；可用性 M4。实测：上传页主 CTA 在 `y=2036`、页面 `scrollHe… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
+| 352 | …按钮分别在 `y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `innerText` 为空且无 `title` / `aria-… | `68` | `metrics.json:gap.intent_rows[11].total_tickets` | `68` |
+| 352 | …y=1258/1335`，也在首屏外；1024–1439px 区间侧栏折叠为 68px 宽，3 个导航按钮 `innerText` 为空且无 `title` / `aria-label`… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 359 | - **事项**：同一屏内「无命中」文案与「命中 69 篇文档 / 维护周期口径 F1 0.8986」并存；未扫描时仍显示 7/69/22 徽标且… | `69 (×2)` | `metrics.json:corrupt.detected` | `69` |
+| 359 | - **事项**：同一屏内「无命中」文案与「命中 69 篇文档 / 维护周期口径 F1 0.8986」并存；未扫描时仍显示 7/69/22 徽标且可点开旧表；加载态是纯白无字；错误态唯一恢复动… | `0.8986` | `metrics.json:corrupt.by_cause.maintenance.f1` | `0.8986` |
+| 359 | …中」文案与「命中 69 篇文档 / 维护周期口径 F1 0.8986」并存；未扫描时仍显示 7/69/22 徽标且可点开旧表；加载态是纯白无字；错误态唯一恢复动作是破坏性全量重扫。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 359 | …「命中 69 篇文档 / 维护周期口径 F1 0.8986」并存；未扫描时仍显示 7/69/22 徽标且可点开旧表；加载态是纯白无字；错误态唯一恢复动作是破坏性全量重扫。 | `22` | `metrics.json:dup.embedded_groups` | `22` |
+| 360 | - **依据**：交互规范 A6 / A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 360 | …**依据**：交互规范 A6 / A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 360 | …**：交互规范 A6 / A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 360 | …规范 A6 / A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 360 | …/ A7 / A8（中）、A2（高）；操作效率 #3 / #4 / #5 / #6 / #7（高）；可用性 M4。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 364 | …时显示真数；其余状态按 design-taste-frontend 的「数据状态诚实」规则（0 打印 0，缺失打印灰破折号）。 | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 368 | - **事项**：导航激活态与辅助文字对比度不足；11px 小字；数字未右对齐；可访问名与可见文案不一致；`role="tab"` 无 ARIA… | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 370 | - **验收信号**：正文与辅助文字对比度 ≥ 4.5:1；最小字号 ≥ 12px；数字列右对齐且启用 `tabular-nums`；切页后焦点落在新… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 370 | - **验收信号**：正文与辅助文字对比度 ≥ 4.5:1；最小字号 ≥ 12px；数字列右对齐且启用 `tabular-nums`；切页后焦点落在新页 `h1`；`Ta… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 371 | …（读屏会念出新页标题）；数值单元格右对齐并启用 `tabular-nums`；最小字号 ≥ 12px（内联 `code` 由 `0.92em` 改为 `max(12px, 0.92em)`… | `12 (×2)` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 371 | …对齐并启用 `tabular-nums`；最小字号 ≥ 12px（内联 `code` 由 `0.92em` 改为 `max(12px, 0.92em)`）；`role=tab` 支持方向键与… | `0.92 (×2)` | `granularity.csv:auc_intent_median[row=7][0]` | `0.92` |
+| 371 | …开第 N 行：…` / `收起第 N 行：…`）；导航激活态与辅助文字对比度已提到 4.5:1 以上。`acceptance_check.py` 的 H4 八项通过。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 379 | - **验收信号**：缺口页声明「本次仅显示 15 个意图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 379 | - **验收信号**：缺口页声明「本次仅显示 15 个意图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级 F1 0.7037… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 379 | - **验收信号**：缺口页声明「本次仅显示 15 个意图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级 F1 0.7037 的对比并标注后者为真实预期基线… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
+| 379 | …明「本次仅显示 15 个意图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级 F1 0.7037 的对比并标注后者为真实预期基线；风险分档改为「规则命中组合」… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 379 | …图簇中的 7 个」；重复页同时给出 0.95 阈值组级 F1 与 0.90 阈值组级 F1 0.7037 的对比并标注后者为真实预期基线；风险分档改为「规则命中组合」表述（风险分档位无产物出处）；… | `0.7037` | `metrics.json:dup.rows[1].group_f1` | `0.7037` |
+| 380 | - **整改结果**：已落地。缺口页声明「15 个意图簇中的 7 个」；「距阈值差值」在列头上标为页面派生值；风险分改为「规则命中组合」表… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 380 | - **整改结果**：已落地。缺口页声明「15 个意图簇中的 7 个」；「距阈值差值」在列头上标为页面派生值；风险分改为「规则命中组合」表述；重复页同时给出… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 380 | …个」；「距阈值差值」在列头上标为页面派生值；风险分改为「规则命中组合」表述；重复页同时给出 0.95 与 0.90 两档阈值对比并注明后者更接近真实预期基线；单位统一为篇 / 条 / 簇 /… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
+| 380 | …差值」在列头上标为页面派生值；风险分改为「规则命中组合」表述；重复页同时给出 0.95 与 0.90 两档阈值对比并注明后者更接近真实预期基线；单位统一为篇 / 条 / 簇 / 组。界面不透出… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 386 | - **事项**：第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、… | `26` | `metrics.json:gap.threshold_rows[4].detected_intents` | `26` |
+| 386 | - **事项**：第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、缺口 P/R/F1… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 386 | - **事项**：第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、缺口 P/R/F1 的统计单元… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
+| 386 | …**事项**：第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、缺口 P/R/F1 的统计单元从未声明、溯源… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 386 | …第三份评审（数据呈现与信任度视角）26 条发现（阻塞 2 / 高 9 / 中 12 / 低 3）里的六条硬伤：下载通道泄露真值列、缺口 P/R/F1 的统计单元从未声明、溯源指针指向不存… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 390 | 2. **统计单元未声明**（阻塞）：缺口 P/R/F1 的分母是去重后的 5 个业务意图（`detect.py:117-125`），却与簇级「命中数 7」并排成一行；读… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 390 | …分母是去重后的 5 个业务意图（`detect.py:117-125`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与页面 0.800 对不上。 | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 390 | …etect.py:117-125`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与页面 0.800 对不上。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 390 | …t.py:117-125`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与页面 0.800 对不上。 | `0.8571` | `standardize/results_banking77_en.csv:F1[row=13][0]` | `0.8571` |
+| 390 | …5`），却与簇级「命中数 7」并排成一行；读者按簇级复算会得 6/7=0.8571，与页面 0.800 对不上。 | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
+| 392 | …只有三张口径表带「产物键」列；总览表的 P/R/F1 与命中数、命中规模表、腐化评测统计表（15 个数）、清单页 15 个指标格全无出处标记（实测扫描页 `<code>` 唯一键仅 16… | `15 (×2)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 392 | …（15 个数）、清单页 15 个指标格全无出处标记（实测扫描页 `<code>` 唯一键仅 16 个）。 | `16` | `metrics.json:gap.threshold_rows[7].detected_intents` | `16` |
+| 393 | 5. **反向点缺席**（高）：阈值 0.62 在 `gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 393 | …点缺席**（高）：阈值 0.62 在 `gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏… | `0.60` | `metrics.json:gap.threshold_rows[3].threshold` | `0.6` |
+| 393 | …：阈值 0.62 在 `gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出… | `0.5714` | `metrics.json:gap.threshold_rows[3].f1` | `0.5714` |
+| 393 | …2 在 `gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」… | `0.64` | `metrics.json:gap.threshold_rows[6].threshold` | `0.64` |
+| 393 | …gap_threshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」（cover… | `0.6667` | `metrics.json:gap.threshold_rows[6].f1` | `0.6667` |
+| 393 | …eshold.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」（cover 0.634… | `0.66` | `metrics.json:gap.threshold_rows[7].threshold` | `0.66` |
+| 393 | …d.csv` 里是孤立尖峰（0.60→F1 0.5714、0.64→0.6667、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」（cover 0.6342）与混进的误… | `0.4762` | `metrics.json:gap.threshold_rows[7].f1` | `0.4762` |
+| 393 | …、0.66→0.4762），界面零敏感性呈现；漏报的真意图「数据导出权限申请」（cover 0.6342）与混进的误报簇「终端病毒处置」（0.6179）也未披露，与 ADR-0002 第 4 条冲… | `0.6342` | `metrics.json:gap.intent_rows[7].min_cover_median` | `0.6342` |
+| 393 | …漏报的真意图「数据导出权限申请」（cover 0.6342）与混进的误报簇「终端病毒处置」（0.6179）也未披露，与 ADR-0002 第 4 条冲突。 | `0.6179` | `metrics.json:gap.intent_rows[4].min_cover_median` | `0.6179` |
+| 393 | …6342）与混进的误报簇「终端病毒处置」（0.6179）也未披露，与 ADR-0002 第 4 条冲突。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 394 | …SV + 聚类 + 三检测全程（只不含向量化），且页面分项无法复算出该合计；「重复冗余检测 0.0 秒」只包住阈值分组循环（`detect.py` 第 373–375 行），不含 300×3… | `0.0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 394 | …测 0.0 秒」只包住阈值分组循环（`detect.py` 第 373–375 行），不含 300×300 余弦矩阵（`detect.py` 第 361–364 行 只 print 不落盘）… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
+| 396 | …，仅用于论文溯源与复现」，不裁剪视图。理由：`docs/技术方案/本科版实施方案.md` §2「M-系统·Web 交付」要求「直接下载 poc/kbgovernance/ 已产出的 CS… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 396 | …交付」要求「直接下载 poc/kbgovernance/ 已产出的 CSV」，Issue #3 断言清单第 10 条要求「下载的 CSV 与源文件逐字节一致」——裁剪会同时违反这两条，并… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 396 | …下载 poc/kbgovernance/ 已产出的 CSV」，Issue #3 断言清单第 10 条要求「下载的 CSV 与源文件逐字节一致」——裁剪会同时违反这两条，并让「逐字节一致」这… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 396 | …ownloads/{name}` 描述与 `system/README.md` 已知歧义第 13 条。 | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
+| 397 | - 缺口页写成「7 缺口簇 / 5 个业务意图」，P/R/F1 加「（意图级）」后缀；三类清单的 count… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 397 | - 缺口页写成「7 缺口簇 / 5 个业务意图」，P/R/F1 加「（意图级）」后缀；三类清单的 count 单位统一显式标注… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 399 | - 每个指标格都能指到「文件 + 列」；扫描页 `<code>` 唯一键从 16 个补到覆盖全部主指标。 | `16` | `metrics.json:gap.threshold_rows[7].detected_intents` | `16` |
+| 400 | - 缺口页补阈值敏感性（0.60 / 0.62 / 0.64 / 0.66 四档 F1）与反向点披露。 | `0.60` | `metrics.json:gap.threshold_rows[3].threshold` | `0.6` |
+| 400 | - 缺口页补阈值敏感性（0.60 / 0.62 / 0.64 / 0.66 四档 F1）与反向点披露。 | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 400 | - 缺口页补阈值敏感性（0.60 / 0.62 / 0.64 / 0.66 四档 F1）与反向点披露。 | `0.64` | `metrics.json:gap.threshold_rows[6].threshold` | `0.64` |
+| 400 | - 缺口页补阈值敏感性（0.60 / 0.62 / 0.64 / 0.66 四档 F1）与反向点披露。 | `0.66` | `metrics.json:gap.threshold_rows[7].threshold` | `0.66` |
+| 402 | …nce/…`；下载区明示「下载的是含评测标注列的原始产物，仅用于论文溯源与复现」；缺口页补 0.60 / 0.62 / 0.64 / 0.66 四档阈值敏感性对比与反向点披露；耗时按 `det… | `0.60` | `metrics.json:gap.threshold_rows[3].threshold` | `0.6` |
+| 402 | …下载区明示「下载的是含评测标注列的原始产物，仅用于论文溯源与复现」；缺口页补 0.60 / 0.62 / 0.64 / 0.66 四档阈值敏感性对比与反向点披露；耗时按 `detect.py`… | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 402 | …载的是含评测标注列的原始产物，仅用于论文溯源与复现」；缺口页补 0.60 / 0.62 / 0.64 / 0.66 四档阈值敏感性对比与反向点披露；耗时按 `detect.py` 的实际计时范… | `0.64` | `metrics.json:gap.threshold_rows[6].threshold` | `0.64` |
+| 402 | …注列的原始产物，仅用于论文溯源与复现」；缺口页补 0.60 / 0.62 / 0.64 / 0.66 四档阈值敏感性对比与反向点披露；耗时按 `detect.py` 的实际计时范围表述，产物没… | `0.66` | `metrics.json:gap.threshold_rows[7].threshold` | `0.66` |
+| 404 | - **通过项（同轮核对成立，不必重复查）**：真值列在 DOM 全量扫描 0 泄漏；F1=1.0000 乐观值提醒 4 处都在；三类统计单元不可横比的提示在位；无评测基… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 404 | - **通过项（同轮核对成立，不必重复查）**：真值列在 DOM 全量扫描 0 泄漏；F1=1.0000 乐观值提醒 4 处都在；三类统计单元不可横比的提示在位；无评测基线显示「—」且明写不补数；… | `1.0000` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 404 | …立，不必重复查）**：真值列在 DOM 全量扫描 0 泄漏；F1=1.0000 乐观值提醒 4 处都在；三类统计单元不可横比的提示在位；无评测基线显示「—」且明写不补数；缺失耗时用「—」… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 404 | …示在位；无评测基线显示「—」且明写不补数；缺失耗时用「—」+「未落盘」而非填 0；需求阈值 60 秒 / 2 秒已标「非实测」；覆盖度百分比与原始值并列并有刻度线标阈值；风险分与规则组合一… | `60` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
+| 404 | …基线显示「—」且明写不补数；缺失耗时用「—」+「未落盘」而非填 0；需求阈值 60 秒 / 2 秒已标「非实测」；覆盖度百分比与原始值并列并有刻度线标阈值；风险分与规则组合一一对应且不以… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 404 | …与规则组合一一对应且不以颜色为唯一编码；主文档选举只给定性表述；腐化 Tab 主动交代「共 69 / 已加载 12 / 代表行」；重复清单 22 行与产物逐行一致且下载 = 展示。 | `69` | `metrics.json:corrupt.detected` | `69` |
+| 404 | …且不以颜色为唯一编码；主文档选举只给定性表述；腐化 Tab 主动交代「共 69 / 已加载 12 / 代表行」；重复清单 22 行与产物逐行一致且下载 = 展示。 | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 404 | …举只给定性表述；腐化 Tab 主动交代「共 69 / 已加载 12 / 代表行」；重复清单 22 行与产物逐行一致且下载 = 展示。 | `22` | `metrics.json:dup.embedded_groups` | `22` |
+| 409 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 409 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
+| 409 | - **依据**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载… | `35` | `gap_clusters_best.csv:cluster_id[row=29][0]` | `35` |
+| 409 | …**：同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 409 | …同轮评审。腐化页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 ran… | `32` | `metrics.json:dup.rows[1].dup_groups` | `32` |
+| 409 | …页展示 12 行（CSV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的… | `69` | `metrics.json:corrupt.detected` | `69` |
+| 409 | …SV 第 1–9 行 + 第 33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0… | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 409 | …33–35 行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0.6398 均未命中。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 409 | …行，跳过 10–32），命中 69 篇，下载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0.6398 均未命中。 | `15 (×2)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 409 | …载却是 300 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0.6398 均未命中。 | `0.624` | `gap_clusters_best.csv:cover_median[row=8][0]` | `0.624` |
+| 409 | …0 行全量；缺口页展示 7 行，下载 15 行，且 rank8–15 的覆盖度 0.624–0.6398 均未命中。 | `0.6398` | `metrics.json:gap.intent_rows[9].min_cover_median` | `0.6398` |
+| 411 | - **整改结果**：已落地。腐化页交代「判定总数 69 篇 / 本页展示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15… | `69` | `metrics.json:corrupt.detected` | `69` |
+| 411 | - **整改结果**：已落地。腐化页交代「判定总数 69 篇 / 本页展示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 411 | …整改结果**：已落地。腐化页交代「判定总数 69 篇 / 本页展示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」与「阈值附近未入选的… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 411 | …69 篇 / 本页展示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」与「阈值附近未入选的 8 个业务意图」副表；下载区写明下载的是全量产… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 411 | …示 12 篇代表行 / 按 4 种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」与「阈值附近未入选的 8 个业务意图」副表；下载区写明下载的是全量产物、页面不展示评测… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 411 | …种规则命中组合各取代表行」；缺口页交代「15 个意图簇中的 7 个」与「阈值附近未入选的 8 个业务意图」副表；下载区写明下载的是全量产物、页面不展示评测标注列。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 421 | …check.json` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
+| 421 | …ck.json` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25+08… | `52` | `gap_clusters_best.csv:cluster_id[row=87][0]` | `52` |
+| 421 | …json` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25+08:00… | `08 (×2)` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 421 | …n` 的 `generated_at` 为 `2026-10-25T13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25+08:00`，两… | `00 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 421 | …13:23:52+08:00`，`data.js` 记录的为 `2026-10-25T12:25:25+08:00`，两者内容指纹相同（`byte_deterministic` 的 md5… | `25 (×2)` | `corrupt_docs.csv:title[row=8][0]` | `25` |
+| 423 | …repro_check.json` 的字节确定产物 md5 集合排序后取 sha256 前 16 位）；`check_prototype.py` 改为比对指纹。判定依据是内容而非时间。 | `16` | `metrics.json:gap.threshold_rows[7].detected_intents` | `16` |
+| 428 | - **依据**：本轮静态核查发现 `copy.js` 里有 7 个死键（`app.source` / `app.foot` / `lists.calib.… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 430 | - **整改结果**：已落地。7 个死键从 `copy.js` 三变体删除（共 21 行），显示文本只以 HTML 为准；`… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 430 | - **整改结果**：已落地。7 个死键从 `copy.js` 三变体删除（共 21 行），显示文本只以 HTML 为准；`check_prototype.py` 新增文案键覆… | `21` | `dup_groups_best.csv:group[row=21][0]` | `21` |
+| 430 | …用键全覆盖）。已做反向验证：向 `index.html` 注入一个不存在的键后校验以退出码 1 报出该键，还原后退出码 0。 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 430 | …向 `index.html` 注入一个不存在的键后校验以退出码 1 报出该键，还原后退出码 0。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 437 | …`demo.state.scan.*` / `demo.state.lists.*`，共 15 键 × 3 变体），四个 HTML 的 21 处引用同步改键。 | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 437 | …state.scan.*` / `demo.state.lists.*`，共 15 键 × 3 变体），四个 HTML 的 21 处引用同步改键。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 437 | …`demo.state.lists.*`，共 15 键 × 3 变体），四个 HTML 的 21 处引用同步改键。 | `21` | `dup_groups_best.csv:group[row=21][0]` | `21` |
+| 441 | - **事项**：缺口页的「阈值附近未入选的业务意图」副表原按 88 个簇逐行列出，页面被拉到接近渲染校验的视口上限。 | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 442 | …p_near_miss` = `gap_clusters_best.csv` 中覆盖度 ≥ 0.62 的行，实测 88 行。 | `0.62` | `metrics.json:gap.best.threshold` | `0.62` |
+| 442 | …` = `gap_clusters_best.csv` 中覆盖度 ≥ 0.62 的行，实测 88 行。 | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 443 | - **验收信号**：副表不超过 10 行且标明候选总数。 | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 444 | - **整改结果**：已落地。`data.js` 只留覆盖度最接近阈值的 10 个簇，新增 `gap_near_miss_total` = 88 记录候选总数；`copy… | `10 (×2)` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 444 | …只留覆盖度最接近阈值的 10 个簇，新增 `gap_near_miss_total` = 88 记录候选总数；`copy.js` 的说明文案带 `{near_miss_total}` 占… | `88` | `metrics.json:gap.clusters.10.n_clusters` | `88` |
+| 449 | …用正则把含子节点的元素也当叶子比，结论不成立，已修正）。叶子键 184 个、含子节点的死键 7 个。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 458 | - **依据**：实施方案 §2 第 79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 458 | …**依据**：实施方案 §2 第 79 行（抽检文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 458 | …文档与工单内容合理性 + 三类缺陷清单各抽 20 条）、§7.3（标注预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标… | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 458 | …预算 290 条取整 300）、§7.4 第 303 行（Kappa 计算）；Issue #5 正文第 64 行（第二标注者为外部依赖）。2026-10-25 的口径更正连带改动了标注对… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 458 | …。2026-10-25 的口径更正连带改动了标注对象：缺口类从簇级 Top-15 改为全部 30 个业务意图，腐化类从单标签改为双标签。 | `30` | `metrics.json:gap.threshold_rows[9].detected_intents` | `30` |
+| 461 | …tation_rules.md`（321 行）：五类判定标准、盲化要求、评分口径、已知限制 6 条（含循环论证、7 篇误报归因、判据公开导致人工判定与系统趋同、一致率表述待定）。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 461 | …es.md`（321 行）：五类判定标准、盲化要求、评分口径、已知限制 6 条（含循环论证、7 篇误报归因、判据公开导致人工判定与系统趋同、一致率表述待定）。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 463 | - `worklist_A.csv`（300 条）/ `worklist_B.csv`（100 条，B 是 A 的子集，重叠 100 条… | `300` | `metrics.json:embedding.n_docs` | `300` |
+| 464 | - 缺口清单 30 条 = 30 个业务意图全量；腐化清单 20 条采用双标签（内容过期 / 维护状态各一问，… | `30 (×2)` | `metrics.json:gap.threshold_rows[9].detected_intents` | `30` |
+| 464 | - 缺口清单 30 条 = 30 个业务意图全量；腐化清单 20 条采用双标签（内容过期 / 维护状态各一问，互不影响）并已盲化——材料只给文档编号、标题、… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 470 | ## 3. 可延后清单 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 474 | \| CI 六 job 全量落地 \| 实施方案 §6 第 207 行（W9 复跑）；仓库当前无 CI 流水线，`AGENTS.md` 记 sta… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 475 | \| 单元测试层与前端测试框架 \| 实施方案 §3（不新建测试层）；Issue #3 正文 第 357 行/第 391 行（前端渲染由人工核验… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 476 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 476 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 476 | \| 论文第 3、4 章图稿定稿 \| 实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 476 | …实施方案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7 界面截图已能定稿 \| 论文图稿与实际产物脱节，答辩时被追问数据一… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 476 | …案 §6 第 203 行（W5 前交图表口径清单） \| W5 前只交口径清单 \| §5 的 11 项图表与 W7 界面截图已能定稿 \| 论文图稿与实际产物脱节，答辩时被追问数据一致性 \| | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 477 | \| 答辩 PPT 与 E7/E8 小节 \| Issue #10（答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 477 | \| 答辩 PPT 与 E7/E8 小节 \| Issue #10（答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 477 | …答辩 PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 477 | …PPT）；实施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 477 | …施方案 §4（E7/E8 不进论文） \| W11–W14 统稿期 \| 第 1、2 章初稿与 11 项图表齐备 \| 答辩材料临时拼装，页数与口径容易不一致 \| | `11` | `dup_groups_best.csv:group[row=11][0]` | `11` |
+| 478 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 478 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \|… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 478 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \| 性能叙… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 478 | \| 压测与性能剖析 \| 实施方案 §3 第 106 行（明确砍掉压测）；§5 表4-3 的 60 秒为需求阈值、非实测 \| 不做 \| 单用户单进程场景下无并发承诺 \| 性能叙述只能给需求阈… | `60` | `metrics.json:gap.threshold_rows[20].gap_clusters` | `60` |
+| 484 | ## 4. 待拍板清单 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 496 | \| D7 \| 论文第 1、2 章是否现在开写 \| 导师 \| W3 内 \| 现在写，至少建目录与可读初稿 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 496 | \| D7 \| 论文第 1、2 章是否现在开写 \| 导师 \| W3 内 \| 现在写，至少建目录与可读初稿 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 505 | \| P1 \| API 契约范围 \| 13 条接口是否全留、哪些合并或砍 \| 按 `system/openapi.yaml` 草案 1… | `13 (×2)` | `dup_groups_best.csv:group[row=13][0]` | `13` |
+| 505 | …`system/openapi.yaml` 草案 13 条，但标注未拍板 \| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 505 | …openapi.yaml` 草案 13 条，但标注未拍板 \| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
+| 505 | …aml` 草案 13 条，但标注未拍板 \| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
+| 505 | …\| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 506 | …\| 按 §4.3 六表草案 \| 按推荐 + 保证查询性能 → 六表定稿、外键按编码、索引 15 个、迁移位 `user_version` \| | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 509 | …能范围 \| 上传 / 扫描 / 三类清单 / 下载 CSV 之外还要什么 \| 按实施方案 §2 第 86 行的三个功能面 \| 必要的 CRUD 要有，保证项目功能完整 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 515 | - **冲突双方出处**：Issue #3 正文 第 201 行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 516 | …——需同步改实施方案两处口径，改动面小、与契约一致；B 完全不做排序——需从 Issue #3 删 US25 与契约要点，后续若加回要重开契约。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 517 | - **PM 建议**：A（与 #3 契约要点已写的一致）。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 520 | …不实现分页**，行序由响应里的 `row_order` 字段声明（契约已改）。Issue #3 的 US25 与「最小排序参数」表述随该工单关闭作废，不再需要回改——但**实施方案 §2… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 524 | - **冲突双方出处**：Issue #18 要求明确门禁受检范围；`poc/kbgovernance/check_numbers.py… | `18` | `dup_groups_best.csv:group[row=18][0]` | `18` |
+| 528 | - **未决默认口径**：先按 B 收缩受检范围，「指标类致命 0」作为 W7 门槛守住。 | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 532 | - **冲突双方出处**：实施方案 §5 第 170 行至第 171 行 要求图稿数据源逐一核对；旧图稿按旧口径绘制，而门禁受审集合… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 536 | - **当前状态**：已按「保留并改口径」执行，8 份图稿见 F1；本项不再需要额外拍板，除非要求把图稿纳入门禁。 | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 540 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 19… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 540 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 540 | - **冲突双方出处**：Issue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 540 | …sue #4 正文 第 9 行 要求 §2 必做表与 §3 砍掉表逐项签字确认；实施方案 §6 第 199 行 把逐项签字列为 G1 关卡条件；但仓库当前没有任何签字载体文件。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 544 | - **未决默认口径**：Issue #4 评论 + 仓库 md 双留。 | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 548 | - **冲突双方出处**：实施方案 §6 关键路径 第 223 行 写「若 W1 末仍未落实第二人，立即触发降级」，而 §6 第 2… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 548 | …实第二人，立即触发降级」，而 §6 第 201 行 把人工标注关卡放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 548 | …放在 W3；Issue #4 正文 第 10 行 要求确认人选与 TA 时间；Issue #5 正文 第 64 行 说明外部依赖就是第二标注者。三处之间缺一个「本周内」的判据。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 549 | - **选项与代价**：A 10-27 前未落实即转单人——保住 W3 关卡不被拖住，但放弃双人一致性证据；B 等到 W3… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 556 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 556 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§… | `4 (×2)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 556 | - **冲突双方出处**：实施方案 §6 第 205 行 把「第 4 章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185… | `3 (×5)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 556 | …章界面截图 3 张拍摄」放在 W7，§6 第 207 行 把全链路跑通与截图放在 W9；§5 第 185 行 的图3-8 需要 3 张截图；Issue #3 正文 第 420 行 要求… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 557 | - **选项与代价**：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 557 | …与代价**：A W7 拍——此时清单页尚未存在，必然缺拍；B W9 拍——3 张齐全，但 §6 第 205 行 的交付物要相应后移。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 558 | - **PM 建议**：B，并把 §6 W7 栏回写为不含截图。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 560 | - **未决默认口径**：按 B，截图拍摄随 §6 第 207 行 一起执行。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 562 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 562 | ### 4.8 D7 论文第 1、2 章是否现在开写 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 564 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 564 | - **冲突双方出处**：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 564 | …：实施方案 §6 第 199 行（W1 交第 1 章绪论初稿）、第 200 行（W2 交第 2 章相关技术初稿）与 §2 必做表未把论文正文列为验收项；PM 评审指出论文与开发并行是排期… | `2 (×2)` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 568 | - **未决默认口径**：A，至少建目录并产出可读初稿；这也是 W7 开工门槛的第 7 项。 | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 572 | - **冲突双方出处**：Issue #3 正文按真实用户角色组织功能面（上传 → 一键扫描 → 三类缺陷清单列表 + 展开详情），但… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 572 | …一键扫描 → 三类缺陷清单列表 + 展开详情），但仓库内没有任何一手用户材料；实施方案 §2 第 86 行 只写功能面，角色来源无处可查；UX 评审把「用户证据的诚实替代」列为必做。 | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 573 | - **选项与代价**：A 组织 3–5 人走查——约半天到一天，能把角色与流程从推演变成实证；B 不做并在第 3 章声明角色为… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 573 | - **选项与代价**：A 组织 3–5 人走查——约半天到一天，能把角色与流程从推演变成实证；B 不做并在第 3 章声明角色为推演… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 576 | - **未决默认口径**：B，但一旦能组织走查就补，且走查结论须写进论文第 3 章。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 582 | \| A1 \| 扫描复用方式 \| 参数化复用 PoC 脚本 \| Issue #3 要求直接调用已验证脚本，而脚本写死了工作目录 \| 维护者 \| C3、C4 \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 583 | …口径 \| `metrics.json` → `gap.best.gap_clusters`=7 与 Top15 行数不是一回事 \| 维护者 \| C6 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 592 | …投影 \| `metrics.json` → `gap.best.gap_clusters`=7 与 `gap_intents_best.csv` 的 5 行不是一回事（前者是簇数、后者是… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 592 | …st.gap_clusters`=7 与 `gap_intents_best.csv` 的 5 行不是一回事（前者是簇数、后者是意图数，判定单元已定）；六表若只写不读，页面与产物会不一致… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 608 | \| P1 \| API 契约范围 \| 13 条接口、错误体 `{code, message, location}`、清单接口不实现分页… | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
+| 608 | …tion}`、清单接口不实现分页（`system/openapi.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 /… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 608 | …api.yaml`；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 608 | …；Issue #3 第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条路径引用；补 42… | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
+| 608 | …第 199/201/203 行） \| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条路径引用；补 422 + `VALI… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
+| 608 | …\| **按推荐**：15 条路径 / 19 个操作 / 23 个 schema；错误码枚举 10 个且每个至少被一条路径引用；补 422 + `VALIDATION_FAILED`；清单接… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 609 | …ranularity, min_cluster_size, cluster_id)`；索引 8 → **12 个**（补齐四个外键列的索引）；`schema.sql` 内新增「查询路径… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 609 | …rity, min_cluster_size, cluster_id)`；索引 8 → **12 个**（补齐四个外键列的索引）；`schema.sql` 内新增「查询路径 → 索引对照」… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 609 | …个**（补齐四个外键列的索引）；`schema.sql` 内新增「查询路径 → 索引对照」9 条与 `PRAGMA user_version` 迁移位。**主键仍用 `INTEGER… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
+| 610 | …端独立 Vue3 + Element Plus 工程、构建产物由后端静态挂载（Issue #3「前后端分离」小节） \| **前后端分离，且答辩现场只有一条命令启动前后端**：后端单进程（… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 611 | …三类缺陷清单页；清单页「列表 + 展开详情」；Element Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`syste… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 611 | …nt Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/prototype/`） \| **用 design-t… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 612 | …列表 + 展开详情 / 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 612 | …/ 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前提下按推荐… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 616 | …/openapi.yaml` 可被 `yaml.safe_load` 解析，`paths`=15、`components.schemas`=23；`system/schema.sql` 在… | `15 (×2)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 616 | …safe_load` 解析，`paths`=15、`components.schemas`=23；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 15… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
+| 616 | …schemas`=23；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 15 个、`PRAGMA user_version`=1、连接内 `PRAG… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 616 | …续执行两次，表名恰 6 张、显式索引 15 个、`PRAGMA user_version`=1、连接内 `PRAGMA foreign_keys`=1。验证命令见 `system/REA… | `1 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 618 | **P6 的三份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 618 | …*P6 的三份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 618 | …份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 618 | …回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与… | `8 (×3)` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 618 | …，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 /… | `24` | `metrics.json:gap.threshold_rows[8].detected_intents` | `24` |
+| 618 | …互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 /… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 618 | …条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 /… | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
+| 618 | …3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 / 低 5 + 键盘走查）。… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 618 | …8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 / 低 5 + 键盘走查）。评审报告属临时记录，任务… | `48` | `metrics.json:gap.intent_rows[12].total_tickets` | `48` |
+| 618 | …阻断 2 / 高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 / 低 5 + 键盘走查）。评审报告属临时记录，任务结束前删除；结论转入 §2… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 618 | …高 9 / 中 8 / 低 5）、可用性与对比度 48 项（阻塞 3 / 高 4 / 中 7 / 低 5 + 键盘走查）。评审报告属临时记录，任务结束前删除；结论转入 §2.8 整改项… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 620 | …ta-variant="v1"`。规格书附录 C 另列 OPEN-1 ~ OPEN-8 共 8 项交互待拍板项，与本节的 P1–P7 互不重叠： | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 626 | \| OPEN-3 \| 重复检测阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77… | `0.95` | `metrics.json:dup.rows[2].threshold` | `0.95` |
+| 626 | \| OPEN-3 \| 重复检测阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次… | `0.90` | `metrics.json:dup.rows[1].threshold` | `0.9` |
+| 626 | …PEN-3 \| 重复检测阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次扫描实际采用值为准，界面显示接口返回的… | `22` | `metrics.json:dup.embedded_groups` | `22` |
+| 626 | …\| 重复检测阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次扫描实际采用值为准，界面显示接口返回的 `thre… | `49` | `metrics.json:dup.embedded_docs` | `49` |
+| 626 | …阈值取 0.95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次扫描实际采用值为准，界面显示接口返回的 `threshold`，… | `32` | `metrics.json:dup.rows[1].dup_groups` | `32` |
+| 626 | ….95 还是 0.90 \| 重复 Tab 的阈值与命中数（22 组/49 篇 ↔ 32 组/77 篇） \| 以本次扫描实际采用值为准，界面显示接口返回的 `threshold`，不写死 \| | `77` | `metrics.json:dup.rows[1].detected_docs` | `77` |
+| 627 | \| OPEN-4 \| 缺口清单是否允许按意图去重 \| 同轮命中 7 簇但仅 5 个业务意图，是否分组展示 \| 建议不去重（保持 rank 顺序），在展开区提示… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 627 | \| OPEN-4 \| 缺口清单是否允许按意图去重 \| 同轮命中 7 簇但仅 5 个业务意图，是否分组展示 \| 建议不去重（保持 rank 顺序），在展开区提示 \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 629 | …PEN-6 \| 重复清单 P/R/F1 用组级还是文档级 \| 指标条数值 \| 本轮两者同为 1.0，建议标注「组级口径」 \| | `1.0` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 633 | …system/prototype/check_prototype.py` 逐条核对（退出码 0）；`system/prototype/render_check.py` 实际渲染三个页面与… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 635 | …/P5 任一未决，`system/` 下的三份草案就只能停在「讨论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Eleme… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 635 | …system/` 下的三份草案就只能停在「讨论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 635 | …论素材」；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格渲染实测）全部无法判定。 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 635 | …；W7 开工门槛第 3 项（契约）、第 4 项（前后端各一条命令可起/可构建）、第 5 项（6 表 + Element Plus 表格渲染实测）全部无法判定。 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 639 | ## 5. 验收信号汇总 | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 645 | \| 1 \| 语料重跑产物齐备 \| `poc/kbgovernance/` 下 `docs.csv`… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 646 | \| 2 \| 两次运行一致性有记录 \| `poc/kbgovernance/repro_check.… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 646 | …ro_check.json` → `two_run_verify.n_identical`=14 且 `identical`=true \| 具备 \| | `14` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
+| 647 | \| 3 \| 对照集可机读 \| `poc/kbgovernance/ground_truth.jso… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 647 | …rnance/ground_truth.json` → `control_doc_ids`（10 篇）、`n_control_docs`=10 \| 具备 \| | `10 (×2)` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 648 | \| 4 \| 误报逐篇归因 \| `poc/kbgovernance/corrupt_docs.csv… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 648 | …vernance/corrupt_docs.csv` → `fp_reason` 覆盖全部 7 篇误报 \| 具备 \| | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 649 | \| 5 \| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 649 | …\| 主指标与误报口径一致 \| `metrics.json` → `corrupt.fp`=7 与明细表误报行数相等；`corrupt.by_cause.maintenance.fp_a… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 649 | …maintenance.fp_attribution` = `control_stale` 6 篇 + `dup_inherited_stale` 1 篇 \| 具备 \| | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 649 | …= `control_stale` 6 篇 + `dup_inherited_stale` 1 篇 \| 具备 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 650 | \| 6 \| 数字溯源审计同步 \| `docs/技术方案/数字溯源审计.md` 第 5 行 受审集合… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 651 | \| 7 \| 耗时值与产物一致 \| `python poc/kbgovernance/sync_ti… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 651 | …poc/kbgovernance/sync_timings.py --check` 退出码 0 \| 具备 \| | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 657 | \| 0 \| **产品形态已拍板**（API 范围 / 数据形态 / 前后端形态 / UI 形态 /… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 657 | …代拍板（结论转 §2.8 H1 ~ H7）；P7 待原型重做后出三套变体由需求方选。**第 3 项的契约可判定性已恢复，第 4、5 项仍依赖实现开工** \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 657 | …~ H7）；P7 待原型重做后出三套变体由需求方选。**第 3 项的契约可判定性已恢复，第 4、5 项仍依赖实现开工** \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 657 | …H7）；P7 待原型重做后出三套变体由需求方选。**第 3 项的契约可判定性已恢复，第 4、5 项仍依赖实现开工** \| | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 658 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 658 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \|… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 658 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \| 未满足（Iss… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 658 | …逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \| 未满足（Issue #4 仍 OPEN） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 659 | \| 2 \| `ground_truth.json` 带 `control_doc_ids`，两次运… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 659 | …rol_doc_ids` 存在且 `two_run_verify.n_identical`=14 \| 具备 \| | `14` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
+| 660 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 660 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P2 \| `… | `15 (×4)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 660 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P2 \| `system/openap… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 660 | …ma.sql` 空库两次执行后的表清单 \| 草案已落盘，P1/P2 已拍板（15 路径 / 19 操作 / 23 schema / 6 表 / 15 索引 / `user_version`… | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
+| 660 | …空库两次执行后的表清单 \| 草案已落盘，P1/P2 已拍板（15 路径 / 19 操作 / 23 schema / 6 表 / 15 索引 / `user_version`=1），**待定… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
+| 660 | …操作 / 23 schema / 6 表 / 15 索引 / `user_version`=1），**待定稿**——`system/README.md` 仍留 15 条已知歧义待拍板 \| | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 661 | \| 4 \| 前后端各一条命令可起 / 可构建 \| C10、C11、P3 \| 两条命令各自可独立执行… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 661 | …install` / `npm run build` / `npm ci` 三条命令退出码 0，`el-table` 渲染断言通过，依赖版本已锁（`system/frontend-smo… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 662 | \| 5 \| 6 表 + Element Plus 表格渲染实测通过 \| C12、P4 \| 建库写入… | `5 (×2)` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 662 | \| 5 \| 6 表 + Element Plus 表格渲染实测通过 \| C12、P4 \| 建库写入读回通过… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 663 | \| 6 \| `check_numbers.py` 受检集指标类致命 0 \| N2、N3 \| 门禁退… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 663 | \| 6 \| `check_numbers.py` 受检集指标类致命 0 \| N2、N3 \| 门禁退出码 0，且受检范围有书面口径 \| 具备（当前退出码 0） \| | `0 (×3)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 664 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物… | `7` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 664 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物字段 \| 未开始… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 664 | \| 7 \| 论文第 1、2 章有可读初稿 \| E1、D7 \| 两章文件存在且可通读，数字可指到产物字段 \| 未开始 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 668 | ## 6. 风险与未知 | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 674 | \| 无一手用户研究，角色与流程来源均为推演 \| 假设 \| Issue #3 正文按角色组织功能面，但无用户材料 \| 论文第 3 章的可用性叙述缺证据 \| D8：走查或… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 675 | …ontend-smoke/`：安装 / 构建 / `el-table` 渲染三条命令退出码 0，依赖版本已锁；技术方案 §4.4 第 405 行已改写 \| 已消解（W7 门槛第 4 项的… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 675 | …出码 0，依赖版本已锁；技术方案 §4.4 第 405 行已改写 \| 已消解（W7 门槛第 4 项的「可装可构建」可判定；SQLite 仍待实测） \| C10 ✅ \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 679 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方… | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 679 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
+| 679 | \| 人工复核比例 10%、三类各 20 条、Kappa 目标 ≥ 0.8 均是计划值 \| 计划值非实测 \| 实施方案 第 79 行、§7.3、§7.4 第 303… | `0.8` | `metrics.json:gap.best.precision` | `0.8` |
+| 680 | \| 对照集抽样率 4% 属代码常量，命中篇数已落盘、抽样率本身未登记为产物字段 \| 计划值非实测 \| `poc/… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 688 | \| 六表中 4 列在 PoC 产物里零命中：`cluster_result.centroid_sim` /… | `4 (×3)` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 688 | …/kbgovernance/` 全部 CSV 与 JSON 对这 4 列名 grep 命中 0；`purity` 依赖真值，`priority` 现恒为 0 \| 这 4 列要么补落盘、要… | `0 (×2)` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 690 | \| 六表 4 列无出处 + 行序映射缺失 + 编码外键，都是「表结构与数据形态未对齐」的表征 \| 未实测… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 696 | \| 清单页排序口径 \| Issue #3 正文 第 66 行/第 201 行 要求最小排序参数；实施方案 §2.2 第 104 行… | `3 (×3)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 697 | \| 实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 697 | …实验矩阵条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几… | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
+| 697 | …条目数口径 \| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几条 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 697 | …\| PM 评审按 5 条计；实施方案 附表 第 390 行 记「保留 4、降级 2、砍掉 8」 \| 两处口径不同 \| B1 签字时统一，并明确「保留 + 降级」各几条 \| | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 698 | \| 界面截图拍摄周次 \| 实施方案 §6 第 205 行 放在 W7；第 207 行 放在 W9 \| 未拍板 \| D6；拍板后回写… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 702 | \| 排序参数取值与清单行字段不同名 \| Issue #3 第 201 行的 `ticket_count` / `max_similarity`；CS… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 703 | \| 「逐字节一致」的适用范围 \| 实施方案 §2 第 86 行 与 Issue #3 称 Web 产物与 `run_all.sh` 复跑产物… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 703 | \| 「逐字节一致」的适用范围 \| 实施方案 §2 第 86 行 与 Issue #3 称 Web 产物与 `run_all.sh` 复跑产物逐字节一致；但 `metrics.j… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 703 | …md5 ≠ 剔除计时字段后的 md5 \| 已在 `system/README.md` 第 8 条分档写明：三个清单 CSV 逐字节、`metrics.json` 剔除计时字段后一致 \|… | `8` | `metrics.json:gap.intent_rows[15].n_clusters` | `8` |
+| 706 | …`；原型层已实测：界面藏住的真值下载一次就落到用户硬盘 \| 界面层未泄露（DOM 全量扫描 0 泄漏），破口只在下载通道 \| **已定（2026-10-24）**：保留全量列 + 下载区… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 706 | …全量列 + 下载区明示「含评测标注列，仅用于论文溯源与复现」；不裁剪（裁剪会违反实施方案 §2「直接下载已产出的 CSV」与 Issue #3 断言第 10 条「逐字节一致」） \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
+| 706 | …溯源与复现」；不裁剪（裁剪会违反实施方案 §2「直接下载已产出的 CSV」与 Issue #3 断言第 10 条「逐字节一致」） \| | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
+| 706 | …；不裁剪（裁剪会违反实施方案 §2「直接下载已产出的 CSV」与 Issue #3 断言第 10 条「逐字节一致」） \| | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
+| 708 | …`PRAGMA foreign_keys` 只对执行它的那个连接生效；实测新建连接默认为 `0` \| 已在 `system/README.md` 第 9 条写明「每个连接都要设」 \| 实… | `0` | `metrics.json:dup.rows[0].seconds` | `0` |
+| 708 | …个连接生效；实测新建连接默认为 `0` \| 已在 `system/README.md` 第 9 条写明「每个连接都要设」 \| 实现须知，无需拍板 \| | `9` | `metrics.json:gap.threshold_rows[17].detected_intents` | `9` |
+| 710 | …`detect.py` 第 117 行 至第 125 行 的 P/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面… | `5` | `metrics.json:gap.best.min_cluster_size` | `5` |
+| 710 | …` 第 117 行 至第 125 行 的 P/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面 0.800 \| 契… | `7 (×2)` | `metrics.json:gap.best.gap_clusters` | `7` |
+| 710 | …/R/F1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面 0.800 \| 契约的三个 `count` 字段已标「统计单元… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 710 | …1 分母是去重后的 5 个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面 0.800 \| 契约的三个 `count` 字段已标「统计单元 = 缺口簇 /… | `0.8571` | `standardize/results_banking77_en.csv:F1[row=13][0]` | `0.8571` |
+| 710 | …个业务意图，与「7 个缺口簇」并排成一行；读者按簇级复算得 6/7=0.8571 ≠ 页面 0.800 \| 契约的三个 `count` 字段已标「统计单元 = 缺口簇 / 腐化文档 / 重复组」… | `0.800` | `metrics.json:gap.best.precision` | `0.8` |
+| 710 | …stem/openapi.yaml` + `system/README.md` 已知歧义第 14 条） \| | `14` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
+| 711 | …三检测全程（不含向量化）；`dup.best.seconds` 只包住阈值分组循环，不含 300×300 余弦矩阵（`detect.py:361-364` 只 print 不落盘） \| 契… | `300 (×2)` | `metrics.json:embedding.n_docs` | `300` |
 

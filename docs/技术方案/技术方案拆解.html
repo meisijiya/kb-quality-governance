@@ -384,7 +384,7 @@
         <dt>embedded / detected / covered</dt><dd>62 / 69 / 62</dd>
         <dt>内容过期 P / R / F1</dt><dd>1.0000 / 1.0000 / 1.0000（TP 32 / FP 0 / FN 0）</dd>
         <dt>维护周期 P / R / F1</dt><dd>0.8158 / 1.0000 / 0.8986（TP 31 / FP 7 / FN 0）</dd>
-        <dt>耗时</dt><dd>0.45 秒</dd>
+        <dt>耗时</dt><dd>0.51 秒</dd>
         <dt>规则工程</dt><dd>R4 加两道约束后命中 88 篇</dd>
       </dl>
       <p class="mod-p" style="margin-top:11px;margin-bottom:0">两类口径各自单独报指标，不合成单一 F1；合计只讲覆盖面（检出 69 篇、覆盖全部 62 篇埋设缺陷）。消融分口径进行、真值集固定：内容过期口径 <b>drop_R3 的 ΔF1 = 0</b>（R3 冗余，主动报告），drop_R1 与 only_R3 的 F1 为 0；维护周期口径 drop_R2 / drop_R4 / only_R2 / only_R4 的 F1 均为 0。内容过期的满分来自规则与自造语料埋设模板一致（循环验证）；7 篇误报全部属维护周期口径，与真缺陷的规则命中完全相同（有意保留的边界）</p>
@@ -408,10 +408,10 @@
         <dt>文档 / 工单 / 段落</dt><dd>300 / 2000 / 1852</dd>
         <dt>维度</dt><dd>512</dd>
         <dt>encode_seconds</dt><dd>14.61 秒</dd>
-        <dt>total_seconds</dt><dd>3.46 秒</dd>
+        <dt>total_seconds</dt><dd>3.75 秒</dd>
         <dt>平均每篇段落</dt><dd>6.2 段</dd>
       </dl>
-      <p class="mod-p" style="margin-top:11px;margin-bottom:0">耗时按分项列：<b>向量化 14.61 秒 + 检测 3.46 秒</b>，不写合计秒数</p>
+      <p class="mod-p" style="margin-top:11px;margin-bottom:0">耗时按分项列：<b>向量化 14.61 秒 + 检测 3.75 秒</b>，不写合计秒数</p>
     </div>
   </div>
 </section>

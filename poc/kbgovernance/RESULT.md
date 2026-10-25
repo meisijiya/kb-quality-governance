@@ -26,7 +26,7 @@
 
 **为什么是"有条件"而不是"可行"：**
 
-1. 纯 CPU 单机全流程可跑通：向量化 **14.61 秒**（4152 条文本，`embeddings_meta.json` → `encode_seconds`）+ 三模块检测 **3.46 秒**（`metrics.json` → `total_seconds`），不需要微调、不需要 GPU 训练、不需要大参数模型 —— 工程可行性没有疑问。（耗时跨机器波动，以当前产物为准。）
+1. 纯 CPU 单机全流程可跑通：向量化 **14.61 秒**（4152 条文本，`embeddings_meta.json` → `encode_seconds`）+ 三模块检测 **3.75 秒**（`metrics.json` → `total_seconds`），不需要微调、不需要 GPU 训练、不需要大参数模型 —— 工程可行性没有疑问。（耗时跨机器波动，以当前产物为准。）
 2. 但**任务书指定的 5 个阈值（0.3/0.4/0.5/0.6/0.7）里有 3 个是失效的**：BGE-small-zh 的相似度基线很高（全量工单被覆盖度均值 **0.6891**、最低 **0.5629**，`standardize/scenario_meta.json` → `cover_stats.alpha`），阈值 0.3/0.4/0.5 下检出数为 **0**、0.7 下 precision 崩到 **0.1923**（`gap_threshold.csv` → 列 `gap_clusters` / `precision`）。可用的工作区间只有 **0.60–0.64** 这个极窄窗口，最优点 0.62（`metrics.json` → `gap.best.threshold`）。
    → 这不是缺陷，这恰恰是论文的立论点：**"绝对余弦阈值不可迁移，必须论证阈值选取"**。论文的算法贡献应当落在"相对覆盖度"或"簇间对比"这类尺度无关的打分上，本 PoC 实测的 0.888→0.968 意图级 AUC 提升就是这条路的可行性证据（`granularity.csv` → 列 `auc_intent_median`）。
 3. 重复检测 F1=1.0 是**数据过于规整导致的乐观结果**（见 §5.4），真实语料应按 0.90 阈值（组级 F1=**0.7037**，`dup_threshold.csv` → 列 `group_f1`）作为预期。
@@ -129,7 +129,7 @@ ground truth 写入 `ground_truth.json`：`gap_intents`(5) / `corrupt_doc_ids`(6
 
 ## 5. 检测结果
 
-`detect.py` 三模块检测合计 **3.46 秒**（`metrics.json` → `total_seconds`；含 CSV 落盘的端到端耗时不单独落盘，记【无出处】）。
+`detect.py` 三模块检测合计 **3.75 秒**（`metrics.json` → `total_seconds`；含 CSV 落盘的端到端耗时不单独落盘，记【无出处】）。
 
 ### 5.1 A. 知识缺口 —— HDBSCAN 聚类 + 代表工单检索
 
@@ -199,7 +199,7 @@ ground truth 写入 `ground_truth.json`：`gap_intents`(5) / `corrupt_doc_ids`(6
 | R3 | 正文含绝对过期年份 2024/2025 | 2 | 32 |
 | R4 | 同 category 下存在更新时间更新的文档 | 1 | 88 |
 
-判定阈值 `risk_score >= 3`（`metrics.json` → `corrupt.score_threshold`），耗时 **0.45 秒**（`metrics.json` → `corrupt.seconds`）。
+判定阈值 `risk_score >= 3`（`metrics.json` → `corrupt.score_threshold`），耗时 **0.51 秒**（`metrics.json` → `corrupt.seconds`）。
 
 ```
 [corr] 埋 62 篇 / 检出 69 篇 / TP=62 FP=7 FN=0
@@ -288,7 +288,7 @@ cd D:/26code/毕设/poc/kbgovernance
 |---|---|---|---|
 | 语料与标注 | 语料维持 300 篇文档 / 2000 条工单（`metrics.json` → `embedding.n_docs` / `n_tickets`），20000 工单扩展已按主动砍掉表排除；人工标注预算 300 条（文档复核 30 / 工单复核 200 / 三类缺陷清单各 20，余量 10） | 推理耗时按当前吞吐外推（`derived_metrics.csv` → `embedding.throughput_texts_per_sec_repro` = 284.188912 条/秒）；扩量后的 HDBSCAN 规模未实测，不给具体耗时 | **1.5 天** |
 | 阈值论证 | 尺度无关打分函数（簇间对比/相对覆盖度）+ 消融实验 | 已有 AUC 0.888→0.968 的改进线索（`granularity.csv` → 列 `auc_intent_median`） | **1.5 天** |
-| Web 系统 | FastAPI + 三模块接口 + 治理看板前端 | 纯 CPU 推理，三模块检测 3.46 秒（`metrics.json` → `total_seconds`） | **4 天** |
+| Web 系统 | FastAPI + 三模块接口 + 治理看板前端 | 纯 CPU 推理，三模块检测 3.75 秒（`metrics.json` → `total_seconds`） | **4 天** |
 | 论文 | 1 万字 + 实验表 + 可视化 | — | **5 天** |
 | 答辩准备 | — | — | **1 天** |
 | **合计** | | | **约 13 天** |
