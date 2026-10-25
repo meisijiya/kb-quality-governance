@@ -19,8 +19,8 @@
 | `企业知识库质量治理系统技术方案.md` | 1459 | 1076 | 30 | 196 | 144 | 0 | 1 | 12 | **0** |
 | `本科版实施方案.md` | 667 | 540 | 6 | 101 | 0 | 0 | 0 | 20 | **0** |
 | `数字溯源审计.md` | 1329 | 953 | 35 | 296 | 0 | 43 | 0 | 2 | **0** |
-| `开发前准备清单.md` | 842 | 524 | 0 | 268 | 0 | 5 | 0 | 45 | **0** |
-| **合计** | **4297** | 3093 | 71 | 861 | 144 | 48 | 1 | 79 | **0** |
+| `开发前准备清单.md` | 841 | 523 | 0 | 268 | 0 | 5 | 0 | 45 | **0** |
+| **合计** | **4296** | 3092 | 71 | 861 | 144 | 48 | 1 | 79 | **0** |
 
 - 总退出码：**0**（没有指标类数字缺出处）
 
@@ -3631,8 +3631,8 @@
 ## 文档 4 / 4：`开发前准备清单.md`
 
 - 完整路径：`D:\26code\毕设\docs\技术方案\开发前准备清单.md`
-- 抽到的数值断言：**842** 处
-- 判定统计：OK=**524**　ROUNDED=**0**　STRUCTURAL=**268**　EXTERNAL=**0**　CITED=**5**　ALLOWED=**0**　UNSOURCED=**45**
+- 抽到的数值断言：**841** 处
+- 判定统计：OK=**523**　ROUNDED=**0**　STRUCTURAL=**268**　EXTERNAL=**0**　CITED=**5**　ALLOWED=**0**　UNSOURCED=**45**
 - 指标类 UNSOURCED（致命）：**0** 条 —— 无
 
 ### 4.1 指标类 UNSOURCED —— 致命项，必须为空或逐条补出处
@@ -3863,7 +3863,7 @@
 | 480 | > 2026-10-24 需求方已逐条拍板（原文见 §4.11 各行「拍板结论」列）。下表的「拍板前的默… | `2026` | `年份/日期` | `` |
 | 480 | > 2026-10-24 需求方已逐条拍板（原文见 §4.11 各行「拍板结论」列）。下表的「拍板前的默认口径」列保留为**回退口径**，不再是当前口径。 | `4.11` | `章节号(§引用)` | `` |
 | 482 | \| 编号 \| 决策点 \| 需要的输入 \| 拍板前的默认口径 \| 2026-10-24 拍板结果 \| | `2026` | `年份/日期` | `` |
-| 485 | \| P2 \| 数据形态 \| 单库单表还是分表、字段是否够用 \| 按 §4.3 六表草案 \| 按推荐 + 保证查询性能 → 六表定稿、外键按编码、索引 12 个、迁移位… | `4.3` | `章节号(§引用)` | `` |
+| 485 | \| P2 \| 数据形态 \| 单库单表还是分表、字段是否够用 \| 按 §4.3 六表草案 \| 按推荐 + 保证查询性能 → 六表定稿、外键按编码、索引 15 个、迁移位… | `4.3` | `章节号(§引用)` | `` |
 | 488 | …\| 上传 / 扫描 / 三类清单 / 下载 CSV 之外还要什么 \| 按实施方案 §2 第 86 行的三个功能面 \| 必要的 CRUD 要有，保证项目功能完整 \| | `86` | `外部文件行号引用` | `` |
 | 492 | ### 4.2 D1 清单页是否支持列排序 | `4.2` | `章节号` | `` |
 | 494 | - **冲突双方出处**：Issue #3 正文 第 201 行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度）且不实现分页，第… | `201` | `外部文件行号引用` | `` |
@@ -4354,7 +4354,7 @@
 | 484 | …openapi.yaml` 草案 13 条，但标注未拍板 \| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `19` | `dup_groups_best.csv:group[row=19][0]` | `19` |
 | 484 | …aml` 草案 13 条，但标注未拍板 \| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
 | 484 | …\| 按推荐 → 15 条路径 / 19 个操作 / 23 个 schema，错误码收敛至 10 个且每个有路径引用 \| | `10` | `metrics.json:gap.threshold_rows[6].detected_intents` | `10` |
-| 485 | …\| 按 §4.3 六表草案 \| 按推荐 + 保证查询性能 → 六表定稿、外键按编码、索引 12 个、迁移位 `user_version` \| | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
+| 485 | …\| 按 §4.3 六表草案 \| 按推荐 + 保证查询性能 → 六表定稿、外键按编码、索引 15 个、迁移位 `user_version` \| | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
 | 488 | …能范围 \| 上传 / 扫描 / 三类清单 / 下载 CSV 之外还要什么 \| 按实施方案 §2 第 86 行的三个功能面 \| 必要的 CRUD 要有，保证项目功能完整 \| | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
 | 494 | - **冲突双方出处**：Issue #3 正文 第 201 行 要求清单接口支持最小排序参数（工单数 / 风险分 / 组内最大相似度… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 495 | …——需同步改实施方案两处口径，改动面小、与契约一致；B 完全不做排序——需从 Issue #3 删 US25 与契约要点，后续若加回要重开契约。 | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
@@ -4410,11 +4410,10 @@
 | 590 | …nt Plus 表格（实施方案 §2 第 86 行、§2.2 第 104 行；Issue #3）；已有静态原型可看（`system/prototype/`） \| **用 design-t… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 591 | …列表 + 展开详情 / 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
 | 591 | …/ 下载现成 CSV；不生成报告、不引向量库、不引任务队列（实施方案 §2 第 86 行、§3 第 117–134 行） \| **必要的 CRUD 要有**，在项目功能完整的前提下按推荐… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
-| 595 | …/openapi.yaml` 可被 `yaml.safe_load` 解析，`paths`=15、`components.schemas`=22；`system/schema.sql` 在… | `15` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
-| 595 | …safe_load` 解析，`paths`=15、`components.schemas`=22；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 12… | `22` | `metrics.json:dup.embedded_groups` | `22` |
-| 595 | …schemas`=22；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 12 个、`PRAGMA user_version`=1、连接内 `PRAG… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
-| 595 | …22；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 12 个、`PRAGMA user_version`=1、连接内 `PRAGMA foreign… | `12` | `dup_groups_best.csv:group[row=12][0]` | `12` |
-| 595 | …续执行两次，表名恰 6 张、显式索引 12 个、`PRAGMA user_version`=1、连接内 `PRAGMA foreign_keys`=1。验证命令见 `system/REA… | `1 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
+| 595 | …/openapi.yaml` 可被 `yaml.safe_load` 解析，`paths`=15、`components.schemas`=23；`system/schema.sql` 在… | `15 (×2)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
+| 595 | …safe_load` 解析，`paths`=15、`components.schemas`=23；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 15… | `23` | `metrics.json:dup.rows[0].dup_groups` | `23` |
+| 595 | …schemas`=23；`system/schema.sql` 在空库连续执行两次，表名恰 6 张、显式索引 15 个、`PRAGMA user_version`=1、连接内 `PRAG… | `6` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |
+| 595 | …续执行两次，表名恰 6 张、显式索引 15 个、`PRAGMA user_version`=1、连接内 `PRAGMA foreign_keys`=1。验证命令见 `system/REA… | `1 (×2)` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 597 | **P6 的三份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高… | `20` | `dup_groups_best.csv:group[row=20][0]` | `20` |
 | 597 | …*P6 的三份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8… | `1` | `metrics.json:dup.rows[0].doc_recall` | `1` |
 | 597 | …份评审结论已回收**（子代理各自独立走查，互不参考）：交互规范 20 条（阻塞 1 / 高 3 / 中 8 / 低 8）、操作效率 24 条（阻断 2 / 高 9 / 中 8 / 低 5… | `3 (×2)` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
@@ -4465,7 +4464,7 @@
 | 637 | \| 1 \| §2 必做表与 §3 砍掉表逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \| 未满足（Iss… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 637 | …逐项确认记录在案 \| B1 \| 每行都有签字记录，可指到具体行号 \| 未满足（Issue #4 仍 OPEN） \| | `4` | `dup_groups_best.csv:group[row=4][0]` | `4` |
 | 638 | \| 2 \| `ground_truth.json` 带 `control_doc_ids`，两次运… | `2` | `metrics.json:gap.threshold_rows[3].detected_intents` | `2` |
-| 638 | …rol_doc_ids` 存在且 `two_run_verify.n_identical`=13 \| 具备 \| | `13` | `dup_groups_best.csv:group[row=13][0]` | `13` |
+| 638 | …rol_doc_ids` 存在且 `two_run_verify.n_identical`=14 \| 具备 \| | `14` | `metrics.json:gap.threshold_rows[17].gap_clusters` | `14` |
 | 639 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P… | `3` | `metrics.json:gap.threshold_rows[3].gap_clusters` | `3` |
 | 639 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P2 \| `… | `15 (×4)` | `metrics.json:gap.threshold_rows[6].gap_clusters` | `15` |
 | 639 | \| 3 \| 15 路径机器可读契约 + 6 表 `.sql` 空库跑两遍 \| C1、C2、P1、P2 \| `system/openap… | `6 (×2)` | `metrics.json:corrupt.by_cause.maintenance.fp_attribution.control_stale` | `6` |

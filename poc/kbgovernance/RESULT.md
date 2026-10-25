@@ -80,7 +80,7 @@
 
 ## 3. 合成数据（gen_data.py）
 
-`random.seed(42)` + `np.random.seed(42)`，可复现（已实测：连续两次运行 13 个产物逐字节一致，见 `repro_check.json` → `two_run_verify`）。本步骤耗时未落盘到机读产物，按 `docs/adr/0002-numbers-traceable-to-artifacts.md` 记【无出处】。
+`random.seed(42)` + `np.random.seed(42)`，可复现（已实测：连续两次运行 14 个产物全部一致，见 `repro_check.json` → `two_run_verify`；其中字节确定产物逐字节一致，含计时字段的产物剔除计时字段后一致，`.npy` 向量产物同机一致）。本步骤耗时未落盘到机读产物，按 `docs/adr/0002-numbers-traceable-to-artifacts.md` 记【无出处】。
 
 ```
 [gen_data] docs.csv           : 300 篇
@@ -368,7 +368,7 @@ cd D:/26code/毕设/poc/kbgovernance
 | `corrupt_rule_ablation_content_expiry.csv` | ✅ 5 行（all + drop_R1 + drop_R3 + only_R1 + only_R3） |
 | `corrupt_rule_ablation_maintenance.csv` | ✅ 5 行（all + drop_R2 + drop_R4 + only_R2 + only_R4） |
 | `derived_metrics.csv` | ✅ 派生指标（含 `formula` / `inputs` / `source_files`） |
-| `repro_check.json` | ✅ 13 个产物两次运行逐字节一致（`two_run_verify`） |
+| `repro_check.json` | ✅ 14 个产物两次运行全部一致（`two_run_verify`） |
 | `docs.csv` | ✅ 300 行 |
 | `tickets.csv` | ✅ 2000 行 |
 | `standardize/scenario_meta.json` | ✅ 覆盖度统计（`cover_stats`） |
